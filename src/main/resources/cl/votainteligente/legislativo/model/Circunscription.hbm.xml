@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="cl.votainteligente.legislativo.model">
+	<class name="Circunscription">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+		<property name="name" />
+		<set name="regions" table="CircunscriptionRegion">
+			<key column="circunscriptionId"></key>
+			<many-to-many column="regionId" class="Region" />
+		</set>
+	</class>
+</hibernate-mapping>
