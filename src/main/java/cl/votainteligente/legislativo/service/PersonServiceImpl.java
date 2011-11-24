@@ -2,7 +2,6 @@ package cl.votainteligente.legislativo.service;
 
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
-import cl.votainteligente.legislativo.model.Person;
 
 import org.hibernate.*;
 import org.hibernate.criterion.Order;
@@ -15,7 +14,7 @@ import java.util.List;
 @Service
 @Transactional
 public class PersonServiceImpl implements PersonService {
-
+	/*KEPT AS DOCUMENTATION FOR THE FUTURE.
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -84,5 +83,5 @@ public class PersonServiceImpl implements PersonService {
 		} catch (Exception ex) {
 			throw new ServiceException(ex);
 		}
-	}
+	}*/
 }
