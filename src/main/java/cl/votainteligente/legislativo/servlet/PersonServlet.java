@@ -1,7 +1,6 @@
 package cl.votainteligente.legislativo.servlet;
 
 import cl.votainteligente.legislativo.Context;
-import cl.votainteligente.legislativo.model.Person;
 
 import com.google.gson.Gson;
 
@@ -31,11 +30,11 @@ public class PersonServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String personId = request.getParameter("id");
-			Person person = Context.getPersonService().getPerson(Long.parseLong(personId));
+			//Person person = Context.getPersonService().getPerson(Long.parseLong(personId));
 			response.setStatus(HttpServletResponse.SC_OK);
 			PrintWriter responseWriter = response.getWriter();
 			response.setContentType("text/plain");
-			responseWriter.write(gson.toJson(person));
+			//responseWriter.write(gson.toJson(person));
 			responseWriter.close();
 		} catch (Exception ex) {
 			throw new ServletException(ex.getMessage());
