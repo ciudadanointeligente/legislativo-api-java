@@ -29,6 +29,10 @@
 		<property name="mappingResources">
 			<list>
 				<value>cl/votainteligente/legislativo/model/Person.hbm.xml</value>
+				<value>cl/votainteligente/legislativo/model/Region.hbm.xml</value>
+				<value>cl/votainteligente/legislativo/model/Circunscription.hbm.xml</value>
+				<value>cl/votainteligente/legislativo/model/District.hbm.xml</value>
+				<value>cl/votainteligente/legislativo/model/Commune.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
