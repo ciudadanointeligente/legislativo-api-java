@@ -23,44 +23,26 @@
 		p:username="${jdbc.username}"
 		p:password="${jdbc.password}" />
 
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"/>
-		<property name="mappingResources">
-			<list>
-				<value>cl/votainteligente/legislativo/model/Person.hbm.xml</value>
-				<value>cl/votainteligente/legislativo/model/Region.hbm.xml</value>
-				<value>cl/votainteligente/legislativo/model/Circunscription.hbm.xml</value>
-				<value>cl/votainteligente/legislativo/model/District.hbm.xml</value>
-				<value>cl/votainteligente/legislativo/model/Commune.hbm.xml</value>
-			</list>
-		</property>
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.naming.strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
 
-				<!-- Disable the second-level cache  -->
-				<prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
-
-				<!-- Echo all executed SQL to stdout -->
-				<prop key="hibernate.show_sql">false</prop>
-
-				<!-- Drop and re-create the database schema on startup -->
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
-			</props>
-		</property>
-		<property name="namingStrategy"><ref bean="namingStrategy"/></property>
+	<bean
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		id="entityManagerFactory">
+		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<bean id="namingStrategy" class="org.hibernate.cfg.ImprovedNamingStrategy"/>
+	<context:component-scan base-package="cl.votainteligente.legislativo.api.model">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Repository" />
+	</context:component-scan>
 
-	<tx:annotation-driven transaction-manager="transactionManager"/>
-
-	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="sessionFactory"><ref local="sessionFactory"/></property>
+	<bean class="org.springframework.orm.jpa.JpaTransactionManager"
+		id="transactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
-	<context:annotation-config/>
-	<context:component-scan base-package="cl.votainteligente.legislativo"/>
+	<tx:annotation-driven mode="aspectj"
+		transaction-manager="transactionManager" />
+
+	<context:spring-configured />
+	<context:annotation-config />
 </beans>
