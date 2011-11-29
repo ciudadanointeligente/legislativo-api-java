@@ -153,5 +153,4 @@ public class Party {
 	public Set<Activist> getYouth_board() {
 		return youth_board;
 	}
-
 }

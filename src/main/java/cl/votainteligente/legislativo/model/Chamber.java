@@ -69,5 +69,4 @@ public class Chamber {
 	public void setSecond_vice_president(Parliamentarian second_vice_president) {
 		this.second_vice_president = second_vice_president;
 	}
-
 }

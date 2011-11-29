@@ -23,8 +23,7 @@ public class CommuneServiceImpl implements CommuneService {
 	}
 
 	@Override
-	public List<Commune> findCommunesByName(String name)
-			throws ServiceException {
+	public List<Commune> findCommunesByName(String name) throws ServiceException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -34,5 +33,4 @@ public class CommuneServiceImpl implements CommuneService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

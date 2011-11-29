@@ -32,5 +32,4 @@ public class CommissionType {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 }

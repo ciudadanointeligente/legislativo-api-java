@@ -70,5 +70,4 @@ public class Coalition {
 	public void setDissolution_date(Date dissolution_date) {
 		this.dissolution_date = dissolution_date;
 	}
-
 }

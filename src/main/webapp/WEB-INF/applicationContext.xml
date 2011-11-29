@@ -22,12 +22,9 @@
 		p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
 		p:username="${jdbc.username}" p:password="${jdbc.password}" />
 
-
-	<bean
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-		id="entityManagerFactory">
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-
 	</bean>
 
 	<context:component-scan base-package="cl.votainteligente.legislativo">
@@ -39,7 +36,6 @@
 		id="transactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-
 
 	<tx:annotation-driven mode="aspectj"
 		transaction-manager="transactionManager" />

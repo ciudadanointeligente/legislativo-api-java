@@ -68,5 +68,4 @@ public class Committee {
 	public Parliamentarian getPresident_substitute() {
 		return president_substitute;
 	}
-
 }

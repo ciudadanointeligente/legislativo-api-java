@@ -72,5 +72,4 @@ public class CoalitionAffiliation {
 	public void setCoalition(Coalition coalition) {
 		this.coalition = coalition;
 	}
-
 }

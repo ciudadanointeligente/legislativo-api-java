@@ -19,5 +19,4 @@ public class Parliamentarian {
 	public Long getId() {
 		return id;
 	}
-
 }

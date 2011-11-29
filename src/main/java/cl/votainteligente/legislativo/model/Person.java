@@ -21,5 +21,4 @@ public class Person {
 	public Long getId() {
 		return id;
 	}
-
 }

@@ -18,10 +18,7 @@ public class HomeController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView setupForm() throws Exception {
 		ModelAndView modelAndView = new ModelAndView();
-
 		modelAndView.addObject("mensaje", "Hola, como estan");
-
 		return modelAndView;
 	}
-
 }

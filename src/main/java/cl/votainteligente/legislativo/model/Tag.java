@@ -40,8 +40,7 @@ public class Tag {
 
 	/*
 	 * public void setDebates(Set<Debate> debates) { this.debates = debates; }
-	 * 
+	 *
 	 * public Set<Debate> getDebates() { return debates; }//
 	 */
-
 }

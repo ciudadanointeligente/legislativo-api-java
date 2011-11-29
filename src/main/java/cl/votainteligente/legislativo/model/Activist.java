@@ -15,7 +15,6 @@ public class Activist {
 	@Id
 	@GeneratedValue
 	private Long id;
-
 	private String name;
 	private String position;
 
@@ -54,5 +53,4 @@ public class Activist {
 	public void setParliamentarian(Parliamentarian parliamentarian) {
 		this.parliamentarian = parliamentarian;
 	}
-
 }

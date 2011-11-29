@@ -9,7 +9,7 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	<!-- <listener> <listener-class>cl.votainteligente.legislativo.ApplicationProperties</listener-class> 
+	<!-- <listener> <listener-class>cl.votainteligente.legislativo.ApplicationProperties</listener-class>
 		</listener> -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -58,7 +58,6 @@
 		<servlet-name>rest</servlet-name>
 		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
-
 
 	<session-config>
 		<session-timeout>30</session-timeout>

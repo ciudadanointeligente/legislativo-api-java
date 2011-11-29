@@ -23,8 +23,7 @@ public class DistrictServiceImpl implements DistrictService {
 	}
 
 	@Override
-	public List<District> findDistrictsByName(String name)
-			throws ServiceException {
+	public List<District> findDistrictsByName(String name) throws ServiceException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -34,5 +33,4 @@ public class DistrictServiceImpl implements DistrictService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

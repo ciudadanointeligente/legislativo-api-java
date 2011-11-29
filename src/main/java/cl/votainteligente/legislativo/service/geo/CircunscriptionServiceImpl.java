@@ -11,29 +11,25 @@ import cl.votainteligente.legislativo.model.Circunscription;
 public class CircunscriptionServiceImpl implements CircunscriptionService {
 
 	@Override
-	public Circunscription newCircunscription(Circunscription circunscription)
-			throws ServiceException {
+	public Circunscription newCircunscription(Circunscription circunscription) throws ServiceException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Circunscription> getAllCircunscriptionsByRegion(Long regionId)
-			throws ServiceException {
+	public List<Circunscription> getAllCircunscriptionsByRegion(Long regionId) throws ServiceException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Circunscription> findCircunscriptionsByName(String name)
-			throws ServiceException {
+	public List<Circunscription> findCircunscriptionsByName(String name) throws ServiceException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Circunscription> getAllCircunscriptions()
-			throws ServiceException {
+	public List<Circunscription> getAllCircunscriptions() throws ServiceException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -43,5 +39,4 @@ public class CircunscriptionServiceImpl implements CircunscriptionService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
