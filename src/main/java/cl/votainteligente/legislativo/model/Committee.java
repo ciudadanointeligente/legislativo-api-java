@@ -10,18 +10,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "committee")
 public class Committee {
-
 	@Id
 	@GeneratedValue
 	private Long id;
 
 	@ManyToOne
 	@JoinColumn(name = "president_id", nullable = false)
-	private Parliamentarian president;
+	private Legislator president;
 
 	@ManyToOne
 	@JoinColumn(name = "president_substitute_id", nullable = false)
-	private Parliamentarian president_substitute;
+	private Legislator president_substitute;
 
 	@ManyToOne
 	@JoinColumn(name = "party_id", nullable = false)
@@ -37,11 +36,11 @@ public class Committee {
 		this.id = id;
 	}
 
-	public Parliamentarian getPresident() {
+	public Legislator getPresident() {
 		return president;
 	}
 
-	public void setPresident(Parliamentarian president) {
+	public void setPresident(Legislator president) {
 		this.president = president;
 	}
 
@@ -61,11 +60,11 @@ public class Committee {
 		this.party = party;
 	}
 
-	public void setPresident_substitute(Parliamentarian president_substitute) {
+	public void setPresident_substitute(Legislator president_substitute) {
 		this.president_substitute = president_substitute;
 	}
 
-	public Parliamentarian getPresident_substitute() {
+	public Legislator getPresident_substitute() {
 		return president_substitute;
 	}
 }

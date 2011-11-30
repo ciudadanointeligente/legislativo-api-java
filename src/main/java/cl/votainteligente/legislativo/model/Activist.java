@@ -1,6 +1,5 @@
 package cl.votainteligente.legislativo.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,8 +18,8 @@ public class Activist {
 	private String position;
 
 	@OneToOne
-	@JoinColumn(name = "parliamentarian_id", nullable = true)
-	private Parliamentarian parliamentarian;
+	@JoinColumn(name = "Legislator_id", nullable = true)
+	private Legislator Legislator;
 
 	public Long getId() {
 		return id;
@@ -46,11 +45,11 @@ public class Activist {
 		this.position = position;
 	}
 
-	public Parliamentarian getParliamentarian() {
-		return parliamentarian;
+	public Legislator getLegislator() {
+		return Legislator;
 	}
 
-	public void setParliamentarian(Parliamentarian parliamentarian) {
-		this.parliamentarian = parliamentarian;
+	public void setLegislator(Legislator Legislator) {
+		this.Legislator = Legislator;
 	}
 }
