@@ -1,16 +1,20 @@
 package cl.votainteligente.legislativo.service.bill;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.Query;
+
 import org.springframework.stereotype.Service;
+
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.model.Bill;
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
 import cl.votainteligente.legislativo.service.EntityManagerService;
-import java.util.ArrayList;
 
 @Service
-public class BillServiceImpl extends EntityManagerService implements BillService {
+public class BillServiceImpl extends EntityManagerService implements
+		BillService {
 
 	@Override
 	public Bill newBill(Bill bill) throws ServiceException {
@@ -27,5 +31,10 @@ public class BillServiceImpl extends EntityManagerService implements BillService
 			listDO.add(bill.asDomainObject());
 		}
 		return listDO;
+	}
+
+	@Override
+	public Bill getBill(Long id) throws ServiceException {
+		return getEntityManager().find(Bill.class, id);
 	}
 }
