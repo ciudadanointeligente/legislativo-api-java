@@ -11,24 +11,24 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="participant")
+@Table(name = "participant")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Participant {
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name="id")
+	@Column(name = "id")
 	private Long id;
 
-	@Column(name="first_name")
+	@Column(name = "first_name")
 	private String firstName;
 
-	@Column(name="last_name")
+	@Column(name = "last_name")
 	private String lastName;
 
-	@Column(name="created_at")
+	@Column(name = "created_at")
 	private Timestamp createdAt;
 
-	@Column(name="updated_at")
+	@Column(name = "updated_at")
 	private Timestamp updatedAt;
 
 	public Long getId() {

@@ -6,24 +6,24 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="person")
-public class Person extends Participant{
+@Table(name = "person")
+public class Person extends Participant {
 
-	@Column(name="mail_address")
+	@Column(name = "mail_address")
 	private String mailAddress;
 
 	@Column
 	private String website;
 
-	@Column(name="twitter_account")
+	@Column(name = "twitter_account")
 	private String twitterAccount;
 
-	@Column(name="facebook_account")
+	@Column(name = "facebook_account")
 	private String facebookAccount;
 
 	@Column
@@ -38,20 +38,20 @@ public class Person extends Participant{
 	@Column
 	private String party;
 
-	@Column(name="university_education")
+	@Column(name = "university_education")
 	private String universityEducation;
 
-	@Column(name="graduate_education")
+	@Column(name = "graduate_education")
 	private String graduateEducation;
 
-	@Column(name="statement_of_interest")
+	@Column(name = "statement_of_interest")
 	private String statementOfInterest;
 
-	@Column(name="statement_of_heritage")
+	@Column(name = "statement_of_heritage")
 	private String statementOfHeritage;
 
 	@OneToMany
-	@JoinColumn(name="person_id")
+	@JoinColumn(name = "person_id")
 	private Set<Role> roles = new HashSet<Role>();
 
 	public String getMailAddress() {
