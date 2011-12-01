@@ -1,6 +1,5 @@
 package cl.votainteligente.legislativo.controllers.bill;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +13,6 @@ import com.google.gson.Gson;
 
 @Controller
 public class BillController {
-	private Logger logger = Logger.getLogger(BillController.class);
 	private Gson gson = new Gson();
 
 	@Autowired
@@ -25,6 +23,18 @@ public class BillController {
 	public final String getAll() {
 		try {
 			return gson.toJson(service.getAllBillDOs());
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			throw new ServerErrorException();
+		}
+	}
+
+	@RequestMapping(params = { "id" }, value = "bill/any.json", method = RequestMethod.GET)
+	@ResponseBody
+	public final String getBillById(
+			@RequestParam(value = "id", required = true) final long id) {
+		try {
+			return gson.toJson(service.getBill(id));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
