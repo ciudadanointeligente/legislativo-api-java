@@ -1,0 +1,163 @@
+package cl.votainteligente.legislativo.test;
+
+import java.util.Date;
+import java.util.Set;
+import java.util.HashSet;
+import junit.framework.TestCase;
+import cl.votainteligente.legislativo.model.*;
+import javax.persistence.*;
+
+public class TestLegislator extends TestCase {
+
+	private EntityManager em;
+	private Legislator legislator;
+	private Circunscription circunscription;
+	private District district;
+	private Chamber chamber;
+	private Date startDate;
+	private Date endDate;
+	private Region region;
+	private Set<Region> regions;
+
+	protected void setUp() throws Exception {
+		super.setUp();
+		EntityManagerFactory emf = Persistence
+				.createEntityManagerFactory("PersistenceLegislativo");
+		em = emf.createEntityManager();
+		emf.close();
+		chamber = new Chamber();
+		circunscription = new Circunscription();
+		district = new District();
+		region = new Region();
+		regions = new HashSet<Region>();
+		regions.add(region);
+		circunscription.setRegions(regions);
+		district.setRegion(region);
+		district.setCircunscription(circunscription);
+		startDate = new Date(1234124);
+		endDate = new Date(1231223);
+		legislator = new Legislator();
+		legislator.setAllowance(15000000);
+		legislator.setChamber(chamber);
+		legislator.setCircunscription(circunscription);
+		legislator.setComiteEnvoy("IND. Representante del comité");
+		legislator
+				.setCurrentComissions("De Educación, Cultura, Ciencia y Tecnología");
+		legislator.setDistrict(district);
+		legislator
+				.setElectionCharges("1990-1998: Diputado por Distrito n°3 (Tocopilla,Ca...");
+		legislator.setStartDate(startDate);
+		legislator.setEndDate(endDate);
+		legislator.setGovernmentCharges("No tiene");
+		legislator.setParliamentSiteId(8);
+		legislator
+				.setPastComissions("De Educación, Cultura, Ciencia y Tecnología");
+		legislator.setPeriodsDetails("No hay detalles");
+		legislator.setCampaignFinance(100000000);
+		legislator.setCampaignSpending(97000000);
+		legislator.setVoteNumber(453282);
+		legislator.setVotePercentage(56.7);
+		EntityTransaction tr = em.getTransaction();
+		tr.begin();
+		em.persist(chamber);
+		em.persist(region);
+		em.persist(circunscription);
+		em.persist(district);
+		em.persist(legislator);
+		tr.commit();
+	}
+
+	protected void tearDown() throws Exception {
+		super.tearDown();
+		EntityTransaction tr = em.getTransaction();
+		tr.begin();
+		em.remove(legislator);
+		em.remove(district);
+		em.remove(circunscription);
+		em.remove(region);
+		em.remove(chamber);
+		tr.commit();
+		em.close();
+	}
+
+	public void testEntityManagerNotNull() {
+		em.getClass();
+		assert (em != null);
+	}
+
+	public void testNewLegislator() {
+		assert (legislator.getId() != null);
+	}
+
+	public void testGetAllowance() {
+		assert (legislator.getAllowance().equals(new Integer(15000000)));
+	}
+
+	public void testGetChamber() {
+		assert (legislator.getChamber().equals(chamber));
+	}
+
+	public void testGetCircunscription() {
+		assert (legislator.getCircunscription().equals(circunscription));
+	}
+
+	public void testGetComiteEnvoy() {
+		assert (legislator.getComiteEnvoy()
+				.equals("IND. Representante del comité"));
+	}
+
+	public void testGetCurrentComissions() {
+		assert (legislator.getCurrentComissions()
+				.equals("De Educación, Cultura, Ciencia y Tecnología"));
+	}
+
+	public void testGetDistrict() {
+		assert (legislator.getDistrict().equals(district));
+	}
+
+	public void testGetElectionCharges() {
+		assert (legislator.getElectionCharges()
+				.equals("1990-1998: Diputado por Distrito n°3 (Tocopilla,Ca..."));
+	}
+
+	public void testGetStartDate() {
+		assert (legislator.getStartDate().equals(startDate));
+	}
+
+	public void testGetEndDate() {
+		assert (legislator.getEndDate().equals(endDate));
+	}
+
+	public void testGetGovernmentCharges() {
+		assert (legislator.getGovernmentCharges().equals("No tiene"));
+	}
+
+	public void testGetParliamentSiteId() {
+		assert (legislator.getParliamentSiteId().equals(new Integer(8)));
+	}
+
+	public void testGetPastComissions() {
+		assert (legislator.getPastComissions()
+				.equals("De Educación, Cultura, Ciencia y Tecnología"));
+	}
+
+	public void testGetPeriodDetails() {
+		assert (legislator.getPeriodsDetails().equals("No hay detalles"));
+	}
+
+	public void testGetCampaignFinance() {
+		assert (legislator.getCampaignFinance().equals(new Integer(100000000)));
+	}
+
+	public void testGetCampaignSpending() {
+		assert (legislator.getCampaignSpending().equals(new Integer(97000000)));
+	}
+
+	public void testGetVoteNumber() {
+		assert (legislator.getVoteNumber().equals(new Integer(453282)));
+	}
+
+	public void testGetVotePercentage() {
+		assert (legislator.getVotePercentage().equals(new Double(56.7)));
+	}
+}

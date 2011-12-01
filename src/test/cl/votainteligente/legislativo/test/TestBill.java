@@ -13,7 +13,6 @@ public class TestBill extends TestCase {
 	private Chamber originChamber;
 	private Matter matter;
 	private Date createdAt, entryDate, publicationDate, updatedAt;
-	private Legislator president, firstVicePresident;
 
 	protected void setUp() throws Exception {
 		super.setUp();
@@ -43,7 +42,6 @@ public class TestBill extends TestCase {
 		bill.setTitle("title");
 		bill.setUpdatedAt(updatedAt = new Date());
 		bill.setUrgency("urgency");
-
 		// Matter object
 		matter = new Matter();
 		matter.setName("matter");
@@ -51,24 +49,14 @@ public class TestBill extends TestCase {
 		matter.setCreatedAt(new Date());
 		matter.setUpdatedAt(new Date());
 		bill.setMatter(matter);
-
 		// Chamber object: requires president and first vice president
-		president = new Legislator();
-		firstVicePresident = new Legislator();
 		originChamber = new Chamber();
-		originChamber.setName("Senado");
-		originChamber.setPresident(president);
-		originChamber.setFirst_vice_president(firstVicePresident);
-		president.setChamber(originChamber);
-		firstVicePresident.setChamber(originChamber);
 		bill.setOriginChamber(originChamber);
 
 		EntityTransaction tr = em.getTransaction();
 		tr.begin();
-		em.persist(matter);
 		em.persist(originChamber);
-		em.persist(president);
-		em.persist(firstVicePresident);
+		em.persist(matter);
 		em.persist(bill);
 		tr.commit();
 	}
@@ -78,10 +66,8 @@ public class TestBill extends TestCase {
 		EntityTransaction tr = em.getTransaction();
 		tr.begin();
 		em.remove(bill);
-		em.remove(originChamber);
 		em.remove(matter);
-		em.remove(president);
-		em.remove(firstVicePresident);
+		em.remove(originChamber);
 		tr.commit();
 		em.close();
 	}
