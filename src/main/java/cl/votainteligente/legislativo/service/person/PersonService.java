@@ -9,4 +9,10 @@ public interface PersonService {
 	Person newPerson(Person person) throws ServiceException;
 
 	List<PersonDO> getAllPersonDOs() throws ServiceException;
+
+	List<PersonDO> findPersonsByFirstName(String firstName) throws ServiceException;
+
+	List<PersonDO> findPersonsByLastName(String lastName) throws ServiceException;
+
+	Person getPerson(Long id) throws ServiceException;
 }

@@ -29,4 +29,35 @@ public class PersonServiceImpl extends EntityManagerService implements
 		}
 		return listDO;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PersonDO> findPersonsByFirstName(String firstName) {
+		Query query = getEntityManager().createQuery(
+				"select p from Person p where upper(p.firstName) like upper(?)");
+		query.setParameter(1, "%" + firstName + "%");
+		List<PersonDO> listDO = new ArrayList<PersonDO>();
+		for (Person person : (List<Person>) query.getResultList()) {
+			listDO.add(person.asDomainObject());
+		}
+		return listDO;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PersonDO> findPersonsByLastName(String lastName) {
+		Query query = getEntityManager().createQuery(
+				"select p from Person p where upper(p.lastName) like upper(?)");
+		query.setParameter(1, "%" + lastName + "%");
+		List<PersonDO> listDO = new ArrayList<PersonDO>();
+		for (Person person : (List<Person>) query.getResultList()) {
+			listDO.add(person.asDomainObject());
+		}
+		return listDO;
+	}
+
+	@Override
+	public Person getPerson(Long id) throws ServiceException {
+		return getEntityManager().find(Person.class, id);
+	}
 }

@@ -30,4 +30,40 @@ public class PersonController {
 			throw new ServerErrorException();
 		}
 	}
+
+	@RequestMapping(params = { "firstName" }, value = "person/any.json", method = RequestMethod.GET)
+	@ResponseBody
+	public final String findRegionsByFirstName(
+			@RequestParam(value = "firstName", required = true) final String firstName) {
+		try {
+			return gson.toJson(service.findPersonsByFirstName(firstName));
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			throw new ServerErrorException();
+		}
+	}
+
+	@RequestMapping(params = { "lastName" }, value = "person/any.json", method = RequestMethod.GET)
+	@ResponseBody
+	public final String findRegionsByLastName(
+			@RequestParam(value = "lastName", required = true) final String lastName) {
+		try {
+			return gson.toJson(service.findPersonsByLastName(lastName));
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			throw new ServerErrorException();
+		}
+	}
+
+	@RequestMapping(params = { "id" }, value = "person/any.json", method = RequestMethod.GET)
+	@ResponseBody
+	public final String getRegionById(
+			@RequestParam(value = "id", required = true) final long id) {
+		try {
+			return gson.toJson(service.getPerson(id));
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			throw new ServerErrorException();
+		}
+	}
 }

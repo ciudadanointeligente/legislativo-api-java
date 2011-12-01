@@ -2,6 +2,7 @@ package cl.votainteligente.legislativo.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -53,7 +54,7 @@ public class Person extends Participant {
 	@Column(name = "statement_of_heritage")
 	private String statementOfHeritage;
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "person_id")
 	private Set<Role> roles = new HashSet<Role>();
 
