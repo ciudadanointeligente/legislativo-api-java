@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -156,5 +159,10 @@ public class Person extends Participant {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	@Transient
+	public PersonDO asDomainObject() {
+		return new PersonDO(this);
 	}
 }
