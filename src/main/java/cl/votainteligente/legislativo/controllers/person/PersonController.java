@@ -33,7 +33,7 @@ public class PersonController {
 
 	@RequestMapping(params = { "firstName" }, value = "person/any.json", method = RequestMethod.GET)
 	@ResponseBody
-	public final String findRegionsByFirstName(
+	public final String findPersonByFirstName(
 			@RequestParam(value = "firstName", required = true) final String firstName) {
 		try {
 			return gson.toJson(service.findPersonsByFirstName(firstName));
@@ -45,7 +45,7 @@ public class PersonController {
 
 	@RequestMapping(params = { "lastName" }, value = "person/any.json", method = RequestMethod.GET)
 	@ResponseBody
-	public final String findRegionsByLastName(
+	public final String findPersonByLastName(
 			@RequestParam(value = "lastName", required = true) final String lastName) {
 		try {
 			return gson.toJson(service.findPersonsByLastName(lastName));
@@ -57,7 +57,7 @@ public class PersonController {
 
 	@RequestMapping(params = { "id" }, value = "person/any.json", method = RequestMethod.GET)
 	@ResponseBody
-	public final String getRegionById(
+	public final String getPersonById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
 			return gson.toJson(service.getPerson(id));
