@@ -1,5 +1,9 @@
 package cl.votainteligente.legislativo.controllers.bill;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import cl.votainteligente.legislativo.ServiceException;
+import cl.votainteligente.legislativo.exceptions.BadRequestException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
 import cl.votainteligente.legislativo.service.bill.BillService;
 import com.google.gson.Gson;
@@ -14,6 +19,7 @@ import com.google.gson.Gson;
 @Controller
 public class BillController {
 	private Gson gson = new Gson();
+	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
 	@Autowired
 	BillService service;
@@ -38,6 +44,23 @@ public class BillController {
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
+		}
+	}
+
+	@RequestMapping(value = "bill/dateRange.json", method = RequestMethod.GET)
+	@ResponseBody
+	public final String getDateRange(
+			@RequestParam(value = "from", required = true) final String fromString,
+			@RequestParam(value = "to", required = true) final String toString) {
+		try {
+			Date from = dateFormat.parse(fromString);
+			Date to = dateFormat.parse(toString);
+			return gson.toJson(service.getByDateRange(from, to));
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			throw new ServerErrorException();
+		} catch (ParseException e) {
+			throw new BadRequestException();
 		}
 	}
 }

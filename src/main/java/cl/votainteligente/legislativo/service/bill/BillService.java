@@ -1,5 +1,6 @@
 package cl.votainteligente.legislativo.service.bill;
 
+import java.util.Date;
 import java.util.List;
 
 import cl.votainteligente.legislativo.ServiceException;
@@ -12,4 +13,6 @@ public interface BillService {
 	List<BillDO> getAllBillDOs() throws ServiceException;
 
 	Bill getBill(Long id) throws ServiceException;
+
+	List<BillDO> getByDateRange(Date from, Date to) throws ServiceException;
 }

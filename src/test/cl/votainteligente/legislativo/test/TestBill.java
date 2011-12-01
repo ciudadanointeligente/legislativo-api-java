@@ -49,10 +49,8 @@ public class TestBill extends TestCase {
 		matter.setCreatedAt(new Date());
 		matter.setUpdatedAt(new Date());
 		bill.setMatter(matter);
-		// Chamber object: requires president and first vice president
 		originChamber = new Chamber();
 		bill.setOriginChamber(originChamber);
-
 		EntityTransaction tr = em.getTransaction();
 		tr.begin();
 		em.persist(originChamber);

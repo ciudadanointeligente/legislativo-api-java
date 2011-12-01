@@ -1,6 +1,6 @@
 package cl.votainteligente.legislativo.model.domainobjects;
 
-import java.util.Date;
+import java.sql.Date;
 
 import cl.votainteligente.legislativo.model.Bill;
 
@@ -14,8 +14,8 @@ public class BillDO {
 	public BillDO(Bill bill) {
 		this.id = bill.getId();
 		this.title = bill.getTitle();
-		this.entryDate = bill.getEntryDate();
-		this.updatedAt = bill.getUpdatedAt();
+		this.entryDate = new Date(bill.getEntryDate().getTime());
+		this.updatedAt = new Date(bill.getUpdatedAt().getTime());
 	}
 
 	/**

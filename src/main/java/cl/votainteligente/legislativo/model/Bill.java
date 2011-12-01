@@ -13,8 +13,10 @@ public class Bill {
 	private Long id;
 	private String bulletinNumber;
 	private String title;
+	@Temporal(TemporalType.DATE)
 	private Date entryDate;
 	private boolean published;
+	@Temporal(TemporalType.DATE)
 	private Date publicationDate;
 	private Long BCNLawId;
 	private String BCNLawURL;
@@ -32,7 +34,9 @@ public class Bill {
 	private Long SILOficiosId;
 	private Long SILIndicationsId;
 	private Long SILUrgenciesId;
+	@Temporal(TemporalType.DATE)
 	private Date createdAt;
+	@Temporal(TemporalType.DATE)
 	private Date updatedAt;
 
 	/**

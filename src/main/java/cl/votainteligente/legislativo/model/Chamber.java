@@ -24,7 +24,7 @@ public class Chamber {
 	private Legislator president;
 
 	@OneToOne
-	@JoinColumn(name = "first_vice_president_id", nullable = true)
+	@JoinColumn(name = "first_vice_president_id")
 	private Legislator firstVicePresident;
 
 	@OneToOne
