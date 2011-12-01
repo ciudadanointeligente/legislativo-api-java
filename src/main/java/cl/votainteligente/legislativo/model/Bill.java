@@ -3,6 +3,8 @@ package cl.votainteligente.legislativo.model;
 import java.util.Date;
 import javax.persistence.*;
 
+import cl.votainteligente.legislativo.model.domainobjects.BillDO;
+
 @Entity
 public class Bill {
 
@@ -361,5 +363,10 @@ public class Bill {
 	 */
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	@Transient
+	public BillDO asDomainObject() {
+		return new BillDO(this);
 	}
 }
