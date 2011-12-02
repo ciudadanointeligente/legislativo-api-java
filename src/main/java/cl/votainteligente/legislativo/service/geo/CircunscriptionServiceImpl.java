@@ -1,6 +1,5 @@
 package cl.votainteligente.legislativo.service.geo;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.model.Circunscription;
-import cl.votainteligente.legislativo.model.Region;
 import cl.votainteligente.legislativo.model.domainobjects.CircunscriptionDO;
 import cl.votainteligente.legislativo.service.EntityManagerService;
 
