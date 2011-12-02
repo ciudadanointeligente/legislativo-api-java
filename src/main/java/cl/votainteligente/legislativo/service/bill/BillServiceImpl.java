@@ -8,6 +8,7 @@ import javax.persistence.TemporalType;
 import org.springframework.stereotype.Service;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.model.Bill;
+import cl.votainteligente.legislativo.model.Stage;
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
 import cl.votainteligente.legislativo.service.EntityManagerService;
 
@@ -21,6 +22,17 @@ public class BillServiceImpl extends EntityManagerService implements
 		return bill;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Bill> getAllBills() throws ServiceException {
+		Query query = getEntityManager().createQuery("select p from Bill p");
+		List<Bill> list = new ArrayList<Bill>();
+		for (Bill bill : (List<Bill>) query.getResultList()) {
+			list.add(bill);
+		}
+		return list;
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<BillDO> getAllBillDOs() throws ServiceException {
@@ -51,5 +63,19 @@ public class BillServiceImpl extends EntityManagerService implements
 			resultList.add(bill.asDomainObject());
 		}
 		return resultList;
+	}
+
+	@Override
+	public List<BillDO> getByStage(Long stage) throws ServiceException {
+		List<Bill> allBills = getAllBills();
+		List<BillDO> resultList = new ArrayList<BillDO>();
+		for (Bill bill : allBills) {
+			for(Stage billStage : bill.getStages()){
+				if(billStage.getDescription().equals(stage)){
+					resultList.add(bill.asDomainObject());
+				}
+			}
+		}
+			return resultList;
 	}
 }

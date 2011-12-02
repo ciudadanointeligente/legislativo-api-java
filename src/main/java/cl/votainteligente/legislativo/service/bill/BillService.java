@@ -10,9 +10,14 @@ import cl.votainteligente.legislativo.model.domainobjects.BillDO;
 public interface BillService {
 	Bill newBill(Bill bill) throws ServiceException;
 
+	List<Bill> getAllBills() throws ServiceException;
+
 	List<BillDO> getAllBillDOs() throws ServiceException;
 
 	Bill getBill(Long id) throws ServiceException;
 
 	List<BillDO> getByDateRange(Date from, Date to) throws ServiceException;
+
+	List<BillDO> getByStage(Long stage) throws ServiceException;
+
 }

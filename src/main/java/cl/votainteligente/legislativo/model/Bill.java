@@ -1,7 +1,16 @@
 package cl.votainteligente.legislativo.model;
 
 import java.util.Date;
-import javax.persistence.*;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
 
@@ -24,7 +33,8 @@ public class Bill {
 	@ManyToOne
 	private Chamber originChamber;
 	private String urgency;
-	private String stage;
+	@OneToMany
+	private Set<Stage> stages;
 	private String subStage;
 	@ManyToOne
 	private Matter matter;
@@ -114,13 +124,6 @@ public class Bill {
 	 */
 	public String getUrgency() {
 		return urgency;
-	}
-
-	/**
-	 * @return the stage
-	 */
-	public String getStage() {
-		return stage;
 	}
 
 	/**
@@ -282,14 +285,6 @@ public class Bill {
 	}
 
 	/**
-	 * @param stage
-	 *            the stage to set
-	 */
-	public void setStage(String stage) {
-		this.stage = stage;
-	}
-
-	/**
 	 * @param subStage
 	 *            the subStage to set
 	 */
@@ -372,5 +367,13 @@ public class Bill {
 	@Transient
 	public BillDO asDomainObject() {
 		return new BillDO(this);
+	}
+
+	public void setStages(Set<Stage> stages) {
+		this.stages = stages;
+	}
+
+	public Set<Stage> getStages() {
+		return stages;
 	}
 }

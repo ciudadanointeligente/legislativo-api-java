@@ -3,7 +3,6 @@ package cl.votainteligente.legislativo.controllers.bill;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,6 +60,18 @@ public class BillController {
 			throw new ServerErrorException();
 		} catch (ParseException e) {
 			throw new BadRequestException();
+		}
+	}
+
+	@RequestMapping(params = { "stage_id" }, value = "bill/stage.json", method = RequestMethod.GET)
+	@ResponseBody
+	public final String getBillsByStage(
+			@RequestParam(value = "stage_id", required = true) final long stage_id) {
+		try {
+			return gson.toJson(service.getByStage(stage_id));
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			throw new ServerErrorException();
 		}
 	}
 }
