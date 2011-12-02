@@ -7,6 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import cl.votainteligente.legislativo.model.domainobjects.CommuneDO;
 
 @Entity
 @Table(name = "commune")
@@ -51,5 +54,10 @@ public class Commune {
 	 */
 	public District getDistrict() {
 		return district;
+	}
+
+	@Transient
+	public CommuneDO asDomainObject() {
+		return new CommuneDO(this);
 	}
 }

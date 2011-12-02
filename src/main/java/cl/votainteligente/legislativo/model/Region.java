@@ -14,6 +14,7 @@ public class Region {
 	@Column
 	private Long id;
 	private String name;
+	private String initials;
 
 	/**
 	 * @param id
@@ -43,5 +44,13 @@ public class Region {
 	 */
 	public String getName() {
 		return name;
+	}
+
+	public void setInitials(String initials) {
+		this.initials = initials;
+	}
+
+	public String getInitials() {
+		return initials;
 	}
 }

@@ -7,6 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import cl.votainteligente.legislativo.model.domainobjects.DistrictDO;
 
 @Entity
 @Table(name = "district")
@@ -70,5 +73,10 @@ public class District {
 	 */
 	public Region getRegion() {
 		return region;
+	}
+
+	@Transient
+	public DistrictDO asDomainObject() {
+		return new DistrictDO(this);
 	}
 }

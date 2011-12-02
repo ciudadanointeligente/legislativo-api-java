@@ -11,7 +11,8 @@ import cl.votainteligente.legislativo.model.Region;
 import cl.votainteligente.legislativo.service.EntityManagerService;
 
 @Service
-public class RegionServiceImpl extends EntityManagerService implements RegionService {
+public class RegionServiceImpl extends EntityManagerService implements
+		RegionService {
 
 	@Override
 	public Region newRegion(Region region) throws ServiceException {

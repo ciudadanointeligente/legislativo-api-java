@@ -5,11 +5,15 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import cl.votainteligente.legislativo.model.domainobjects.CircunscriptionDO;
 
 @Entity
 @Table(name = "circunscription")
@@ -21,7 +25,7 @@ public class Circunscription {
 	private Long id;
 	private String name;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "region_id", nullable = false)
 	private Set<Region> regions = new HashSet<Region>();
 
@@ -54,5 +58,10 @@ public class Circunscription {
 	 */
 	public Set<Region> getRegions() {
 		return this.regions;
+	}
+
+	@Transient
+	public CircunscriptionDO asDomainObject() {
+		return new CircunscriptionDO(this);
 	}
 }
