@@ -32,11 +32,11 @@ public class Party {
 	// TODO: validar traduccion real de mesa joven y mesa adulta
 	@OneToMany
 	@JoinColumn(name = "youth_board_id")
-	private Set<Activist> youth_board;
+	private Set<Person> youth_board;
 
 	@OneToMany
 	@JoinColumn(name = "adult_board_id")
-	private Set<Activist> adult_board;
+	private Set<Person> adult_board;
 
 	private Date created_at;
 	private Date updated_at;
@@ -137,19 +137,19 @@ public class Party {
 		this.updated_at = updated_at;
 	}
 
-	public void setAdult_board(Set<Activist> adult_board) {
+	public void setAdult_board(Set<Person> adult_board) {
 		this.adult_board = adult_board;
 	}
 
-	public Set<Activist> getAdult_board() {
+	public Set<Person> getAdult_board() {
 		return adult_board;
 	}
 
-	public void setYouth_board(Set<Activist> youth_board) {
+	public void setYouth_board(Set<Person> youth_board) {
 		this.youth_board = youth_board;
 	}
 
-	public Set<Activist> getYouth_board() {
+	public Set<Person> getYouth_board() {
 		return youth_board;
 	}
 }

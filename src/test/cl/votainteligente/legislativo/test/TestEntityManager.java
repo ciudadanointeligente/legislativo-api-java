@@ -4,11 +4,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import cl.votainteligente.legislativo.model.Activist;
-
 import junit.framework.TestCase;
 
-public class TestHibernate1 extends TestCase {
+public class TestEntityManager extends TestCase {
 	// @PersistenceContext
 	EntityManager em;
 
@@ -30,16 +28,6 @@ public class TestHibernate1 extends TestCase {
 	public void testEntityManagerNotNull() {
 		em.getClass();
 		assert (em != null);
-	}
-
-	public void testActivistCreation() {
-		Activist a = new Activist();
-		a.setName("ActivistName");
-		a.setPosition("ActivistPosition");
-		em.getTransaction().begin();
-		em.persist(a);
-		em.getTransaction().commit();
-		assert (a.getId() != null);
 	}
 
 }

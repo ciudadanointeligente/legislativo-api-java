@@ -50,13 +50,13 @@ public class DistrictServiceImpl extends EntityManagerService implements
 
 	@Override
 	public List<DistrictDO> getAllDistrictDOs() throws ServiceException {
-		return CommuneToCommuneDO(getAllDistricts());
+		return DistrictToDistrictDO(getAllDistricts());
 	}
 
 	@Override
 	public List<DistrictDO> findDistrictDOsByName(String name)
 			throws ServiceException {
-		return CommuneToCommuneDO(findDistrictsByName(name));
+		return DistrictToDistrictDO(findDistrictsByName(name));
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class DistrictServiceImpl extends EntityManagerService implements
 		return getDistrict(id).asDomainObject();
 	}
 
-	private List<DistrictDO> CommuneToCommuneDO(List<District> list) {
+	private List<DistrictDO> DistrictToDistrictDO(List<District> list) {
 		List<DistrictDO> listDO = new LinkedList<DistrictDO>();
 		for (District c : list)
 			listDO.add(c.asDomainObject());
