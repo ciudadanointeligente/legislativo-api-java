@@ -13,7 +13,6 @@ public class TestPerson extends TestCase {
 	private EntityManager em;
 	private Person person;
 	private Date birthday;
-	private Set<Role> roles;
 	private Timestamp createdAt, updatedAt;
 
 	protected void setUp() throws Exception {
@@ -22,7 +21,6 @@ public class TestPerson extends TestCase {
 				.createEntityManagerFactory("PersistenceLegislativo");
 		em = emf.createEntityManager();
 		emf.close();
-		roles = new HashSet<Role>();
 		createdAt = new Timestamp(123214);
 		updatedAt = new Timestamp(123214);
 		person = new Person();
@@ -33,7 +31,6 @@ public class TestPerson extends TestCase {
 		person.setLastName("Cantero");
 		person.setMailAddress("ccantero@senado.cl");
 		person.setWebsite("www.cantero.cl");
-		person.setRoles(roles);
 		person.setParty("INDEPENDIENTE");
 		person.setGraduateEducation("No tiene");
 		person.setUniversityEducation("Geografía, Universidad Católica del Norte de Antof...");
@@ -96,7 +93,8 @@ public class TestPerson extends TestCase {
 	}
 
 	public void testGetRoles() {
-		assert (person.getRoles().equals(roles));
+		//TODO: needs to be updated
+		assert false;
 	}
 
 	public void testGetParty() {

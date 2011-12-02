@@ -2,17 +2,12 @@ package cl.votainteligente.legislativo.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "person")
@@ -53,10 +48,6 @@ public class Person extends Participant {
 
 	@Column(name = "statement_of_heritage")
 	private String statementOfHeritage;
-
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name = "person_id")
-	private Set<Role> roles = new HashSet<Role>();
 
 	public String getMailAddress() {
 		return mailAddress;
@@ -152,14 +143,6 @@ public class Person extends Participant {
 
 	public void setStatementOfHeritage(String statementOfHeritage) {
 		this.statementOfHeritage = statementOfHeritage;
-	}
-
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
 	}
 
 	@Transient

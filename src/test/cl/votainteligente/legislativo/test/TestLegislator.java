@@ -18,7 +18,7 @@ public class TestLegislator extends TestCase {
 	private Date endDate;
 	private Region region;
 	private Set<Region> regions;
-
+	private Person person;
 	protected void setUp() throws Exception {
 		super.setUp();
 		EntityManagerFactory emf = Persistence
@@ -30,6 +30,9 @@ public class TestLegislator extends TestCase {
 		district = new District();
 		region = new Region();
 		regions = new HashSet<Region>();
+		person = new Person();
+		person.setFirstName("Carlos");
+		person.setLastName("Cantero");
 		regions.add(region);
 		circunscription.setRegions(regions);
 		district.setRegion(region);
@@ -57,8 +60,10 @@ public class TestLegislator extends TestCase {
 		legislator.setCampaignSpending(97000000);
 		legislator.setVoteNumber(453282);
 		legislator.setVotePercentage(56.7);
+		legislator.setPerson(person);
 		EntityTransaction tr = em.getTransaction();
 		tr.begin();
+		em.persist(person);
 		em.persist(chamber);
 		em.persist(region);
 		em.persist(circunscription);
@@ -76,6 +81,7 @@ public class TestLegislator extends TestCase {
 		em.remove(circunscription);
 		em.remove(region);
 		em.remove(chamber);
+		em.remove(person);
 		tr.commit();
 		em.close();
 	}
