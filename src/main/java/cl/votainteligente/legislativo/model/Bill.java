@@ -26,6 +26,7 @@ public class Bill {
 	private String bulletinNumber;
 	private String title;
 	@Temporal(TemporalType.DATE)
+	@Column(name = "entry_data",nullable = false)
 	private Date entryDate;
 	private boolean published;
 	@Temporal(TemporalType.DATE)
@@ -58,7 +59,7 @@ public class Bill {
 	@Column(name = "created_at")
 	private Date createdAt;
 	@Temporal(TemporalType.DATE)
-	@Column(name = "updated_at")
+	@Column(name = "updated_at",nullable = false)
 	private Date updatedAt;
 
 	/**
