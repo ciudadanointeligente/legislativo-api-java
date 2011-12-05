@@ -3,9 +3,11 @@ package cl.votainteligente.legislativo.model;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -20,6 +22,7 @@ public class Bill {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Column(name = "bulletin_number")
 	private String bulletinNumber;
 	private String title;
 	@Temporal(TemporalType.DATE)
@@ -27,10 +30,13 @@ public class Bill {
 	private boolean published;
 	@Temporal(TemporalType.DATE)
 	private Date publicationDate;
+	@Column(name = "bcn_law_id")
 	private Long BCNLawId;
+	@Column(name = "bcn_law_url")
 	private String BCNLawURL;
 	private String initiative;
 	@ManyToOne
+	@JoinColumn(name = "origin_chamber")
 	private Chamber originChamber;
 	private String urgency;
 	@OneToMany
@@ -40,13 +46,19 @@ public class Bill {
 	private Matter matter;
 	private Long decree;
 	private String summary;
+	@Column(name = "sil_processings_id")
 	private Long SILProcessingsId;
+	@Column(name = "sil_oficios_id")
 	private Long SILOficiosId;
+	@Column(name = "sil_indications_id")
 	private Long SILIndicationsId;
+	@Column(name = "sil_urgencies_id")
 	private Long SILUrgenciesId;
 	@Temporal(TemporalType.DATE)
+	@Column(name = "created_at")
 	private Date createdAt;
 	@Temporal(TemporalType.DATE)
+	@Column(name = "updated_at")
 	private Date updatedAt;
 
 	/**

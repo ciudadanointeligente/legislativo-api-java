@@ -2,6 +2,7 @@ package cl.votainteligente.legislativo.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,8 +18,10 @@ public class Stage {
 	@GeneratedValue
 	private Long id;
 	@Temporal(TemporalType.DATE)
+	@Column(name = "entry_date")
 	private Date entryDate;
 	@Temporal(TemporalType.DATE)
+	@Column(name = "end_date")
 	private Date endDate;
 
 	@ManyToOne
