@@ -8,6 +8,8 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Service;
 
 import cl.votainteligente.legislativo.ServiceException;
+import cl.votainteligente.legislativo.model.Circunscription;
+import cl.votainteligente.legislativo.model.District;
 import cl.votainteligente.legislativo.model.Legislator;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
@@ -42,11 +44,33 @@ public class LegislatorServiceImpl extends EntityManagerService implements
 
 	@SuppressWarnings("unchecked")
 	@Override
+	public List<Legislator> getLegislatorsByCircunscription(
+			Circunscription circunscription) throws ServiceException {
+		Query query = getEntityManager().createQuery(
+				"select p from Legislator p where p.circunscription = ?");
+		query.setParameter(1, circunscription);
+		List<Legislator> results = query.getResultList();
+		return results;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Legislator> getLegislatorsByDistrict(District district)
+			throws ServiceException {
+		Query query = getEntityManager().createQuery(
+				"select p from Legislator p where p.district = ?");
+		query.setParameter(1, district);
+		List<Legislator> results = query.getResultList();
+		return results;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
 	public List<PersonDO> getPersonDOs() throws ServiceException {
 		Query query = getEntityManager().createQuery(
 				"select distinct l.person from Legislator l");
 		List<PersonDO> list = new ArrayList<PersonDO>();
-		for(Person person : (List<Person>)query.getResultList())
+		for (Person person : (List<Person>) query.getResultList())
 			list.add(person.asDomainObject());
 		return list;
 	}

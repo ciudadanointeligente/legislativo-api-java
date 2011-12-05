@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
+import cl.votainteligente.legislativo.model.Circunscription;
+import cl.votainteligente.legislativo.model.District;
 import cl.votainteligente.legislativo.model.Person;
+import cl.votainteligente.legislativo.service.geo.CircunscriptionService;
+import cl.votainteligente.legislativo.service.geo.DistrictService;
 import cl.votainteligente.legislativo.service.legislator.LegislatorService;
 import cl.votainteligente.legislativo.service.person.PersonService;
 
@@ -25,12 +29,44 @@ public class LegislatorController {
 	@Autowired
 	PersonService person;
 
+	@Autowired
+	DistrictService district;
+
+	@Autowired
+	CircunscriptionService circunscription;
+
 	@RequestMapping(params = { "id" }, value = "legislator/period.json", method = RequestMethod.GET)
 	@ResponseBody
 	public final String getLegislatorById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
 			return gson.toJson(service.getLegislator(id));
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			throw new ServerErrorException();
+		}
+	}
+
+	@RequestMapping(params = { "id" }, value = "legislator/district.json", method = RequestMethod.GET)
+	@ResponseBody
+	public final String getLegislatorByDistrict(
+			@RequestParam(value = "id", required = true) final long id) {
+		try {
+			District tmp = district.getDistrict(id);
+			return gson.toJson(service.getLegislatorsByDistrict(tmp));
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			throw new ServerErrorException();
+		}
+	}
+
+	@RequestMapping(params = { "id" }, value = "legislator/circunscription.json", method = RequestMethod.GET)
+	@ResponseBody
+	public final String getLegislatorByCircunscription(
+			@RequestParam(value = "id", required = true) final long id) {
+		try {
+			Circunscription tmp = circunscription.getCircunscription(id);
+			return gson.toJson(service.getLegislatorsByCircunscription(tmp));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
