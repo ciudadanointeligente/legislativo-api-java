@@ -2,8 +2,6 @@ package cl.votainteligente.legislativo.test;
 
 import java.util.Date;
 import java.sql.Timestamp;
-import java.util.Set;
-import java.util.HashSet;
 import junit.framework.TestCase;
 import cl.votainteligente.legislativo.model.*;
 import javax.persistence.*;
@@ -93,7 +91,7 @@ public class TestPerson extends TestCase {
 	}
 
 	public void testGetRoles() {
-		//TODO: needs to be updated
+		// TODO: needs to be updated
 		assert false;
 	}
 

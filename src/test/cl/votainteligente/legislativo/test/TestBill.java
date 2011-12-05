@@ -1,6 +1,8 @@
 package cl.votainteligente.legislativo.test;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import junit.framework.TestCase;
 import cl.votainteligente.legislativo.model.*;
@@ -13,6 +15,8 @@ public class TestBill extends TestCase {
 	private Chamber originChamber;
 	private Matter matter;
 	private Date createdAt, entryDate, publicationDate, updatedAt;
+	private StageDescription stageDescription1, stageDescription2;
+	private Stage stage1, stage2;
 
 	protected void setUp() throws Exception {
 		super.setUp();
@@ -36,7 +40,26 @@ public class TestBill extends TestCase {
 		bill.setSILOficiosId(new Long(123));
 		bill.setSILProcessingsId(new Long(123));
 		bill.setSILUrgenciesId(new Long(123));
-		bill.setStage("stage");
+
+		HashSet<Stage> stages = new HashSet<Stage>();
+		stage1 = new Stage();
+		stageDescription1 = new StageDescription();
+		stageDescription1.setDescription("Description1");
+		stage1.setStageDescription(stageDescription1);
+		stage1.setEntryDate(new Date());
+		stage1.setEndDate(new Date());
+
+		stage2 = new Stage();
+		stageDescription2 = new StageDescription();
+		stageDescription2.setDescription("Description2");
+		stage2.setStageDescription(stageDescription2);
+		stage2.setEntryDate(new Date());
+		stage2.setEndDate(new Date());
+
+		stages.add(stage1);
+		stages.add(stage2);
+
+		bill.setStages(stages);
 		bill.setSubStage("subStage");
 		bill.setSummary("summary");
 		bill.setTitle("title");
@@ -53,6 +76,13 @@ public class TestBill extends TestCase {
 		bill.setOriginChamber(originChamber);
 		EntityTransaction tr = em.getTransaction();
 		tr.begin();
+
+		em.persist(stageDescription1);
+		em.persist(stageDescription2);
+
+		em.persist(stage1);
+		em.persist(stage2);
+
 		em.persist(originChamber);
 		em.persist(matter);
 		em.persist(bill);
@@ -116,7 +146,9 @@ public class TestBill extends TestCase {
 	}
 
 	public void testGetStage() {
-		assert (bill.getStage().equals("stage"));
+		Set<Stage> stages = bill.getStages();
+		assert (stages.contains(stage1));
+		assert (stages.contains(stage2));
 	}
 
 	public void testGetSubStage() {

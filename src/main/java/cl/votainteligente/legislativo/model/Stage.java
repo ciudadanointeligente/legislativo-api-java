@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -18,8 +20,10 @@ public class Stage {
 	private Date entryDate;
 	@Temporal(TemporalType.DATE)
 	private Date endDate;
-	// TODO: enumerate description
-	private Long description;
+
+	@ManyToOne
+	@JoinColumn(name = "stage_description_id", nullable = false)
+	private StageDescription stageDescription;
 
 	public void setId(Long id) {
 		this.id = id;
@@ -45,11 +49,11 @@ public class Stage {
 		return endDate;
 	}
 
-	public void setDescription(Long description) {
-		this.description = description;
+	public void setStageDescription(StageDescription stageDescription) {
+		this.stageDescription = stageDescription;
 	}
 
-	public Long getDescription() {
-		return description;
+	public StageDescription getStageDescription() {
+		return stageDescription;
 	}
 }

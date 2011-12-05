@@ -71,7 +71,7 @@ public class BillServiceImpl extends EntityManagerService implements
 		List<BillDO> resultList = new ArrayList<BillDO>();
 		for (Bill bill : allBills) {
 			for(Stage billStage : bill.getStages()){
-				if(billStage.getDescription().equals(stage)){
+				if(billStage.getStageDescription().getId().equals(stage)){
 					resultList.add(bill.asDomainObject());
 				}
 			}
