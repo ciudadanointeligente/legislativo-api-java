@@ -1,21 +1,19 @@
 package cl.votainteligente.legislativo.model.domainobjects;
 
-import java.sql.Date;
-
 import cl.votainteligente.legislativo.model.Bill;
 
 public class BillDO {
 
 	private Long id;
 	private String title;
-	private Date entryDate;
-	private Date updatedAt;
+	private Long entryDate;
+	private Long updatedAt;
 
 	public BillDO(Bill bill) {
 		this.id = bill.getId();
 		this.title = bill.getTitle();
-		this.entryDate = new Date(bill.getEntryDate().getTime());
-		this.updatedAt = new Date(bill.getUpdatedAt().getTime());
+		this.entryDate = bill.getEntryDate().getTime();
+		this.updatedAt = bill.getUpdatedAt().getTime();
 	}
 
 	/**
@@ -35,14 +33,14 @@ public class BillDO {
 	/**
 	 * @return the entryDate
 	 */
-	public Date getEntryDate() {
+	public Long getEntryDate() {
 		return entryDate;
 	}
 
 	/**
 	 * @return the updatedAt
 	 */
-	public Date getUpdatedAt() {
+	public Long getUpdatedAt() {
 		return updatedAt;
 	}
 }

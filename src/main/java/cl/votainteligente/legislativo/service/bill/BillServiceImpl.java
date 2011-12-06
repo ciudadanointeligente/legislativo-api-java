@@ -8,6 +8,7 @@ import javax.persistence.TemporalType;
 import org.springframework.stereotype.Service;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.model.Bill;
+import cl.votainteligente.legislativo.model.Matter;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.Stage;
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
@@ -92,5 +93,18 @@ public class BillServiceImpl extends EntityManagerService implements
 		}
 		return resultList;
 
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<BillDO> getByMatter(Matter matter) throws ServiceException {
+		Query query = getEntityManager().createQuery(
+				"select p from Bill p where p.matter = ?");
+		query.setParameter(1, matter);
+		List<BillDO> resultList = new ArrayList<BillDO>();
+		for (Bill bill : (List<Bill>) query.getResultList()) {
+			resultList.add(bill.asDomainObject());
+		}
+		return resultList;
 	}
 }

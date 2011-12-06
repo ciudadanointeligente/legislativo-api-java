@@ -29,7 +29,7 @@ public class Bill {
 	private String bulletinNumber;
 	private String title;
 	@Temporal(TemporalType.DATE)
-	@Column(name = "entry_data", nullable = false)
+	@Column(name = "entry_date", nullable = false)
 	private Date entryDate;
 	private boolean published;
 	@Column(name = "publication_date")

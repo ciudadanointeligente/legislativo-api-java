@@ -13,8 +13,10 @@ import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.exceptions.BadRequestException;
 import cl.votainteligente.legislativo.exceptions.ResourceNotFoundException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
+import cl.votainteligente.legislativo.model.Matter;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.service.bill.BillService;
+import cl.votainteligente.legislativo.service.matter.MatterService;
 import cl.votainteligente.legislativo.service.person.PersonService;
 
 import com.google.gson.Gson;
@@ -29,6 +31,9 @@ public class BillController {
 
 	@Autowired
 	PersonService personService;
+
+	@Autowired
+	MatterService matterService;
 
 	@RequestMapping(value = "bill/all.json", method = RequestMethod.GET)
 	@ResponseBody
@@ -91,6 +96,21 @@ public class BillController {
 			if (p == null)
 				throw new ResourceNotFoundException();
 			return gson.toJson(service.getByAuthor(p));
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			throw new ServerErrorException();
+		}
+	}
+
+	@RequestMapping(params = { "id" }, value = "bill/matter.json", method = RequestMethod.GET)
+	@ResponseBody
+	public final String getByMatter(
+			@RequestParam(value = "id", required = true) final long matter_id) {
+		try {
+			Matter p = matterService.getById(matter_id);
+			if (p == null)
+				throw new ResourceNotFoundException();
+			return gson.toJson(service.getByMatter(p));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
