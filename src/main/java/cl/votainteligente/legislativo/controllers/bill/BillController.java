@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.exceptions.BadRequestException;
+import cl.votainteligente.legislativo.exceptions.ResourceNotFoundException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
+import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.service.bill.BillService;
+import cl.votainteligente.legislativo.service.person.PersonService;
+
 import com.google.gson.Gson;
 
 @Controller
@@ -22,6 +26,9 @@ public class BillController {
 
 	@Autowired
 	BillService service;
+
+	@Autowired
+	PersonService personService;
 
 	@RequestMapping(value = "bill/all.json", method = RequestMethod.GET)
 	@ResponseBody
@@ -69,6 +76,21 @@ public class BillController {
 			@RequestParam(value = "stage_id", required = true) final long stage_id) {
 		try {
 			return gson.toJson(service.getByStage(stage_id));
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			throw new ServerErrorException();
+		}
+	}
+
+	@RequestMapping(params = { "id" }, value = "bill/author.json", method = RequestMethod.GET)
+	@ResponseBody
+	public final String getByAuthors(
+			@RequestParam(value = "id", required = true) final long author_id) {
+		try {
+			Person p = personService.getPerson(author_id);
+			if (p == null)
+				throw new ResourceNotFoundException();
+			return gson.toJson(service.getByAuthor(p));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();

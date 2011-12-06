@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -22,13 +23,16 @@ public class Bill {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@ManyToMany
+	private Set<Person> authors;
 	@Column(name = "bulletin_number")
 	private String bulletinNumber;
 	private String title;
 	@Temporal(TemporalType.DATE)
-	@Column(name = "entry_data",nullable = false)
+	@Column(name = "entry_data", nullable = false)
 	private Date entryDate;
 	private boolean published;
+	@Column(name = "publication_date")
 	@Temporal(TemporalType.DATE)
 	private Date publicationDate;
 	@Column(name = "bcn_law_id")
@@ -59,7 +63,7 @@ public class Bill {
 	@Column(name = "created_at")
 	private Date createdAt;
 	@Temporal(TemporalType.DATE)
-	@Column(name = "updated_at",nullable = false)
+	@Column(name = "updated_at", nullable = false)
 	private Date updatedAt;
 
 	/**
@@ -67,6 +71,14 @@ public class Bill {
 	 */
 	public Long getId() {
 		return id;
+	}
+
+	public Set<Person> getAuthors() {
+		return authors;
+	}
+
+	public void setAuthors(Set<Person> authors) {
+		this.authors = authors;
 	}
 
 	/**

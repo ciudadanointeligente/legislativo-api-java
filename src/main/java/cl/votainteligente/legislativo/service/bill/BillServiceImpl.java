@@ -8,6 +8,7 @@ import javax.persistence.TemporalType;
 import org.springframework.stereotype.Service;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.model.Bill;
+import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.Stage;
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
 import cl.votainteligente.legislativo.service.EntityManagerService;
@@ -32,7 +33,7 @@ public class BillServiceImpl extends EntityManagerService implements
 		}
 		return list;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<BillDO> getAllBillDOs() throws ServiceException {
@@ -70,12 +71,26 @@ public class BillServiceImpl extends EntityManagerService implements
 		List<Bill> allBills = getAllBills();
 		List<BillDO> resultList = new ArrayList<BillDO>();
 		for (Bill bill : allBills) {
-			for(Stage billStage : bill.getStages()){
-				if(billStage.getStageDescription().getId().equals(stage)){
+			for (Stage billStage : bill.getStages()) {
+				if (billStage.getStageDescription().getId().equals(stage)) {
 					resultList.add(bill.asDomainObject());
 				}
 			}
 		}
-			return resultList;
+		return resultList;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<BillDO> getByAuthor(Person person) throws ServiceException {
+		Query query = getEntityManager().createQuery(
+				"select p from Bill p join p.authors r where r = ?");
+		query.setParameter(1, person);
+		List<BillDO> resultList = new ArrayList<BillDO>();
+		for (Bill bill : (List<Bill>) query.getResultList()) {
+			resultList.add(bill.asDomainObject());
+		}
+		return resultList;
+
 	}
 }

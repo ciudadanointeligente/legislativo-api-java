@@ -5,6 +5,7 @@ import java.util.List;
 
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.model.Bill;
+import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
 
 public interface BillService {
@@ -19,5 +20,7 @@ public interface BillService {
 	List<BillDO> getByDateRange(Date from, Date to) throws ServiceException;
 
 	List<BillDO> getByStage(Long stage) throws ServiceException;
+
+	List<BillDO> getByAuthor(Person person) throws ServiceException;
 
 }
