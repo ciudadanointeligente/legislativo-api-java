@@ -8,7 +8,7 @@ public class PersonDO {
 	private Long id;
 	private String firstName;
 	private String lastName;
-	private String party;
+	private String gender;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
 
@@ -16,7 +16,7 @@ public class PersonDO {
 		this.id = person.getId();
 		this.firstName = person.getFirstName();
 		this.lastName = person.getLastName();
-		this.party = person.getParty();
+		this.gender = person.getGender();
 		this.createdAt = person.getCreatedAt();
 		this.updatedAt = person.getUpdatedAt();
 	}
@@ -43,13 +43,6 @@ public class PersonDO {
 	}
 
 	/**
-	 * @return the party
-	 */
-	public String getParty() {
-		return party;
-	}
-
-	/**
 	 * @return the createdAt
 	 */
 	public Timestamp getCreatedAt() {
@@ -61,5 +54,13 @@ public class PersonDO {
 	 */
 	public Timestamp getUpdatedAt() {
 		return updatedAt;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getGender() {
+		return gender;
 	}
 }

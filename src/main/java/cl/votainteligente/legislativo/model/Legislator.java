@@ -6,6 +6,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "legislator")
 public class Legislator extends Role {
@@ -24,19 +26,24 @@ public class Legislator extends Role {
 
 	// TODO: Asociar a objeto Comission
 	@Column(name = "past_comissions")
+	@Type(type = "text")
 	private String pastComissions;
 
 	@Column(name = "current_comissions")
+	@Type(type = "text")
 	private String currentComissions;
 
 	@Column(name = "comite_envoy")
+	@Type(type = "text")
 	private String comiteEnvoy;
 
 	// TODO: Ver si es necesario (o se hace query a tabla de gobernator)
 	@Column(name = "government_charges")
+	@Type(type = "text")
 	private String governmentCharges;
 
 	@Column(name = "election_charges")
+	@Type(type = "text")
 	private String electionCharges;
 
 	// ID del sitio web de senado
