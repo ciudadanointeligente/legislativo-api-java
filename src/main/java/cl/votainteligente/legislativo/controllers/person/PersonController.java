@@ -66,4 +66,17 @@ public class PersonController {
 			throw new ServerErrorException();
 		}
 	}
+
+	@RequestMapping(params = { "page", "perPage" }, value = "person/all.json", method = RequestMethod.GET)
+	@ResponseBody
+	public final String getK(
+			@RequestParam(value = "page", required = false) final int page,
+			@RequestParam(value = "perPage", required = false) final int perPage) {
+		try {
+			return gson.toJson(service.getKPersonDOs(page, perPage));
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			throw new ServerErrorException();
+		}
+	}
 }

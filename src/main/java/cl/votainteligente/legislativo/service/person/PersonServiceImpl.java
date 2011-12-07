@@ -33,8 +33,9 @@ public class PersonServiceImpl extends EntityManagerService implements
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<PersonDO> findPersonsByFirstName(String firstName) {
-		Query query = getEntityManager().createQuery(
-				"select p from Person p where upper(p.firstName) like upper(?)");
+		Query query = getEntityManager()
+				.createQuery(
+						"select p from Person p where upper(p.firstName) like upper(?)");
 		query.setParameter(1, "%" + firstName + "%");
 		List<PersonDO> listDO = new ArrayList<PersonDO>();
 		for (Person person : (List<Person>) query.getResultList()) {
@@ -59,5 +60,18 @@ public class PersonServiceImpl extends EntityManagerService implements
 	@Override
 	public Person getPerson(Long id) throws ServiceException {
 		return getEntityManager().find(Person.class, id);
+	}
+
+	@Override
+	public List<PersonDO> getKPersonDOs(int page, int k)
+			throws ServiceException {
+		Query query = getEntityManager().createQuery("select p from Person p");
+		query.setFirstResult(page * (k - 1));
+		query.setMaxResults(k);
+		List<PersonDO> listDO = new ArrayList<PersonDO>();
+		for (Person person : (List<Person>) query.getResultList()) {
+			listDO.add(person.asDomainObject());
+		}
+		return listDO;
 	}
 }
