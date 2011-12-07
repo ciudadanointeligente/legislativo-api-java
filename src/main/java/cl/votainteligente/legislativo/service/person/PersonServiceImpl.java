@@ -62,12 +62,13 @@ public class PersonServiceImpl extends EntityManagerService implements
 		return getEntityManager().find(Person.class, id);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<PersonDO> getKPersonDOs(int page, int k)
+	public List<PersonDO> getKPersonDOs(int page, int perPage)
 			throws ServiceException {
 		Query query = getEntityManager().createQuery("select p from Person p");
-		query.setFirstResult(page * (k - 1));
-		query.setMaxResults(k);
+		query.setFirstResult(perPage * (page - 1));
+		query.setMaxResults(perPage);
 		List<PersonDO> listDO = new ArrayList<PersonDO>();
 		for (Person person : (List<Person>) query.getResultList()) {
 			listDO.add(person.asDomainObject());

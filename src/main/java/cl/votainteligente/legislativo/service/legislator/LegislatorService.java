@@ -24,4 +24,6 @@ public interface LegislatorService {
 			throws ServiceException;
 
 	List<PersonDO> getPersonDOs() throws ServiceException;
+
+	List<PersonDO> getKPersonDOs(int page, int perPage) throws ServiceException;
 }

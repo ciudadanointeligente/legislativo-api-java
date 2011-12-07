@@ -75,4 +75,18 @@ public class LegislatorServiceImpl extends EntityManagerService implements
 		return list;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PersonDO> getKPersonDOs(int page, int perPage)
+			throws ServiceException {
+		Query query = getEntityManager().createQuery(
+				"select distinct l.person from Legislator l");
+		query.setFirstResult(perPage * (page - 1));
+		query.setMaxResults(perPage);
+		List<PersonDO> list = new ArrayList<PersonDO>();
+		for (Person person : (List<Person>) query.getResultList())
+			list.add(person.asDomainObject());
+		return list;
+	}
+
 }

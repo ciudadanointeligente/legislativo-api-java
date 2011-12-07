@@ -8,7 +8,7 @@ import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 public interface PersonService {
 	Person newPerson(Person person) throws ServiceException;
 
-	List<PersonDO> getKPersonDOs(int p, int k) throws ServiceException;
+	List<PersonDO> getKPersonDOs(int page, int perPage) throws ServiceException;
 
 	List<PersonDO> getAllPersonDOs() throws ServiceException;
 
