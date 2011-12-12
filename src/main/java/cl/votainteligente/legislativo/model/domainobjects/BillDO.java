@@ -1,19 +1,22 @@
 package cl.votainteligente.legislativo.model.domainobjects;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import cl.votainteligente.legislativo.model.Bill;
 
 public class BillDO {
 
 	private Long id;
 	private String title;
-	private Long entryDate;
-	private Long updatedAt;
+	private String entryDate;
+	private String updatedAt;
 
 	public BillDO(Bill bill) {
 		this.id = bill.getId();
 		this.title = bill.getTitle();
-		this.entryDate = bill.getEntryDate().getTime();
-		this.updatedAt = bill.getUpdatedAt().getTime();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy", new Locale("es","cl"));
+		this.entryDate = dateFormat.format(bill.getEntryDate());
+		this.updatedAt = dateFormat.format(bill.getUpdatedAt());
 	}
 
 	/**
@@ -33,14 +36,14 @@ public class BillDO {
 	/**
 	 * @return the entryDate
 	 */
-	public Long getEntryDate() {
+	public String getEntryDate() {
 		return entryDate;
 	}
 
 	/**
 	 * @return the updatedAt
 	 */
-	public Long getUpdatedAt() {
+	public String getUpdatedAt() {
 		return updatedAt;
 	}
 }
