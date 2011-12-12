@@ -1,4 +1,4 @@
-package cl.votainteligente.legislativo.test;
+package cl.votainteligente.legislativo.tests;
 
 import java.util.Date;
 import java.util.HashSet;

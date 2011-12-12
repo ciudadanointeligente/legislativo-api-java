@@ -1,4 +1,4 @@
-package cl.votainteligente.legislativo.test;
+package cl.votainteligente.legislativo.tests;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
