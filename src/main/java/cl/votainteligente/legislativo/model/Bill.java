@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -18,6 +19,7 @@ import javax.persistence.Transient;
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
 
 @Entity
+@Table(name = "bill")
 public class Bill {
 
 	@Id
@@ -46,6 +48,7 @@ public class Bill {
 	private String urgency;
 	@OneToMany
 	private Set<Stage> stages;
+	@Column(name = "sub_stage")
 	private String subStage;
 	@ManyToOne
 	private Matter matter;

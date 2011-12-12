@@ -81,7 +81,7 @@ public class LegislatorServiceImpl extends EntityManagerService implements
 			throws ServiceException {
 		Query query = getEntityManager().createQuery(
 				"select distinct l.person from Legislator l");
-		query.setFirstResult(perPage * (page - 1));
+		query.setFirstResult(perPage * Math.max((page - 1),0));
 		query.setMaxResults(perPage);
 		List<PersonDO> list = new ArrayList<PersonDO>();
 		for (Person person : (List<Person>) query.getResultList())

@@ -67,7 +67,7 @@ public class PersonServiceImpl extends EntityManagerService implements
 	public List<PersonDO> getKPersonDOs(int page, int perPage)
 			throws ServiceException {
 		Query query = getEntityManager().createQuery("select p from Person p");
-		query.setFirstResult(perPage * (page - 1));
+		query.setFirstResult(perPage * Math.max((page - 1),0));
 		query.setMaxResults(perPage);
 		List<PersonDO> listDO = new ArrayList<PersonDO>();
 		for (Person person : (List<Person>) query.getResultList()) {

@@ -1,19 +1,25 @@
 package cl.votainteligente.legislativo.model;
 
 import javax.persistence.*;
+
 import java.util.Date;
 
 @Entity
+@Table(name = "matter")
 public class Matter {
 
 	@Id
 	@GeneratedValue
 	private Long id;
+
 	private String name;
+
 	@Column(name = "super_matter")
 	private String superMatter;
+
 	@Column(name = "created_at")
 	private Date createdAt;
+
 	@Column(name = "updated_at")
 	private Date updatedAt;
 

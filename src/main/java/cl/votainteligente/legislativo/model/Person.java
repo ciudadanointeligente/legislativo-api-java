@@ -2,16 +2,21 @@ package cl.votainteligente.legislativo.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "person")
 public class Person extends Participant {
+
+	@OneToMany
+	private List<Role> roles;
 
 	@Column(name = "mail_address")
 	private String mailAddress;
@@ -143,6 +148,14 @@ public class Person extends Participant {
 
 	public void setStatementOfHeritage(String statementOfHeritage) {
 		this.statementOfHeritage = statementOfHeritage;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 
 	@Transient
