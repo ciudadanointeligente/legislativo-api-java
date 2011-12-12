@@ -12,6 +12,7 @@ import cl.votainteligente.legislativo.model.Matter;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.Stage;
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
+import cl.votainteligente.legislativo.model.domainobjects.Page;
 import cl.votainteligente.legislativo.service.EntityManagerService;
 
 @Service
@@ -37,13 +38,15 @@ public class BillServiceImpl extends EntityManagerService implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<BillDO> getAllBillDOs() throws ServiceException {
+	public Page<BillDO> getAllBillDOs(int pageNumber, int resultsPerPage)
+			throws ServiceException {
 		Query query = getEntityManager().createQuery("select p from Bill p");
+		List<Bill> resultList = (List<Bill>) query.getResultList();
 		List<BillDO> listDO = new ArrayList<BillDO>();
-		for (Bill bill : (List<Bill>) query.getResultList()) {
+		for (Bill bill : resultList) {
 			listDO.add(bill.asDomainObject());
 		}
-		return listDO;
+		return Page.listToPage(listDO, pageNumber, resultsPerPage);
 	}
 
 	@Override
@@ -53,7 +56,7 @@ public class BillServiceImpl extends EntityManagerService implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<BillDO> getByDateRange(Date from, Date to)
+	public Page<BillDO> getByDateRange(Date from, Date to, int pageNumber, int resultsPerPage)
 			throws ServiceException {
 		Query query = getEntityManager()
 				.createQuery(
@@ -64,11 +67,11 @@ public class BillServiceImpl extends EntityManagerService implements
 		for (Bill bill : (List<Bill>) query.getResultList()) {
 			resultList.add(bill.asDomainObject());
 		}
-		return resultList;
+		return Page.listToPage(resultList, pageNumber, resultsPerPage);
 	}
 
 	@Override
-	public List<BillDO> getByStage(Long stage) throws ServiceException {
+	public Page<BillDO> getByStage(Long stage, int pageNumber, int resultsPerPage) throws ServiceException {
 		List<Bill> allBills = getAllBills();
 		List<BillDO> resultList = new ArrayList<BillDO>();
 		for (Bill bill : allBills) {
@@ -78,12 +81,12 @@ public class BillServiceImpl extends EntityManagerService implements
 				}
 			}
 		}
-		return resultList;
+		return Page.listToPage(resultList, pageNumber, resultsPerPage);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<BillDO> getByAuthor(Person person) throws ServiceException {
+	public Page<BillDO> getByAuthor(Person person, int pageNumber, int resultsPerPage) throws ServiceException {
 		Query query = getEntityManager().createQuery(
 				"select p from Bill p join p.authors r where r = ?");
 		query.setParameter(1, person);
@@ -91,13 +94,12 @@ public class BillServiceImpl extends EntityManagerService implements
 		for (Bill bill : (List<Bill>) query.getResultList()) {
 			resultList.add(bill.asDomainObject());
 		}
-		return resultList;
-
+		return Page.listToPage(resultList, pageNumber, resultsPerPage);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<BillDO> getByMatter(Matter matter) throws ServiceException {
+	public Page<BillDO> getByMatter(Matter matter, int pageNumber, int resultsPerPage) throws ServiceException {
 		Query query = getEntityManager().createQuery(
 				"select p from Bill p where p.matter = ?");
 		query.setParameter(1, matter);
@@ -105,6 +107,6 @@ public class BillServiceImpl extends EntityManagerService implements
 		for (Bill bill : (List<Bill>) query.getResultList()) {
 			resultList.add(bill.asDomainObject());
 		}
-		return resultList;
+		return Page.listToPage(resultList, pageNumber, resultsPerPage);
 	}
 }
