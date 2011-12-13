@@ -8,7 +8,13 @@ public class Page<T> {
 	private int totalPages;
 	private int totalElements;
 	private List<T> content;
-
+	public Page(){};
+	public Page(List<T> content, int pageNumber, int resultsPerPage, int totalElements){
+		this.content = content;
+		this.pageNumber = pageNumber;
+		this.totalElements = totalElements;
+		this.totalPages = ((int)Math.ceil(1.0*totalElements/resultsPerPage));
+	}
 	public int getPageNumber() {
 		return pageNumber;
 	}
