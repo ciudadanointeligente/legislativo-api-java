@@ -3,11 +3,9 @@ package cl.votainteligente.legislativo.controllers.bill;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +17,7 @@ import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.exceptions.BadRequestException;
 import cl.votainteligente.legislativo.exceptions.ResourceNotFoundException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
+import cl.votainteligente.legislativo.model.Bill;
 import cl.votainteligente.legislativo.model.Matter;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
@@ -26,7 +25,6 @@ import cl.votainteligente.legislativo.model.domainobjects.Page;
 import cl.votainteligente.legislativo.service.bill.BillService;
 import cl.votainteligente.legislativo.service.matter.MatterService;
 import cl.votainteligente.legislativo.service.person.PersonService;
-import net.sf.json.*;
 
 @Controller
 public class BillController {
@@ -58,10 +56,10 @@ public class BillController {
 
 	@RequestMapping(params = { "id" }, value = "bill/any", method = RequestMethod.GET)
 	@ResponseBody
-	public final String getBillById(
+	public final Bill getBillById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			return JSONObject.fromObject(service.getBill(id)).toString(2);
+			return service.getBill(id);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
