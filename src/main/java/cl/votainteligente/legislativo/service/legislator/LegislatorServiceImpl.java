@@ -36,7 +36,7 @@ public class LegislatorServiceImpl extends EntityManagerService implements
 	public List<Legislator> getLegislatorsByPerson(Person person)
 			throws ServiceException {
 		Query query = getEntityManager().createQuery(
-				"select l from Legislator l where Person = ?");
+				"select l from Legislator l where l.person = ?");
 		query.setParameter(1, person);
 		List<Legislator> results = query.getResultList();
 		return results;
