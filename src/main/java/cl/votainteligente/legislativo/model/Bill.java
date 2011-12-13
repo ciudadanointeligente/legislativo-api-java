@@ -16,6 +16,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
+
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
 
 @Entity
@@ -29,6 +31,7 @@ public class Bill {
 	private Set<Person> authors;
 	@Column(name = "bulletin_number")
 	private String bulletinNumber;
+	@Type(type = "text")
 	private String title;
 	@Temporal(TemporalType.DATE)
 	@Column(name = "entry_date", nullable = false)
