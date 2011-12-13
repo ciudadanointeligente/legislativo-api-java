@@ -12,6 +12,7 @@ import cl.votainteligente.legislativo.model.Circunscription;
 import cl.votainteligente.legislativo.model.District;
 import cl.votainteligente.legislativo.model.Legislator;
 import cl.votainteligente.legislativo.model.Person;
+import cl.votainteligente.legislativo.model.domainobjects.Page;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.service.EntityManagerService;
 
@@ -77,16 +78,27 @@ public class LegislatorServiceImpl extends EntityManagerService implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<PersonDO> getKPersonDOs(int page, int perPage)
+	public Page<PersonDO> getKPersonDOs(int page, int perPage)
 			throws ServiceException {
+		/**
+		 * TODO: Fix to use count.
+		 * 
+		 * We tried to use count instead of retrieving every person, but the
+		 * query select count(distinct l.person) from Legislator l keeps
+		 * returning 0.
+		 * 
+		 * Please fix.
+		 * 
+		 * Jose told us that this might be a Hibernate Bug.
+		 * 
+		 */
 		Query query = getEntityManager().createQuery(
 				"select distinct l.person from Legislator l");
-		query.setFirstResult(perPage * Math.max((page - 1),0));
-		query.setMaxResults(perPage);
 		List<PersonDO> list = new ArrayList<PersonDO>();
 		for (Person person : (List<Person>) query.getResultList())
 			list.add(person.asDomainObject());
-		return list;
+		return Page.listToPage(list, page, perPage);
+
 	}
 
 }

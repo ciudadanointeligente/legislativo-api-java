@@ -1,5 +1,7 @@
 package cl.votainteligente.legislativo.controllers.legislator;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,17 +13,17 @@ import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
 import cl.votainteligente.legislativo.model.Circunscription;
 import cl.votainteligente.legislativo.model.District;
+import cl.votainteligente.legislativo.model.Legislator;
 import cl.votainteligente.legislativo.model.Person;
+import cl.votainteligente.legislativo.model.domainobjects.Page;
+import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.service.geo.CircunscriptionService;
 import cl.votainteligente.legislativo.service.geo.DistrictService;
 import cl.votainteligente.legislativo.service.legislator.LegislatorService;
 import cl.votainteligente.legislativo.service.person.PersonService;
 
-import com.google.gson.Gson;
-
 @Controller
 public class LegislatorController {
-	private Gson gson = new Gson();
 
 	@Autowired
 	LegislatorService service;
@@ -37,10 +39,10 @@ public class LegislatorController {
 
 	@RequestMapping(params = { "id" }, value = "legislator/period.json", method = RequestMethod.GET)
 	@ResponseBody
-	public final String getLegislatorById(
+	public final Legislator getLegislatorById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			return gson.toJson(service.getLegislator(id));
+			return service.getLegislator(id);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -49,11 +51,11 @@ public class LegislatorController {
 
 	@RequestMapping(params = { "id" }, value = "legislator/district.json", method = RequestMethod.GET)
 	@ResponseBody
-	public final String getLegislatorByDistrict(
+	public final List<Legislator> getLegislatorByDistrict(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
 			District tmp = district.getDistrict(id);
-			return gson.toJson(service.getLegislatorsByDistrict(tmp));
+			return service.getLegislatorsByDistrict(tmp);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -62,11 +64,11 @@ public class LegislatorController {
 
 	@RequestMapping(params = { "id" }, value = "legislator/circunscription.json", method = RequestMethod.GET)
 	@ResponseBody
-	public final String getLegislatorByCircunscription(
+	public final List<Legislator> getLegislatorByCircunscription(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
 			Circunscription tmp = circunscription.getCircunscription(id);
-			return gson.toJson(service.getLegislatorsByCircunscription(tmp));
+			return service.getLegislatorsByCircunscription(tmp);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -75,35 +77,35 @@ public class LegislatorController {
 
 	@RequestMapping(value = "legislator/person.json", method = RequestMethod.GET)
 	@ResponseBody
-	public final String getLegislatorsByPerson(
+	public final List<Legislator> getLegislatorsByPerson(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
 			Person legislator = person.getPerson(id);
-			return gson.toJson(service.getLegislatorsByPerson(legislator));
+			return service.getLegislatorsByPerson(legislator);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
 		}
 	}
 
-	@RequestMapping(value = "legislator/people.json", method = RequestMethod.GET)
+	@RequestMapping(value = "legislator/allPeople", method = RequestMethod.GET)
 	@ResponseBody
-	public final String getLegislatorPersons() {
+	public final List<PersonDO> getLegislatorPersons() {
 		try {
-			return gson.toJson(service.getPersonDOs());
+			return service.getPersonDOs();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
 		}
 	}
 
-	@RequestMapping(params = { "page", "perPage" }, value = "legislator/people.json", method = RequestMethod.GET)
+	@RequestMapping(value = "legislator/people", method = RequestMethod.GET)
 	@ResponseBody
-	public final String getKLegislatorPersons(
-			@RequestParam(value = "page", required = false) final int page,
-			@RequestParam(value = "perPage", required = false) final int perPage) {
+	public final Page<PersonDO> getKLegislatorPersons(
+			@RequestParam(value = "page", required = false, defaultValue = "1") final int page,
+			@RequestParam(value = "perPage", required = false, defaultValue = "10") final int perPage) {
 		try {
-			return gson.toJson(service.getKPersonDOs(page, perPage));
+			return service.getKPersonDOs(page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
