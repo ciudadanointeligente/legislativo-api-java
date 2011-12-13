@@ -7,6 +7,9 @@
 		<param-value>/WEB-INF/applicationContext.xml</param-value>
 	</context-param>
 
+	<listener>
+		<listener-class>cl.votainteligente.legislativo.ApplicationProperties</listener-class>
+	</listener>
 	<filter>
 		<filter-name>openEntityManagerInViewFilter</filter-name>
 		<filter-class>
@@ -20,8 +23,6 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	<!-- <listener> <listener-class>cl.votainteligente.legislativo.ApplicationProperties</listener-class> 
-		</listener> -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
