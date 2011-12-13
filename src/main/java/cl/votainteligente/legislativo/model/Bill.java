@@ -56,6 +56,7 @@ public class Bill {
 	@ManyToOne
 	private Matter matter;
 	private Long decree;
+	@Type(type = "text")
 	private String summary;
 	@Column(name = "sil_processings_id")
 	private Long SILProcessingsId;
