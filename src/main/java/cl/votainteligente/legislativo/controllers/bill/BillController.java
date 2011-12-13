@@ -72,11 +72,9 @@ public class BillController {
 	public final Page<BillDO> getDateRange(
 			@RequestParam(value = "from", required = true) final String fromString,
 			@RequestParam(value = "to", required = true) final String toString,
-			HttpServletRequest request) {
+			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
 		try {
-			int page = ServletRequestUtils.getIntParameter(request, "page", 1);
-			int perPage = ServletRequestUtils.getIntParameter(request,
-					"perPage", 10);
 			Date from = dateFormat.parse(fromString);
 			Date to = dateFormat.parse(toString);
 			Page<BillDO> resultPage = service.getByDateRange(from, to, page,
@@ -93,11 +91,9 @@ public class BillController {
 	@RequestMapping(params = { "stage_id" }, value = "bill/stage.json", method = RequestMethod.GET)
 	public final Page<BillDO> getBillsByStage(
 			@RequestParam(value = "stage_id", required = true) final long stage_id,
-			HttpServletRequest request) {
+			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
 		try {
-			int page = ServletRequestUtils.getIntParameter(request, "page", 1);
-			int perPage = ServletRequestUtils.getIntParameter(request,
-					"perPage", 10);
 			Page<BillDO> resultPage = service.getByStage(stage_id, page,
 					perPage);
 			return resultPage;
@@ -110,11 +106,9 @@ public class BillController {
 	@RequestMapping(params = { "id" }, value = "bill/author.json", method = RequestMethod.GET)
 	public final Page<BillDO> getByAuthors(
 			@RequestParam(value = "id", required = true) final long author_id,
-			HttpServletRequest request) {
+			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
 		try {
-			int page = ServletRequestUtils.getIntParameter(request, "page", 1);
-			int perPage = ServletRequestUtils.getIntParameter(request,
-					"perPage", 10);
 			Person p = personService.getPerson(author_id);
 			if (p == null)
 				throw new ResourceNotFoundException();
@@ -129,11 +123,10 @@ public class BillController {
 	@RequestMapping(params = { "id" }, value = "bill/matter.json", method = RequestMethod.GET)
 	public final Page<BillDO> getByMatter(
 			@RequestParam(value = "id", required = true) final long matter_id,
-			HttpServletRequest request) {
+			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
 		try {
-			int page = ServletRequestUtils.getIntParameter(request, "page", 1);
-			int perPage = ServletRequestUtils.getIntParameter(request,
-					"perPage", 10);
+
 			Matter p = matterService.getById(matter_id);
 			if (p == null)
 				throw new ResourceNotFoundException();
