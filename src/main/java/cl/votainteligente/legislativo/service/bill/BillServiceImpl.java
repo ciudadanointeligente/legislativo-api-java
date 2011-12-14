@@ -41,6 +41,8 @@ public class BillServiceImpl extends EntityManagerService implements
 	public Page<BillDO> getAllBillDOs(int pageNumber, int resultsPerPage)
 			throws ServiceException {
 		Query query = getEntityManager().createQuery("select p from Bill p");
+		List<Bill> result = query.getResultList();
+		int totalBills = result.size();
 		query.setFirstResult((pageNumber - 1) * resultsPerPage);
 		query.setMaxResults(resultsPerPage);
 		List<Bill> resultList = (List<Bill>) query.getResultList();
@@ -48,9 +50,6 @@ public class BillServiceImpl extends EntityManagerService implements
 		for (Bill bill : resultList) {
 			listDO.add(bill.asDomainObject());
 		}
-		Query count = getEntityManager().createQuery(
-				"select count(p) from Bill p");
-		int totalBills = count.getFirstResult();
 		return new Page<BillDO>(listDO, pageNumber, resultsPerPage, totalBills);
 
 	}
@@ -69,6 +68,8 @@ public class BillServiceImpl extends EntityManagerService implements
 						"select p from Bill p where p.entryDate >= ? and p.entryDate <= ?");
 		query.setParameter(1, from, TemporalType.DATE);
 		query.setParameter(2, to, TemporalType.DATE);
+		List<Bill> result = query.getResultList();
+		int totalBills = result.size();
 		query.setFirstResult((pageNumber - 1) * resultsPerPage);
 		query.setMaxResults(resultsPerPage);
 		List<Bill> resultList = (List<Bill>) query.getResultList();
@@ -76,12 +77,6 @@ public class BillServiceImpl extends EntityManagerService implements
 		for (Bill bill : resultList) {
 			listDO.add(bill.asDomainObject());
 		}
-		Query count = getEntityManager()
-				.createQuery(
-						"select p from Bill p where p.entryDate >= ? and p.entryDate <= ?");
-		query.setParameter(1, from, TemporalType.DATE);
-		query.setParameter(2, to, TemporalType.DATE);
-		int totalBills = count.getFirstResult();
 		return new Page<BillDO>(listDO, pageNumber, resultsPerPage, totalBills);
 
 	}
@@ -109,6 +104,8 @@ public class BillServiceImpl extends EntityManagerService implements
 		Query query = getEntityManager().createQuery(
 				"select p from Bill p join p.authors r where r = ?");
 		query.setParameter(1, person);
+		List<Bill> result = query.getResultList();
+		int totalBills = result.size();
 		query.setFirstResult((pageNumber - 1) * resultsPerPage);
 		query.setMaxResults(resultsPerPage);
 		List<Bill> resultList = (List<Bill>) query.getResultList();
@@ -116,10 +113,6 @@ public class BillServiceImpl extends EntityManagerService implements
 		for (Bill bill : resultList) {
 			listDO.add(bill.asDomainObject());
 		}
-		Query count = getEntityManager().createQuery(
-				"select p from Bill p join p.authors r where r = ?");
-		query.setParameter(1, person);
-		int totalBills = count.getFirstResult();
 		return new Page<BillDO>(listDO, pageNumber, resultsPerPage, totalBills);
 	}
 
@@ -130,6 +123,8 @@ public class BillServiceImpl extends EntityManagerService implements
 		Query query = getEntityManager().createQuery(
 				"select p from Bill p where p.matter = ?");
 		query.setParameter(1, matter);
+		List<Bill> result = query.getResultList();
+		int totalBills = result.size();
 		query.setFirstResult((pageNumber - 1) * resultsPerPage);
 		query.setMaxResults(resultsPerPage);
 		List<Bill> resultList = (List<Bill>) query.getResultList();
@@ -137,10 +132,6 @@ public class BillServiceImpl extends EntityManagerService implements
 		for (Bill bill : resultList) {
 			listDO.add(bill.asDomainObject());
 		}
-		Query count = getEntityManager().createQuery(
-				"select p from Bill p where p.matter = ?");
-		query.setParameter(1, matter);
-		int totalBills = count.getFirstResult();
 		return new Page<BillDO>(listDO, pageNumber, resultsPerPage, totalBills);
 	}
 }

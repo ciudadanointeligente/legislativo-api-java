@@ -34,46 +34,53 @@ public class LegislatorServiceImpl extends EntityManagerService implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Legislator> getLegislatorsByPerson(Person person)
-			throws ServiceException {
+	public Page<Legislator> getLegislatorsByPerson(Person person, int page,
+			int perPage) throws ServiceException {
 		Query query = getEntityManager().createQuery(
 				"select l from Legislator l where l.person = ?");
 		query.setParameter(1, person);
 		List<Legislator> results = query.getResultList();
-		return results;
+		return Page.listToPage(results, page, perPage);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Legislator> getLegislatorsByCircunscription(
-			Circunscription circunscription) throws ServiceException {
+	public Page<Legislator> getLegislatorsByCircunscription(
+			Circunscription circunscription, int page, int perPage)
+			throws ServiceException {
 		Query query = getEntityManager().createQuery(
 				"select p from Legislator p where p.circunscription = ?");
 		query.setParameter(1, circunscription);
 		List<Legislator> results = query.getResultList();
-		return results;
+		return Page.listToPage(results, page, perPage);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Legislator> getLegislatorsByDistrict(District district)
-			throws ServiceException {
+	public Page<Legislator> getLegislatorsByDistrict(District district,
+			int page, int perPage) throws ServiceException {
 		Query query = getEntityManager().createQuery(
 				"select p from Legislator p where p.district = ?");
 		query.setParameter(1, district);
 		List<Legislator> results = query.getResultList();
-		return results;
+		return Page.listToPage(results, page, perPage);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<PersonDO> getPersonDOs() throws ServiceException {
+	public List<PersonDO> getPersonDOsList() throws ServiceException {
 		Query query = getEntityManager().createQuery(
 				"select distinct l.person from Legislator l");
-		List<PersonDO> list = new ArrayList<PersonDO>();
+		List<PersonDO> results = new ArrayList<PersonDO>();
 		for (Person person : (List<Person>) query.getResultList())
-			list.add(person.asDomainObject());
-		return list;
+			results.add(person.asDomainObject());
+		return results;
+	}
+
+	@Override
+	public Page<PersonDO> getPersonDOs() throws ServiceException {
+		List<PersonDO> results = getPersonDOsList();
+		return Page.listToPage(results, 1, results.size());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -94,10 +101,10 @@ public class LegislatorServiceImpl extends EntityManagerService implements
 		 */
 		Query query = getEntityManager().createQuery(
 				"select distinct l.person from Legislator l");
-		List<PersonDO> list = new ArrayList<PersonDO>();
+		List<PersonDO> results = new ArrayList<PersonDO>();
 		for (Person person : (List<Person>) query.getResultList())
-			list.add(person.asDomainObject());
-		return Page.listToPage(list, page, perPage);
+			results.add(person.asDomainObject());
+		return Page.listToPage(results, page, perPage);
 
 	}
 

@@ -1,7 +1,5 @@
 package cl.votainteligente.legislativo.controllers.legislator;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +35,7 @@ public class LegislatorController {
 	@Autowired
 	CircunscriptionService circunscription;
 
-	@RequestMapping(params = { "id" }, value = "legislator/period.json", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" }, value = "legislator/period", method = RequestMethod.GET)
 	@ResponseBody
 	public final Legislator getLegislatorById(
 			@RequestParam(value = "id", required = true) final long id) {
@@ -49,39 +47,45 @@ public class LegislatorController {
 		}
 	}
 
-	@RequestMapping(params = { "id" }, value = "legislator/district.json", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" }, value = "legislator/district", method = RequestMethod.GET)
 	@ResponseBody
-	public final List<Legislator> getLegislatorByDistrict(
-			@RequestParam(value = "id", required = true) final long id) {
+	public final Page<Legislator> getLegislatorByDistrict(
+			@RequestParam(value = "id", required = true) final long id,
+			@RequestParam(value = "page", required = false, defaultValue = "1") final int page,
+			@RequestParam(value = "perPage", required = false, defaultValue = "10") final int perPage) {
 		try {
 			District tmp = district.getDistrict(id);
-			return service.getLegislatorsByDistrict(tmp);
+			return service.getLegislatorsByDistrict(tmp,page,perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
 		}
 	}
 
-	@RequestMapping(params = { "id" }, value = "legislator/circunscription.json", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" }, value = "legislator/circunscription", method = RequestMethod.GET)
 	@ResponseBody
-	public final List<Legislator> getLegislatorByCircunscription(
-			@RequestParam(value = "id", required = true) final long id) {
+	public final Page<Legislator> getLegislatorByCircunscription(
+			@RequestParam(value = "id", required = true) final long id,
+			@RequestParam(value = "page", required = false, defaultValue = "1") final int page,
+			@RequestParam(value = "perPage", required = false, defaultValue = "10") final int perPage) {
 		try {
 			Circunscription tmp = circunscription.getCircunscription(id);
-			return service.getLegislatorsByCircunscription(tmp);
+			return service.getLegislatorsByCircunscription(tmp,page,perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
 		}
 	}
 
-	@RequestMapping(value = "legislator/person.json", method = RequestMethod.GET)
+	@RequestMapping(value = "legislator/person", method = RequestMethod.GET)
 	@ResponseBody
-	public final List<Legislator> getLegislatorsByPerson(
-			@RequestParam(value = "id", required = true) final long id) {
+	public final Page<Legislator> getLegislatorsByPerson(
+			@RequestParam(value = "id", required = true) final long id,
+			@RequestParam(value = "page", required = false, defaultValue = "1") final int page,
+			@RequestParam(value = "perPage", required = false, defaultValue = "10") final int perPage) {
 		try {
 			Person legislator = person.getPerson(id);
-			return service.getLegislatorsByPerson(legislator);
+			return service.getLegislatorsByPerson(legislator,page,perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -90,7 +94,7 @@ public class LegislatorController {
 
 	@RequestMapping(value = "legislator/allPeople", method = RequestMethod.GET)
 	@ResponseBody
-	public final List<PersonDO> getLegislatorPersons() {
+	public final Page<PersonDO> getLegislatorPersons() {
 		try {
 			return service.getPersonDOs();
 		} catch (ServiceException e) {

@@ -36,11 +36,11 @@ public class BillController {
 	MatterService matterService;
 
 	@RequestMapping(value = "bill/all", method = RequestMethod.GET)
+	@ResponseBody
 	public final Page<BillDO> getAll(
 			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
 		try {
-
 			Page<BillDO> resultPage = service.getAllBillDOs(page, perPage);
 			return resultPage;
 		} catch (ServiceException e) {
@@ -62,6 +62,7 @@ public class BillController {
 	}
 
 	@RequestMapping(value = "bill/dateRange", method = RequestMethod.GET)
+	@ResponseBody
 	public final Page<BillDO> getDateRange(
 			@RequestParam(value = "from", required = true) final String fromString,
 			@RequestParam(value = "to", required = true) final String toString,
@@ -81,7 +82,8 @@ public class BillController {
 		}
 	}
 
-	@RequestMapping(params = { "stage_id" }, value = "bill/stage.json", method = RequestMethod.GET)
+	@RequestMapping(params = { "stage_id" }, value = "bill/stage", method = RequestMethod.GET)
+	@ResponseBody
 	public final Page<BillDO> getBillsByStage(
 			@RequestParam(value = "stage_id", required = true) final long stage_id,
 			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
@@ -96,7 +98,8 @@ public class BillController {
 		}
 	}
 
-	@RequestMapping(params = { "id" }, value = "bill/author.json", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" }, value = "bill/author", method = RequestMethod.GET)
+	@ResponseBody
 	public final Page<BillDO> getByAuthors(
 			@RequestParam(value = "id", required = true) final long author_id,
 			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
@@ -113,7 +116,8 @@ public class BillController {
 		}
 	}
 
-	@RequestMapping(params = { "id" }, value = "bill/matter.json", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" }, value = "bill/matter", method = RequestMethod.GET)
+	@ResponseBody
 	public final Page<BillDO> getByMatter(
 			@RequestParam(value = "id", required = true) final long matter_id,
 			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
