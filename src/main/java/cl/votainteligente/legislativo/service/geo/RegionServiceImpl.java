@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.model.Region;
+import cl.votainteligente.legislativo.model.domainobjects.Page;
 import cl.votainteligente.legislativo.service.EntityManagerService;
 
 @Service
@@ -22,21 +23,32 @@ public class RegionServiceImpl extends EntityManagerService implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Region> getAllRegions() throws ServiceException {
+	public Page<Region> getAllRegions(int page, int perPage)
+			throws ServiceException {
 		Query query = getEntityManager().createQuery("select p from Region p");
+		query.setFirstResult((page - 1) * perPage);
+		query.setMaxResults(perPage);
 		List<Region> list = query.getResultList();
-		return list;
+		query = getEntityManager().createQuery("select count(p) from Region p");
+		int total = (Integer) query.getSingleResult();
+		return new Page<Region>(list, page, perPage, total);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Region> findRegionsByName(String name) throws ServiceException {
+	public Page<Region> findRegionsByName(String name, int page, int perPage)
+			throws ServiceException {
 		Query query = getEntityManager().createQuery(
 				"select p from Region p where upper(p.name) like upper(?)");
 		// Use setParameter to avoid SQL Injections.
 		query.setParameter(1, "%" + name + "%");
+		query.setFirstResult((page - 1) * perPage);
+		query.setMaxResults(perPage);
 		List<Region> list = query.getResultList();
-		return list;
+		query = getEntityManager().createQuery(
+				"select p from Region p where upper(p.name) like upper(?)");
+		int total = (Integer) query.getSingleResult();
+		return new Page<Region>(list, page, perPage, total);
 	}
 
 	@Override
