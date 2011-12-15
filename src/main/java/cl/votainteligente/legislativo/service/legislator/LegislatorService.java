@@ -1,6 +1,5 @@
 package cl.votainteligente.legislativo.service.legislator;
 
-import java.util.List;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.model.Circunscription;
 import cl.votainteligente.legislativo.model.District;
@@ -23,10 +22,6 @@ public interface LegislatorService {
 
 	Page<Legislator> getLegislatorsByDistrict(District district, int page,
 			int perPage) throws ServiceException;
-
-	Page<PersonDO> getPersonDOs() throws ServiceException;
-
-	List<PersonDO> getPersonDOsList() throws ServiceException;
 
 	Page<PersonDO> getKPersonDOs(int page, int perPage) throws ServiceException;
 }

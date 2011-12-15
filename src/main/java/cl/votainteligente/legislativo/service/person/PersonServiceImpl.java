@@ -32,7 +32,7 @@ public class PersonServiceImpl extends EntityManagerService implements
 			listDO.add(person.asDomainObject());
 		}
 		query = getEntityManager().createQuery("select count(p) from Person p");
-		int total = (Integer) query.getSingleResult();
+		long total = (Long) query.getSingleResult();
 		return new Page<PersonDO>(listDO, page, perPage, total);
 	}
 
@@ -54,7 +54,7 @@ public class PersonServiceImpl extends EntityManagerService implements
 				.createQuery(
 						"select count(p) from Person p  where upper(p.firstName) like upper(?)");
 		query.setParameter(1, "%" + firstName + "%");
-		int total = (Integer) query.getSingleResult();
+		long total = (Long) query.getSingleResult();
 		return new Page<PersonDO>(listDO, page, perPage, total);
 	}
 
@@ -76,7 +76,7 @@ public class PersonServiceImpl extends EntityManagerService implements
 						"select count(p) from Person p where upper(p.lastName) like upper(?)");
 		query.setParameter(1, "%" + lastName + "%");
 
-		int total = (Integer) query.getSingleResult();
+		long total = (Long) query.getSingleResult();
 		return new Page<PersonDO>(listDO, page, perPage, total);
 	}
 

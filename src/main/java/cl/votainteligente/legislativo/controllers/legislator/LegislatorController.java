@@ -93,17 +93,6 @@ public class LegislatorController {
 		}
 	}
 
-	@RequestMapping(value = "legislator/allPeople", method = RequestMethod.GET)
-	@ResponseBody
-	public final Page<PersonDO> getLegislatorPersons() {
-		try {
-			return service.getPersonDOs();
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			throw new ServerErrorException();
-		}
-	}
-
 	@RequestMapping(value = "legislator/people", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<PersonDO> getKLegislatorPersons(

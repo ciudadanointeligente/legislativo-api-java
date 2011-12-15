@@ -12,7 +12,6 @@ import cl.votainteligente.legislativo.model.Circunscription;
 import cl.votainteligente.legislativo.model.District;
 import cl.votainteligente.legislativo.model.Legislator;
 import cl.votainteligente.legislativo.model.Person;
-import cl.votainteligente.legislativo.model.domainobjects.BillDO;
 import cl.votainteligente.legislativo.model.domainobjects.Page;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.service.EntityManagerService;
@@ -40,8 +39,14 @@ public class LegislatorServiceImpl extends EntityManagerService implements
 		Query query = getEntityManager().createQuery(
 				"select l from Legislator l where l.person = ?");
 		query.setParameter(1, person);
+		query.setFirstResult((page - 1) * perPage);
+		query.setMaxResults(perPage);
 		List<Legislator> results = query.getResultList();
-		return Page.listToPage(results, page, perPage);
+		query = getEntityManager().createQuery(
+				"select count(l) from Legislator l where l.person = ?");
+		query.setParameter(1, person);
+		long total = (Long) query.getSingleResult();
+		return new Page<Legislator>(results, page, perPage, total);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -52,8 +57,15 @@ public class LegislatorServiceImpl extends EntityManagerService implements
 		Query query = getEntityManager().createQuery(
 				"select p from Legislator p where p.circunscription = ?");
 		query.setParameter(1, circunscription);
+		query.setFirstResult((page - 1) * perPage);
+		query.setMaxResults(perPage);
 		List<Legislator> results = query.getResultList();
-		return Page.listToPage(results, page, perPage);
+		query = getEntityManager()
+				.createQuery(
+						"select count(p) from Legislator p where p.circunscription = ?");
+		query.setParameter(1, circunscription);
+		long total = (Long) query.getSingleResult();
+		return new Page<Legislator>(results, page, perPage, total);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -63,25 +75,14 @@ public class LegislatorServiceImpl extends EntityManagerService implements
 		Query query = getEntityManager().createQuery(
 				"select p from Legislator p where p.district = ?");
 		query.setParameter(1, district);
+		query.setFirstResult((page - 1) * perPage);
+		query.setMaxResults(perPage);
 		List<Legislator> results = query.getResultList();
-		return Page.listToPage(results, page, perPage);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<PersonDO> getPersonDOsList() throws ServiceException {
-		Query query = getEntityManager().createQuery(
-				"select distinct l.person from Legislator l");
-		List<PersonDO> results = new ArrayList<PersonDO>();
-		for (Person person : (List<Person>) query.getResultList())
-			results.add(person.asDomainObject());
-		return results;
-	}
-
-	@Override
-	public Page<PersonDO> getPersonDOs() throws ServiceException {
-		List<PersonDO> results = getPersonDOsList();
-		return Page.listToPage(results, 1, results.size());
+		query = getEntityManager().createQuery(
+				"select p from Legislator p where p.district = ?");
+		query.setParameter(1, district);
+		long total = (Long) query.getSingleResult();
+		return new Page<Legislator>(results, page, perPage, total);
 	}
 
 	@SuppressWarnings("unchecked")
