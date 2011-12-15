@@ -12,6 +12,7 @@ import cl.votainteligente.legislativo.model.Circunscription;
 import cl.votainteligente.legislativo.model.District;
 import cl.votainteligente.legislativo.model.Legislator;
 import cl.votainteligente.legislativo.model.Person;
+import cl.votainteligente.legislativo.model.domainobjects.BillDO;
 import cl.votainteligente.legislativo.model.domainobjects.Page;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.service.EntityManagerService;
@@ -85,26 +86,20 @@ public class LegislatorServiceImpl extends EntityManagerService implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Page<PersonDO> getKPersonDOs(int page, int perPage)
+	public Page<PersonDO> getKPersonDOs(int pageNumber, int resultsPerPage)
 			throws ServiceException {
-		/**
-		 * TODO: Fix to use count.
-		 * 
-		 * We tried to use count instead of retrieving every person, but the
-		 * query select count(distinct l.person) from Legislator l keeps
-		 * returning 0.
-		 * 
-		 * Please fix.
-		 * 
-		 * Jose told us that this might be a Hibernate Bug.
-		 * 
-		 */
 		Query query = getEntityManager().createQuery(
 				"select distinct l.person from Legislator l");
+		query.setFirstResult((pageNumber - 1) * resultsPerPage);
+		query.setMaxResults(resultsPerPage);
 		List<PersonDO> results = new ArrayList<PersonDO>();
 		for (Person person : (List<Person>) query.getResultList())
 			results.add(person.asDomainObject());
-		return Page.listToPage(results, page, perPage);
+		Query queryCount = getEntityManager().createQuery(
+				"select count(distinct l.person) from Legislator l");
+		Long totalPeople = (Long) queryCount.getSingleResult();
+		return new Page<PersonDO>(results, pageNumber, resultsPerPage,
+				totalPeople);
 
 	}
 

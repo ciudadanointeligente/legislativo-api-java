@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cl.votainteligente.legislativo.ApplicationProperties;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
 import cl.votainteligente.legislativo.model.Circunscription;
@@ -55,7 +56,7 @@ public class LegislatorController {
 			@RequestParam(value = "perPage", required = false, defaultValue = "10") final int perPage) {
 		try {
 			District tmp = district.getDistrict(id);
-			return service.getLegislatorsByDistrict(tmp,page,perPage);
+			return service.getLegislatorsByDistrict(tmp, page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -70,7 +71,7 @@ public class LegislatorController {
 			@RequestParam(value = "perPage", required = false, defaultValue = "10") final int perPage) {
 		try {
 			Circunscription tmp = circunscription.getCircunscription(id);
-			return service.getLegislatorsByCircunscription(tmp,page,perPage);
+			return service.getLegislatorsByCircunscription(tmp, page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -85,7 +86,7 @@ public class LegislatorController {
 			@RequestParam(value = "perPage", required = false, defaultValue = "10") final int perPage) {
 		try {
 			Person legislator = person.getPerson(id);
-			return service.getLegislatorsByPerson(legislator,page,perPage);
+			return service.getLegislatorsByPerson(legislator, page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -106,8 +107,8 @@ public class LegislatorController {
 	@RequestMapping(value = "legislator/people", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<PersonDO> getKLegislatorPersons(
-			@RequestParam(value = "page", required = false, defaultValue = "1") final int page,
-			@RequestParam(value = "perPage", required = false, defaultValue = "10") final int perPage) {
+			@RequestParam(value = "page", required = false, defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE) final int page,
+			@RequestParam(value = "perPage", required = false, defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE) final int perPage) {
 		try {
 			return service.getKPersonDOs(page, perPage);
 		} catch (ServiceException e) {
