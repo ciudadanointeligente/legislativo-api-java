@@ -48,7 +48,6 @@ public class BillServiceImpl extends EntityManagerService implements
 				"select count(p) from Bill p");
 		Long totalBills = (Long) queryCount.getSingleResult();
 		return new Page<BillDO>(listDO, pageNumber, resultsPerPage, totalBills);
-
 	}
 
 	@Override
@@ -79,7 +78,6 @@ public class BillServiceImpl extends EntityManagerService implements
 		queryCount.setParameter(2, to, TemporalType.DATE);
 		Long totalBills = (Long) queryCount.getSingleResult();
 		return new Page<BillDO>(listDO, pageNumber, resultsPerPage, totalBills);
-
 	}
 
 	@SuppressWarnings("unchecked")

@@ -34,6 +34,9 @@ public class Agrupation extends Participant {
 	@Column(name = "foundation_date")
 	private Date foundationDate;
 
+	@Column
+	private String name;
+
 	public String getMailAddress() {
 		return mailAddress;
 	}
@@ -88,6 +91,14 @@ public class Agrupation extends Participant {
 
 	public void setFoundationDate(Date foundationDate) {
 		this.foundationDate = foundationDate;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

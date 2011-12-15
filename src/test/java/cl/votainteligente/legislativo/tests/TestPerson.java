@@ -30,7 +30,6 @@ public class TestPerson extends TestCase {
 		person.setLastName("Cantero");
 		person.setMailAddress("ccantero@senado.cl");
 		person.setWebsite("www.cantero.cl");
-		person.setParty("INDEPENDIENTE");
 		person.setGraduateEducation("No tiene");
 		person.setUniversityEducation("Geografía, Universidad Católica del Norte de Antof...");
 		person.setStatementOfHeritage("No ha hecho");
@@ -94,10 +93,6 @@ public class TestPerson extends TestCase {
 	public void testGetRoles() {
 		// TODO: needs to be updated
 		return;
-	}
-
-	public void testGetParty() {
-		assert (person.getParty().equals("INDEPENDIENTE"));
 	}
 
 	public void testGetGraduateEducation() {

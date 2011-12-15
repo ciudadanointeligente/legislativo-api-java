@@ -6,6 +6,7 @@ import cl.votainteligente.legislativo.model.District;
 import cl.votainteligente.legislativo.model.Legislator;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.domainobjects.Page;
+import cl.votainteligente.legislativo.model.domainobjects.LegislatorPersonDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 
 public interface LegislatorService {
@@ -24,4 +25,7 @@ public interface LegislatorService {
 			int perPage) throws ServiceException;
 
 	Page<PersonDO> getKPersonDOs(int page, int perPage) throws ServiceException;
+
+	Page<LegislatorPersonDO> getLegislatorPersonDOs(int page, int perPage)
+			throws ServiceException;
 }

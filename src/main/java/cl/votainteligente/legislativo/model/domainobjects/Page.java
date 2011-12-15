@@ -13,8 +13,10 @@ public class Page<T> {
 		this.content = content;
 		this.pageNumber = pageNumber;
 		this.totalElements = totalElements;
-		this.totalPages = ((int)Math.ceil(1.0*totalElements/resultsPerPage));
+		this.totalPages = ((int) Math
+				.ceil(1.0 * totalElements / resultsPerPage));
 	}
+
 	public int getPageNumber() {
 		return pageNumber;
 	}
@@ -47,19 +49,21 @@ public class Page<T> {
 		this.content = content;
 	}
 
-	public static <T> Page<T> listToPage(List<T> list, int pageNumber, int resultsPerPage) {
+	public static <T> Page<T> listToPage(List<T> list, int pageNumber,
+			int resultsPerPage) {
 		Page<T> resultPage = new Page<T>();
 		int totalResults = list.size();
-		int totalPages = (totalResults >= resultsPerPage) ? (totalResults / resultsPerPage) : 1;
+		int totalPages = (totalResults >= resultsPerPage) ? (totalResults / resultsPerPage)
+				: 1;
 		resultPage.setPageNumber(pageNumber);
-		resultPage.setTotalElements(totalResults);
+		resultPage.setTotalElements(new Long(totalResults));
 		resultPage.setTotalPages(totalPages);
 		int start = (pageNumber - 1) * resultsPerPage;
-		int end = (start + resultsPerPage) > totalResults ? totalResults : start + resultsPerPage;
-		if(pageNumber > totalPages){
+		int end = (start + resultsPerPage) > totalResults ? totalResults
+				: start + resultsPerPage;
+		if (pageNumber > totalPages) {
 			resultPage.setContent(null);
-		}
-		else {
+		} else {
 			resultPage.setContent(list.subList(start, end));
 		}
 		return resultPage;

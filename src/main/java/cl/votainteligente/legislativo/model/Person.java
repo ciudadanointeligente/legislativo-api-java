@@ -18,6 +18,12 @@ public class Person extends Participant {
 	@OneToMany
 	private List<Role> roles;
 
+	@Column(name = "first_name")
+	private String firstName;
+
+	@Column(name = "last_name")
+	private String lastName;
+
 	@Column(name = "mail_address")
 	private String mailAddress;
 
@@ -38,9 +44,6 @@ public class Person extends Participant {
 
 	@Column
 	private String profession;
-
-	@Column
-	private String party;
 
 	@Column(name = "university_education")
 	private String universityEducation;
@@ -68,14 +71,6 @@ public class Person extends Participant {
 
 	public void setWebsite(String website) {
 		this.website = website;
-	}
-
-	public String getParty() {
-		return party;
-	}
-
-	public void setParty(String party) {
-		this.party = party;
 	}
 
 	public String getTwitterAccount() {
@@ -156,6 +151,22 @@ public class Person extends Participant {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	@Transient

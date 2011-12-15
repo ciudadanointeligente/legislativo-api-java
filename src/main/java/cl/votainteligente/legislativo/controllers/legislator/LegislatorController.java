@@ -14,6 +14,7 @@ import cl.votainteligente.legislativo.model.Circunscription;
 import cl.votainteligente.legislativo.model.District;
 import cl.votainteligente.legislativo.model.Legislator;
 import cl.votainteligente.legislativo.model.Person;
+import cl.votainteligente.legislativo.model.domainobjects.LegislatorPersonDO;
 import cl.votainteligente.legislativo.model.domainobjects.Page;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.service.geo.CircunscriptionService;
@@ -100,6 +101,18 @@ public class LegislatorController {
 			@RequestParam(value = "perPage", required = false, defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE) final int perPage) {
 		try {
 			return service.getKPersonDOs(page, perPage);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			throw new ServerErrorException();
+		}
+	}
+
+	@RequestMapping(value = "legislator/all", method = RequestMethod.GET)
+	public final Page<LegislatorPersonDO> getLegislatorPersons(
+			@RequestParam(value = "page", required = false, defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE) final int page,
+			@RequestParam(value = "perPage", required = false, defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE) final int perPage) {
+		try {
+			return service.getLegislatorPersonDOs(page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();

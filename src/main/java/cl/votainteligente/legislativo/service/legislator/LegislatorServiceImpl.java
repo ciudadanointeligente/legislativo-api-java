@@ -1,17 +1,18 @@
 package cl.votainteligente.legislativo.service.legislator;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Query;
-
+import javax.persistence.TemporalType;
 import org.springframework.stereotype.Service;
-
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.model.Circunscription;
 import cl.votainteligente.legislativo.model.District;
 import cl.votainteligente.legislativo.model.Legislator;
+import cl.votainteligente.legislativo.model.PartyAffiliation;
 import cl.votainteligente.legislativo.model.Person;
+import cl.votainteligente.legislativo.model.domainobjects.LegislatorPersonDO;
 import cl.votainteligente.legislativo.model.domainobjects.Page;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.service.EntityManagerService;
@@ -78,30 +79,54 @@ public class LegislatorServiceImpl extends EntityManagerService implements
 		query.setFirstResult((page - 1) * perPage);
 		query.setMaxResults(perPage);
 		List<Legislator> results = query.getResultList();
-		query = getEntityManager().createQuery(
+		Query count = getEntityManager().createQuery(
 				"select p from Legislator p where p.district = ?");
-		query.setParameter(1, district);
-		long total = (Long) query.getSingleResult();
+		count.setParameter(1, district);
+		long total = (Long) count.getSingleResult();
 		return new Page<Legislator>(results, page, perPage, total);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Page<PersonDO> getKPersonDOs(int pageNumber, int resultsPerPage)
+	public Page<PersonDO> getKPersonDOs(int page, int perPage)
 			throws ServiceException {
-		Query query = getEntityManager().createQuery(
-				"select distinct l.person from Legislator l");
-		query.setFirstResult((pageNumber - 1) * resultsPerPage);
-		query.setMaxResults(resultsPerPage);
+		Query query = getEntityManager()
+				.createQuery(
+						"select pa from PartyAffiliation pa join pa.person.roles r where r.class=Legilsator");
+		query.setFirstResult((page - 1) * perPage);
+		query.setMaxResults(perPage);
 		List<PersonDO> results = new ArrayList<PersonDO>();
 		for (Person person : (List<Person>) query.getResultList())
 			results.add(person.asDomainObject());
-		Query queryCount = getEntityManager().createQuery(
-				"select count(distinct l.person) from Legislator l");
-		Long totalPeople = (Long) queryCount.getSingleResult();
-		return new Page<PersonDO>(results, pageNumber, resultsPerPage,
-				totalPeople);
-
+		Query count = getEntityManager()
+				.createQuery(
+						"select count(pa) from PartyAffiliation pa join pa.person.roles r where r.class=Legilsator");
+		long totalElements = (Long) count.getSingleResult();
+		return new Page<PersonDO>(results, page, perPage, totalElements);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public Page<LegislatorPersonDO> getLegislatorPersonDOs(int page, int perPage)
+			throws ServiceException {
+		Query query = getEntityManager()
+				.createQuery(
+						"select pa from PartyAffiliation pa join pa.person.roles r where r.class=Legislator and (r.endDate >= ? or r.endDate is null)");
+		query.setParameter(1, new Date(), TemporalType.DATE);
+		query.setFirstResult((page - 1) * perPage);
+		query.setMaxResults(perPage);
+		ArrayList<LegislatorPersonDO> listDO = new ArrayList<LegislatorPersonDO>();
+		for (PartyAffiliation affiliation : (List<PartyAffiliation>) query
+				.getResultList()) {
+			listDO.add(new LegislatorPersonDO(affiliation.getPerson(),
+					affiliation.getParty()));
+		}
+		Query count = getEntityManager()
+				.createQuery(
+						"select count(pa) from PartyAffiliation pa join pa.person.roles r where r.class=Legislator and (r.endDate >= ? or r.endDate is null)");
+		count.setParameter(1, new Date(), TemporalType.DATE);
+		Long totalElements = (Long) count.getSingleResult();
+		return new Page<LegislatorPersonDO>(listDO, page, perPage,
+				totalElements);
+	}
 }

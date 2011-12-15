@@ -25,7 +25,7 @@ public class PartyDO {
 
 	public PartyDO(Party party) {
 		this.id = party.getId();
-		this.name = party.getFirstName();
+		this.name = party.getName();
 	}
 
 }
