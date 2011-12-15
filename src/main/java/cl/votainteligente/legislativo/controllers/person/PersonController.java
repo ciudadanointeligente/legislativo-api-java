@@ -32,7 +32,7 @@ public class PersonController {
 		}
 	}
 
-	@RequestMapping(params = { "firstName", "page", "perPage" }, value = "person/any", method = RequestMethod.GET)
+	@RequestMapping(params = { "firstName" }, value = "person/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<PersonDO> findPersonByFirstName(
 			@RequestParam(value = "firstName", required = true) final String firstName,
@@ -46,7 +46,7 @@ public class PersonController {
 		}
 	}
 
-	@RequestMapping(params = { "lastName", "page", "perPage" }, value = "person/any", method = RequestMethod.GET)
+	@RequestMapping(params = { "lastName" }, value = "person/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<PersonDO> findPersonByLastName(
 			@RequestParam(value = "lastName", required = true) final String lastName,

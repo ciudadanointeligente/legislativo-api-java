@@ -33,7 +33,7 @@ public class CommuneController {
 		}
 	}
 
-	@RequestMapping(params = { "name", "page", "perPage" }, value = "geo/commune/any", method = RequestMethod.GET)
+	@RequestMapping(params = { "name" }, value = "geo/commune/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<CommuneDO> findCommunesByName(
 			@RequestParam(value = "name", required = true) final String name,
