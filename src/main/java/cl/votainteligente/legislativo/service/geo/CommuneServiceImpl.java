@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.model.Commune;
 import cl.votainteligente.legislativo.model.domainobjects.CommuneDO;
+import cl.votainteligente.legislativo.model.domainobjects.Page;
 import cl.votainteligente.legislativo.service.EntityManagerService;
 
 @Service
@@ -24,22 +25,35 @@ public class CommuneServiceImpl extends EntityManagerService implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Commune> getAllCommunes() throws ServiceException {
+	public Page<Commune> getAllCommunes(int page, int perPage)
+			throws ServiceException {
 		Query query = getEntityManager().createQuery("select p from Commune p");
+		query.setFirstResult((page - 1) * perPage);
+		query.setMaxResults(perPage);
 		List<Commune> list = query.getResultList();
-		return list;
+		query = getEntityManager()
+				.createQuery("select count(p) from Commune p");
+		int total = (Integer) query.getSingleResult();
+		return new Page<Commune>(list, page, perPage, total);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Commune> findCommunesByName(String name)
+	public Page<Commune> findCommunesByName(String name, int page, int perPage)
 			throws ServiceException {
 		Query query = getEntityManager().createQuery(
 				"select p from Commune p where upper(p.name) like upper(?)");
 		// Use setParameter to avoid SQL Injections.
 		query.setParameter(1, "%" + name + "%");
+		query.setFirstResult((page - 1) * perPage);
+		query.setMaxResults(perPage);
 		List<Commune> list = query.getResultList();
-		return list;
+		query = getEntityManager()
+				.createQuery(
+						"select count(p) from Commune p where upper(p.name) like upper(?)");
+		query.setParameter(1, "%" + name + "%");
+		int total = (Integer) query.getSingleResult();
+		return new Page<Commune>(list, page, perPage, total);
 	}
 
 	@Override
@@ -48,14 +62,15 @@ public class CommuneServiceImpl extends EntityManagerService implements
 	}
 
 	@Override
-	public List<CommuneDO> getAllCommuneDOs() throws ServiceException {
-		return CommuneToCommuneDO(getAllCommunes());
+	public Page<CommuneDO> getAllCommuneDOs(int page, int perPage)
+			throws ServiceException {
+		return CommuneToCommuneDO(getAllCommunes(page, perPage));
 	}
 
 	@Override
-	public List<CommuneDO> findCommuneDOsByName(String name)
-			throws ServiceException {
-		return CommuneToCommuneDO(findCommunesByName(name));
+	public Page<CommuneDO> findCommuneDOsByName(String name, int page,
+			int perPage) throws ServiceException {
+		return CommuneToCommuneDO(findCommunesByName(name, page, perPage));
 	}
 
 	@Override
@@ -63,10 +78,15 @@ public class CommuneServiceImpl extends EntityManagerService implements
 		return getCommune(id).asDomainObject();
 	}
 
-	private List<CommuneDO> CommuneToCommuneDO(List<Commune> list) {
+	private Page<CommuneDO> CommuneToCommuneDO(Page<Commune> page) {
 		List<CommuneDO> listDO = new LinkedList<CommuneDO>();
-		for (Commune c : list)
+		for (Commune c : page.getContent())
 			listDO.add(c.asDomainObject());
-		return listDO;
+		Page<CommuneDO> ans = new Page<CommuneDO>();
+		ans.setContent(listDO);
+		ans.setPageNumber(page.getPageNumber());
+		ans.setTotalElements(page.getTotalElements());
+		ans.setTotalPages(page.getTotalPages());
+		return ans;
 	}
 }

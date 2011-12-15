@@ -1,6 +1,5 @@
 package cl.votainteligente.legislativo.controllers.geo;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,47 +9,50 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
+import cl.votainteligente.legislativo.model.Commune;
+import cl.votainteligente.legislativo.model.domainobjects.CommuneDO;
+import cl.votainteligente.legislativo.model.domainobjects.Page;
 import cl.votainteligente.legislativo.service.geo.CommuneService;
-
-import com.google.gson.Gson;
 
 @Controller
 public class CommuneController {
-	private Logger logger = Logger.getLogger(CommuneController.class);
-	private Gson gson = new Gson();
 
 	@Autowired
 	CommuneService service;
 
-	@RequestMapping(value = "geo/commune/all.json", method = RequestMethod.GET)
+	@RequestMapping(value = "geo/commune/all", method = RequestMethod.GET)
 	@ResponseBody
-	public final String getAll() {
+	public final Page<CommuneDO> getAll(
+			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
 		try {
-			return gson.toJson(service.getAllCommuneDOs());
+			return service.getAllCommuneDOs(page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
 		}
 	}
 
-	@RequestMapping(params = { "name" }, value = "geo/commune/any.json", method = RequestMethod.GET)
+	@RequestMapping(params = { "name", "page", "perPage" }, value = "geo/commune/any", method = RequestMethod.GET)
 	@ResponseBody
-	public final String findCommunesByName(
-			@RequestParam(value = "name", required = true) final String name) {
+	public final Page<CommuneDO> findCommunesByName(
+			@RequestParam(value = "name", required = true) final String name,
+			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
 		try {
-			return gson.toJson(service.findCommuneDOsByName(name));
+			return service.findCommuneDOsByName(name, page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
 		}
 	}
 
-	@RequestMapping(params = { "id" }, value = "geo/commune/any.json", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" }, value = "geo/commune/any", method = RequestMethod.GET)
 	@ResponseBody
-	public final String getCommuneById(
+	public final Commune getCommuneById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			return gson.toJson(service.getCommuneDO(id));
+			return service.getCommune(id);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
