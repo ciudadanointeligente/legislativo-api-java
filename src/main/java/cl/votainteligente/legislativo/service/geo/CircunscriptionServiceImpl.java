@@ -17,8 +17,6 @@ import cl.votainteligente.legislativo.service.EntityManagerService;
 public class CircunscriptionServiceImpl extends EntityManagerService implements
 		CircunscriptionService {
 
-	// Circunscription methods
-
 	@Override
 	public Circunscription newCircunscription(Circunscription circunscription)
 			throws ServiceException {
@@ -28,75 +26,72 @@ public class CircunscriptionServiceImpl extends EntityManagerService implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Circunscription> getAllCircunscriptionsByRegion(Long regionId)
-			throws ServiceException {
+	public Page<CircunscriptionDO> getAllCircunscriptionDOsByRegion(
+			Long regionId, int page, int perPage) throws ServiceException {
 		Query query = getEntityManager()
 				.createQuery(
 						"select p from Circunscription p join p.regions r where r.id = ?");
 		// Use setParameter to avoid SQL Injections.
 		query.setParameter(1, regionId);
+		query.setFirstResult((page - 1) * perPage);
+		query.setMaxResults(perPage);
 		List<Circunscription> list = query.getResultList();
-		return list;
+		query = getEntityManager()
+				.createQuery(
+						"select count(p) from Circunscription p join p.regions r where r.id = ?");
+		// Use setParameter to avoid SQL Injections.
+		query.setParameter(1, regionId);
+		int total = (Integer) query.getSingleResult();
+		return new Page<CircunscriptionDO>(
+				circunscriptionToCircunscriptionDO(list), page, perPage, total);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Circunscription> findCircunscriptionsByName(String name)
-			throws ServiceException {
+	public Page<CircunscriptionDO> findCircunscriptionDOsByName(String name,
+			int page, int perPage) throws ServiceException {
 		Query query = getEntityManager()
 				.createQuery(
 						"select p from Circunscription p where upper(p.name) like upper(?)");
 		// Use setParameter to avoid SQL Injections.
 		query.setParameter(1, "%" + name + "%");
+
+		query.setFirstResult((page - 1) * perPage);
+		query.setMaxResults(perPage);
 		List<Circunscription> list = query.getResultList();
-		return list;
+		query = getEntityManager()
+				.createQuery(
+						"select count(p) from Circunscription p where upper(p.name) like upper(?)");
+		// Use setParameter to avoid SQL Injections.
+		query.setParameter(1, "%" + name + "%");
+		int total = (Integer) query.getSingleResult();
+		return new Page<CircunscriptionDO>(
+				circunscriptionToCircunscriptionDO(list), page, perPage, total);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Circunscription> getAllCircunscriptions()
-			throws ServiceException {
+	public Page<CircunscriptionDO> getAllCircunscriptionDOs(int page,
+			int perPage) throws ServiceException {
 		Query query = getEntityManager().createQuery(
 				"select p from Circunscription p");
 		List<Circunscription> list = query.getResultList();
-		return list;
-	}
-
-	@Override
-	public Circunscription getCircunscription(Long id) throws ServiceException {
-		return getEntityManager().find(Circunscription.class, id);
-	}
-
-	// CircunscriptionDO methods
-	@Override
-	public Page<CircunscriptionDO> getAllCircunscriptionDOsByRegion(
-			Long regionId, int page, int perPage) throws ServiceException {
-		List<CircunscriptionDO> list = circunscriptionToCircunscriptionDO(this
-				.getAllCircunscriptionsByRegion(regionId));
-		return Page.listToPage(list, page, perPage);
-	}
-
-	@Override
-	public Page<CircunscriptionDO> findCircunscriptionDOsByName(String name,
-			int page, int perPage) throws ServiceException {
-		List<CircunscriptionDO> list = circunscriptionToCircunscriptionDO(this
-				.findCircunscriptionsByName(name));
-		return Page.listToPage(list, page, perPage);
-	}
-
-	@Override
-	public Page<CircunscriptionDO> getAllCircunscriptionDOs(int page,
-			int perPage) throws ServiceException {
-		List<CircunscriptionDO> list = circunscriptionToCircunscriptionDO(this
-				.getAllCircunscriptions());
-		return Page.listToPage(list, page, perPage);
+		query = getEntityManager().createQuery(
+				"select count(p) from Circunscription p");
+		int total = (Integer) query.getSingleResult();
+		return new Page<CircunscriptionDO>(
+				circunscriptionToCircunscriptionDO(list), page, perPage, total);
 	}
 
 	@Override
 	public CircunscriptionDO getCircunscriptionDO(Long id)
 			throws ServiceException {
-		Circunscription c = getCircunscription(id);
-		return (c != null) ? c.asDomainObject() : null;
+		return getCircunscription(id).asDomainObject();
+	}
+
+	@Override
+	public Circunscription getCircunscription(Long id) throws ServiceException {
+		return getEntityManager().find(Circunscription.class, id);
 	}
 
 	private List<CircunscriptionDO> circunscriptionToCircunscriptionDO(
