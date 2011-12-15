@@ -6,10 +6,10 @@ public class Page<T> {
 
 	private int pageNumber;
 	private int totalPages;
-	private int totalElements;
+	private long totalElements;
 	private List<T> content;
 	public Page(){};
-	public Page(List<T> content, int pageNumber, int resultsPerPage, int totalElements){
+	public Page(List<T> content, int pageNumber, int resultsPerPage, long totalElements){
 		this.content = content;
 		this.pageNumber = pageNumber;
 		this.totalElements = totalElements;
@@ -23,7 +23,7 @@ public class Page<T> {
 		return totalPages;
 	}
 
-	public int getTotalElements() {
+	public long getTotalElements() {
 		return totalElements;
 	}
 
@@ -39,7 +39,7 @@ public class Page<T> {
 		this.totalPages = totalPages;
 	}
 
-	public void setTotalElements(int totalElements) {
+	public void setTotalElements(long totalElements) {
 		this.totalElements = totalElements;
 	}
 

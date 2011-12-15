@@ -24,7 +24,8 @@ import java.util.Date;
 
 @Controller
 public class BillController {
-	private SimpleDateFormat dateFormat = new SimpleDateFormat(ApplicationProperties.getProperty("bill.controller.date.format"));
+	private SimpleDateFormat dateFormat = new SimpleDateFormat(
+			ApplicationProperties.getProperty("bill.controller.date.format"));
 
 	@Autowired
 	BillService service;
@@ -38,8 +39,8 @@ public class BillController {
 	@RequestMapping(value = "bill/all", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<BillDO> getAll(
-			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 			Page<BillDO> resultPage = service.getAllBillDOs(page, perPage);
 			return resultPage;
@@ -66,8 +67,8 @@ public class BillController {
 	public final Page<BillDO> getDateRange(
 			@RequestParam(value = "from", required = true) final String fromString,
 			@RequestParam(value = "to", required = true) final String toString,
-			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 			Date from = dateFormat.parse(fromString);
 			Date to = dateFormat.parse(toString);
@@ -86,8 +87,8 @@ public class BillController {
 	@ResponseBody
 	public final Page<BillDO> getBillsByStage(
 			@RequestParam(value = "stage_id", required = true) final long stage_id,
-			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 			Page<BillDO> resultPage = service.getByStage(stage_id, page,
 					perPage);
@@ -102,8 +103,8 @@ public class BillController {
 	@ResponseBody
 	public final Page<BillDO> getByAuthors(
 			@RequestParam(value = "id", required = true) final long author_id,
-			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 			Person p = personService.getPerson(author_id);
 			if (p == null)
@@ -120,8 +121,8 @@ public class BillController {
 	@ResponseBody
 	public final Page<BillDO> getByMatter(
 			@RequestParam(value = "id", required = true) final long matter_id,
-			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 
 			Matter p = matterService.getById(matter_id);
