@@ -41,7 +41,7 @@ public class CircunscriptionServiceImpl extends EntityManagerService implements
 						"select count(p) from Circunscription p join p.regions r where r.id = ?");
 		// Use setParameter to avoid SQL Injections.
 		query.setParameter(1, regionId);
-		int total = (Integer) query.getSingleResult();
+		long total = (Long) query.getSingleResult();
 		return new Page<CircunscriptionDO>(
 				circunscriptionToCircunscriptionDO(list), page, perPage, total);
 	}
@@ -64,7 +64,7 @@ public class CircunscriptionServiceImpl extends EntityManagerService implements
 						"select count(p) from Circunscription p where upper(p.name) like upper(?)");
 		// Use setParameter to avoid SQL Injections.
 		query.setParameter(1, "%" + name + "%");
-		int total = (Integer) query.getSingleResult();
+		long total = (Long) query.getSingleResult();
 		return new Page<CircunscriptionDO>(
 				circunscriptionToCircunscriptionDO(list), page, perPage, total);
 	}
@@ -78,7 +78,7 @@ public class CircunscriptionServiceImpl extends EntityManagerService implements
 		List<Circunscription> list = query.getResultList();
 		query = getEntityManager().createQuery(
 				"select count(p) from Circunscription p");
-		int total = (Integer) query.getSingleResult();
+		long total = (Long) query.getSingleResult();
 		return new Page<CircunscriptionDO>(
 				circunscriptionToCircunscriptionDO(list), page, perPage, total);
 	}

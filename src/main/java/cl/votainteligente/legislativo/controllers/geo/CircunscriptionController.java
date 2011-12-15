@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
-import cl.votainteligente.legislativo.model.domainobjects.BillDO;
 import cl.votainteligente.legislativo.model.domainobjects.Page;
 import cl.votainteligente.legislativo.model.domainobjects.CircunscriptionDO;
 import cl.votainteligente.legislativo.service.geo.CircunscriptionService;
