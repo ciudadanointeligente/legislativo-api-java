@@ -1,16 +1,16 @@
 package cl.votainteligente.legislativo.service.geo;
 
-import java.util.List;
-
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.model.Region;
+import cl.votainteligente.legislativo.model.domainobjects.Page;
 
 public interface RegionService {
 	Region newRegion(Region region) throws ServiceException;
 
-	List<Region> getAllRegions() throws ServiceException;
+	Page<Region> getAllRegions(int page, int perPage) throws ServiceException;
 
-	List<Region> findRegionsByName(String name) throws ServiceException;
+	Page<Region> findRegionsByName(String name, int page, int perPage)
+			throws ServiceException;
 
 	Region getRegion(Long id) throws ServiceException;
 }
