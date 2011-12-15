@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.model.Circunscription;
 import cl.votainteligente.legislativo.model.domainobjects.CircunscriptionDO;
+import cl.votainteligente.legislativo.model.domainobjects.Page;
 import cl.votainteligente.legislativo.service.EntityManagerService;
 
 @Service
@@ -68,23 +69,27 @@ public class CircunscriptionServiceImpl extends EntityManagerService implements
 
 	// CircunscriptionDO methods
 	@Override
-	public List<CircunscriptionDO> getAllCircunscriptionDOsByRegion(
-			Long regionId) throws ServiceException {
-		return circunscriptionToCircunscriptionDO(this
+	public Page<CircunscriptionDO> getAllCircunscriptionDOsByRegion(
+			Long regionId, int page, int perPage) throws ServiceException {
+		List<CircunscriptionDO> list = circunscriptionToCircunscriptionDO(this
 				.getAllCircunscriptionsByRegion(regionId));
+		return Page.listToPage(list, page, perPage);
 	}
 
 	@Override
-	public List<CircunscriptionDO> findCircunscriptionDOsByName(String name)
-			throws ServiceException {
-		return circunscriptionToCircunscriptionDO(this
+	public Page<CircunscriptionDO> findCircunscriptionDOsByName(String name,
+			int page, int perPage) throws ServiceException {
+		List<CircunscriptionDO> list = circunscriptionToCircunscriptionDO(this
 				.findCircunscriptionsByName(name));
+		return Page.listToPage(list, page, perPage);
 	}
 
 	@Override
-	public List<CircunscriptionDO> getAllCircunscriptionDOs()
-			throws ServiceException {
-		return circunscriptionToCircunscriptionDO(this.getAllCircunscriptions());
+	public Page<CircunscriptionDO> getAllCircunscriptionDOs(int page,
+			int perPage) throws ServiceException {
+		List<CircunscriptionDO> list = circunscriptionToCircunscriptionDO(this
+				.getAllCircunscriptions());
+		return Page.listToPage(list, page, perPage);
 	}
 
 	@Override
