@@ -10,7 +10,7 @@ import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.model.Bill;
 import cl.votainteligente.legislativo.model.Matter;
 import cl.votainteligente.legislativo.model.Person;
-import cl.votainteligente.legislativo.model.Stage;
+import cl.votainteligente.legislativo.model.StageDescription;
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
 import cl.votainteligente.legislativo.model.domainobjects.Page;
 import cl.votainteligente.legislativo.service.EntityManagerService;
@@ -29,11 +29,7 @@ public class BillServiceImpl extends EntityManagerService implements
 	@Override
 	public List<Bill> getAllBills() throws ServiceException {
 		Query query = getEntityManager().createQuery("select p from Bill p");
-		List<Bill> list = new ArrayList<Bill>();
-		for (Bill bill : (List<Bill>) query.getResultList()) {
-			list.add(bill);
-		}
-		return list;
+		return query.getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -86,20 +82,28 @@ public class BillServiceImpl extends EntityManagerService implements
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Page<BillDO> getByStage(Long stage, int pageNumber,
-			int resultsPerPage) throws ServiceException {
-		// TODO: Optimize
-		List<Bill> allBills = getAllBills();
-		List<BillDO> resultList = new ArrayList<BillDO>();
-		for (Bill bill : allBills) {
-			for (Stage billStage : bill.getStages()) {
-				if (billStage.getStageDescription().getId().equals(stage)) {
-					resultList.add(bill.asDomainObject());
-				}
-			}
+	public Page<BillDO> getByStage(StageDescription stageDescription,
+			int pageNumber, int resultsPerPage) throws ServiceException {
+		Query query = getEntityManager()
+				.createQuery(
+						"select distinct p from Bill p join p.stages s where s.endDate is null and s.stageDescription = ?");
+		query.setParameter(1, stageDescription);
+		query.setFirstResult((pageNumber - 1) * resultsPerPage);
+		query.setMaxResults(resultsPerPage);
+		List<Bill> resultList = (List<Bill>) query.getResultList();
+		List<BillDO> listDO = new ArrayList<BillDO>();
+		for (Bill bill : resultList) {
+			listDO.add(bill.asDomainObject());
 		}
-		return Page.listToPage(resultList, pageNumber, resultsPerPage);
+		Query queryCount = getEntityManager()
+				.createQuery(
+						"select count(distinct p) from Bill p join p.stages s where s.endDate is null and s.stageDescription = ?");
+		queryCount.setParameter(1, stageDescription);
+		Long totalBills = (Long) queryCount.getSingleResult();
+		return new Page<BillDO>(listDO, pageNumber, resultsPerPage, totalBills);
+
 	}
 
 	@SuppressWarnings("unchecked")

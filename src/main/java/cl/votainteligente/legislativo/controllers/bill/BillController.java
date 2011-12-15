@@ -8,9 +8,11 @@ import cl.votainteligente.legislativo.exceptions.ServerErrorException;
 import cl.votainteligente.legislativo.model.Bill;
 import cl.votainteligente.legislativo.model.Matter;
 import cl.votainteligente.legislativo.model.Person;
+import cl.votainteligente.legislativo.model.StageDescription;
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
 import cl.votainteligente.legislativo.model.domainobjects.Page;
 import cl.votainteligente.legislativo.service.bill.BillService;
+import cl.votainteligente.legislativo.service.bill.StageDescriptionService;
 import cl.votainteligente.legislativo.service.matter.MatterService;
 import cl.votainteligente.legislativo.service.person.PersonService;
 
@@ -35,6 +37,9 @@ public class BillController {
 
 	@Autowired
 	MatterService matterService;
+
+	@Autowired
+	StageDescriptionService stageDescriptionService;
 
 	@RequestMapping(value = "bill/all", method = RequestMethod.GET)
 	@ResponseBody
@@ -83,15 +88,17 @@ public class BillController {
 		}
 	}
 
-	@RequestMapping(params = { "stage_id" }, value = "bill/stage", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" }, value = "bill/stage", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<BillDO> getBillsByStage(
-			@RequestParam(value = "stage_id", required = true) final long stage_id,
+			@RequestParam(value = "id", required = true) final long stage_id,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			Page<BillDO> resultPage = service.getByStage(stage_id, page,
-					perPage);
+			StageDescription stageDescription = stageDescriptionService
+					.getById(stage_id);
+			Page<BillDO> resultPage = service.getByStage(stageDescription,
+					page, perPage);
 			return resultPage;
 		} catch (ServiceException e) {
 			e.printStackTrace();
