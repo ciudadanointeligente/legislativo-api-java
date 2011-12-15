@@ -1,23 +1,22 @@
 package cl.votainteligente.legislativo.service.geo;
 
-import java.util.List;
-
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.model.District;
 import cl.votainteligente.legislativo.model.domainobjects.DistrictDO;
+import cl.votainteligente.legislativo.model.domainobjects.Page;
 
 public interface DistrictService {
 	District newDistrict(District district) throws ServiceException;
 
-	List<District> getAllDistricts() throws ServiceException;
+	Page<District> getAllDistricts(int page, int perPage) throws ServiceException;
 
-	List<District> findDistrictsByName(String name) throws ServiceException;
+	Page<District> findDistrictsByName(String name, int page, int perPage) throws ServiceException;
 
 	District getDistrict(Long id) throws ServiceException;
 
-	List<DistrictDO> getAllDistrictDOs() throws ServiceException;
+	Page<DistrictDO> getAllDistrictDOs(int page, int perPage) throws ServiceException;
 
-	List<DistrictDO> findDistrictDOsByName(String name) throws ServiceException;
+	Page<DistrictDO> findDistrictDOsByName(String name, int page, int perPage) throws ServiceException;
 
 	DistrictDO getDistrictDO(Long id) throws ServiceException;
 }
