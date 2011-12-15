@@ -30,7 +30,7 @@ public class RegionServiceImpl extends EntityManagerService implements
 		query.setMaxResults(perPage);
 		List<Region> list = query.getResultList();
 		query = getEntityManager().createQuery("select count(p) from Region p");
-		int total = (Integer) query.getSingleResult();
+		long total = (Long) query.getSingleResult();
 		return new Page<Region>(list, page, perPage, total);
 	}
 
@@ -47,7 +47,7 @@ public class RegionServiceImpl extends EntityManagerService implements
 		List<Region> list = query.getResultList();
 		query = getEntityManager().createQuery(
 				"select p from Region p where upper(p.name) like upper(?)");
-		int total = (Integer) query.getSingleResult();
+		long total = (Long) query.getSingleResult();
 		return new Page<Region>(list, page, perPage, total);
 	}
 

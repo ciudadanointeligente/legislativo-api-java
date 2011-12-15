@@ -33,7 +33,7 @@ public class CommuneServiceImpl extends EntityManagerService implements
 		List<Commune> list = query.getResultList();
 		query = getEntityManager()
 				.createQuery("select count(p) from Commune p");
-		int total = (Integer) query.getSingleResult();
+		long total = (Long) query.getSingleResult();
 		return new Page<Commune>(list, page, perPage, total);
 	}
 
@@ -52,7 +52,7 @@ public class CommuneServiceImpl extends EntityManagerService implements
 				.createQuery(
 						"select count(p) from Commune p where upper(p.name) like upper(?)");
 		query.setParameter(1, "%" + name + "%");
-		int total = (Integer) query.getSingleResult();
+		long total = (Long) query.getSingleResult();
 		return new Page<Commune>(list, page, perPage, total);
 	}
 

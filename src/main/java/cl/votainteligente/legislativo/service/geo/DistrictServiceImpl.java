@@ -34,7 +34,7 @@ public class DistrictServiceImpl extends EntityManagerService implements
 		List<District> list = query.getResultList();
 		query = getEntityManager().createQuery(
 				"select count(p) from District p");
-		int total = (Integer) query.getSingleResult();
+		long total = (Long) query.getSingleResult();
 		return new Page<District>(list, page, perPage, total);
 	}
 
@@ -53,7 +53,7 @@ public class DistrictServiceImpl extends EntityManagerService implements
 				.createQuery(
 						"select count(p) from District p where upper(p.name) like upper(?)");
 		query.setParameter(1, "%" + name + "%");
-		int total = (Integer) query.getSingleResult();
+		long total = (Long) query.getSingleResult();
 		return new Page<District>(list, page, perPage, total);
 	}
 
