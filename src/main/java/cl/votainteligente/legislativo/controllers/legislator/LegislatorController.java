@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cl.votainteligente.legislativo.ApplicationProperties;
 import cl.votainteligente.legislativo.ServiceException;
+import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
 import cl.votainteligente.legislativo.model.Circunscription;
 import cl.votainteligente.legislativo.model.District;
 import cl.votainteligente.legislativo.model.Legislator;
 import cl.votainteligente.legislativo.model.Person;
-import cl.votainteligente.legislativo.model.domainobjects.LegislatorPersonDO;
-import cl.votainteligente.legislativo.model.domainobjects.Page;
+import cl.votainteligente.legislativo.model.domainobjects.PersonPartyDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.service.geo.CircunscriptionService;
 import cl.votainteligente.legislativo.service.geo.DistrictService;
@@ -100,7 +100,7 @@ public class LegislatorController {
 			@RequestParam(value = "page", required = false, defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE) final int page,
 			@RequestParam(value = "perPage", required = false, defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE) final int perPage) {
 		try {
-			return service.getKPersonDOs(page, perPage);
+			return service.getPersonDOs(page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -108,7 +108,7 @@ public class LegislatorController {
 	}
 
 	@RequestMapping(value = "legislator/all", method = RequestMethod.GET)
-	public final Page<LegislatorPersonDO> getLegislatorPersons(
+	public final Page<PersonPartyDO> getLegislatorPersons(
 			@RequestParam(value = "page", required = false, defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE) final int page,
 			@RequestParam(value = "perPage", required = false, defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE) final int perPage) {
 		try {

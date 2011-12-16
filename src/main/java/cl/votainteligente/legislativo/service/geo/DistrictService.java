@@ -1,9 +1,9 @@
 package cl.votainteligente.legislativo.service.geo;
 
 import cl.votainteligente.legislativo.ServiceException;
+import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.model.District;
 import cl.votainteligente.legislativo.model.domainobjects.DistrictDO;
-import cl.votainteligente.legislativo.model.domainobjects.Page;
 
 public interface DistrictService {
 	District newDistrict(District district) throws ServiceException;

@@ -12,7 +12,7 @@ import cl.votainteligente.legislativo.model.Matter;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.StageDescription;
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
-import cl.votainteligente.legislativo.model.domainobjects.Page;
+import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.service.EntityManagerService;
 
 @Service

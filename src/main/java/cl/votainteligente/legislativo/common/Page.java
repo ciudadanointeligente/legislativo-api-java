@@ -2,19 +2,31 @@ package cl.votainteligente.legislativo.common;
 
 import java.util.List;
 
-public class Page<T>  {
+public class Page<T> {
 
-	private Long page;
+	private Long pageNumber;
 	private Long totalPages;
-	private Long totalResults;
+	private Long totalElements;
 	private List<T> elements;
 
-	public Long getPage() {
-		return page;
+	public Page() {
+	};
+
+	public Page(List<T> content, long pageNumber, long resultsPerPage,
+			long totalElements) {
+		this.elements = content;
+		this.pageNumber = pageNumber;
+		this.totalElements = totalElements;
+		this.totalPages = ((long) Math.ceil(1.0 * totalElements
+				/ resultsPerPage));
 	}
 
-	public void setPage(Long page) {
-		this.page = page;
+	public Long getPageNumber() {
+		return pageNumber;
+	}
+
+	public void setPageNumber(Long page) {
+		this.pageNumber = page;
 	}
 
 	public Long getTotalPages() {
@@ -25,12 +37,12 @@ public class Page<T>  {
 		this.totalPages = totalPages;
 	}
 
-	public Long getTotalResults() {
-		return totalResults;
+	public Long getTotalElements() {
+		return totalElements;
 	}
 
-	public void setTotalResults(Long totalResults) {
-		this.totalResults = totalResults;
+	public void setTotalElements(Long totalElements) {
+		this.totalElements = totalElements;
 	}
 
 	public List<T> getElements() {

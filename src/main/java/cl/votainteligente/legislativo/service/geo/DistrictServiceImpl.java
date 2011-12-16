@@ -8,9 +8,9 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Service;
 
 import cl.votainteligente.legislativo.ServiceException;
+import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.model.District;
 import cl.votainteligente.legislativo.model.domainobjects.DistrictDO;
-import cl.votainteligente.legislativo.model.domainobjects.Page;
 import cl.votainteligente.legislativo.service.EntityManagerService;
 
 @Service
@@ -81,10 +81,10 @@ public class DistrictServiceImpl extends EntityManagerService implements
 
 	private Page<DistrictDO> DistrictToDistrictDO(Page<District> page) {
 		List<DistrictDO> listDO = new LinkedList<DistrictDO>();
-		for (District c : page.getContent())
+		for (District c : page.getElements())
 			listDO.add(c.asDomainObject());
 		Page<DistrictDO> ans = new Page<DistrictDO>();
-		ans.setContent(listDO);
+		ans.setElements(listDO);
 		ans.setPageNumber(page.getPageNumber());
 		ans.setTotalElements(page.getTotalElements());
 		ans.setTotalPages(page.getTotalPages());

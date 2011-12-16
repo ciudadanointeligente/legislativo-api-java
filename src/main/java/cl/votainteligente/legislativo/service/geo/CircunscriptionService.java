@@ -1,9 +1,9 @@
 package cl.votainteligente.legislativo.service.geo;
 
 import cl.votainteligente.legislativo.ServiceException;
+import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.model.Circunscription;
 import cl.votainteligente.legislativo.model.domainobjects.CircunscriptionDO;
-import cl.votainteligente.legislativo.model.domainobjects.Page;
 
 public interface CircunscriptionService {
 	Circunscription newCircunscription(Circunscription circunscription)

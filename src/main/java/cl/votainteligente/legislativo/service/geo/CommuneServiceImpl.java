@@ -8,9 +8,9 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Service;
 
 import cl.votainteligente.legislativo.ServiceException;
+import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.model.Commune;
 import cl.votainteligente.legislativo.model.domainobjects.CommuneDO;
-import cl.votainteligente.legislativo.model.domainobjects.Page;
 import cl.votainteligente.legislativo.service.EntityManagerService;
 
 @Service
@@ -80,10 +80,10 @@ public class CommuneServiceImpl extends EntityManagerService implements
 
 	private Page<CommuneDO> CommuneToCommuneDO(Page<Commune> page) {
 		List<CommuneDO> listDO = new LinkedList<CommuneDO>();
-		for (Commune c : page.getContent())
+		for (Commune c : page.getElements())
 			listDO.add(c.asDomainObject());
 		Page<CommuneDO> ans = new Page<CommuneDO>();
-		ans.setContent(listDO);
+		ans.setElements(listDO);
 		ans.setPageNumber(page.getPageNumber());
 		ans.setTotalElements(page.getTotalElements());
 		ans.setTotalPages(page.getTotalPages());

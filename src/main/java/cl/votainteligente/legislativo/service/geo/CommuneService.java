@@ -1,9 +1,9 @@
 package cl.votainteligente.legislativo.service.geo;
 
 import cl.votainteligente.legislativo.ServiceException;
+import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.model.Commune;
 import cl.votainteligente.legislativo.model.domainobjects.CommuneDO;
-import cl.votainteligente.legislativo.model.domainobjects.Page;
 
 public interface CommuneService {
 	Commune newCommune(Commune commune) throws ServiceException;

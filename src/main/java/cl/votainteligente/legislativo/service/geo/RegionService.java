@@ -1,8 +1,8 @@
 package cl.votainteligente.legislativo.service.geo;
 
 import cl.votainteligente.legislativo.ServiceException;
+import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.model.Region;
-import cl.votainteligente.legislativo.model.domainobjects.Page;
 
 public interface RegionService {
 	Region newRegion(Region region) throws ServiceException;

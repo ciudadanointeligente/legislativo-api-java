@@ -2,6 +2,7 @@ package cl.votainteligente.legislativo.controllers.bill;
 
 import cl.votainteligente.legislativo.ApplicationProperties;
 import cl.votainteligente.legislativo.ServiceException;
+import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.exceptions.BadRequestException;
 import cl.votainteligente.legislativo.exceptions.ResourceNotFoundException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
@@ -10,7 +11,6 @@ import cl.votainteligente.legislativo.model.Matter;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.StageDescription;
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
-import cl.votainteligente.legislativo.model.domainobjects.Page;
 import cl.votainteligente.legislativo.service.bill.BillService;
 import cl.votainteligente.legislativo.service.bill.StageDescriptionService;
 import cl.votainteligente.legislativo.service.matter.MatterService;

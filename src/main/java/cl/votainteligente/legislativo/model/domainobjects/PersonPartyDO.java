@@ -3,7 +3,7 @@ package cl.votainteligente.legislativo.model.domainobjects;
 import cl.votainteligente.legislativo.model.Party;
 import cl.votainteligente.legislativo.model.Person;
 
-public class LegislatorPersonDO {
+public class PersonPartyDO {
 
 	private Long id;
 	private String firstName;
@@ -11,7 +11,7 @@ public class LegislatorPersonDO {
 	private Long partyId;
 	private String partyName;
 
-	public LegislatorPersonDO(Person person, Party party) {
+	public PersonPartyDO(Person person, Party party) {
 		this.id = person.getId();
 		this.firstName = person.getFirstName();
 		this.lastName = person.getLastName();
