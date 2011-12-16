@@ -1,6 +1,7 @@
 package cl.votainteligente.legislativo.model;
 
-import java.sql.Timestamp;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "participant")
@@ -20,10 +23,28 @@ public abstract class Participant {
 	private Long id;
 
 	@Column(name = "created_at")
-	private Timestamp createdAt;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdAt;
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
 
 	@Column(name = "updated_at")
-	private Timestamp updatedAt;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updatedAt;
 
 	public Long getId() {
 		return id;
@@ -33,19 +54,4 @@ public abstract class Participant {
 		this.id = id;
 	}
 
-	public Timestamp getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Timestamp createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public Timestamp getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(Timestamp updatedAt) {
-		this.updatedAt = updatedAt;
-	}
 }
