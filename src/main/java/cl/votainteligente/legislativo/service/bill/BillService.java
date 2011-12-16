@@ -10,6 +10,7 @@ import cl.votainteligente.legislativo.model.Matter;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.StageDescription;
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
+import cl.votainteligente.legislativo.model.domainobjects.BillRoleDO;
 
 public interface BillService {
 	Bill newBill(Bill bill) throws ServiceException;
@@ -32,4 +33,6 @@ public interface BillService {
 
 	Page<BillDO> getByMatter(Matter matter, int page, int resultsPerPage)
 			throws ServiceException;
+
+	Page<BillRoleDO> getByAuthorRole(Person p, int page, int perPage);
 }

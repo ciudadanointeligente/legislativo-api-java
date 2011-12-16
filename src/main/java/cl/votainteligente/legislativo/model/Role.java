@@ -12,6 +12,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "role")
@@ -22,9 +24,11 @@ public abstract class Role {
 	@Column(name = "id")
 	private Long id;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "start_date")
 	private Date startDate;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "end_date")
 	private Date endDate;
 
