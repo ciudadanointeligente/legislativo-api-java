@@ -1,10 +1,6 @@
 package cl.votainteligente.legislativo.model.domainobjects;
 
-import cl.votainteligente.legislativo.ApplicationProperties;
 import cl.votainteligente.legislativo.model.Bill;
-
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 public class BillDO {
 
@@ -16,10 +12,8 @@ public class BillDO {
 	public BillDO(Bill bill) {
 		this.id = bill.getId();
 		this.title = bill.getTitle();
-		SimpleDateFormat dateFormat = new SimpleDateFormat(ApplicationProperties.getProperty("do.date.format"),
-				new Locale(ApplicationProperties.getProperty("localization.language"),ApplicationProperties.getProperty("localization.country")));
-		this.entryDate = dateFormat.format(bill.getEntryDate());
-		this.updatedAt = dateFormat.format(bill.getUpdatedAt());
+		this.entryDate = DOUtil.getDateFormat().format(bill.getEntryDate());
+		this.updatedAt = DOUtil.getDateFormat().format(bill.getUpdatedAt());
 	}
 
 	/**
