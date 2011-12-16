@@ -92,7 +92,7 @@ public class LegislatorServiceImpl extends EntityManagerService implements
 			throws ServiceException {
 		Query query = getEntityManager()
 				.createQuery(
-						"select pa from PartyAffiliation pa join pa.person.roles r where r.class=Legilsator");
+						"select pa from PartyAffiliation pa join pa.person.roles r where r.class=Legislator");
 		query.setFirstResult((page - 1) * perPage);
 		query.setMaxResults(perPage);
 		List<PersonDO> results = new ArrayList<PersonDO>();
@@ -100,7 +100,7 @@ public class LegislatorServiceImpl extends EntityManagerService implements
 			results.add(person.asDomainObject());
 		Query count = getEntityManager()
 				.createQuery(
-						"select count(pa) from PartyAffiliation pa join pa.person.roles r where r.class=Legilsator");
+						"select count(pa) from PartyAffiliation pa join pa.person.roles r where r.class=Legislator");
 		long totalElements = (Long) count.getSingleResult();
 		return new Page<PersonDO>(results, page, perPage, totalElements);
 	}
