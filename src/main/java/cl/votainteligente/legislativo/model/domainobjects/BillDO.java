@@ -16,7 +16,7 @@ public class BillDO {
 	public BillDO(Bill bill) {
 		this.id = bill.getId();
 		this.title = bill.getTitle();
-		SimpleDateFormat dateFormat = new SimpleDateFormat(ApplicationProperties.getProperty("bill.do.date.format"),
+		SimpleDateFormat dateFormat = new SimpleDateFormat(ApplicationProperties.getProperty("do.date.format"),
 				new Locale(ApplicationProperties.getProperty("localization.language"),ApplicationProperties.getProperty("localization.country")));
 		this.entryDate = dateFormat.format(bill.getEntryDate());
 		this.updatedAt = dateFormat.format(bill.getUpdatedAt());

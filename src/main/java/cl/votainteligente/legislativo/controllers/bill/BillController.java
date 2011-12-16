@@ -27,7 +27,7 @@ import java.util.Date;
 @Controller
 public class BillController {
 	private SimpleDateFormat dateFormat = new SimpleDateFormat(
-			ApplicationProperties.getProperty("bill.controller.date.format"));
+			ApplicationProperties.getProperty("controller.date.format"));
 
 	@Autowired
 	BillService service;
