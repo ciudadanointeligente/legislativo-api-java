@@ -1,6 +1,7 @@
 package cl.votainteligente.legislativo.model.domainobjects;
 
-import java.sql.Timestamp;
+import java.util.Date;
+
 import cl.votainteligente.legislativo.model.Person;
 
 public class PersonDO {
@@ -9,16 +10,18 @@ public class PersonDO {
 	private String firstName;
 	private String lastName;
 	private String gender;
-	private Timestamp createdAt;
-	private Timestamp updatedAt;
+	private String birthday;
+
+	public String getBirthday() {
+		return birthday;
+	}
 
 	public PersonDO(Person person) {
 		this.id = person.getId();
 		this.firstName = person.getFirstName();
 		this.lastName = person.getLastName();
 		this.gender = person.getGender();
-		this.createdAt = person.getCreatedAt();
-		this.updatedAt = person.getUpdatedAt();
+		this.birthday = DOUtil.getDateFormat().format(person.getBirthday());
 	}
 
 	/**
@@ -45,16 +48,6 @@ public class PersonDO {
 	/**
 	 * @return the createdAt
 	 */
-	public Timestamp getCreatedAt() {
-		return createdAt;
-	}
-
-	/**
-	 * @return the updatedAt
-	 */
-	public Timestamp getUpdatedAt() {
-		return updatedAt;
-	}
 
 	public void setGender(String gender) {
 		this.gender = gender;
