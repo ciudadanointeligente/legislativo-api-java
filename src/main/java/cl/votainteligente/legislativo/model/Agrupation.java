@@ -16,12 +16,6 @@ public class Agrupation extends Participant {
 	@Column(name = "mail_address")
 	private String mailAddress;
 
-	@Column(name = "statement_of_interest")
-	private String statementOfInterest;
-
-	@Column(name = "statement_of_heritage")
-	private String statementOfHeritage;
-
 	@Column
 	private String website;
 
@@ -36,6 +30,12 @@ public class Agrupation extends Participant {
 
 	@Column
 	private String name;
+
+	@Column(name = "statement_of_interest")
+	private String statementOfInterest;
+
+	@Column(name = "statement_of_heritage")
+	private String statementOfHeritage;
 
 	public String getMailAddress() {
 		return mailAddress;

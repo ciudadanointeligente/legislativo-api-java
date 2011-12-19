@@ -26,6 +26,10 @@ public abstract class Participant {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
 
+	@Column(name = "updated_at")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updatedAt;
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -41,10 +45,6 @@ public abstract class Participant {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
-	@Column(name = "updated_at")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date updatedAt;
 
 	public Long getId() {
 		return id;
