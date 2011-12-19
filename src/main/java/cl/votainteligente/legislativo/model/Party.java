@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import cl.votainteligente.legislativo.model.domainobjects.PartyDO;
+import cl.votainteligente.legislativo.model.domainobjects.PartyDetailedDO;
 
 @Entity
 @Table(name = "party")
@@ -97,5 +98,10 @@ public class Party extends Agrupation {
 	@Transient
 	public PartyDO asDomainObject() {
 		return new PartyDO(this);
+	}
+
+	@Transient
+	public PartyDetailedDO asDetailedDomainObject() {
+		return new PartyDetailedDO(this);
 	}
 }
