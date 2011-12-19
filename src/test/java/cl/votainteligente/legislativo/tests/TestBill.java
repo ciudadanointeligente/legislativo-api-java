@@ -60,7 +60,6 @@ public class TestBill extends TestCase {
 		stages.add(stage2);
 
 		bill.setStages(stages);
-		bill.setSubStage("subStage");
 		bill.setSummary("summary");
 		bill.setTitle("title");
 		bill.setUpdatedAt(updatedAt = new Date());
@@ -149,10 +148,6 @@ public class TestBill extends TestCase {
 		Set<Stage> stages = bill.getStages();
 		assert (stages.contains(stage1));
 		assert (stages.contains(stage2));
-	}
-
-	public void testGetSubStage() {
-		assert (bill.getSubStage().equals("subStage"));
 	}
 
 	public void testGetMatter() {

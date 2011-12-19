@@ -51,8 +51,6 @@ public class Bill {
 	private String urgency;
 	@OneToMany
 	private Set<Stage> stages;
-	@Column(name = "sub_stage")
-	private String subStage;
 	@ManyToOne
 	private Matter matter;
 	private Long decree;
@@ -156,13 +154,6 @@ public class Bill {
 	 */
 	public String getUrgency() {
 		return urgency;
-	}
-
-	/**
-	 * @return the subStage
-	 */
-	public String getSubStage() {
-		return subStage;
 	}
 
 	/**
@@ -314,14 +305,6 @@ public class Bill {
 	 */
 	public void setUrgency(String urgency) {
 		this.urgency = urgency;
-	}
-
-	/**
-	 * @param subStage
-	 *            the subStage to set
-	 */
-	public void setSubStage(String subStage) {
-		this.subStage = subStage;
 	}
 
 	/**
