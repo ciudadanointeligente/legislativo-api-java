@@ -13,6 +13,7 @@ import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
 import cl.votainteligente.legislativo.model.Party;
 import cl.votainteligente.legislativo.model.domainobjects.PartyDO;
+import cl.votainteligente.legislativo.model.domainobjects.PartyDetailedDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.service.agrupation.PartyService;
 
@@ -51,10 +52,10 @@ public class PartyController {
 
 	@RequestMapping(value = "party/any", method = RequestMethod.GET)
 	@ResponseBody
-	public final Party getById(
+	public final PartyDetailedDO getById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			return partyService.getParty(id);
+			return new PartyDetailedDO(partyService.getParty(id));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();

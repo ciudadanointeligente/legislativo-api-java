@@ -32,11 +32,11 @@ public class Party extends Agrupation {
 	// TODO: validar traduccion real de mesa joven y mesa adulta
 	@OneToMany
 	@JoinColumn(name = "youth_board_id")
-	private Set<Person> youth_board;
+	private Set<Person> youthBoard;
 
 	@OneToMany
 	@JoinColumn(name = "adult_board_id")
-	private Set<Person> adult_board;
+	private Set<Person> adultBoard;
 
 	public String getAddress() {
 		return address;
@@ -70,20 +70,20 @@ public class Party extends Agrupation {
 		this.principles = principles;
 	}
 
-	public Set<Person> getYouth_board() {
-		return youth_board;
+	public Set<Person> getYouthBoard() {
+		return youthBoard;
 	}
 
-	public void setYouth_board(Set<Person> youth_board) {
-		this.youth_board = youth_board;
+	public void setYouthBoard(Set<Person> youthBoard) {
+		this.youthBoard = youthBoard;
 	}
 
-	public Set<Person> getAdult_board() {
-		return adult_board;
+	public Set<Person> getAdultBoard() {
+		return adultBoard;
 	}
 
-	public void setAdult_board(Set<Person> adult_board) {
-		this.adult_board = adult_board;
+	public void setAdultBoard(Set<Person> adultBoard) {
+		this.adultBoard = adultBoard;
 	}
 
 	public void setPhoneNumber(String phoneNumber) {
