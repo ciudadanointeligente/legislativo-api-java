@@ -1,7 +1,5 @@
 package cl.votainteligente.legislativo.model.domainobjects;
 
-import java.util.Date;
-
 import cl.votainteligente.legislativo.model.Person;
 
 public class PersonDO {
@@ -21,7 +19,8 @@ public class PersonDO {
 		this.firstName = person.getFirstName();
 		this.lastName = person.getLastName();
 		this.gender = person.getGender();
-		this.birthday = DOUtil.getDateFormat().format(person.getBirthday());
+		this.birthday = (person.getBirthday() != null) ? DOUtil.getDateFormat()
+				.format(person.getBirthday()) : null;
 	}
 
 	/**
