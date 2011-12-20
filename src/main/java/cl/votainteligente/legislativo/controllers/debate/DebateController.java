@@ -18,7 +18,6 @@ import cl.votainteligente.legislativo.exceptions.BadRequestException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
 import cl.votainteligente.legislativo.model.Bill;
 import cl.votainteligente.legislativo.model.Debate;
-import cl.votainteligente.legislativo.model.domainobjects.BillDO;
 import cl.votainteligente.legislativo.model.domainobjects.DebateDO;
 import cl.votainteligente.legislativo.service.bill.BillService;
 import cl.votainteligente.legislativo.service.debate.DebateService;
