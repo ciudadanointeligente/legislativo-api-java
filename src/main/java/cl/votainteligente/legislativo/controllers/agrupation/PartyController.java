@@ -62,7 +62,7 @@ public class PartyController {
 		}
 	}
 
-	@RequestMapping(value = "party/historicalAffiliates", method = RequestMethod.POST)
+	@RequestMapping(value = "party/historicalAffiliates", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<PersonDO> getHistoricalAffiliatesByParty(
 			@RequestParam(value = "id", required = true) final long id,
@@ -78,7 +78,7 @@ public class PartyController {
 		}
 	}
 
-	@RequestMapping(value = "party/currentAffiliates", method = RequestMethod.POST)
+	@RequestMapping(value = "party/currentAffiliates", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<PersonDO> getCurrentAffiliatesByParty(
 			@RequestParam(value = "id", required = true) final long id,
