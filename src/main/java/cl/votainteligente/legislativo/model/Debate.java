@@ -1,5 +1,6 @@
 package cl.votainteligente.legislativo.model;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
 import java.util.Set;
@@ -53,8 +54,7 @@ public class Debate {
 	private Set<Tag> tags;
 
 	@Column(name = "doc_url")
-	@Type(type = "string")
-	private URL docUrl;
+	private String docUrl;
 
 	@Column(name = "abstract_title")
 	private String abstractTitle;
@@ -134,10 +134,14 @@ public class Debate {
 	}
 
 	public URL getDocUrl() {
-		return docUrl;
+		try {
+			return new URL(docUrl);
+		} catch (MalformedURLException e) {
+			return null;
+		}
 	}
 
-	public void setDocUrl(URL docUrl) {
+	public void setDocUrl(String docUrl) {
 		this.docUrl = docUrl;
 	}
 

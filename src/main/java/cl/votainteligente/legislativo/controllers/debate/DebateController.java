@@ -35,7 +35,7 @@ public class DebateController {
 
 	@RequestMapping(params = { "id" }, value = "debate/any", method = RequestMethod.GET)
 	@ResponseBody
-	public final Debate getBillById(
+	public final Debate getDebateById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
 			return debateService.getDebate(id);
