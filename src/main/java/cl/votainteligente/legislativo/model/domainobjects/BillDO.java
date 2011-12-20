@@ -1,13 +1,36 @@
 package cl.votainteligente.legislativo.model.domainobjects;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import cl.votainteligente.legislativo.model.Bill;
 
+@XmlRootElement
 public class BillDO {
 
 	private Long id;
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setEntryDate(String entryDate) {
+		this.entryDate = entryDate;
+	}
+
+	public void setUpdatedAt(String updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
 	private String title;
 	private String entryDate;
 	private String updatedAt;
+
+	public BillDO() {
+	}
 
 	public BillDO(Bill bill) {
 		this.id = bill.getId();

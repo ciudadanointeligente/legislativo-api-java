@@ -1,17 +1,19 @@
 package cl.votainteligente.legislativo.model;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDetailedDO;
 
-import java.util.Date;
-import java.util.List;
-
+@XmlRootElement
 @Entity
 @Table(name = "person")
 public class Person extends Participant {

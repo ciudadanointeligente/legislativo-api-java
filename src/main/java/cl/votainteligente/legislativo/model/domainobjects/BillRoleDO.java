@@ -2,9 +2,12 @@ package cl.votainteligente.legislativo.model.domainobjects;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import cl.votainteligente.legislativo.model.Bill;
 import cl.votainteligente.legislativo.model.Role;
 
+@XmlRootElement
 public class BillRoleDO {
 	private Long billId;
 	private Long roleId;
@@ -12,6 +15,10 @@ public class BillRoleDO {
 	private Date billEntryDate;
 	private Date roleStartDate;
 	private Date roleEndDate;
+
+	public BillRoleDO() {
+
+	}
 
 	public BillRoleDO(Bill bill, Role role) {
 		this.billId = bill.getId();

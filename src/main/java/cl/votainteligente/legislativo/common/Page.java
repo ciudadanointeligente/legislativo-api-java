@@ -2,11 +2,20 @@ package cl.votainteligente.legislativo.common;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlElementRefs;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import cl.votainteligente.legislativo.model.domainobjects.BillDO;
+import cl.votainteligente.legislativo.model.domainobjects.BillRoleDO;
+
+@XmlRootElement
 public class Page<T> {
 
 	private Long pageNumber;
 	private Long totalPages;
 	private Long totalElements;
+
 	private List<T> elements;
 
 	public Page() {
@@ -45,6 +54,8 @@ public class Page<T> {
 		this.totalElements = totalElements;
 	}
 
+	@XmlElementRefs( { @XmlElementRef(type = BillDO.class),
+			@XmlElementRef(type = BillRoleDO.class) })
 	public List<T> getElements() {
 		return elements;
 	}
