@@ -38,7 +38,7 @@ public class Debate {
 	private Date date;
 
 	@ManyToOne
-	@JoinColumn(name = "discussion_type_id", nullable = false)
+	@JoinColumn(name = "discussion_type_id")
 	private DiscussionType discussionType;
 
 	@Column
@@ -53,12 +53,13 @@ public class Debate {
 	private Set<Tag> tags;
 
 	@Column(name = "doc_url")
+	@Type(type = "string")
 	private URL docUrl;
 
 	@Column(name = "abstract_title")
 	private String abstractTitle;
 
-	@Column(name = "abstractText")
+	@Column(name = "abstract_text")
 	@Type(type = "text")
 	private String abstractText;
 
