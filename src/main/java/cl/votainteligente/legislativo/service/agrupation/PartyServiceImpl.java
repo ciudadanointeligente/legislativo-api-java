@@ -78,7 +78,7 @@ public class PartyServiceImpl extends EntityManagerService implements
 			int resultsPerPage) {
 		Query query = getEntityManager()
 				.createQuery(
-						"select distinct pa.person from PartyAffiliation pa where pa.party = ? and (pa.departureDate is null or departureDate >= ?)");
+						"select distinct pa.person from AgrupationAffiliation pa where pa.agrupation = ? and (pa.departureDate is null or departureDate >= ?)");
 		query.setFirstResult((pageNumber - 1) * resultsPerPage);
 		query.setMaxResults(resultsPerPage);
 		query.setParameter(1, p);
@@ -89,7 +89,7 @@ public class PartyServiceImpl extends EntityManagerService implements
 		}
 		Query queryCount = getEntityManager()
 				.createQuery(
-						"select count(distinct pa.person) from PartyAffiliation pa where pa.party = ? and (pa.departureDate is null or departureDate >= ?)");
+						"select count(distinct pa.person) from AgrupationAffiliation pa where pa.agrupation = ? and (pa.departureDate is null or departureDate >= ?)");
 		queryCount.setParameter(1, p);
 		queryCount.setParameter(2, new Date(), TemporalType.DATE);
 		Long totalParties = (Long) queryCount.getSingleResult();
@@ -104,7 +104,7 @@ public class PartyServiceImpl extends EntityManagerService implements
 			int pageNumber, int resultsPerPage) {
 		Query query = getEntityManager()
 				.createQuery(
-						"select distinct pa.person from PartyAffiliation pa where pa.party = ?");
+						"select distinct pa.person from AgrupationAffiliation pa where pa.agrupation = ?");
 		query.setFirstResult((pageNumber - 1) * resultsPerPage);
 		query.setMaxResults(resultsPerPage);
 		query.setParameter(1, p);
@@ -114,7 +114,7 @@ public class PartyServiceImpl extends EntityManagerService implements
 		}
 		Query queryCount = getEntityManager()
 				.createQuery(
-						"select count(distinct pa.person) from PartyAffiliation pa where pa.party = ?");
+						"select count(distinct pa.person) from AgrupationAffiliation pa where pa.agrupation = ?");
 		queryCount.setParameter(1, p);
 		Long totalParties = (Long) queryCount.getSingleResult();
 		

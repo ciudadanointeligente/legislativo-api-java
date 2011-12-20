@@ -10,8 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "party_affiliation")
-public class PartyAffiliation {
+@Table(name = "agrupation_affiliation")
+public class AgrupationAffiliation {
 
 	@Id
 	@GeneratedValue
@@ -23,8 +23,8 @@ public class PartyAffiliation {
 	private Person person;
 
 	@ManyToOne
-	@JoinColumn(name = "party_id", nullable = false)
-	private Party party;
+	@JoinColumn(name = "agrupation_id", nullable = false)
+	private Agrupation agrupation;
 
 	@Column(name = "admission_date")
 	private Date admissionDate;
@@ -40,8 +40,8 @@ public class PartyAffiliation {
 		return person;
 	}
 
-	public Party getParty() {
-		return party;
+	public Agrupation getAgrupation() {
+		return agrupation;
 	}
 
 	public Date getAdmissionDate() {
@@ -60,8 +60,8 @@ public class PartyAffiliation {
 		this.person = person;
 	}
 
-	public void setParty(Party party) {
-		this.party = party;
+	public void setAgrupation(Agrupation agrupation) {
+		this.agrupation = agrupation;
 	}
 
 	public void setAdmissionDate(Date admissionDate) {

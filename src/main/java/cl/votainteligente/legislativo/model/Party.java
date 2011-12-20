@@ -9,6 +9,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
+
 import cl.votainteligente.legislativo.model.domainobjects.PartyDO;
 import cl.votainteligente.legislativo.model.domainobjects.PartyDetailedDO;
 
@@ -19,6 +21,7 @@ public class Party extends Agrupation {
 	private String address;
 
 	@Column
+	@Type(type = "text")
 	private String history;
 
 	@Column

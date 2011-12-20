@@ -10,7 +10,8 @@ import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.model.Circunscription;
 import cl.votainteligente.legislativo.model.District;
 import cl.votainteligente.legislativo.model.Legislator;
-import cl.votainteligente.legislativo.model.PartyAffiliation;
+import cl.votainteligente.legislativo.model.AgrupationAffiliation;
+import cl.votainteligente.legislativo.model.Party;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.domainobjects.PersonPartyDO;
 import cl.votainteligente.legislativo.common.Page;
@@ -111,20 +112,21 @@ public class LegislatorServiceImpl extends EntityManagerService implements
 			throws ServiceException {
 		Query query = getEntityManager()
 				.createQuery(
-						"select pa from PartyAffiliation pa join pa.person.roles r where r.class=Legislator and (r.endDate >= ? or r.endDate is null)");
+						"select aa from AgrupationAffiliation aa join aa.person.roles r where r.class=Legislator and (r.endDate >= ? " +
+						"or r.endDate is null) and aa.agrupation in (select p from Party p)");
 		query.setParameter(1, new Date(), TemporalType.DATE);
 		query.setFirstResult((page - 1) * perPage);
 		query.setMaxResults(perPage);
 		ArrayList<PersonPartyDO> listDO = new ArrayList<PersonPartyDO>();
-		for (PartyAffiliation affiliation : (List<PartyAffiliation>) query
+		for (AgrupationAffiliation affiliation : (List<AgrupationAffiliation>) query
 				.getResultList()) {
-			listDO.add(new PersonPartyDO(affiliation.getPerson(), affiliation
-					.getParty()));
+			listDO.add(new PersonPartyDO(affiliation.getPerson(),
+					(Party) affiliation.getAgrupation()));
 		}
 		Query count = getEntityManager()
 				.createQuery(
-						"select count(pa) from PartyAffiliation pa join pa.person.roles r where r.class=Legislator and (r.endDate >= ? or r.endDate is null)");
-		count.setParameter(1, new Date(), TemporalType.DATE);
+						"select count(aa) from AgrupationAffiliation aa join aa.person.roles r where r.class=Legislator and (r.endDate >= ? " +
+						"or r.endDate is null) and aa.agrupation in (select p from Party p)");count.setParameter(1, new Date(), TemporalType.DATE);
 		Long totalElements = (Long) count.getSingleResult();
 		return new Page<PersonPartyDO>(listDO, page, perPage, totalElements);
 	}
