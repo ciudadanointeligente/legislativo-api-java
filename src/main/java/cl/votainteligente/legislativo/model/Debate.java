@@ -12,8 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
+
+import cl.votainteligente.legislativo.model.domainobjects.DebateDO;
 
 @Entity
 @Table(name = "debate")
@@ -167,6 +170,11 @@ public class Debate {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	@Transient
+	public DebateDO asDomainObject() {
+		return new DebateDO(this);
 	}
 
 }
