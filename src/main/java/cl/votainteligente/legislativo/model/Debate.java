@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "debate")
 public class Debate {
@@ -24,13 +26,6 @@ public class Debate {
 	@ManyToOne
 	@JoinColumn(name = "bill_id", nullable = false)
 	private Bill bill;
-
-	@Column
-	private Boolean in_commission;
-
-	@Column
-	// TODO: averiguar si este boolean tiene sentido y que es.
-	private Boolean united_commissions;
 
 	@ManyToOne
 	@JoinColumn(name = "chamber_id", nullable = false)
@@ -47,26 +42,28 @@ public class Debate {
 	private String topic;
 
 	@Column
+	@Type(type = "text")
 	private String debate;
 
 	@ManyToMany
 	@JoinColumn(name = "debate_id", nullable = true)
 	private Set<Tag> tags;
 
-	@Column
+	@Column(name = "doc_url")
 	private URL docUrl;
 
-	@Column
-	private String abstract_title;
+	@Column(name = "abstract_title")
+	private String abstractTitle;
 
-	@Column
-	private String abstract_text;
+	@Column(name = "abstractText")
+	@Type(type = "text")
+	private String abstractText;
 
-	@Column
-	private Date created_at;
+	@Column(name = "created_at")
+	private Date createdAt;
 
-	@Column
-	private Date updated_at;
+	@Column(name = "updated_at")
+	private Date updatedAt;
 
 	public Long getId() {
 		return id;
@@ -82,22 +79,6 @@ public class Debate {
 
 	public void setBill(Bill bill) {
 		this.bill = bill;
-	}
-
-	public Boolean getIn_commission() {
-		return in_commission;
-	}
-
-	public void setIn_commission(Boolean in_commission) {
-		this.in_commission = in_commission;
-	}
-
-	public Boolean getUnited_commissions() {
-		return united_commissions;
-	}
-
-	public void setUnited_commissions(Boolean united_commissions) {
-		this.united_commissions = united_commissions;
 	}
 
 	public Chamber getChamber() {
@@ -156,35 +137,36 @@ public class Debate {
 		this.docUrl = docUrl;
 	}
 
-	public String getAbstract_title() {
-		return abstract_title;
+	public String getAbstractTitle() {
+		return abstractTitle;
 	}
 
-	public void setAbstract_title(String abstract_title) {
-		this.abstract_title = abstract_title;
+	public void setAbstractTitle(String abstractTitle) {
+		this.abstractTitle = abstractTitle;
 	}
 
-	public String getAbstract_text() {
-		return abstract_text;
+	public String getAbstractText() {
+		return abstractText;
 	}
 
-	public void setAbstract_text(String abstract_text) {
-		this.abstract_text = abstract_text;
+	public void setAbstractText(String abstractText) {
+		this.abstractText = abstractText;
 	}
 
-	public Date getCreated_at() {
-		return created_at;
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public Date getUpdated_at() {
-		return updated_at;
+	public Date getUpdatedAt() {
+		return updatedAt;
 	}
 
-	public void setUpdated_at(Date updated_at) {
-		this.updated_at = updated_at;
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
 	}
+
 }
