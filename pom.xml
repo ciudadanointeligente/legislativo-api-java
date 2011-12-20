@@ -236,6 +236,18 @@
 			<version>1.0</version>
 			<classifier>jdk15</classifier>
 		</dependency>
+		<dependency>
+			<groupId>org.codehaus.enunciate</groupId>
+			<artifactId>maven-enunciate-spring-plugin</artifactId>
+			<version>1.24</version>
+			<type>maven-plugin</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.jws</groupId>
+			<artifactId>jsr181-api</artifactId>
+			<version>1.0-MR1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
