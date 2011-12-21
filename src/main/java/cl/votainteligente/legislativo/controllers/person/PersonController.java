@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
-import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDetailedDO;
 import cl.votainteligente.legislativo.service.person.PersonService;

@@ -6,6 +6,8 @@ import cl.votainteligente.legislativo.model.Circunscription;
 import cl.votainteligente.legislativo.model.District;
 import cl.votainteligente.legislativo.model.Legislator;
 import cl.votainteligente.legislativo.model.Person;
+import cl.votainteligente.legislativo.model.domainobjects.LegislatorDO;
+import cl.votainteligente.legislativo.model.domainobjects.LegislatorDetailedDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonPartyDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 
@@ -14,14 +16,17 @@ public interface LegislatorService {
 
 	Legislator getLegislator(Long id) throws ServiceException;
 
-	Page<Legislator> getLegislatorsByPerson(Person person, int page, int perPage)
+	LegislatorDetailedDO getLegislatorDetailedDO(Long id)
 			throws ServiceException;
 
-	Page<Legislator> getLegislatorsByCircunscription(
+	Page<LegislatorDO> getLegislatorsByPerson(Person person, int page,
+			int perPage) throws ServiceException;
+
+	Page<LegislatorDO> getLegislatorsByCircunscription(
 			Circunscription circunscription, int page, int perPage)
 			throws ServiceException;
 
-	Page<Legislator> getLegislatorsByDistrict(District district, int page,
+	Page<LegislatorDO> getLegislatorsByDistrict(District district, int page,
 			int perPage) throws ServiceException;
 
 	Page<PersonDO> getPersonDOs(int page, int perPage) throws ServiceException;

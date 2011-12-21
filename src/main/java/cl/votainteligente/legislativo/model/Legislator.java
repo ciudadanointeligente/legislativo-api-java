@@ -5,8 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
+
+import cl.votainteligente.legislativo.model.domainobjects.LegislatorDO;
 
 @Entity
 @Table(name = "legislator")
@@ -122,4 +125,8 @@ public class Legislator extends Role {
 		this.parliamentSiteId = parliamentSiteId;
 	}
 
+	@Transient
+	public LegislatorDO asDomainObject() {
+		return new LegislatorDO(this);
+	}
 }

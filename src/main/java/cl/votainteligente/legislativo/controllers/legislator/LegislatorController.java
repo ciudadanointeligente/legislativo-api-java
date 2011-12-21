@@ -13,8 +13,9 @@ import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
 import cl.votainteligente.legislativo.model.Circunscription;
 import cl.votainteligente.legislativo.model.District;
-import cl.votainteligente.legislativo.model.Legislator;
 import cl.votainteligente.legislativo.model.Person;
+import cl.votainteligente.legislativo.model.domainobjects.LegislatorDO;
+import cl.votainteligente.legislativo.model.domainobjects.LegislatorDetailedDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonPartyDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.service.geo.CircunscriptionService;
@@ -39,10 +40,22 @@ public class LegislatorController {
 
 	@RequestMapping(params = { "id" }, value = "legislator/period", method = RequestMethod.GET)
 	@ResponseBody
-	public final Legislator getLegislatorById(
+	public final LegislatorDetailedDO getLegislatorById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			return service.getLegislator(id);
+			return service.getLegislatorDetailedDO(id);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			throw new ServerErrorException();
+		}
+	}
+
+	@RequestMapping(params = { "id" }, value = "legislator/any", method = RequestMethod.GET)
+	@ResponseBody
+	public final LegislatorDetailedDO getPersonById(
+			@RequestParam(value = "id", required = true) final long id) {
+		try {
+			return service.getLegislatorDetailedDO(id);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -51,7 +64,7 @@ public class LegislatorController {
 
 	@RequestMapping(params = { "id" }, value = "legislator/district", method = RequestMethod.GET)
 	@ResponseBody
-	public final Page<Legislator> getLegislatorByDistrict(
+	public final Page<LegislatorDO> getLegislatorByDistrict(
 			@RequestParam(value = "id", required = true) final long id,
 			@RequestParam(value = "page", required = false, defaultValue = "1") final int page,
 			@RequestParam(value = "perPage", required = false, defaultValue = "10") final int perPage) {
@@ -66,7 +79,7 @@ public class LegislatorController {
 
 	@RequestMapping(params = { "id" }, value = "legislator/circunscription", method = RequestMethod.GET)
 	@ResponseBody
-	public final Page<Legislator> getLegislatorByCircunscription(
+	public final Page<LegislatorDO> getLegislatorByCircunscription(
 			@RequestParam(value = "id", required = true) final long id,
 			@RequestParam(value = "page", required = false, defaultValue = "1") final int page,
 			@RequestParam(value = "perPage", required = false, defaultValue = "10") final int perPage) {
@@ -81,7 +94,7 @@ public class LegislatorController {
 
 	@RequestMapping(value = "legislator/person", method = RequestMethod.GET)
 	@ResponseBody
-	public final Page<Legislator> getLegislatorsByPerson(
+	public final Page<LegislatorDO> getLegislatorsByPerson(
 			@RequestParam(value = "id", required = true) final long id,
 			@RequestParam(value = "page", required = false, defaultValue = "1") final int page,
 			@RequestParam(value = "perPage", required = false, defaultValue = "10") final int perPage) {
