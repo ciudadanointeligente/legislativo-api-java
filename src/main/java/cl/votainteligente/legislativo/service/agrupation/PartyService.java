@@ -4,6 +4,7 @@ import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.model.Party;
 import cl.votainteligente.legislativo.model.domainobjects.PartyDO;
+import cl.votainteligente.legislativo.model.domainobjects.PartyDetailedDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 
 public interface PartyService {
@@ -16,6 +17,8 @@ public interface PartyService {
 			int resultsPerPage) throws ServiceException;
 
 	Party getParty(Long id) throws ServiceException;
+
+	PartyDetailedDO getPartyDetailedDO(Long id) throws ServiceException;
 
 	Page<PersonDO> getCurrentAffiliatesByParty(Party p, int pageNumber,
 			int resultsPerPage);

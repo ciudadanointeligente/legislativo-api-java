@@ -55,7 +55,7 @@ public class PartyController {
 	public final PartyDetailedDO getById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			return new PartyDetailedDO(partyService.getParty(id));
+			return partyService.getPartyDetailedDO(id);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();

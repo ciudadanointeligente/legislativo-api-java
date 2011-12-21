@@ -7,6 +7,7 @@ import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
+import cl.votainteligente.legislativo.model.domainobjects.PersonDetailedDO;
 import cl.votainteligente.legislativo.service.EntityManagerService;
 import java.util.ArrayList;
 
@@ -85,4 +86,9 @@ public class PersonServiceImpl extends EntityManagerService implements
 		return getEntityManager().find(Person.class, id);
 	}
 
+	@Override
+	public PersonDetailedDO getPersonDetailedDO(Long id)
+			throws ServiceException {
+		return new PersonDetailedDO(getPerson(id));
+	}
 }

@@ -12,6 +12,7 @@ import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
+import cl.votainteligente.legislativo.model.domainobjects.PersonDetailedDO;
 import cl.votainteligente.legislativo.service.person.PersonService;
 
 @Controller
@@ -63,10 +64,10 @@ public class PersonController {
 
 	@RequestMapping(params = { "id" }, value = "person/any", method = RequestMethod.GET)
 	@ResponseBody
-	public final Person getPersonById(
+	public final PersonDetailedDO getPersonById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			return service.getPerson(id);
+			return service.getPersonDetailedDO(id);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();

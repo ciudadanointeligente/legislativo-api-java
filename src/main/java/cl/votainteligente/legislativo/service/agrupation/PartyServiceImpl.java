@@ -12,6 +12,7 @@ import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.model.Party;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.domainobjects.PartyDO;
+import cl.votainteligente.legislativo.model.domainobjects.PartyDetailedDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.service.EntityManagerService;
 
@@ -72,6 +73,11 @@ public class PartyServiceImpl extends EntityManagerService implements
 		return getEntityManager().find(Party.class, id);
 	}
 
+	@Override
+	public PartyDetailedDO getPartyDetailedDO(Long id) throws ServiceException {
+		return new PartyDetailedDO(getParty(id));
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public Page<PersonDO> getCurrentAffiliatesByParty(Party p, int pageNumber,
@@ -93,7 +99,7 @@ public class PartyServiceImpl extends EntityManagerService implements
 		queryCount.setParameter(1, p);
 		queryCount.setParameter(2, new Date(), TemporalType.DATE);
 		Long totalParties = (Long) queryCount.getSingleResult();
-		
+
 		return new Page<PersonDO>(listDO, pageNumber, resultsPerPage,
 				totalParties);
 	}
@@ -117,7 +123,7 @@ public class PartyServiceImpl extends EntityManagerService implements
 						"select count(distinct pa.person) from AgrupationAffiliation pa where pa.agrupation = ?");
 		queryCount.setParameter(1, p);
 		Long totalParties = (Long) queryCount.getSingleResult();
-		
+
 		return new Page<PersonDO>(listDO, pageNumber, resultsPerPage,
 				totalParties);
 	}

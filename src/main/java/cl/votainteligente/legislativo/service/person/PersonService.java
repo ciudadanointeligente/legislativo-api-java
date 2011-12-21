@@ -4,6 +4,7 @@ import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
+import cl.votainteligente.legislativo.model.domainobjects.PersonDetailedDO;
 
 public interface PersonService {
 	Person newPerson(Person person) throws ServiceException;
@@ -18,4 +19,6 @@ public interface PersonService {
 			throws ServiceException;
 
 	Person getPerson(Long id) throws ServiceException;
+
+	PersonDetailedDO getPersonDetailedDO(Long id) throws ServiceException;
 }

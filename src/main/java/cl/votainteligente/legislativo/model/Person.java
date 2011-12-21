@@ -7,6 +7,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
+import cl.votainteligente.legislativo.model.domainobjects.PersonDetailedDO;
 
 import java.util.Date;
 import java.util.List;
@@ -172,5 +173,10 @@ public class Person extends Participant {
 	@Transient
 	public PersonDO asDomainObject() {
 		return new PersonDO(this);
+	}
+
+	@Transient
+	public PersonDetailedDO asDetailedDomainObject() {
+		return new PersonDetailedDO(this);
 	}
 }
