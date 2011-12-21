@@ -1,5 +1,6 @@
 package cl.votainteligente.legislativo.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -9,10 +10,14 @@ import javax.persistence.Table;
 @Table(name = "commission")
 public class Commission extends Agrupation {
 
+	@Column(name="executive_lawyer")
 	private String executiveLawyer;
+	@Column(name="secretary_lawyer")
 	private String secretaryLawyer;
+	@Column(name="assistant_lawyer")
 	private String assistantLawyer;
 	private String form;
+	@Column(name="phone_number")
 	private String phoneNumber;
 
 	@ManyToOne
