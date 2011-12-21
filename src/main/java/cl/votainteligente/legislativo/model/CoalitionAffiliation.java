@@ -20,14 +20,14 @@ public class CoalitionAffiliation {
 	private Long id;
 
 	@Column
-	private Date admission_date;
+	private Date admissionDate;
 
 	@Column
-	private Date departure_date;
+	private Date departureDate;
 
 	@ManyToOne
 	@JoinColumn(name = "political_party_id", nullable = false)
-	private Party political_party;
+	private Party politicalParty;
 
 	@ManyToOne
 	@JoinColumn(name = "coalition_id", nullable = false)
@@ -41,28 +41,28 @@ public class CoalitionAffiliation {
 		this.id = id;
 	}
 
-	public Date getAdmission_date() {
-		return admission_date;
+	public Date getAdmissionDate() {
+		return admissionDate;
 	}
 
-	public void setAdmission_date(Date admission_date) {
-		this.admission_date = admission_date;
+	public void setAdmissionDate(Date admissionDate) {
+		this.admissionDate = admissionDate;
 	}
 
 	public Date getDeparture_date() {
-		return departure_date;
+		return departureDate;
 	}
 
-	public void setDeparture_date(Date departure_date) {
-		this.departure_date = departure_date;
+	public void setDeparture_date(Date departureDate) {
+		this.departureDate = departureDate;
 	}
 
-	public Party getPolitical_party() {
-		return political_party;
+	public Party getPoliticalParty() {
+		return politicalParty;
 	}
 
-	public void setPolitical_party(Party political_party) {
-		this.political_party = political_party;
+	public void setPoliticalParty(Party politicalParty) {
+		this.politicalParty = politicalParty;
 	}
 
 	public Coalition getCoalition() {

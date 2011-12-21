@@ -20,8 +20,8 @@ public class Coalition {
 	private String name;
 	private URL web;
 
-	private Date foundation_date;
-	private Date dissolution_date;
+	private Date foundationDate;
+	private Date dissolutionDate;
 
 	public Long getId() {
 		return id;
@@ -55,19 +55,19 @@ public class Coalition {
 		this.web = web;
 	}
 
-	public Date getFoundation_date() {
-		return foundation_date;
+	public Date getFoundationDate() {
+		return foundationDate;
 	}
 
-	public void setFoundation_date(Date foundation_date) {
-		this.foundation_date = foundation_date;
+	public void setFoundationDate(Date foundationDate) {
+		this.foundationDate = foundationDate;
 	}
 
-	public Date getDissolution_date() {
-		return dissolution_date;
+	public Date getDissolutionDate() {
+		return dissolutionDate;
 	}
 
-	public void setDissolution_date(Date dissolution_date) {
-		this.dissolution_date = dissolution_date;
+	public void setDissolutionDate(Date dissolutionDate) {
+		this.dissolutionDate = dissolutionDate;
 	}
 }

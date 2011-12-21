@@ -20,7 +20,7 @@ public class Committee {
 
 	@ManyToOne
 	@JoinColumn(name = "president_substitute_id", nullable = false)
-	private Legislator president_substitute;
+	private Legislator presidentSubstitute;
 
 	@ManyToOne
 	@JoinColumn(name = "party_id", nullable = false)
@@ -60,11 +60,11 @@ public class Committee {
 		this.party = party;
 	}
 
-	public void setPresident_substitute(Legislator president_substitute) {
-		this.president_substitute = president_substitute;
+	public void setPresidentSubstitute(Legislator presidentSubstitute) {
+		this.presidentSubstitute = presidentSubstitute;
 	}
 
-	public Legislator getPresident_substitute() {
-		return president_substitute;
+	public Legislator getPresidentSubstitute() {
+		return presidentSubstitute;
 	}
 }

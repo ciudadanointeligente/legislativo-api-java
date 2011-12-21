@@ -9,11 +9,11 @@ import javax.persistence.Table;
 @Table(name = "commission")
 public class Commission extends Agrupation {
 
-	private String executive_lawyer;
-	private String secretary_lawyer;
-	private String assistant_lawyer;
+	private String executiveLawyer;
+	private String secretaryLawyer;
+	private String assistantLawyer;
 	private String form;
-	private String phone_number;
+	private String phoneNumber;
 
 	@ManyToOne
 	@JoinColumn(name = "chamber_id", nullable = false)
@@ -21,22 +21,22 @@ public class Commission extends Agrupation {
 
 	@ManyToOne
 	@JoinColumn(name = "commission_type_id", nullable = false)
-	private CommissionType commission_type;
+	private CommissionType commissionType;
 
-	public String getAssistant_lawyer() {
-		return assistant_lawyer;
+	public String getAssistantLawyer() {
+		return assistantLawyer;
 	}
 
-	public void setAssistant_lawyer(String assistant_lawyer) {
-		this.assistant_lawyer = assistant_lawyer;
+	public void setAssistantLawyer(String assistantLawyer) {
+		this.assistantLawyer = assistantLawyer;
 	}
 
-	public String getExecutive_lawyer() {
-		return executive_lawyer;
+	public String getExecutiveLawyer() {
+		return executiveLawyer;
 	}
 
-	public void setExecutive_lawyer(String executive_lawyer) {
-		this.executive_lawyer = executive_lawyer;
+	public void setExecutive_lawyer(String executiveLawyer) {
+		this.executiveLawyer = executiveLawyer;
 	}
 
 	public String getForm() {
@@ -47,20 +47,20 @@ public class Commission extends Agrupation {
 		this.form = form;
 	}
 
-	public String getPhone_number() {
-		return phone_number;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setPhone_number(String phone_number) {
-		this.phone_number = phone_number;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
-	public String getSecretary_lawyer() {
-		return secretary_lawyer;
+	public String getSecretaryLawyer() {
+		return secretaryLawyer;
 	}
 
-	public void setSecretary_lawyer(String secretary_lawyer) {
-		this.secretary_lawyer = secretary_lawyer;
+	public void setSecretaryLawyer(String secretaryLawyer) {
+		this.secretaryLawyer = secretaryLawyer;
 	}
 
 	public Chamber getChamber() {
@@ -71,11 +71,11 @@ public class Commission extends Agrupation {
 		this.chamber = chamber;
 	}
 
-	public CommissionType getCommission_type() {
-		return commission_type;
+	public CommissionType getCommissionType() {
+		return commissionType;
 	}
 
-	public void setCommission_type(CommissionType commission_type) {
-		this.commission_type = commission_type;
+	public void setCommissionType(CommissionType commissionType) {
+		this.commissionType = commissionType;
 	}
 }
