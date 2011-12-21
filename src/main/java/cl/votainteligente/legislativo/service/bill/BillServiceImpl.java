@@ -17,6 +17,7 @@ import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.Role;
 import cl.votainteligente.legislativo.model.StageDescription;
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
+import cl.votainteligente.legislativo.model.domainobjects.BillDetailedDO;
 import cl.votainteligente.legislativo.model.domainobjects.BillRoleDO;
 import cl.votainteligente.legislativo.service.EntityManagerService;
 
@@ -58,6 +59,11 @@ public class BillServiceImpl extends EntityManagerService implements
 	@Override
 	public Bill getBill(Long id) throws ServiceException {
 		return getEntityManager().find(Bill.class, id);
+	}
+
+	@Override
+	public BillDetailedDO getBillDetailedDO(Long id) throws ServiceException {
+		return new BillDetailedDO(getBill(id));
 	}
 
 	@SuppressWarnings("unchecked")

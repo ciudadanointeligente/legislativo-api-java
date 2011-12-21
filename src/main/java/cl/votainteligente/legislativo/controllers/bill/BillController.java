@@ -17,11 +17,11 @@ import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.exceptions.BadRequestException;
 import cl.votainteligente.legislativo.exceptions.ResourceNotFoundException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
-import cl.votainteligente.legislativo.model.Bill;
 import cl.votainteligente.legislativo.model.Matter;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.StageDescription;
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
+import cl.votainteligente.legislativo.model.domainobjects.BillDetailedDO;
 import cl.votainteligente.legislativo.model.domainobjects.BillRoleDO;
 import cl.votainteligente.legislativo.service.bill.BillService;
 import cl.votainteligente.legislativo.service.bill.StageDescriptionService;
@@ -61,10 +61,10 @@ public class BillController {
 
 	@RequestMapping(params = { "id" }, value = "bill/any", method = RequestMethod.GET)
 	@ResponseBody
-	public final Bill getBillById(
+	public final BillDetailedDO getBillById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			return service.getBill(id);
+			return service.getBillDetailedDO(id);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();

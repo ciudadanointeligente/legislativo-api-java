@@ -10,6 +10,7 @@ import cl.votainteligente.legislativo.model.Matter;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.StageDescription;
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
+import cl.votainteligente.legislativo.model.domainobjects.BillDetailedDO;
 import cl.votainteligente.legislativo.model.domainobjects.BillRoleDO;
 
 public interface BillService {
@@ -21,6 +22,8 @@ public interface BillService {
 			throws ServiceException;
 
 	Bill getBill(Long id) throws ServiceException;
+
+	BillDetailedDO getBillDetailedDO(Long id) throws ServiceException;
 
 	Page<BillDO> getByDateRange(Date from, Date to, int page, int resultsPerPage)
 			throws ServiceException;

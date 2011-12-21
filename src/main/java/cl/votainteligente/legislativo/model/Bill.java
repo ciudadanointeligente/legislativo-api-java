@@ -19,6 +19,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
+import cl.votainteligente.legislativo.model.domainobjects.BillDetailedDO;
 
 @Entity
 @Table(name = "bill")
@@ -382,6 +383,11 @@ public class Bill {
 	@Transient
 	public BillDO asDomainObject() {
 		return new BillDO(this);
+	}
+
+	@Transient
+	public BillDetailedDO asDetailedDomainObject() {
+		return new BillDetailedDO(this);
 	}
 
 	public void setStages(Set<Stage> stages) {
