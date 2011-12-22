@@ -5,7 +5,7 @@ import cl.votainteligente.legislativo.model.Debate;
 public class DebateDO {
 	private Long id;
 	private Long billId;
-	private String chamber;
+	private Long chamber;
 	private String discussionType;
 	private String abstractText;
 	private String abstractTitle;
@@ -14,7 +14,7 @@ public class DebateDO {
 	public DebateDO(Debate d) {
 		this.id = d.getId();
 		this.billId = d.getBill().getId();
-		this.chamber = d.getChamber().getName();
+		this.chamber = d.getChamber().getId();
 		this.discussionType = d.getDiscussionType().getName();
 		this.abstractText = d.getAbstractText();
 		this.abstractTitle = d.getAbstractTitle();
@@ -37,11 +37,11 @@ public class DebateDO {
 		this.billId = billId;
 	}
 
-	public String getChamber() {
+	public Long getChamber() {
 		return chamber;
 	}
 
-	public void setChamber(String chamber) {
+	public void setChamber(Long chamber) {
 		this.chamber = chamber;
 	}
 
