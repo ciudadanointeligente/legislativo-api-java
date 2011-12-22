@@ -262,6 +262,24 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+			<plugin>
+        <groupId>org.codehaus.enunciate</groupId>
+        <artifactId>maven-enunciate-plugin</artifactId>
+
+        <configuration>
+          <!-- <configFile>enunciate.xml</configFile> -->
+          <exports>
+            <jaxws.client.library.binaries>client.jar</jaxws.client.library.binaries>
+          </exports>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>assemble</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 		</plugins>
 	</build>
 </project>
