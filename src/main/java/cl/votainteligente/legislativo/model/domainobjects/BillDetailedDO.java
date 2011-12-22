@@ -3,10 +3,13 @@ package cl.votainteligente.legislativo.model.domainobjects;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import cl.votainteligente.legislativo.model.Bill;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.Stage;
 
+@XmlRootElement
 public class BillDetailedDO {
 
 	private Long id;
@@ -37,8 +40,9 @@ public class BillDetailedDO {
 		this.entryDate = DOUtil.getDateFormat().format(bill.getEntryDate());
 		this.updatedAt = DOUtil.getDateFormat().format(bill.getUpdatedAt());
 		this.bulletinNumber = bill.getBulletinNumber();
-		if(this.isPublished())
-			this.publicationDate = DOUtil.getDateFormat().format(bill.getPublicationDate());
+		if (this.isPublished())
+			this.publicationDate = DOUtil.getDateFormat().format(
+					bill.getPublicationDate());
 		else
 			this.publicationDate = "no-date";
 		this.BCNLawId = bill.getBCNLawId();
@@ -46,7 +50,7 @@ public class BillDetailedDO {
 		this.initiative = bill.getInitiative();
 		this.originChamberId = bill.getOriginChamber().getId();
 		this.urgency = bill.getUrgency();
-		if(bill.getMatter() != null)
+		if (bill.getMatter() != null)
 			this.matterId = bill.getMatter().getId();
 		this.decree = bill.getDecree();
 		this.summary = bill.getSummary();
