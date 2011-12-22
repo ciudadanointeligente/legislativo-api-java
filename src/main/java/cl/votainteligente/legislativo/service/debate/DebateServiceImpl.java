@@ -14,6 +14,7 @@ import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.model.Bill;
 import cl.votainteligente.legislativo.model.Debate;
 import cl.votainteligente.legislativo.model.domainobjects.DebateDO;
+import cl.votainteligente.legislativo.model.domainobjects.DebateDetailedDO;
 import cl.votainteligente.legislativo.service.EntityManagerService;
 
 @Service
@@ -32,6 +33,13 @@ public class DebateServiceImpl extends EntityManagerService implements
 	@Override
 	public Debate getDebate(long id) throws ServiceException {
 		return getEntityManager().find(Debate.class, id);
+	}
+	
+	public DebateDetailedDO getDebateDetailedDO(long id) throws ServiceException{
+		Debate debate=getDebate(id);
+		if(debate==null)
+			return null;
+		return new DebateDetailedDO(debate);
 	}
 
 	@SuppressWarnings("unchecked")
