@@ -14,7 +14,7 @@ import cl.votainteligente.legislativo.model.domainobjects.BillRoleDO;
 public interface BillAPI {
 	/**
 	 * Returns all the bills registered in the system.
-	 * 
+	 *
 	 * @param page
 	 *            The number of the desired page to be retrieved.
 	 * @param perPage
@@ -29,7 +29,7 @@ public interface BillAPI {
 
 	/**
 	 * Allows you to get all the information of a bill.
-	 * 
+	 *
 	 * @param id
 	 *            The Bill identification number.
 	 * @return Detailed view of a bill
@@ -41,7 +41,7 @@ public interface BillAPI {
 
 	/**
 	 * Gives all the bills presented between two dates.
-	 * 
+	 *
 	 * @param from
 	 *            Beggining of the interval, in date format.
 	 * @param to
@@ -63,7 +63,7 @@ public interface BillAPI {
 
 	/**
 	 * Returns all the bills that currently are in a particular stage.
-	 * 
+	 *
 	 * @param id
 	 *            The Stage identification number.
 	 * @param page
@@ -80,26 +80,8 @@ public interface BillAPI {
 			@PathParam("perPage") final int perPage);
 
 	/**
-	 * Returns all the bills that have been presented by a particular author.
-	 * 
-	 * @param id
-	 *            The Person Identificator of a partiular Author.
-	 * @param page
-	 *            The number of the desired page to be retrieved.
-	 * @param perPage
-	 *            Amount of bills to be retrieved in a page.
-	 * @return A Page of Bill Abstracts (BillDO)
-	 * @see BillDO
-	 */
-	@GET
-	@Path("author")
-	public Page<BillDO> getByAuthors(@PathParam("id") final long author_id,
-			@PathParam("page") final int page,
-			@PathParam("perPage") final int perPage);
-
-	/**
 	 * Returns all the bills registered in the system of a particular matter.
-	 * 
+	 *
 	 * @param id
 	 *            The matter identificator.
 	 * @param page
@@ -116,7 +98,9 @@ public interface BillAPI {
 			@PathParam("perPage") final int perPage);
 
 	/**
-	 * @deprecated This Query seems wrong. We should check it.
+	 * Returns all the bills and role (of person) registered in the system of a
+	 * particular author
+	 *
 	 * @param page
 	 *            The number of the desired page to be retrieved.
 	 * @param perPage

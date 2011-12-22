@@ -23,11 +23,10 @@ public class MergedBill {
 	private Long id;
 
 	@OneToOne
-	@JoinColumn(name="new_bill_id")
+	@JoinColumn(name = "new_bill_id")
 	private Bill newBill;
 
 	@OneToMany
-	@JoinColumn(name = "merged_bills_id")
 	private Set<Bill> mergedBills;
 
 	@Temporal(TemporalType.DATE)

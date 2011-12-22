@@ -116,24 +116,6 @@ public class BillController implements BillAPI {
 		}
 	}
 
-	@RequestMapping(params = { "id" }, value = "bill/author", method = RequestMethod.GET)
-	@ResponseBody
-	public final Page<BillDO> getByAuthors(
-			@RequestParam(value = "id", required = true) final long author_id,
-			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
-		try {
-			Person p = personService.getPerson(author_id);
-			if (p == null)
-				throw new ResourceNotFoundException();
-			Page<BillDO> resultPage = service.getByAuthor(p, page, perPage);
-			return resultPage;
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			throw new ServerErrorException();
-		}
-	}
-
 	@RequestMapping(params = { "id" }, value = "bill/matter", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<BillDO> getByMatter(
@@ -153,7 +135,7 @@ public class BillController implements BillAPI {
 		}
 	}
 
-	@RequestMapping(params = { "id" }, value = "bill/author_role", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" }, value = "bill/author", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<BillRoleDO> getBillRoleByPerson(
 			@RequestParam(value = "id", required = true) final long author_id,

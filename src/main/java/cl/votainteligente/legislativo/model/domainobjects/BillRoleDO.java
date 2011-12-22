@@ -15,6 +15,7 @@ public class BillRoleDO {
 	private Date billEntryDate;
 	private Date roleStartDate;
 	private Date roleEndDate;
+	private String billTitle;
 
 	public BillRoleDO() {
 
@@ -75,6 +76,21 @@ public class BillRoleDO {
 
 	public void setRoleEndDate(Date roleEndDate) {
 		this.roleEndDate = roleEndDate;
+	}
+
+	/**
+	 * @param billTitle
+	 *            the billTitle to set
+	 */
+	public void setBillTitle(String billTitle) {
+		this.billTitle = billTitle;
+	}
+
+	/**
+	 * @return the billTitle
+	 */
+	public String getBillTitle() {
+		return billTitle;
 	}
 
 }

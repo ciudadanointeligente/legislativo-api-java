@@ -170,6 +170,7 @@ public class BillServiceImpl extends EntityManagerService implements
 								+ "AND r.person = ?");
 		query.setParameter(1, person);
 		query.setParameter(2, person);
+		long totalBillRoles = query.getResultList().size();
 		query.setFirstResult((pageNumber - 1) * resultsPerPage);
 		query.setMaxResults(resultsPerPage);
 		List<Object[]> resultList = (List<Object[]>) query.getResultList();
@@ -178,17 +179,6 @@ public class BillServiceImpl extends EntityManagerService implements
 			listDO.add(new BillRoleDO((Bill) billAndRole[0],
 					(Role) billAndRole[1]));
 		}
-		Query queryCount = getEntityManager()
-				.createQuery(
-						"SELECT count(b,r) FROM Bill b JOIN b.authors a JOIN a.roles r  "
-								+ "WHERE a = ? AND "
-								+ "((r.endDate IS NOT NULL AND b.entryDate BETWEEN r.startDate AND r.endDate) "
-								+ "OR (r.endDate IS NULL AND b.entryDate >= r.startDate)) "
-								+ "AND r.person = ?");
-		queryCount.setParameter(1, person);
-		queryCount.setParameter(2, person);
-
-		long totalBillRoles = (Long) queryCount.getSingleResult();
 		return new Page<BillRoleDO>(listDO, pageNumber, resultsPerPage,
 				totalBillRoles);
 	}
