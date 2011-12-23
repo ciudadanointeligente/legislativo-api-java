@@ -1,7 +1,10 @@
 package cl.votainteligente.legislativo.model.domainobjects;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import cl.votainteligente.legislativo.model.Debate;
 
+@XmlRootElement
 public class DebateDO {
 	private Long id;
 	private Long billId;
@@ -10,6 +13,10 @@ public class DebateDO {
 	private String abstractText;
 	private String abstractTitle;
 	private String topic;
+
+	public DebateDO() {
+
+	}
 
 	public DebateDO(Debate d) {
 		this.id = d.getId();

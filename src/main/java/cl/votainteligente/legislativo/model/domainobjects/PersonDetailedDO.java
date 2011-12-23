@@ -3,9 +3,12 @@ package cl.votainteligente.legislativo.model.domainobjects;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.Role;
 
+@XmlRootElement
 public class PersonDetailedDO {
 
 	private Long id;
@@ -28,6 +31,10 @@ public class PersonDetailedDO {
 		return birthday;
 	}
 
+	public PersonDetailedDO() {
+
+	}
+
 	public PersonDetailedDO(Person person) {
 		this.id = person.getId();
 		this.firstName = person.getFirstName();
@@ -45,8 +52,8 @@ public class PersonDetailedDO {
 		this.statementOfHeritage = person.getStatementOfHeritage();
 		this.statementOfInterest = person.getStatementOfInterest();
 		this.rolesId = new ArrayList<Long>();
-		List<Role> personRoles = person.getRoles(); 
-		for(Role role : personRoles)
+		List<Role> personRoles = person.getRoles();
+		for (Role role : personRoles)
 			this.rolesId.add(role.getId());
 	}
 

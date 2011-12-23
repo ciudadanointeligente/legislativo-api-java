@@ -1,8 +1,11 @@
 package cl.votainteligente.legislativo.model.domainobjects;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import cl.votainteligente.legislativo.model.Party;
 import cl.votainteligente.legislativo.model.Person;
 
+@XmlRootElement
 public class PersonPartyDO {
 
 	private Long id;
@@ -10,6 +13,10 @@ public class PersonPartyDO {
 	private String lastName;
 	private Long partyId;
 	private String partyName;
+
+	public PersonPartyDO() {
+
+	}
 
 	public PersonPartyDO(Person person, Party party) {
 		this.id = person.getId();

@@ -3,13 +3,20 @@ package cl.votainteligente.legislativo.model.domainobjects;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import cl.votainteligente.legislativo.model.Circunscription;
 import cl.votainteligente.legislativo.model.Region;
 
+@XmlRootElement
 public class CircunscriptionDO {
 	private Long id;
 	private String name;
 	private Set<Long> regions;
+
+	public CircunscriptionDO() {
+
+	}
 
 	public CircunscriptionDO(Circunscription original) {
 		this.id = original.getId();

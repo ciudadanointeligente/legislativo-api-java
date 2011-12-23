@@ -1,9 +1,12 @@
 package cl.votainteligente.legislativo.model.domainobjects;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import cl.votainteligente.legislativo.model.Chamber;
 import cl.votainteligente.legislativo.model.Legislator;
 import cl.votainteligente.legislativo.model.Person;
 
+@XmlRootElement
 public class LegislatorDetailedDO {
 
 	private Long legislatorId;
@@ -28,13 +31,15 @@ public class LegislatorDetailedDO {
 	private String electionCharges;
 	private Integer parliamentSiteId;
 
+	public LegislatorDetailedDO() {
 
+	}
 
 	public LegislatorDetailedDO(Legislator legislator) {
 		this.legislatorId = legislator.getId();
 		if (legislator.getStartDate() != null)
 			this.startDate = DOUtil.getDateFormat().format(
-				legislator.getStartDate());
+					legislator.getStartDate());
 		if (legislator.getEndDate() != null)
 			this.endDate = DOUtil.getDateFormat().format(
 					legislator.getEndDate());
@@ -50,9 +55,9 @@ public class LegislatorDetailedDO {
 		this.campaignFinance = legislator.getCampaignFinance();
 		this.voteNumber = legislator.getVoteNumber();
 		this.votePercentage = legislator.getVotePercentage();
-		if(legislator.getCircunscription() != null)
+		if (legislator.getCircunscription() != null)
 			this.circunscriptionId = legislator.getCircunscription().getId();
-		if(legislator.getDistrict() != null)
+		if (legislator.getDistrict() != null)
 			this.districtId = legislator.getDistrict().getId();
 		this.pastComissions = legislator.getPastComissions();
 		this.currentComissions = legislator.getCurrentComissions();
@@ -190,7 +195,8 @@ public class LegislatorDetailedDO {
 	}
 
 	/**
-	 * @param periodsDetails the periodsDetails to set
+	 * @param periodsDetails
+	 *            the periodsDetails to set
 	 */
 	public void setPeriodsDetails(String periodsDetails) {
 		this.periodsDetails = periodsDetails;
@@ -204,7 +210,8 @@ public class LegislatorDetailedDO {
 	}
 
 	/**
-	 * @param campaignSpending the campaignSpending to set
+	 * @param campaignSpending
+	 *            the campaignSpending to set
 	 */
 	public void setCampaignSpending(Integer campaignSpending) {
 		this.campaignSpending = campaignSpending;
@@ -218,7 +225,8 @@ public class LegislatorDetailedDO {
 	}
 
 	/**
-	 * @param campaignFinance the campaignFinance to set
+	 * @param campaignFinance
+	 *            the campaignFinance to set
 	 */
 	public void setCampaignFinance(Integer campaignFinance) {
 		this.campaignFinance = campaignFinance;
@@ -232,7 +240,8 @@ public class LegislatorDetailedDO {
 	}
 
 	/**
-	 * @param voteNumber the voteNumber to set
+	 * @param voteNumber
+	 *            the voteNumber to set
 	 */
 	public void setVoteNumber(Integer voteNumber) {
 		this.voteNumber = voteNumber;
@@ -246,7 +255,8 @@ public class LegislatorDetailedDO {
 	}
 
 	/**
-	 * @param votePercentage the votePercentage to set
+	 * @param votePercentage
+	 *            the votePercentage to set
 	 */
 	public void setVotePercentage(Double votePercentage) {
 		this.votePercentage = votePercentage;
@@ -260,7 +270,8 @@ public class LegislatorDetailedDO {
 	}
 
 	/**
-	 * @param circunscriptionId the circunscriptionId to set
+	 * @param circunscriptionId
+	 *            the circunscriptionId to set
 	 */
 	public void setCircunscriptionId(Long circunscriptionId) {
 		this.circunscriptionId = circunscriptionId;
@@ -274,7 +285,8 @@ public class LegislatorDetailedDO {
 	}
 
 	/**
-	 * @param districtId the districtId to set
+	 * @param districtId
+	 *            the districtId to set
 	 */
 	public void setDistrictId(Long districtId) {
 		this.districtId = districtId;
@@ -288,7 +300,8 @@ public class LegislatorDetailedDO {
 	}
 
 	/**
-	 * @param pastComissions the pastComissions to set
+	 * @param pastComissions
+	 *            the pastComissions to set
 	 */
 	public void setPastComissions(String pastComissions) {
 		this.pastComissions = pastComissions;
@@ -302,7 +315,8 @@ public class LegislatorDetailedDO {
 	}
 
 	/**
-	 * @param currentComissions the currentComissions to set
+	 * @param currentComissions
+	 *            the currentComissions to set
 	 */
 	public void setCurrentComissions(String currentComissions) {
 		this.currentComissions = currentComissions;
@@ -316,7 +330,8 @@ public class LegislatorDetailedDO {
 	}
 
 	/**
-	 * @param comiteEnvoy the comiteEnvoy to set
+	 * @param comiteEnvoy
+	 *            the comiteEnvoy to set
 	 */
 	public void setComiteEnvoy(String comiteEnvoy) {
 		this.comiteEnvoy = comiteEnvoy;
@@ -330,7 +345,8 @@ public class LegislatorDetailedDO {
 	}
 
 	/**
-	 * @param governmentCharges the governmentCharges to set
+	 * @param governmentCharges
+	 *            the governmentCharges to set
 	 */
 	public void setGovernmentCharges(String governmentCharges) {
 		this.governmentCharges = governmentCharges;
@@ -344,7 +360,8 @@ public class LegislatorDetailedDO {
 	}
 
 	/**
-	 * @param electionCharges the electionCharges to set
+	 * @param electionCharges
+	 *            the electionCharges to set
 	 */
 	public void setElectionCharges(String electionCharges) {
 		this.electionCharges = electionCharges;
@@ -358,7 +375,8 @@ public class LegislatorDetailedDO {
 	}
 
 	/**
-	 * @param parliamentSiteId the parliamentSiteId to set
+	 * @param parliamentSiteId
+	 *            the parliamentSiteId to set
 	 */
 	public void setParliamentSiteId(Integer parliamentSiteId) {
 		this.parliamentSiteId = parliamentSiteId;

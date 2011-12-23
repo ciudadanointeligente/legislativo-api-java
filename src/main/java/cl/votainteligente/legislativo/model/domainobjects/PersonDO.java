@@ -1,7 +1,10 @@
 package cl.votainteligente.legislativo.model.domainobjects;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import cl.votainteligente.legislativo.model.Person;
 
+@XmlRootElement
 public class PersonDO {
 
 	private Long id;
@@ -12,6 +15,10 @@ public class PersonDO {
 
 	public String getBirthday() {
 		return birthday;
+	}
+
+	public PersonDO() {
+
 	}
 
 	public PersonDO(Person person) {

@@ -1,11 +1,18 @@
 package cl.votainteligente.legislativo.model.domainobjects;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import cl.votainteligente.legislativo.model.Commune;
 
+@XmlRootElement
 public class CommuneDO {
 	private Long id;
 	private String name;
 	private Long district;
+
+	public CommuneDO() {
+
+	}
 
 	public CommuneDO(Commune c) {
 		this.id = c.getId();

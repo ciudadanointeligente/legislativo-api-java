@@ -3,9 +3,12 @@ package cl.votainteligente.legislativo.model.domainobjects;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import cl.votainteligente.legislativo.model.Party;
 import cl.votainteligente.legislativo.model.Person;
 
+@XmlRootElement
 public class PartyDetailedDO {
 
 	private Long id;
@@ -17,6 +20,10 @@ public class PartyDetailedDO {
 	private String principles;
 	private Set<Long> youthBoardId;
 	private Set<Long> adultBoardId;
+
+	public PartyDetailedDO() {
+
+	}
 
 	public PartyDetailedDO(Party party) {
 		this.id = party.getId();
