@@ -34,10 +34,11 @@ public class DebateServiceImpl extends EntityManagerService implements
 	public Debate getDebate(long id) throws ServiceException {
 		return getEntityManager().find(Debate.class, id);
 	}
-	
-	public DebateDetailedDO getDebateDetailedDO(long id) throws ServiceException{
-		Debate debate=getDebate(id);
-		if(debate==null)
+
+	public DebateDetailedDO getDebateDetailedDO(long id)
+			throws ServiceException {
+		Debate debate = getDebate(id);
+		if (debate == null)
 			return null;
 		return new DebateDetailedDO(debate);
 	}

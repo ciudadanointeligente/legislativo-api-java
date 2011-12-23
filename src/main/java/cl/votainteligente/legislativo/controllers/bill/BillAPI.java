@@ -5,7 +5,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
 import cl.votainteligente.legislativo.common.Page;
-import cl.votainteligente.legislativo.model.Bill;
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
 import cl.votainteligente.legislativo.model.domainobjects.BillDetailedDO;
 import cl.votainteligente.legislativo.model.domainobjects.BillRoleDO;
@@ -32,8 +31,8 @@ public interface BillAPI {
 	 *
 	 * @param id
 	 *            The Bill identification number.
-	 * @return Detailed view of a bill
-	 * @see Bill
+	 * @return Detailed view of a bill (BillDetailedDO)
+	 * @see BillDetailedDO
 	 */
 	@GET
 	@Path("any")
