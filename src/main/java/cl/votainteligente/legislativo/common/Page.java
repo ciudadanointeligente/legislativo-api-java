@@ -7,7 +7,20 @@ import javax.xml.bind.annotation.XmlElementRefs;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
+import cl.votainteligente.legislativo.model.domainobjects.BillDetailedDO;
 import cl.votainteligente.legislativo.model.domainobjects.BillRoleDO;
+import cl.votainteligente.legislativo.model.domainobjects.CircunscriptionDO;
+import cl.votainteligente.legislativo.model.domainobjects.CommuneDO;
+import cl.votainteligente.legislativo.model.domainobjects.DebateDO;
+import cl.votainteligente.legislativo.model.domainobjects.DebateDetailedDO;
+import cl.votainteligente.legislativo.model.domainobjects.DistrictDO;
+import cl.votainteligente.legislativo.model.domainobjects.LegislatorDO;
+import cl.votainteligente.legislativo.model.domainobjects.LegislatorDetailedDO;
+import cl.votainteligente.legislativo.model.domainobjects.PartyDO;
+import cl.votainteligente.legislativo.model.domainobjects.PartyDetailedDO;
+import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
+import cl.votainteligente.legislativo.model.domainobjects.PersonDetailedDO;
+import cl.votainteligente.legislativo.model.domainobjects.PersonPartyDO;
 
 @XmlRootElement
 public class Page<T> {
@@ -54,8 +67,22 @@ public class Page<T> {
 		this.totalElements = totalElements;
 	}
 
-	@XmlElementRefs( { @XmlElementRef(type = BillDO.class),
-			@XmlElementRef(type = BillRoleDO.class) })
+	@XmlElementRefs( { 
+		@XmlElementRef(type = BillDO.class),
+		@XmlElementRef(type = BillRoleDO.class),
+		@XmlElementRef(type = BillDetailedDO.class),
+		@XmlElementRef(type = CircunscriptionDO.class),
+		@XmlElementRef(type = CommuneDO.class),
+		@XmlElementRef(type = DebateDetailedDO.class),
+		@XmlElementRef(type = DebateDO.class),
+		@XmlElementRef(type = DistrictDO.class),
+		@XmlElementRef(type = LegislatorDetailedDO.class),
+		@XmlElementRef(type = LegislatorDO.class),
+		@XmlElementRef(type = PartyDetailedDO.class),
+		@XmlElementRef(type = PartyDO.class),
+		@XmlElementRef(type = PersonDetailedDO.class),
+		@XmlElementRef(type = PersonDO.class),
+		@XmlElementRef(type = PersonPartyDO.class)})
 	public List<T> getElements() {
 		return elements;
 	}
