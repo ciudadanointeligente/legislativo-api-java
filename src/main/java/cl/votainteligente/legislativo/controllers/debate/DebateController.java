@@ -18,7 +18,6 @@ import cl.votainteligente.legislativo.exceptions.BadRequestException;
 import cl.votainteligente.legislativo.exceptions.ResourceNotFoundException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
 import cl.votainteligente.legislativo.model.Bill;
-import cl.votainteligente.legislativo.model.Debate;
 import cl.votainteligente.legislativo.model.domainobjects.DebateDO;
 import cl.votainteligente.legislativo.model.domainobjects.DebateDetailedDO;
 import cl.votainteligente.legislativo.service.bill.BillService;
