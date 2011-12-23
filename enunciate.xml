@@ -1,0 +1,11 @@
+<enunciate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" label="legislativo" xsi:noNamespaceSchemaLocation="http://enunciate.codehaus.org/schemas/enunciate-1.24.xsd">
+<deployment host="demo.ciudadanointeligente.cl" context="api"/>
+<namespaces>
+<namespace id="api" uri="http://demo.ciudadanointeligente.cl/Legislativo/api"/>
+</namespaces>
+<modules>
+<docs css="src/main/webapp/WEB-INF/enunciate/default.css" title="Api Legislativo" copyright="Fundación Ciudadano Inteligente">
+<!-- <download name="License" file="LICENSE.txt" description="The license file governing the use of this API."/> -->
+</docs>
+</modules>
+</enunciate>
