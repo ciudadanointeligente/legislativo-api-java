@@ -22,7 +22,7 @@ public class PartyDetailedDO {
 		this.id = party.getId();
 		this.name = party.getName();
 		this.address = party.getAddress();
-		this.history = party.getName();
+		this.history = party.getHistory();
 		this.initials = party.getInitials();
 		this.phoneNumber = party.getPhoneNumber();
 		this.principles = party.getPrinciples();
