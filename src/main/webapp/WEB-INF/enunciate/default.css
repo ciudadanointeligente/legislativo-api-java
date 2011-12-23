@@ -10,6 +10,9 @@
  * - yui.yahooapis.com/2.8.1/build/base/base.css
  * - camendesign.com/design/
  * - praegnanz.de/weblog/htmlcssjs-kickstart
+ *
+ * Proyecto de Software Legislativo-api-java
+ * This is a modified version of the default CSS given by the enunciate plugin.
  */ /**
  * html5doctor.com Reset Stylesheet (Eric Meyer's Reset Reloaded + HTML5 baseline)
  * v1.6.1 2010-09-17 | Authors: Eric Meyer & Richard Clark
@@ -158,8 +161,8 @@ pre {
 textarea {
 	overflow: auto;
 }
-	
-	/* www.sitepoint.com/blogs/2010/08/20/ie-remove-textarea-scrollbars/ */
+
+/* www.sitepoint.com/blogs/2010/08/20/ie-remove-textarea-scrollbars/ */
 .ie6 legend,.ie7 legend {
 	margin-left: -7px;
 }
@@ -725,6 +728,7 @@ p.quiet {
 
 #site-name {
 	line-height: 36px;
+	display: none;
 }
 
 #site-name a {
@@ -790,6 +794,9 @@ ul.navigation li {
 	line-height: 72px;
 	margin-bottom: -24px;
 	text-align: right;
+	background-image:
+		url(http://www.ciudadanointeligente.cl/css/imgs/logo-fci.png);
+	background-repeat: no-repeat;
 }
 
 #primary li {
@@ -808,7 +815,7 @@ ul.navigation li {
 
 #secondary {
 	padding-top: 7px;
-	background-color: #FFDF73;
+	background-color: #5FBCEC;
 }
 
 #secondary ul {

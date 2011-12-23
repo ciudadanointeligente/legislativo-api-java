@@ -53,78 +53,101 @@
 			<version>1.2</version>
 		</dependency>
 
-		<!-- Core utilities used by other modules. Define this if you use Spring
-			Utility APIs (org.springframework.core.*/org.springframework.util.*) -->
+		<!--
+			Core utilities used by other modules. Define this if you use Spring
+			Utility APIs (org.springframework.core.*/org.springframework.util.*)
+		-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
 
-		<!-- Bean Factory and JavaBeans utilities (depends on spring-core) Define
-			this if you use Spring Bean APIs (org.springframework.beans.*) -->
+		<!--
+			Bean Factory and JavaBeans utilities (depends on spring-core) Define
+			this if you use Spring Bean APIs (org.springframework.beans.*)
+		-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
 
-		<!-- Aspect Oriented Programming (AOP) Framework (depends on spring-core,
-			spring-beans) Define this if you use Spring AOP APIs (org.springframework.aop.*) -->
+		<!--
+			Aspect Oriented Programming (AOP) Framework (depends on spring-core,
+			spring-beans) Define this if you use Spring AOP APIs
+			(org.springframework.aop.*)
+		-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
 
-		<!-- Application Context (depends on spring-core, spring-expression, spring-aop,
-			spring-beans) This is the central artifact for Spring's Dependency Injection
-			Container and is generally always defined -->
+		<!--
+			Application Context (depends on spring-core, spring-expression,
+			spring-aop, spring-beans) This is the central artifact for Spring's
+			Dependency Injection Container and is generally always defined
+		-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
 
-		<!-- Transaction Management Abstraction (depends on spring-core, spring-beans,
-			spring-aop, spring-context) Define this if you use Spring Transactions or
-			DAO Exception Hierarchy (org.springframework.transaction.*/org.springframework.dao.*) -->
+		<!--
+			Transaction Management Abstraction (depends on spring-core,
+			spring-beans, spring-aop, spring-context) Define this if you use
+			Spring Transactions or DAO Exception Hierarchy
+			(org.springframework.transaction.*/org.springframework.dao.*)
+		-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
 
-		<!-- JDBC Data Access Library (depends on spring-core, spring-beans, spring-context,
-			spring-tx) Define this if you use Spring's JdbcTemplate API (org.springframework.jdbc.*) -->
+		<!--
+			JDBC Data Access Library (depends on spring-core, spring-beans,
+			spring-context, spring-tx) Define this if you use Spring's
+			JdbcTemplate API (org.springframework.jdbc.*)
+		-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
 
-		<!-- Object-to-Relation-Mapping (ORM) integration with Hibernate, JPA,
-			and iBatis. (depends on spring-core, spring-beans, spring-context, spring-tx)
-			Define this if you need ORM (org.springframework.orm.*) -->
+		<!--
+			Object-to-Relation-Mapping (ORM) integration with Hibernate, JPA, and
+			iBatis. (depends on spring-core, spring-beans, spring-context,
+			spring-tx) Define this if you need ORM (org.springframework.orm.*)
+		-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
 
-		<!-- Web application development utilities applicable to both Servlet and
-			Portlet Environments (depends on spring-core, spring-beans, spring-context)
-			Define this if you use Spring MVC, or wish to use Struts, JSF, or another
-			web framework with Spring (org.springframework.web.*) -->
+		<!--
+			Web application development utilities applicable to both Servlet and
+			Portlet Environments (depends on spring-core, spring-beans,
+			spring-context) Define this if you use Spring MVC, or wish to use
+			Struts, JSF, or another web framework with Spring
+			(org.springframework.web.*)
+		-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
 
-		<!-- Spring MVC for Servlet Environments (depends on spring-core, spring-beans,
-			spring-context, spring-web) Define this if you use Spring MVC with a Servlet
-			Container such as Apache Tomcat (org.springframework.web.servlet.*) -->
+		<!--
+			Spring MVC for Servlet Environments (depends on spring-core,
+			spring-beans, spring-context, spring-web) Define this if you use
+			Spring MVC with a Servlet Container such as Apache Tomcat
+			(org.springframework.web.servlet.*)
+		-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
@@ -238,7 +261,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.enunciate</groupId>
-			<artifactId>maven-enunciate-spring-plugin</artifactId>
+			<artifactId>maven-enunciate-plugin</artifactId>
 			<version>1.24</version>
 			<type>maven-plugin</type>
 			<scope>compile</scope>
@@ -263,23 +286,23 @@
 				</configuration>
 			</plugin>
 			<plugin>
-        <groupId>org.codehaus.enunciate</groupId>
-        <artifactId>maven-enunciate-spring-plugin</artifactId>
-
-        <configuration>
-           <configFile>enunciate.xml</configFile>
-          <exports>
-            <jaxws.client.library.binaries>client.jar</jaxws.client.library.binaries>
-          </exports>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>assemble</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+				<groupId>org.codehaus.enunciate</groupId>
+				<artifactId>maven-enunciate-plugin</artifactId>
+				<version>1.24</version>
+				<configuration>
+					<configFile>enunciate.xml</configFile>
+					<exports>
+						<jaxws.client.library.binaries>client.jar</jaxws.client.library.binaries>
+					</exports>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>docs</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>

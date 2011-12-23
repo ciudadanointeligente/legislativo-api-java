@@ -7,5 +7,17 @@
 <docs css="src/main/webapp/WEB-INF/enunciate/default.css" title="Api Legislativo" copyright="Fundación Ciudadano Inteligente">
 <!-- <download name="License" file="LICENSE.txt" description="The license file governing the use of this API."/> -->
 </docs>
+
+<spring-app>
+    <war mergeWebXML="war/WEB-INF/web.xml"/>
+    <springImport file="war/WEB-INF/applicationContext.xml"/>
+  </spring-app>
 </modules>
+<api-classes>
+  <include pattern="cl.votainteligente.legislativo.controllers.*"/>
+  <include pattern="cl.votainteligente.legislativo.controllers.*.*"/>
+  <include pattern="cl.votainteligente.legislativo.model.*"/>
+  <include pattern="cl.votainteligente.legislativo.model.domainobjects.*"/>
+  <include pattern="cl.votainteligente.legislativo.common.*"/>
+</api-classes>
 </enunciate>
