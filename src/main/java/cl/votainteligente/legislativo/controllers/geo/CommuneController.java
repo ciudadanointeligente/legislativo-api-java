@@ -49,10 +49,10 @@ public class CommuneController {
 
 	@RequestMapping(params = { "id" }, value = "geo/commune/any", method = RequestMethod.GET)
 	@ResponseBody
-	public final Commune getCommuneById(
+	public final CommuneDO getCommuneById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			return service.getCommune(id);
+			return service.getCommuneDO(id);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();

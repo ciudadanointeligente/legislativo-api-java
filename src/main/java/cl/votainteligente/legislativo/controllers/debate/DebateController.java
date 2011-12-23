@@ -15,10 +15,12 @@ import cl.votainteligente.legislativo.ApplicationProperties;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.exceptions.BadRequestException;
+import cl.votainteligente.legislativo.exceptions.ResourceNotFoundException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
 import cl.votainteligente.legislativo.model.Bill;
 import cl.votainteligente.legislativo.model.Debate;
 import cl.votainteligente.legislativo.model.domainobjects.DebateDO;
+import cl.votainteligente.legislativo.model.domainobjects.DebateDetailedDO;
 import cl.votainteligente.legislativo.service.bill.BillService;
 import cl.votainteligente.legislativo.service.debate.DebateService;
 
@@ -35,10 +37,13 @@ public class DebateController {
 
 	@RequestMapping(params = { "id" }, value = "debate/any", method = RequestMethod.GET)
 	@ResponseBody
-	public final Debate getDebateById(
+	public final DebateDetailedDO getDebateById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			return debateService.getDebate(id);
+			DebateDetailedDO debate=debateService.getDebateDetailedDO(id);
+			if(debate==null)
+				throw new ResourceNotFoundException();
+			return debate;
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
