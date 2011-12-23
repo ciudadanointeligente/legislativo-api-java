@@ -9,7 +9,7 @@ import cl.votainteligente.legislativo.model.domainobjects.BillDO;
 import cl.votainteligente.legislativo.model.domainobjects.BillDetailedDO;
 import cl.votainteligente.legislativo.model.domainobjects.BillRoleDO;
 
-@Path("bill")
+
 public interface BillAPI {
 	/**
 	 * Returns all the bills registered in the system.
