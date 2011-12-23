@@ -1,5 +1,7 @@
 package cl.votainteligente.legislativo.controllers.agrupation;
 
+import javax.ws.rs.Path;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,12 +19,16 @@ import cl.votainteligente.legislativo.model.domainobjects.PartyDetailedDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.service.agrupation.PartyService;
 
+@Path("party")
 @Controller
-public class PartyController {
+public class PartyController implements PartyAPI {
 
 	@Autowired
 	PartyService partyService;
 
+	/* (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controllers.agrupation.PartyAPI#getAll(int, int)
+	 */
 	@RequestMapping(value = "party/all", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<PartyDO> getAll(
@@ -36,6 +42,9 @@ public class PartyController {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controllers.agrupation.PartyAPI#getAll(java.lang.String, int, int)
+	 */
 	@RequestMapping(params = { "name" }, value = "party/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<PartyDO> getAll(
@@ -50,6 +59,9 @@ public class PartyController {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controllers.agrupation.PartyAPI#getById(long)
+	 */
 	@RequestMapping(value = "party/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final PartyDetailedDO getById(
@@ -62,6 +74,9 @@ public class PartyController {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controllers.agrupation.PartyAPI#getHistoricalAffiliatesByParty(long, int, int)
+	 */
 	@RequestMapping(value = "party/historicalAffiliates", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<PersonDO> getHistoricalAffiliatesByParty(
@@ -78,6 +93,9 @@ public class PartyController {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controllers.agrupation.PartyAPI#getCurrentAffiliatesByParty(long, int, int)
+	 */
 	@RequestMapping(value = "party/currentAffiliates", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<PersonDO> getCurrentAffiliatesByParty(
