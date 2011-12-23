@@ -1,5 +1,7 @@
 package cl.votainteligente.legislativo.controllers.legislator;
 
+import javax.ws.rs.Path;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +25,9 @@ import cl.votainteligente.legislativo.service.geo.DistrictService;
 import cl.votainteligente.legislativo.service.legislator.LegislatorService;
 import cl.votainteligente.legislativo.service.person.PersonService;
 
+@Path("legislator")
 @Controller
-public class LegislatorController {
+public class LegislatorController implements LegislatorAPI {
 
 	@Autowired
 	LegislatorService service;
@@ -38,21 +41,9 @@ public class LegislatorController {
 	@Autowired
 	CircunscriptionService circunscription;
 
-	@RequestMapping(params = { "id" }, value = "legislator/period", method = RequestMethod.GET)
-	@ResponseBody
-	public final LegislatorDetailedDO getLegislatorById(
-			@RequestParam(value = "id", required = true) final long id) {
-		try {
-			return service.getLegislatorDetailedDO(id);
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			throw new ServerErrorException();
-		}
-	}
-
 	@RequestMapping(params = { "id" }, value = "legislator/any", method = RequestMethod.GET)
 	@ResponseBody
-	public final LegislatorDetailedDO getPersonById(
+	public final LegislatorDetailedDO getLegislatorById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
 			return service.getLegislatorDetailedDO(id);
