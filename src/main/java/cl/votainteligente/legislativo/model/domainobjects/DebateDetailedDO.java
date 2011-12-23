@@ -1,6 +1,5 @@
 package cl.votainteligente.legislativo.model.domainobjects;
 
-import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -83,11 +82,11 @@ public class DebateDetailedDO {
 		this.tags = tags;
 	}
 
-	public URL getDocUrl() {
+	public String getDocUrl() {
 		return docUrl;
 	}
 
-	public void setDocUrl(URL docUrl) {
+	public void setDocUrl(String docUrl) {
 		this.docUrl = docUrl;
 	}
 
@@ -100,7 +99,7 @@ public class DebateDetailedDO {
 	private String topic;
 	private String date;
 	private Set<String> tags;
-	private URL docUrl;
+	private String docUrl;
 
 	public DebateDetailedDO() {
 
@@ -118,6 +117,6 @@ public class DebateDetailedDO {
 		this.tags = new HashSet<String>();
 		for (Tag tag : d.getTags())
 			this.tags.add(tag.getName());
-		this.docUrl = d.getDocUrl();
+		this.docUrl = d.getDocUrl().toString();
 	}
 }

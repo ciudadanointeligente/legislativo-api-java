@@ -34,6 +34,10 @@ public class BillDetailedDO {
 	private Long SILIndicationsId;
 	private Long SILUrgenciesId;
 
+	public BillDetailedDO() {
+
+	}
+
 	public BillDetailedDO(Bill bill) {
 		this.id = bill.getId();
 		this.title = bill.getTitle();
