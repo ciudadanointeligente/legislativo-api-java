@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class TestLegislator extends TestCase {
 
 	private EntityManager em;
-	private Legislator legislator;
+	private LegislatorRole legislator;
 	private Circunscription circunscription;
 	private District district;
 	private Chamber chamber;
@@ -39,7 +39,7 @@ public class TestLegislator extends TestCase {
 		district.setCircunscription(circunscription);
 		startDate = new Date(1234124);
 		endDate = new Date(1231223);
-		legislator = new Legislator();
+		legislator = new LegislatorRole();
 		legislator.setAllowance(15000000);
 		legislator.setChamber(chamber);
 		legislator.setCircunscription(circunscription);

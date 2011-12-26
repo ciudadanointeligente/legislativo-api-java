@@ -3,7 +3,7 @@ package cl.votainteligente.legislativo.model.domainobjects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import cl.votainteligente.legislativo.model.Chamber;
-import cl.votainteligente.legislativo.model.Legislator;
+import cl.votainteligente.legislativo.model.LegislatorRole;
 import cl.votainteligente.legislativo.model.Person;
 
 @XmlRootElement
@@ -35,7 +35,7 @@ public class LegislatorDetailedDO {
 
 	}
 
-	public LegislatorDetailedDO(Legislator legislator) {
+	public LegislatorDetailedDO(LegislatorRole legislator) {
 		this.legislatorId = legislator.getId();
 		if (legislator.getStartDate() != null)
 			this.startDate = DOUtil.getDateFormat().format(

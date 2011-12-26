@@ -21,15 +21,15 @@ public class Chamber {
 
 	@OneToOne
 	@JoinColumn(name = "president_id")
-	private Legislator president;
+	private LegislatorRole president;
 
 	@OneToOne
 	@JoinColumn(name = "first_vice_president_id")
-	private Legislator firstVicePresident;
+	private LegislatorRole firstVicePresident;
 
 	@OneToOne
 	@JoinColumn(name = "second_vice_president_id")
-	private Legislator secondVicePresident;
+	private LegislatorRole secondVicePresident;
 
 	public Long getId() {
 		return id;
@@ -47,27 +47,27 @@ public class Chamber {
 		this.name = name;
 	}
 
-	public Legislator getPresident() {
+	public LegislatorRole getPresident() {
 		return president;
 	}
 
-	public void setPresident(Legislator president) {
+	public void setPresident(LegislatorRole president) {
 		this.president = president;
 	}
 
-	public Legislator getFirstVicePresident() {
+	public LegislatorRole getFirstVicePresident() {
 		return firstVicePresident;
 	}
 
-	public void setFirstVicePresident(Legislator firstVicePresident) {
+	public void setFirstVicePresident(LegislatorRole firstVicePresident) {
 		this.firstVicePresident = firstVicePresident;
 	}
 
-	public Legislator getSecondVicePresident() {
+	public LegislatorRole getSecondVicePresident() {
 		return secondVicePresident;
 	}
 
-	public void setSecondVicePresident(Legislator secondVicePresident) {
+	public void setSecondVicePresident(LegislatorRole secondVicePresident) {
 		this.secondVicePresident = secondVicePresident;
 	}
 }

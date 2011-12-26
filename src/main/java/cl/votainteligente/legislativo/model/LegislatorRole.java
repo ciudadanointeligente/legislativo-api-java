@@ -13,7 +13,7 @@ import cl.votainteligente.legislativo.model.domainobjects.LegislatorDO;
 
 @Entity
 @Table(name = "legislator")
-public class Legislator extends Role {
+public class LegislatorRole extends Role {
 
 	@ManyToOne
 	@JoinColumn(name = "chamber_id", nullable = false)

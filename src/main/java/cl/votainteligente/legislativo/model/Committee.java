@@ -16,11 +16,11 @@ public class Committee {
 
 	@ManyToOne
 	@JoinColumn(name = "president_id", nullable = false)
-	private Legislator president;
+	private LegislatorRole president;
 
 	@ManyToOne
 	@JoinColumn(name = "president_substitute_id", nullable = false)
-	private Legislator presidentSubstitute;
+	private LegislatorRole presidentSubstitute;
 
 	@ManyToOne
 	@JoinColumn(name = "party_id", nullable = false)
@@ -36,11 +36,11 @@ public class Committee {
 		this.id = id;
 	}
 
-	public Legislator getPresident() {
+	public LegislatorRole getPresident() {
 		return president;
 	}
 
-	public void setPresident(Legislator president) {
+	public void setPresident(LegislatorRole president) {
 		this.president = president;
 	}
 
@@ -60,11 +60,11 @@ public class Committee {
 		this.party = party;
 	}
 
-	public void setPresidentSubstitute(Legislator presidentSubstitute) {
+	public void setPresidentSubstitute(LegislatorRole presidentSubstitute) {
 		this.presidentSubstitute = presidentSubstitute;
 	}
 
-	public Legislator getPresidentSubstitute() {
+	public LegislatorRole getPresidentSubstitute() {
 		return presidentSubstitute;
 	}
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.model.Circunscription;
 import cl.votainteligente.legislativo.model.District;
-import cl.votainteligente.legislativo.model.Legislator;
+import cl.votainteligente.legislativo.model.LegislatorRole;
 import cl.votainteligente.legislativo.model.AgrupationAffiliation;
 import cl.votainteligente.legislativo.model.Party;
 import cl.votainteligente.legislativo.model.Person;
@@ -25,8 +25,8 @@ public class LegislatorServiceImpl extends EntityManagerService implements
 		LegislatorService {
 
 	@Override
-	public Legislator getLegislator(Long id) throws ServiceException {
-		return getEntityManager().find(Legislator.class, id);
+	public LegislatorRole getLegislator(Long id) throws ServiceException {
+		return getEntityManager().find(LegislatorRole.class, id);
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class LegislatorServiceImpl extends EntityManagerService implements
 	}
 
 	@Override
-	public Legislator newLegislator(Legislator legislator)
+	public LegislatorRole newLegislator(LegislatorRole legislator)
 			throws ServiceException {
 		getEntityManager().persist(legislator);
 		return legislator;
@@ -52,7 +52,7 @@ public class LegislatorServiceImpl extends EntityManagerService implements
 		query.setFirstResult((page - 1) * perPage);
 		query.setMaxResults(perPage);
 		List<LegislatorDO> listDO = new ArrayList<LegislatorDO>();
-		for (Legislator legislator : (List<Legislator>) query.getResultList()) {
+		for (LegislatorRole legislator : (List<LegislatorRole>) query.getResultList()) {
 			listDO.add(legislator.asDomainObject());
 		}
 		query = getEntityManager().createQuery(
@@ -73,7 +73,7 @@ public class LegislatorServiceImpl extends EntityManagerService implements
 		query.setFirstResult((page - 1) * perPage);
 		query.setMaxResults(perPage);
 		List<LegislatorDO> listDO = new ArrayList<LegislatorDO>();
-		for (Legislator legislator : (List<Legislator>) query.getResultList()) {
+		for (LegislatorRole legislator : (List<LegislatorRole>) query.getResultList()) {
 			listDO.add(legislator.asDomainObject());
 		}
 		query = getEntityManager()
@@ -94,7 +94,7 @@ public class LegislatorServiceImpl extends EntityManagerService implements
 		query.setFirstResult((page - 1) * perPage);
 		query.setMaxResults(perPage);
 		List<LegislatorDO> listDO = new ArrayList<LegislatorDO>();
-		for (Legislator legislator : (List<Legislator>) query.getResultList()) {
+		for (LegislatorRole legislator : (List<LegislatorRole>) query.getResultList()) {
 			listDO.add(legislator.asDomainObject());
 		}
 		Query count = getEntityManager().createQuery(
