@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.ws.rs.Path;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +25,9 @@ import cl.votainteligente.legislativo.model.domainobjects.DebateDetailedDO;
 import cl.votainteligente.legislativo.service.bill.BillService;
 import cl.votainteligente.legislativo.service.debate.DebateService;
 
+@Path("debate")
 @Controller
-public class DebateController {
+public class DebateController implements DebateAPI {
 	private SimpleDateFormat dateFormat = new SimpleDateFormat(
 			ApplicationProperties.getProperty("controller.date.format"));
 
@@ -34,6 +37,10 @@ public class DebateController {
 	@Autowired
 	BillService billService;
 
+	/* (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controllers.debate.DebateAPI#getDebateById(long)
+	 */
+	@Override
 	@RequestMapping(params = { "id" }, value = "debate/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final DebateDetailedDO getDebateById(
@@ -49,6 +56,10 @@ public class DebateController {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controllers.debate.DebateAPI#getDateRange(java.lang.String, java.lang.String, int, int)
+	 */
+	@Override
 	@RequestMapping(value = "debate/dateRange", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<DebateDO> getDateRange(
@@ -70,6 +81,10 @@ public class DebateController {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controllers.debate.DebateAPI#getDebateByBill(long, int, int)
+	 */
+	@Override
 	@RequestMapping(params = { "id" }, value = "debate/bill", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<DebateDO> getDebateByBill(

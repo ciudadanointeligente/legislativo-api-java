@@ -1,5 +1,7 @@
 package cl.votainteligente.legislativo.controllers.person;
 
+import javax.ws.rs.Path;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +16,16 @@ import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDetailedDO;
 import cl.votainteligente.legislativo.service.person.PersonService;
 
+@Path("person")
 @Controller
-public class PersonController {
+public class PersonController implements PersonAPI {
 	@Autowired
 	PersonService service;
 
+	/* (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controllers.person.PersonAPI#getAll(int, int)
+	 */
+	@Override
 	@RequestMapping(value = "person/all", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<PersonDO> getAll(
@@ -32,6 +39,10 @@ public class PersonController {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controllers.person.PersonAPI#findPersonByFirstName(java.lang.String, int, int)
+	 */
+	@Override
 	@RequestMapping(params = { "firstName" }, value = "person/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<PersonDO> findPersonByFirstName(
@@ -46,6 +57,10 @@ public class PersonController {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controllers.person.PersonAPI#findPersonByLastName(java.lang.String, int, int)
+	 */
+	@Override
 	@RequestMapping(params = { "lastName" }, value = "person/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<PersonDO> findPersonByLastName(
@@ -61,6 +76,10 @@ public class PersonController {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controllers.person.PersonAPI#getPersonById(long)
+	 */
+	@Override
 	@RequestMapping(params = { "id" }, value = "person/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final PersonDetailedDO getPersonById(

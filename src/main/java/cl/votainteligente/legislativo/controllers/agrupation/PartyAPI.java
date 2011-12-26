@@ -1,5 +1,6 @@
 package cl.votainteligente.legislativo.controllers.agrupation;
 
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -8,7 +9,6 @@ import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.model.domainobjects.PartyDO;
 import cl.votainteligente.legislativo.model.domainobjects.PartyDetailedDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
-
 
 public interface PartyAPI {
 	/**
@@ -23,8 +23,9 @@ public interface PartyAPI {
 
 	@GET
 	@Path("all")
-	public Page<PartyDO> getAll(@PathParam("page") final int page,
-			@PathParam("perPage") final int perPage);
+	public Page<PartyDO> getAll(
+			@PathParam("page") @DefaultValue("1") final int page,
+			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 	/**
 	 * Returns all the parties with a specific name.
@@ -40,8 +41,8 @@ public interface PartyAPI {
 	@GET
 	@Path("any")
 	public Page<PartyDO> getAll(@PathParam("name") final String name,
-			@PathParam("page") final int page,
-			@PathParam("perPage") final int perPage);
+			@PathParam("page") @DefaultValue("1") final int page,
+			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 	/**
 	 * Allows you to get all the information of a party.
@@ -69,8 +70,9 @@ public interface PartyAPI {
 	@GET
 	@Path("historicalAffiliates")
 	public Page<PersonDO> getHistoricalAffiliatesByParty(
-			@PathParam("id") final long id, @PathParam("page") final int page,
-			@PathParam("perPage") final int perPage);
+			@PathParam("id") final long id,
+			@PathParam("page") @DefaultValue("1") final int page,
+			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 	/**
 	 * Gives all the current affiliates (person) of a party.
@@ -86,7 +88,8 @@ public interface PartyAPI {
 	@GET
 	@Path("currentAffiliates")
 	public Page<PersonDO> getCurrentAffiliatesByParty(
-			@PathParam("id") final long id, @PathParam("page") final int page,
-			@PathParam("perPage") final int perPage);
+			@PathParam("id") final long id,
+			@PathParam("page") @DefaultValue("1") final int page,
+			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 }

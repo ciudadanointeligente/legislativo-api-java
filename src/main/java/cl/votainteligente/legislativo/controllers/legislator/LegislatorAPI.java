@@ -1,5 +1,6 @@
 package cl.votainteligente.legislativo.controllers.legislator;
 
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -40,8 +41,9 @@ public interface LegislatorAPI {
 	@Path("district")
 	@GET
 	public Page<LegislatorDO> getLegislatorByDistrict(
-			@PathParam("id") final long id, @PathParam("page") final int page,
-			@PathParam("perPage") final int perPage);
+			@PathParam("id") final long id, 
+			@PathParam("page") @DefaultValue("1") final int page,
+			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 	/**
 	 * Returns all the legislative period that currently are in a particular circunscription.
@@ -58,8 +60,9 @@ public interface LegislatorAPI {
 	@Path("circunscription")
 	@GET
 	public Page<LegislatorDO> getLegislatorByCircunscription(
-			@PathParam("id") final long id, @PathParam("page") final int page,
-			@PathParam("perPage") final int perPage);
+			@PathParam("id") final long id, 
+			@PathParam("page") @DefaultValue("1") final int page,
+			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 	/**
 	 * Returns all the legislative period that currently are associated with a person.
@@ -76,18 +79,19 @@ public interface LegislatorAPI {
 	@Path("person")
 	@GET
 	public Page<LegislatorDO> getLegislatorsByPerson(
-			@PathParam("id") final long id, @PathParam("page") final int page,
-			@PathParam("perPage") final int perPage);
+			@PathParam("id") final long id, 
+			@PathParam("page") @DefaultValue("1") final int page,
+			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 	@Path("people")
 	@GET
 	public Page<PersonDO> getKLegislatorPersons(
-			@PathParam("page") final int page,
-			@PathParam("perPage") final int perPage);
+			@PathParam("page") @DefaultValue("1") final int page,
+			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 	@Path("legislator/all")
 	public Page<PersonPartyDO> getLegislatorPersons(
-			@PathParam("page") final int page,
-			@PathParam("perPage") final int perPage);
+			@PathParam("page") @DefaultValue("1") final int page,
+			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 }

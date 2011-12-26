@@ -1,5 +1,6 @@
 package cl.votainteligente.legislativo.controllers.bill;
 
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -8,7 +9,6 @@ import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
 import cl.votainteligente.legislativo.model.domainobjects.BillDetailedDO;
 import cl.votainteligente.legislativo.model.domainobjects.BillRoleDO;
-
 
 public interface BillAPI {
 	/**
@@ -23,8 +23,9 @@ public interface BillAPI {
 	 */
 	@GET
 	@Path("all")
-	public Page<BillDO> getAll(@PathParam("page") final int page,
-			@PathParam("perPage") final int perPage);
+	public Page<BillDO> getAll(
+			@PathParam("page") @DefaultValue("1") final int page,
+			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 	/**
 	 * Allows you to get all the information of a bill.
@@ -57,8 +58,8 @@ public interface BillAPI {
 	public Page<BillDO> getDateRange(
 			@PathParam("from") final String fromString,
 			@PathParam("to") final String toString,
-			@PathParam("page") final int page,
-			@PathParam("perPage") final int perPage);
+			@PathParam("page") @DefaultValue("1") final int page,
+			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 	/**
 	 * Returns all the bills that currently are in a particular stage.
@@ -75,8 +76,8 @@ public interface BillAPI {
 	@GET
 	@Path("stage")
 	public Page<BillDO> getBillsByStage(@PathParam("id") final long stage_id,
-			@PathParam("page") final int page,
-			@PathParam("perPage") final int perPage);
+			@PathParam("page") @DefaultValue("1") final int page,
+			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 	/**
 	 * Returns all the bills registered in the system of a particular matter.
@@ -93,8 +94,8 @@ public interface BillAPI {
 	@GET
 	@Path("matter")
 	public Page<BillDO> getByMatter(@PathParam("id") final long author_id,
-			@PathParam("page") final int page,
-			@PathParam("perPage") final int perPage);
+			@PathParam("page") @DefaultValue("1") final int page,
+			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 	/**
 	 * Returns all the bills and role (of person) registered in the system of a
@@ -111,6 +112,6 @@ public interface BillAPI {
 	@Path("author_role")
 	public Page<BillRoleDO> getBillRoleByPerson(
 			@PathParam("id") final long author_id,
-			@PathParam("page") final int page,
-			@PathParam("perPage") final int perPage);
+			@PathParam("page") @DefaultValue("1") final int page,
+			@PathParam("perPage") @DefaultValue("10") final int perPage);
 }
