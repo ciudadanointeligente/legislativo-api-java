@@ -40,4 +40,20 @@ public class MatterServiceImpl extends EntityManagerService implements
 		return matter;
 	}
 
+	@Override
+	public Page<Matter> findByName(String name, int pageNumber,
+			int resultsPerPage) throws ServiceException {
+		Query query = getEntityManager().createQuery("select p from Matter p where upper(p.name) like upper(?)");
+		query.setParameter(1, "%" + name + "%");
+		query.setFirstResult((pageNumber - 1) * resultsPerPage);
+		query.setMaxResults(resultsPerPage);
+		@SuppressWarnings("unchecked")
+		List<Matter> list = query.getResultList();
+		Query queryCount = getEntityManager().createQuery(
+				"select count(p) from Matter p where upper(p.name) like upper(?)");
+		queryCount.setParameter(1, "%" + name + "%");
+		Long totalMatters = (Long) queryCount.getSingleResult();
+		return new Page<Matter>(list, pageNumber, resultsPerPage, totalMatters);
+	}
+
 }
