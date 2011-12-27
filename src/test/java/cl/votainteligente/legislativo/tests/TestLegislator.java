@@ -152,15 +152,15 @@ public class TestLegislator extends TestCase {
 	}
 
 	public void testGetCampaignFinance() {
-		assert (legislator.getCampaignFinance().equals(new Integer(100000000)));
+		assert (legislator.getCampaignFinance().equals(new Long(100000000)));
 	}
 
 	public void testGetCampaignSpending() {
-		assert (legislator.getCampaignSpending().equals(new Integer(97000000)));
+		assert (legislator.getCampaignSpending().equals(new Long(97000000)));
 	}
 
 	public void testGetVoteNumber() {
-		assert (legislator.getVoteNumber().equals(new Integer(453282)));
+		assert (legislator.getVoteNumber().equals(new Long(453282)));
 	}
 
 	public void testGetVotePercentage() {
