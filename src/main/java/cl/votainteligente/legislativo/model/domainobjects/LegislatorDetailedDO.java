@@ -18,9 +18,9 @@ public class LegislatorDetailedDO {
 	private String personLastName;
 	private Long chamberId;
 	private String periodsDetails;
-	private Integer campaignSpending;
-	private Integer campaignFinance;
-	private Integer voteNumber;
+	private Long campaignSpending;
+	private Long campaignFinance;
+	private Long voteNumber;
 	private Double votePercentage;
 	private Long circunscriptionId;
 	private Long districtId;
@@ -205,7 +205,7 @@ public class LegislatorDetailedDO {
 	/**
 	 * @return the campaignSpending
 	 */
-	public Integer getCampaignSpending() {
+	public Long getCampaignSpending() {
 		return campaignSpending;
 	}
 
@@ -213,14 +213,14 @@ public class LegislatorDetailedDO {
 	 * @param campaignSpending
 	 *            the campaignSpending to set
 	 */
-	public void setCampaignSpending(Integer campaignSpending) {
+	public void setCampaignSpending(Long campaignSpending) {
 		this.campaignSpending = campaignSpending;
 	}
 
 	/**
 	 * @return the campaignFinance
 	 */
-	public Integer getCampaignFinance() {
+	public Long getCampaignFinance() {
 		return campaignFinance;
 	}
 
@@ -228,14 +228,14 @@ public class LegislatorDetailedDO {
 	 * @param campaignFinance
 	 *            the campaignFinance to set
 	 */
-	public void setCampaignFinance(Integer campaignFinance) {
+	public void setCampaignFinance(Long campaignFinance) {
 		this.campaignFinance = campaignFinance;
 	}
 
 	/**
 	 * @return the voteNumber
 	 */
-	public Integer getVoteNumber() {
+	public Long getVoteNumber() {
 		return voteNumber;
 	}
 
@@ -243,7 +243,7 @@ public class LegislatorDetailedDO {
 	 * @param voteNumber
 	 *            the voteNumber to set
 	 */
-	public void setVoteNumber(Integer voteNumber) {
+	public void setVoteNumber(Long voteNumber) {
 		this.voteNumber = voteNumber;
 	}
 

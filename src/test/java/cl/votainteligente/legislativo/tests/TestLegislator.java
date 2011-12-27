@@ -56,9 +56,9 @@ public class TestLegislator extends TestCase {
 		legislator
 				.setPastComissions("De Educación, Cultura, Ciencia y Tecnología");
 		legislator.setPeriodsDetails("No hay detalles");
-		legislator.setCampaignFinance(100000000);
-		legislator.setCampaignSpending(97000000);
-		legislator.setVoteNumber(453282);
+		legislator.setCampaignFinance(100000000L);
+		legislator.setCampaignSpending(97000000L);
+		legislator.setVoteNumber(453282L);
 		legislator.setVotePercentage(56.7);
 		legislator.setPerson(person);
 		EntityTransaction tr = em.getTransaction();

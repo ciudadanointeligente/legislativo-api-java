@@ -39,13 +39,13 @@ public abstract class Role {
 	private Integer allowance;
 
 	@Column(name = "campaign_spending")
-	private Integer campaignSpending;
+	private Long campaignSpending;
 
 	@Column(name = "campaign_finance")
-	private Integer campaignFinance;
+	private Long campaignFinance;
 
 	@Column(name = "vote_number")
-	private Integer voteNumber;
+	private Long voteNumber;
 
 	@Column(name = "vote_percentage")
 	private Double votePercentage;
@@ -62,27 +62,27 @@ public abstract class Role {
 		this.id = id;
 	}
 
-	public Integer getCampaignSpending() {
+	public Long getCampaignSpending() {
 		return campaignSpending;
 	}
 
-	public void setCampaignSpending(Integer campaignSpending) {
+	public void setCampaignSpending(Long campaignSpending) {
 		this.campaignSpending = campaignSpending;
 	}
 
-	public Integer getCampaignFinance() {
+	public Long getCampaignFinance() {
 		return campaignFinance;
 	}
 
-	public void setCampaignFinance(Integer campaignFinance) {
+	public void setCampaignFinance(Long campaignFinance) {
 		this.campaignFinance = campaignFinance;
 	}
 
-	public Integer getVoteNumber() {
+	public Long getVoteNumber() {
 		return voteNumber;
 	}
 
-	public void setVoteNumber(Integer voteNumber) {
+	public void setVoteNumber(Long voteNumber) {
 		this.voteNumber = voteNumber;
 	}
 
