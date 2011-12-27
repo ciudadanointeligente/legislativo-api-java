@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
+import cl.votainteligente.legislativo.exceptions.ResourceNotFoundException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
+import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDetailedDO;
 import cl.votainteligente.legislativo.service.person.PersonService;
@@ -22,8 +24,12 @@ public class PersonController implements PersonAPI {
 	@Autowired
 	PersonService service;
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controllers.person.PersonAPI#getAll(int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cl.votainteligente.legislativo.controllers.person.PersonAPI#getAll(int,
+	 * int)
 	 */
 	@Override
 	@RequestMapping(value = "person/all", method = RequestMethod.GET)
@@ -39,8 +45,11 @@ public class PersonController implements PersonAPI {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controllers.person.PersonAPI#findPersonByFirstName(java.lang.String, int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cl.votainteligente.legislativo.controllers.person.PersonAPI#
+	 * findPersonByFirstName(java.lang.String, int, int)
 	 */
 	@Override
 	@RequestMapping(params = { "firstName" }, value = "person/any", method = RequestMethod.GET)
@@ -57,8 +66,11 @@ public class PersonController implements PersonAPI {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controllers.person.PersonAPI#findPersonByLastName(java.lang.String, int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cl.votainteligente.legislativo.controllers.person.PersonAPI#
+	 * findPersonByLastName(java.lang.String, int, int)
 	 */
 	@Override
 	@RequestMapping(params = { "lastName" }, value = "person/any", method = RequestMethod.GET)
@@ -76,8 +88,12 @@ public class PersonController implements PersonAPI {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controllers.person.PersonAPI#getPersonById(long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cl.votainteligente.legislativo.controllers.person.PersonAPI#getPersonById
+	 * (long)
 	 */
 	@Override
 	@RequestMapping(params = { "id" }, value = "person/any", method = RequestMethod.GET)
@@ -85,7 +101,10 @@ public class PersonController implements PersonAPI {
 	public final PersonDetailedDO getPersonById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			return service.getPersonDetailedDO(id);
+			Person p = service.getPerson(id);
+			if (p == null)
+				throw new ResourceNotFoundException();
+			return p.asDetailedDomainObject();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();

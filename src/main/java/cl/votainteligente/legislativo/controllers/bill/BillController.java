@@ -19,6 +19,7 @@ import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.exceptions.BadRequestException;
 import cl.votainteligente.legislativo.exceptions.ResourceNotFoundException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
+import cl.votainteligente.legislativo.model.Bill;
 import cl.votainteligente.legislativo.model.Matter;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.StageDescription;
@@ -71,7 +72,10 @@ public class BillController implements BillAPI {
 	public final BillDetailedDO getBillById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			return service.getBillDetailedDO(id);
+			Bill b = service.getBill(id);
+			if (b == null)
+				throw new ResourceNotFoundException();
+			return b.asDetailedDomainObject();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
