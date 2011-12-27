@@ -18,6 +18,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 
 import cl.votainteligente.legislativo.model.domainobjects.DebateDO;
+import cl.votainteligente.legislativo.model.domainobjects.DebateDetailedDO;
 
 @Entity
 @Table(name = "debate")
@@ -180,6 +181,11 @@ public class Debate {
 	@Transient
 	public DebateDO asDomainObject() {
 		return new DebateDO(this);
+	}
+
+	@Transient
+	public DebateDetailedDO asDetailedDomainObject() {
+		return new DebateDetailedDO(this);
 	}
 
 }

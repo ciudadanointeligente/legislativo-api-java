@@ -37,8 +37,12 @@ public class DebateController implements DebateAPI {
 	@Autowired
 	BillService billService;
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controllers.debate.DebateAPI#getDebateById(long)
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * cl.votainteligente.legislativo.controllers.debate.DebateAPI#getDebateById
+	 * (long)
 	 */
 	@Override
 	@RequestMapping(params = { "id" }, value = "debate/any", method = RequestMethod.GET)
@@ -46,8 +50,8 @@ public class DebateController implements DebateAPI {
 	public final DebateDetailedDO getDebateById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			DebateDetailedDO debate=debateService.getDebateDetailedDO(id);
-			if(debate==null)
+			DebateDetailedDO debate = debateService.getDebateDetailedDO(id);
+			if (debate == null)
 				throw new ResourceNotFoundException();
 			return debate;
 		} catch (ServiceException e) {
@@ -56,8 +60,12 @@ public class DebateController implements DebateAPI {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controllers.debate.DebateAPI#getDateRange(java.lang.String, java.lang.String, int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cl.votainteligente.legislativo.controllers.debate.DebateAPI#getDateRange
+	 * (java.lang.String, java.lang.String, int, int)
 	 */
 	@Override
 	@RequestMapping(value = "debate/dateRange", method = RequestMethod.GET)
@@ -81,8 +89,12 @@ public class DebateController implements DebateAPI {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controllers.debate.DebateAPI#getDebateByBill(long, int, int)
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * cl.votainteligente.legislativo.controllers.debate.DebateAPI#getDebateByBill
+	 * (long, int, int)
 	 */
 	@Override
 	@RequestMapping(params = { "id" }, value = "debate/bill", method = RequestMethod.GET)

@@ -40,7 +40,7 @@ public class DebateServiceImpl extends EntityManagerService implements
 		Debate debate = getDebate(id);
 		if (debate == null)
 			return null;
-		return new DebateDetailedDO(debate);
+		return debate.asDetailedDomainObject();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -70,7 +70,8 @@ public class DebateServiceImpl extends EntityManagerService implements
 		Query query = getEntityManager().createQuery(
 				"Select p from Debate p where p.date <= ? and p.date >= ?");
 		query.setParameter(1, to, TemporalType.DATE);
-		query.setParameter(1, from, TemporalType.DATE);
+		query.setParameter(2, from, TemporalType.DATE);
+		System.out.println("From: "+from.toString()+", to: "+to.toString());
 		query.setFirstResult((page - 1) * perPage);
 		query.setMaxResults(perPage);
 		List<Debate> debates = query.getResultList();
@@ -78,9 +79,9 @@ public class DebateServiceImpl extends EntityManagerService implements
 		for (Debate d : debates)
 			debatesDO.add(d.asDomainObject());
 		Query queryCount = getEntityManager().createQuery(
-				"Select p from Debate p where p.date <= ? and p.date >= ?");
+				"Select count(p) from Debate p where p.date <= ? and p.date >= ?");
 		queryCount.setParameter(1, to);
-		queryCount.setParameter(1, from);
+		queryCount.setParameter(2, from);
 		long total = (Long) queryCount.getSingleResult();
 		return new Page<DebateDO>(debatesDO, page, perPage, total);
 	}

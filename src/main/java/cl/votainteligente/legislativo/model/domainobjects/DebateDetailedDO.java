@@ -1,29 +1,62 @@
 package cl.votainteligente.legislativo.model.domainobjects;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.xml.bind.annotation.XmlRootElement;
-
 import cl.votainteligente.legislativo.model.Debate;
 import cl.votainteligente.legislativo.model.Tag;
 
 @XmlRootElement
 public class DebateDetailedDO {
+	private Long id;
+	private Long billId;
+	private Long chamber;
+	private Date date;
+	private String discussionType;
+	private String topic;
+	private String debate;
+	private Set<String> tags;
+	private String docUrl;
+
+	private String abstractTitle;
+	private String abstractText;
+
+	public DebateDetailedDO() {
+	};
+
+	public DebateDetailedDO(Debate d) {
+		id = d.getId();
+		billId = d.getBill().getId();
+		chamber = d.getChamber().getId();
+		date = d.getDate();
+		discussionType = d.getDiscussionType().getName();
+		topic = d.getTopic();
+		debate = d.getDebate();
+		tags = new HashSet<String>();
+		if (d.getTags() != null)
+			for (Tag t : d.getTags())
+				tags.add(t.getName());
+		abstractText = d.getAbstractText();
+		abstractTitle = d.getAbstractTitle();
+	}
+
+	public URL getDocUrl() {
+		try {
+			return new URL(docUrl);
+		} catch (MalformedURLException e) {
+			return null;
+		}
+	}
+
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getBillId() {
-		return billId;
-	}
-
-	public void setBillId(Long billId) {
-		this.billId = billId;
 	}
 
 	public Long getChamber() {
@@ -34,28 +67,20 @@ public class DebateDetailedDO {
 		this.chamber = chamber;
 	}
 
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
 	public String getDiscussionType() {
 		return discussionType;
 	}
 
 	public void setDiscussionType(String discussionType) {
 		this.discussionType = discussionType;
-	}
-
-	public String getAbstractText() {
-		return abstractText;
-	}
-
-	public void setAbstractText(String abstractText) {
-		this.abstractText = abstractText;
-	}
-
-	public String getAbstractTitle() {
-		return abstractTitle;
-	}
-
-	public void setAbstractTitle(String abstractTitle) {
-		this.abstractTitle = abstractTitle;
 	}
 
 	public String getTopic() {
@@ -66,12 +91,12 @@ public class DebateDetailedDO {
 		this.topic = topic;
 	}
 
-	public String getDate() {
-		return date;
+	public String getDebate() {
+		return debate;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setDebate(String debate) {
+		this.debate = debate;
 	}
 
 	public Set<String> getTags() {
@@ -82,41 +107,32 @@ public class DebateDetailedDO {
 		this.tags = tags;
 	}
 
-	public String getDocUrl() {
-		return docUrl;
+	public String getAbstractTitle() {
+		return abstractTitle;
+	}
+
+	public void setAbstractTitle(String abstractTitle) {
+		this.abstractTitle = abstractTitle;
+	}
+
+	public String getAbstractText() {
+		return abstractText;
+	}
+
+	public void setAbstractText(String abstractText) {
+		this.abstractText = abstractText;
 	}
 
 	public void setDocUrl(String docUrl) {
 		this.docUrl = docUrl;
 	}
 
-	private Long id;
-	private Long billId;
-	private Long chamber;
-	private String discussionType;
-	private String abstractText;
-	private String abstractTitle;
-	private String topic;
-	private String date;
-	private Set<String> tags;
-	private String docUrl;
-
-	public DebateDetailedDO() {
-
+	public Long getBillId() {
+		return billId;
 	}
 
-	public DebateDetailedDO(Debate d) {
-		this.id = d.getId();
-		this.billId = d.getBill().getId();
-		this.chamber = d.getChamber().getId();
-		this.discussionType = d.getDiscussionType().getName();
-		this.abstractText = d.getAbstractText();
-		this.abstractTitle = d.getAbstractTitle();
-		this.topic = d.getTopic();
-		this.date = DOUtil.getDateFormat().format(d.getDate());
-		this.tags = new HashSet<String>();
-		for (Tag tag : d.getTags())
-			this.tags.add(tag.getName());
-		this.docUrl = d.getDocUrl().toString();
+	public void setBillId(Long billId) {
+		this.billId = billId;
 	}
+
 }

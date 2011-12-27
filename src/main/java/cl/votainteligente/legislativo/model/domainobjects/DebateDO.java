@@ -22,7 +22,8 @@ public class DebateDO {
 		this.id = d.getId();
 		this.billId = d.getBill().getId();
 		this.chamber = d.getChamber().getId();
-		this.discussionType = d.getDiscussionType().getName();
+		this.discussionType = (d.getDiscussionType() != null) ? d
+				.getDiscussionType().getName() : null;
 		this.abstractText = d.getAbstractText();
 		this.abstractTitle = d.getAbstractTitle();
 		this.topic = d.getTopic();
