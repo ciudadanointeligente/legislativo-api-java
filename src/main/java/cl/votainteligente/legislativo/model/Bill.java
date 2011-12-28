@@ -71,6 +71,8 @@ public class Bill {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "updated_at", nullable = false)
 	private Date updatedAt;
+	@Column
+	private String type;
 
 	/**
 	 * @return the id
@@ -396,5 +398,13 @@ public class Bill {
 
 	public Set<Stage> getStages() {
 		return stages;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getType() {
+		return type;
 	}
 }
