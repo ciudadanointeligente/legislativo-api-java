@@ -1,5 +1,7 @@
 package cl.votainteligente.legislativo.controllers.geo;
 
+import javax.ws.rs.Path;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,16 +11,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
+import cl.votainteligente.legislativo.exceptions.ResourceNotFoundException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
+import cl.votainteligente.legislativo.model.Circunscription;
 import cl.votainteligente.legislativo.model.domainobjects.CircunscriptionDO;
 import cl.votainteligente.legislativo.service.geo.CircunscriptionService;
 
+@Path("circunscription")
 @Controller
-public class CircunscriptionController {
+public class CircunscriptionController implements CircunscriptionAPI {
 
 	@Autowired
 	CircunscriptionService service;
 
+	/* (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controllers.geo.CircunscriptionAPI#getAll(int, int)
+	 */
 	@RequestMapping(value = "geo/circunscription/all", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<CircunscriptionDO> getAll(
@@ -34,6 +42,9 @@ public class CircunscriptionController {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controllers.geo.CircunscriptionAPI#findCircunscriptionsByName(java.lang.String, int, int)
+	 */
 	@RequestMapping(params = { "name" }, value = "geo/circunscription/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<CircunscriptionDO> findCircunscriptionsByName(
@@ -50,18 +61,27 @@ public class CircunscriptionController {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controllers.geo.CircunscriptionAPI#getCircunscriptionById(long)
+	 */
 	@RequestMapping(params = { "id" }, value = "geo/circunscription/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final CircunscriptionDO getCircunscriptionById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			return service.getCircunscriptionDO(id);
+			Circunscription c = service.getCircunscription(id);
+			if (c == null)
+				throw new ResourceNotFoundException();
+			return c.asDomainObject();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controllers.geo.CircunscriptionAPI#getCircunscriptionByRegionId(long, int, int)
+	 */
 	@RequestMapping(params = { "region_id" }, value = "geo/circunscription/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<CircunscriptionDO> getCircunscriptionByRegionId(

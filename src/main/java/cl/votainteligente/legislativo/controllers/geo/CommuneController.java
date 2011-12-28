@@ -1,5 +1,7 @@
 package cl.votainteligente.legislativo.controllers.geo;
 
+import javax.ws.rs.Path;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,17 +11,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
+import cl.votainteligente.legislativo.exceptions.ResourceNotFoundException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
 import cl.votainteligente.legislativo.model.Commune;
 import cl.votainteligente.legislativo.model.domainobjects.CommuneDO;
 import cl.votainteligente.legislativo.service.geo.CommuneService;
 
+@Path("commune")
 @Controller
-public class CommuneController {
+public class CommuneController implements CommuneAPI {
 
 	@Autowired
 	CommuneService service;
 
+	/* (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controllers.geo.CommuneAPI#getAll(int, int)
+	 */
 	@RequestMapping(value = "geo/commune/all", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<CommuneDO> getAll(
@@ -33,6 +40,9 @@ public class CommuneController {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controllers.geo.CommuneAPI#findCommunesByName(java.lang.String, int, int)
+	 */
 	@RequestMapping(params = { "name" }, value = "geo/commune/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<CommuneDO> findCommunesByName(
@@ -47,12 +57,18 @@ public class CommuneController {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controllers.geo.CommuneAPI#getCommuneById(long)
+	 */
 	@RequestMapping(params = { "id" }, value = "geo/commune/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final CommuneDO getCommuneById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			return service.getCommuneDO(id);
+			Commune c = service.getCommune(id);
+			if (c == null)
+				throw new ResourceNotFoundException();
+			return c.asDomainObject();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
