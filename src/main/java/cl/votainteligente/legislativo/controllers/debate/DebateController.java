@@ -39,7 +39,7 @@ public class DebateController implements DebateAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * cl.votainteligente.legislativo.controllers.debate.DebateAPI#getDebateById
 	 * (long)
@@ -91,7 +91,7 @@ public class DebateController implements DebateAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * cl.votainteligente.legislativo.controllers.debate.DebateAPI#getDebateByBill
 	 * (long, int, int)

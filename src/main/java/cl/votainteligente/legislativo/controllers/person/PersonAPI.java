@@ -12,7 +12,7 @@ import cl.votainteligente.legislativo.model.domainobjects.PersonDetailedDO;
 public interface PersonAPI {
 	/**
 	 * Returns all the people registered in the system.
-	 *
+	 * 
 	 * @param page
 	 *            The number of the desired page to be retrieved.
 	 * @param perPage
@@ -29,7 +29,7 @@ public interface PersonAPI {
 	/**
 	 * Gives all the people registered in the system with the followed fist
 	 * name.
-	 *
+	 * 
 	 * @param firstName
 	 *            The person first name.
 	 * @param page
@@ -49,7 +49,7 @@ public interface PersonAPI {
 	/**
 	 * Gives all the people registered in the system with the followed last
 	 * name.
-	 *
+	 * 
 	 * @param lastName
 	 *            The person last name.
 	 * @param page
@@ -68,10 +68,12 @@ public interface PersonAPI {
 
 	/**
 	 * Allows you to get all the information of a person.
-	 *
+	 * 
 	 * @param id
 	 *            The person identification number.
-	 * @return
+	 * @return Detailed of a Person
+	 * @throws ResourceNotFoundException
+	 * @see PersonDetailedDO
 	 */
 	@Path("any")
 	@GET

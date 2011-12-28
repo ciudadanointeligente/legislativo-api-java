@@ -26,8 +26,12 @@ public class PartyController implements PartyAPI {
 	@Autowired
 	PartyService partyService;
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controllers.agrupation.PartyAPI#getAll(int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cl.votainteligente.legislativo.controllers.agrupation.PartyAPI#getAll
+	 * (int, int)
 	 */
 	@RequestMapping(value = "party/all", method = RequestMethod.GET)
 	@ResponseBody
@@ -42,8 +46,12 @@ public class PartyController implements PartyAPI {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controllers.agrupation.PartyAPI#getAll(java.lang.String, int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cl.votainteligente.legislativo.controllers.agrupation.PartyAPI#getAll
+	 * (java.lang.String, int, int)
 	 */
 	@RequestMapping(params = { "name" }, value = "party/any", method = RequestMethod.GET)
 	@ResponseBody
@@ -59,8 +67,12 @@ public class PartyController implements PartyAPI {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controllers.agrupation.PartyAPI#getById(long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cl.votainteligente.legislativo.controllers.agrupation.PartyAPI#getById
+	 * (long)
 	 */
 	@RequestMapping(value = "party/any", method = RequestMethod.GET)
 	@ResponseBody
@@ -74,8 +86,11 @@ public class PartyController implements PartyAPI {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controllers.agrupation.PartyAPI#getHistoricalAffiliatesByParty(long, int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cl.votainteligente.legislativo.controllers.agrupation.PartyAPI#
+	 * getHistoricalAffiliatesByParty(long, int, int)
 	 */
 	@RequestMapping(value = "party/historicalAffiliates", method = RequestMethod.GET)
 	@ResponseBody
@@ -93,8 +108,11 @@ public class PartyController implements PartyAPI {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controllers.agrupation.PartyAPI#getCurrentAffiliatesByParty(long, int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cl.votainteligente.legislativo.controllers.agrupation.PartyAPI#
+	 * getCurrentAffiliatesByParty(long, int, int)
 	 */
 	@RequestMapping(value = "party/currentAffiliates", method = RequestMethod.GET)
 	@ResponseBody

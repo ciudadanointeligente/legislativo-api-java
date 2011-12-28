@@ -24,8 +24,12 @@ public class CommuneController implements CommuneAPI {
 	@Autowired
 	CommuneService service;
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controllers.geo.CommuneAPI#getAll(int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cl.votainteligente.legislativo.controllers.geo.CommuneAPI#getAll(int,
+	 * int)
 	 */
 	@RequestMapping(value = "geo/commune/all", method = RequestMethod.GET)
 	@ResponseBody
@@ -40,8 +44,12 @@ public class CommuneController implements CommuneAPI {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controllers.geo.CommuneAPI#findCommunesByName(java.lang.String, int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cl.votainteligente.legislativo.controllers.geo.CommuneAPI#findCommunesByName
+	 * (java.lang.String, int, int)
 	 */
 	@RequestMapping(params = { "name" }, value = "geo/commune/any", method = RequestMethod.GET)
 	@ResponseBody
@@ -57,8 +65,12 @@ public class CommuneController implements CommuneAPI {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controllers.geo.CommuneAPI#getCommuneById(long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cl.votainteligente.legislativo.controllers.geo.CommuneAPI#getCommuneById
+	 * (long)
 	 */
 	@RequestMapping(params = { "id" }, value = "geo/commune/any", method = RequestMethod.GET)
 	@ResponseBody

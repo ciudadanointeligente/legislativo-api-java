@@ -50,6 +50,7 @@ public interface CircunscriptionAPI {
 	 * @param id
 	 *            The Circunscription identification number.
 	 * @return Detailed of a Circunscription
+	 * @throws ResourceNotFoundException
 	 * @see CircunscriptionDO
 	 */
 	@Path("any")

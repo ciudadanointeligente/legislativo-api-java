@@ -11,7 +11,6 @@ import cl.votainteligente.legislativo.model.domainobjects.LegislatorDetailedDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonPartyDO;
 
-
 public interface LegislatorAPI {
 
 	/**
@@ -20,6 +19,7 @@ public interface LegislatorAPI {
 	 * @param id
 	 *            The Legislative Period identification number.
 	 * @return Detailed view of a legislative period (LegislatorDetailedDO)
+	 * @throws ResourceNotFoundException
 	 * @see LegislatorDetailedDO
 	 */
 	@Path("period")
@@ -27,7 +27,8 @@ public interface LegislatorAPI {
 	public LegislatorDetailedDO getLegislatorById(@PathParam("id") final long id);
 
 	/**
-	 * Returns all the legislative period that currently are in a particular district.
+	 * Returns all the legislative period that currently are in a particular
+	 * district.
 	 * 
 	 * @param id
 	 *            The District identification number.
@@ -41,12 +42,13 @@ public interface LegislatorAPI {
 	@Path("district")
 	@GET
 	public Page<LegislatorDO> getLegislatorByDistrict(
-			@PathParam("id") final long id, 
+			@PathParam("id") final long id,
 			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 	/**
-	 * Returns all the legislative period that currently are in a particular circunscription.
+	 * Returns all the legislative period that currently are in a particular
+	 * circunscription.
 	 * 
 	 * @param id
 	 *            The Circunscription identification number.
@@ -60,12 +62,13 @@ public interface LegislatorAPI {
 	@Path("circunscription")
 	@GET
 	public Page<LegislatorDO> getLegislatorByCircunscription(
-			@PathParam("id") final long id, 
+			@PathParam("id") final long id,
 			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 	/**
-	 * Returns all the legislative period that currently are associated with a person.
+	 * Returns all the legislative period that currently are associated with a
+	 * person.
 	 * 
 	 * @param id
 	 *            The Person identification number.
@@ -79,7 +82,7 @@ public interface LegislatorAPI {
 	@Path("person")
 	@GET
 	public Page<LegislatorDO> getLegislatorsByPerson(
-			@PathParam("id") final long id, 
+			@PathParam("id") final long id,
 			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") @DefaultValue("10") final int perPage);
 

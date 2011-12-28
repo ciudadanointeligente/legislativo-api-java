@@ -12,10 +12,11 @@ import cl.votainteligente.legislativo.model.domainobjects.DebateDetailedDO;
 public interface DebateAPI {
 	/**
 	 * Allows you to get all the information of a debate.
-	 *
+	 * 
 	 * @param id
 	 *            The debate identification number
 	 * @return Detailed view of a debate (DebateDetailedDO)
+	 * @throws ResourceNotFoundException
 	 * @see DebateDetailedDO
 	 */
 	@Path("any")
@@ -25,10 +26,10 @@ public interface DebateAPI {
 
 	/**
 	 * Gives all the debates presented between two dates.
-	 *
-	 * @param from
+	 * 
+	 * @param fromString
 	 *            Beggining of the interval, in date format.
-	 * @param to
+	 * @param toString
 	 *            End of the interval, in date format.
 	 * @param page
 	 *            The number of the desired page to be retrieved.
@@ -47,7 +48,7 @@ public interface DebateAPI {
 
 	/**
 	 * Returns all the debates registered in the system of a particular bill.
-	 *
+	 * 
 	 * @param id
 	 *            The bill identification number
 	 * @param page

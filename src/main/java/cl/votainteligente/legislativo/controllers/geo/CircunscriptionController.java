@@ -24,8 +24,12 @@ public class CircunscriptionController implements CircunscriptionAPI {
 	@Autowired
 	CircunscriptionService service;
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controllers.geo.CircunscriptionAPI#getAll(int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * cl.votainteligente.legislativo.controllers.geo.CircunscriptionAPI#getAll
+	 * (int, int)
 	 */
 	@RequestMapping(value = "geo/circunscription/all", method = RequestMethod.GET)
 	@ResponseBody
@@ -42,8 +46,11 @@ public class CircunscriptionController implements CircunscriptionAPI {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controllers.geo.CircunscriptionAPI#findCircunscriptionsByName(java.lang.String, int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cl.votainteligente.legislativo.controllers.geo.CircunscriptionAPI#
+	 * findCircunscriptionsByName(java.lang.String, int, int)
 	 */
 	@RequestMapping(params = { "name" }, value = "geo/circunscription/any", method = RequestMethod.GET)
 	@ResponseBody
@@ -61,8 +68,11 @@ public class CircunscriptionController implements CircunscriptionAPI {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controllers.geo.CircunscriptionAPI#getCircunscriptionById(long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cl.votainteligente.legislativo.controllers.geo.CircunscriptionAPI#
+	 * getCircunscriptionById(long)
 	 */
 	@RequestMapping(params = { "id" }, value = "geo/circunscription/any", method = RequestMethod.GET)
 	@ResponseBody
@@ -79,8 +89,11 @@ public class CircunscriptionController implements CircunscriptionAPI {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controllers.geo.CircunscriptionAPI#getCircunscriptionByRegionId(long, int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cl.votainteligente.legislativo.controllers.geo.CircunscriptionAPI#
+	 * getCircunscriptionByRegionId(long, int, int)
 	 */
 	@RequestMapping(params = { "region_id" }, value = "geo/circunscription/any", method = RequestMethod.GET)
 	@ResponseBody
