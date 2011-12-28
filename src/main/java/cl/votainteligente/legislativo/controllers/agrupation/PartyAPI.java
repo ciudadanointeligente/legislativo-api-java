@@ -12,6 +12,7 @@ import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 
 public interface PartyAPI {
 	/**
+	 * Returns all the parties.
 	 * 
 	 * @param page
 	 *            The number of the desired page to be retrieved.

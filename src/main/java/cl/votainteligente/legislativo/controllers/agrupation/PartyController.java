@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cl.votainteligente.legislativo.ApplicationProperties;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
+import cl.votainteligente.legislativo.exceptions.ResourceNotFoundException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
 import cl.votainteligente.legislativo.model.Party;
 import cl.votainteligente.legislativo.model.domainobjects.PartyDO;
@@ -79,7 +80,10 @@ public class PartyController implements PartyAPI {
 	public final PartyDetailedDO getById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			return partyService.getPartyDetailedDO(id);
+			Party p = partyService.getParty(id);
+			if(p == null)
+				throw new ResourceNotFoundException();
+			return p.asDetailedDomainObject();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();

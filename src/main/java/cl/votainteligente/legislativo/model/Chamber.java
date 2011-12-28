@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import cl.votainteligente.legislativo.model.domainobjects.ChamberDO;
+
 @Entity
 @Table(name = "chamber")
 public class Chamber {
@@ -69,5 +71,9 @@ public class Chamber {
 
 	public void setSecondVicePresident(LegislatorRole secondVicePresident) {
 		this.secondVicePresident = secondVicePresident;
+	}
+
+	public ChamberDO asDomainObject() {
+		return new ChamberDO(this);
 	}
 }
