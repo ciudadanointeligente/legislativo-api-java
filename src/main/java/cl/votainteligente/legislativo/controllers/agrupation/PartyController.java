@@ -104,6 +104,8 @@ public class PartyController implements PartyAPI {
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 			Party party = partyService.getParty(id);
+			if(party==null)
+				throw new ResourceNotFoundException();
 			return partyService.getHistoricalAffiliatesByParty(party, page,
 					perPage);
 		} catch (ServiceException e) {
@@ -126,6 +128,8 @@ public class PartyController implements PartyAPI {
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 			Party party = partyService.getParty(id);
+			if(party==null)
+				throw new ResourceNotFoundException();
 			return partyService.getCurrentAffiliatesByParty(party, page,
 					perPage);
 		} catch (ServiceException e) {
