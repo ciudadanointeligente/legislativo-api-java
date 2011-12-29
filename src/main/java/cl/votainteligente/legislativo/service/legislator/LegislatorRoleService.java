@@ -11,7 +11,7 @@ import cl.votainteligente.legislativo.model.domainobjects.LegislatorDetailedDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonPartyDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 
-public interface LegislatorService {
+public interface LegislatorRoleService {
 	LegislatorRole newLegislator(LegislatorRole legislator) throws ServiceException;
 
 	LegislatorRole getLegislator(Long id) throws ServiceException;

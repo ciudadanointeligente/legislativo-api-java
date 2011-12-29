@@ -22,15 +22,15 @@ import cl.votainteligente.legislativo.model.domainobjects.PersonPartyDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.service.geo.CircunscriptionService;
 import cl.votainteligente.legislativo.service.geo.DistrictService;
-import cl.votainteligente.legislativo.service.legislator.LegislatorService;
+import cl.votainteligente.legislativo.service.legislator.LegislatorRoleService;
 import cl.votainteligente.legislativo.service.person.PersonService;
 
-@Path("legislator")
+@Path("legislator_role")
 @Controller
-public class LegislatorController implements LegislatorAPI {
+public class LegislatorRoleController implements LegislatorRoleAPI {
 
 	@Autowired
-	LegislatorService service;
+	LegislatorRoleService service;
 
 	@Autowired
 	PersonService person;
@@ -41,7 +41,7 @@ public class LegislatorController implements LegislatorAPI {
 	@Autowired
 	CircunscriptionService circunscription;
 
-	@RequestMapping(params = { "id" }, value = "legislator/any", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" }, value = "legislator_role/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final LegislatorDetailedDO getLegislatorById(
 			@RequestParam(value = "id", required = true) final long id) {
@@ -53,7 +53,7 @@ public class LegislatorController implements LegislatorAPI {
 		}
 	}
 
-	@RequestMapping(params = { "id" }, value = "legislator/district", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" }, value = "legislator_role/district", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<LegislatorDO> getLegislatorByDistrict(
 			@RequestParam(value = "id", required = true) final long id,
@@ -68,7 +68,7 @@ public class LegislatorController implements LegislatorAPI {
 		}
 	}
 
-	@RequestMapping(params = { "id" }, value = "legislator/circunscription", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" }, value = "legislator_role/circunscription", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<LegislatorDO> getLegislatorByCircunscription(
 			@RequestParam(value = "id", required = true) final long id,
@@ -83,7 +83,7 @@ public class LegislatorController implements LegislatorAPI {
 		}
 	}
 
-	@RequestMapping(value = "legislator/person", method = RequestMethod.GET)
+	@RequestMapping(value = "legislator_role/person", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<LegislatorDO> getLegislatorsByPerson(
 			@RequestParam(value = "id", required = true) final long id,
@@ -98,7 +98,7 @@ public class LegislatorController implements LegislatorAPI {
 		}
 	}
 
-	@RequestMapping(value = "legislator/people", method = RequestMethod.GET)
+	@RequestMapping(value = "legislator_role/people", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<PersonDO> getKLegislatorPersons(
 			@RequestParam(value = "page", required = false, defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE) final int page,
@@ -111,7 +111,7 @@ public class LegislatorController implements LegislatorAPI {
 		}
 	}
 
-	@RequestMapping(value = "legislator/all", method = RequestMethod.GET)
+	@RequestMapping(value = "legislator_role/all", method = RequestMethod.GET)
 	public final Page<PersonPartyDO> getLegislatorPersons(
 			@RequestParam(value = "page", required = false, defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE) final int page,
 			@RequestParam(value = "perPage", required = false, defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE) final int perPage) {

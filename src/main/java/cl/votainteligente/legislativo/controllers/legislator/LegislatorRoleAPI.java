@@ -11,7 +11,7 @@ import cl.votainteligente.legislativo.model.domainobjects.LegislatorDetailedDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonPartyDO;
 
-public interface LegislatorAPI {
+public interface LegislatorRoleAPI {
 
 	/**
 	 * Allows you to get all the information of a legislative period.
@@ -92,7 +92,7 @@ public interface LegislatorAPI {
 			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
-	@Path("legislator/all")
+	@Path("all")
 	public Page<PersonPartyDO> getLegislatorPersons(
 			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") @DefaultValue("10") final int perPage);

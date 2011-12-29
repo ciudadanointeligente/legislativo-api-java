@@ -21,8 +21,8 @@ import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.service.EntityManagerService;
 
 @Service
-public class LegislatorServiceImpl extends EntityManagerService implements
-		LegislatorService {
+public class LegislatorRoleServiceImpl extends EntityManagerService implements
+		LegislatorRoleService {
 
 	@Override
 	public LegislatorRole getLegislator(Long id) throws ServiceException {
