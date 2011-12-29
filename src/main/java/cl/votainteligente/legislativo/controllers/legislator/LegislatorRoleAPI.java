@@ -86,13 +86,30 @@ public interface LegislatorRoleAPI {
 			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
+	/**
+	 * Returns all the people in the system that at least contains one legislator role associated. They might not be currently a legislator.
+	 * 
+	 * @param page
+	 *            The number of the desired page to be retrieved.
+	 * @param perPage
+	 * 			  Amount of legislative period to be retrieved in a page.
+	 * @return A page of personDOs.
+	 */
 	@Path("people")
 	@GET
 	public Page<PersonDO> getKLegislatorPersons(
 			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") @DefaultValue("10") final int perPage);
-
+	/**
+	 * Returns all the people in the system that is CURRENTLY a legislator.
+	 * @param page
+	 *            The number of the desired page to be retrieved.
+	 * @param perPage
+	 * 			  Amount of legislative period to be retrieved in a page.
+	 * @return A page of personPartyDOs.
+	 */
 	@Path("all")
+	@GET
 	public Page<PersonPartyDO> getLegislatorPersons(
 			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") @DefaultValue("10") final int perPage);
