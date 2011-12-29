@@ -1,15 +1,23 @@
 package cl.votainteligente.legislativo.model;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import cl.votainteligente.legislativo.model.domainobjects.SessionDO;
+import cl.votainteligente.legislativo.model.domainobjects.SessionDetailedDO;
 
 @Entity
 @Table(name = "session")
@@ -25,12 +33,28 @@ public class Session {
 	@Column
 	private Long legislature;
 
+	@ManyToMany
+	private Set<Person> assitant;
+
+	@ManyToMany
+	private Set<Bill> discussedBills;
+
 	@ManyToOne
 	private Chamber chamber;
 
 	@Column
+	private String sessionTableURL;
+
+	@Column
+	private String sessionAccountURL;
+
+	@Column
 	@Temporal(TemporalType.DATE)
 	private Date date;
+
+	@Column
+	@OneToMany(mappedBy = "session", fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE })
+	private Set<Vote> votes;
 
 	/**
 	 * @return the id
@@ -63,21 +87,6 @@ public class Session {
 	}
 
 	/**
-	 * @return the legislature
-	 */
-	public Long getLegislature() {
-		return legislature;
-	}
-
-	/**
-	 * @param legislature
-	 *            the legislature to set
-	 */
-	public void setLegislature(Long legislature) {
-		this.legislature = legislature;
-	}
-
-	/**
 	 * @return the chamber
 	 */
 	public Chamber getChamber() {
@@ -107,4 +116,59 @@ public class Session {
 		this.date = date;
 	}
 
+	public void setAssitant(Set<Person> assitant) {
+		this.assitant = assitant;
+	}
+
+	public Set<Person> getAssitant() {
+		return assitant;
+	}
+
+	public void setDiscussedBills(Set<Bill> discussedBills) {
+		this.discussedBills = discussedBills;
+	}
+
+	public Set<Bill> getDiscussedBills() {
+		return discussedBills;
+	}
+
+	public void setSessionTableURL(String sessionTableURL) {
+		this.sessionTableURL = sessionTableURL;
+	}
+
+	public String getSessionTableURL() {
+		return sessionTableURL;
+	}
+
+	public void setSessionAccountURL(String sessionAccountURL) {
+		this.sessionAccountURL = sessionAccountURL;
+	}
+
+	public String getSessionAccountURL() {
+		return sessionAccountURL;
+	}
+
+	public void setVotes(Set<Vote> votes) {
+		this.votes = votes;
+	}
+
+	public Set<Vote> getVotes() {
+		return votes;
+	}
+
+	public SessionDO asDomainObject() {
+		return new SessionDO(this);
+	}
+
+	public SessionDetailedDO asDetailedDomainObject() {
+		return new SessionDetailedDO(this);
+	}
+
+	public void setLegislature(Long legislature) {
+		this.legislature = legislature;
+	}
+
+	public Long getLegislature() {
+		return legislature;
+	}
 }
