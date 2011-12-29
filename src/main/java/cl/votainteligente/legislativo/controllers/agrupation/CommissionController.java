@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cl.votainteligente.legislativo.ApplicationProperties;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
+import cl.votainteligente.legislativo.exceptions.ResourceNotFoundException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
 import cl.votainteligente.legislativo.model.Chamber;
 import cl.votainteligente.legislativo.model.Commission;
@@ -75,6 +76,8 @@ public class CommissionController implements CommissionAPI {
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 			Commission commission = commissionService.getCommissionById(id);
+			if (commission == null)
+				throw new ResourceNotFoundException();
 			return new CommissionDetailedDO(commission);
 		} catch (ServiceException e) {
 			e.printStackTrace();

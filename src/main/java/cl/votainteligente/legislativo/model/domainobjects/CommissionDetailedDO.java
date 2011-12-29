@@ -1,5 +1,7 @@
 package cl.votainteligente.legislativo.model.domainobjects;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import cl.votainteligente.legislativo.model.Chamber;
@@ -12,14 +14,18 @@ public class CommissionDetailedDO {
 	private Chamber chamber;
 	private CommissionType commissionType;
 	private String name;
-	private Set<LegislatorRole> members;
+	private List<Long> membersId;
 
 	public CommissionDetailedDO(Commission commission) {
 		this.commissionId = commission.getId();
 		this.chamber = commission.getChamber();
 		this.commissionType = commission.getCommissionType();
 		this.name = commission.getName();
-		this.members = commission.getMembers();
+		this.membersId = new ArrayList<Long>();
+		Set<LegislatorRole> members = commission.getMembers();
+		for (LegislatorRole legislatorRole : members) {
+			this.membersId.add(legislatorRole.getId());
+		}
 	}
 
 	/**
@@ -82,19 +88,11 @@ public class CommissionDetailedDO {
 		this.name = name;
 	}
 
-	/**
-	 * @return the members
-	 */
-	public Set<LegislatorRole> getMembers() {
-		return members;
+	public List<Long> getMembersId() {
+		return this.membersId;
 	}
 
-	/**
-	 * @param members
-	 *            the members to set
-	 */
-	public void setMembers(Set<LegislatorRole> members) {
-		this.members = members;
+	public void setMembersId(List<Long> membersId) {
+		this.membersId = membersId;
 	}
-
 }
