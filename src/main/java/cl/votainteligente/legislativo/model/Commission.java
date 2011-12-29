@@ -1,24 +1,33 @@
 package cl.votainteligente.legislativo.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import cl.votainteligente.legislativo.model.domainobjects.CommissionDO;
 
 @Entity
 @Table(name = "commission")
 public class Commission extends Agrupation {
 
-	@Column(name="executive_lawyer")
+	@Column(name = "executive_lawyer")
 	private String executiveLawyer;
-	@Column(name="secretary_lawyer")
+	@Column(name = "secretary_lawyer")
 	private String secretaryLawyer;
-	@Column(name="assistant_lawyer")
+	@Column(name = "assistant_lawyer")
 	private String assistantLawyer;
 	private String form;
-	@Column(name="phone_number")
+	@Column(name = "phone_number")
 	private String phoneNumber;
+
+	@OneToMany
+	private Set<LegislatorRole> members;
 
 	@ManyToOne
 	@JoinColumn(name = "chamber_id", nullable = false)
@@ -83,4 +92,25 @@ public class Commission extends Agrupation {
 	public void setCommissionType(CommissionType commissionType) {
 		this.commissionType = commissionType;
 	}
+
+	/**
+	 * @param members
+	 *            the members to set
+	 */
+	public void setMembers(Set<LegislatorRole> members) {
+		this.members = members;
+	}
+
+	/**
+	 * @return the members
+	 */
+	public Set<LegislatorRole> getMembers() {
+		return members;
+	}
+
+	@Transient
+	public CommissionDO asDomainObject() {
+		return new CommissionDO(this);
+	}
+
 }
