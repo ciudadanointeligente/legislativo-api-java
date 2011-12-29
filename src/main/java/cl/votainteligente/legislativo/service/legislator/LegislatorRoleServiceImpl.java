@@ -32,7 +32,10 @@ public class LegislatorRoleServiceImpl extends EntityManagerService implements
 	@Override
 	public LegislatorDetailedDO getLegislatorDetailedDO(Long id)
 			throws ServiceException {
-		return new LegislatorDetailedDO(getLegislator(id));
+		LegislatorRole leg = getLegislator(id);
+		if(leg==null)
+			return null;
+		return new LegislatorDetailedDO(leg);
 	}
 
 	@Override
