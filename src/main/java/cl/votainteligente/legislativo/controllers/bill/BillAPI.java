@@ -112,9 +112,10 @@ public interface BillAPI {
 	 * @see BillRoleDO
 	 */
 	@GET
-	@Path("author_role")
+	@Path("author")
 	public Page<BillRoleDO> getBillRoleByPerson(
 			@PathParam("id") final long author_id,
 			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") @DefaultValue("10") final int perPage);
+
 }
