@@ -1,11 +1,15 @@
 package cl.votainteligente.legislativo.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -28,6 +32,9 @@ public class District {
 	@ManyToOne
 	@JoinColumn(name = "region_id", nullable = false)
 	private Region region;
+
+	@OneToMany(mappedBy = "district", cascade = { CascadeType.REMOVE })
+	private Set<Commune> communes;
 
 	public Long getId() {
 		return id;
@@ -78,5 +85,13 @@ public class District {
 	@Transient
 	public DistrictDO asDomainObject() {
 		return new DistrictDO(this);
+	}
+
+	public void setCommunes(Set<Commune> communes) {
+		this.communes = communes;
+	}
+
+	public Set<Commune> getCommunes() {
+		return communes;
 	}
 }

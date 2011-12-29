@@ -2,9 +2,11 @@ package cl.votainteligente.legislativo.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -36,6 +38,9 @@ public class Commission extends Agrupation {
 	@ManyToOne
 	@JoinColumn(name = "commission_type_id", nullable = false)
 	private CommissionType commissionType;
+
+	@ManyToMany(mappedBy = "participantCommissions", cascade = { CascadeType.REMOVE })
+	private Set<DebateInCommission> debates;
 
 	public String getAssistantLawyer() {
 		return assistantLawyer;
@@ -106,6 +111,14 @@ public class Commission extends Agrupation {
 	 */
 	public Set<LegislatorRole> getMembers() {
 		return members;
+	}
+
+	public void setDebates(Set<DebateInCommission> debates) {
+		this.debates = debates;
+	}
+
+	public Set<DebateInCommission> getDebates() {
+		return debates;
 	}
 
 	@Transient

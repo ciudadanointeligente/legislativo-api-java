@@ -3,6 +3,7 @@ package cl.votainteligente.legislativo.model;
 import javax.persistence.*;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "matter")
@@ -22,6 +23,9 @@ public class Matter {
 
 	@Column(name = "updated_at")
 	private Date updatedAt;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE }, mappedBy = "matter")
+	private Set<Bill> bills;
 
 	/**
 	 * @return the id
@@ -96,5 +100,13 @@ public class Matter {
 	 */
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public void setBills(Set<Bill> bills) {
+		this.bills = bills;
+	}
+
+	public Set<Bill> getBills() {
+		return bills;
 	}
 }

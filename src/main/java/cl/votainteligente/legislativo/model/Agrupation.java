@@ -1,11 +1,15 @@
 package cl.votainteligente.legislativo.model;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -36,6 +40,9 @@ public class Agrupation extends Participant {
 
 	@Column(name = "statement_of_heritage")
 	private String statementOfHeritage;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "agrupation", cascade = { CascadeType.REMOVE })
+	private Set<AgrupationAffiliation> agrupationAffiliations;
 
 	public String getMailAddress() {
 		return mailAddress;
@@ -99,6 +106,15 @@ public class Agrupation extends Participant {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void setAgrupationAffiliations(
+			Set<AgrupationAffiliation> agrupationAffiliations) {
+		this.agrupationAffiliations = agrupationAffiliations;
+	}
+
+	public Set<AgrupationAffiliation> getAgrupationAffiliations() {
+		return agrupationAffiliations;
 	}
 
 }

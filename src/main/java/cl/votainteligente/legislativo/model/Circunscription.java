@@ -3,12 +3,14 @@ package cl.votainteligente.legislativo.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -23,6 +25,9 @@ public class Circunscription {
 	@Column
 	private Long id;
 	private String name;
+
+	@OneToMany(mappedBy = "circunscription", cascade = { CascadeType.REMOVE })
+	private Set<District> districts;
 
 	@ManyToMany
 	@JoinColumn(name = "region_id", nullable = false)
@@ -62,5 +67,13 @@ public class Circunscription {
 	@Transient
 	public CircunscriptionDO asDomainObject() {
 		return new CircunscriptionDO(this);
+	}
+
+	public void setDistricts(Set<District> districts) {
+		this.districts = districts;
+	}
+
+	public Set<District> getDistricts() {
+		return districts;
 	}
 }

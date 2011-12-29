@@ -3,8 +3,10 @@ package cl.votainteligente.legislativo.model;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -73,6 +75,9 @@ public class Bill {
 	private Date updatedAt;
 	@Column
 	private String type;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "bill", cascade = { CascadeType.REMOVE })
+	private Set<Debate> debates;
 
 	/**
 	 * @return the id
@@ -406,5 +411,13 @@ public class Bill {
 
 	public String getType() {
 		return type;
+	}
+
+	public void setDebates(Set<Debate> debates) {
+		this.debates = debates;
+	}
+
+	public Set<Debate> getDebates() {
+		return debates;
 	}
 }

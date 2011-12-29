@@ -2,8 +2,10 @@ package cl.votainteligente.legislativo.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -41,6 +43,9 @@ public class Party extends Agrupation {
 	@OneToMany
 	@JoinColumn(name = "adult_board_id")
 	private Set<Person> adultBoard;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "coalition", cascade = { CascadeType.REMOVE })
+	private Set<CoalitionAffiliation> coalitionAffiliations;
 
 	public String getAddress() {
 		return address;
@@ -106,5 +111,14 @@ public class Party extends Agrupation {
 	@Transient
 	public PartyDetailedDO asDetailedDomainObject() {
 		return new PartyDetailedDO(this);
+	}
+
+	public void setCoalitionAffiliations(
+			Set<CoalitionAffiliation> coalitionAffiliations) {
+		this.coalitionAffiliations = coalitionAffiliations;
+	}
+
+	public Set<CoalitionAffiliation> getCoalitionAffiliations() {
+		return coalitionAffiliations;
 	}
 }

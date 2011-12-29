@@ -1,9 +1,14 @@
 package cl.votainteligente.legislativo.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,10 +19,8 @@ public class Tag {
 	@Column
 	private Long id;
 
-	// TODO: Retrieve debates from a particular tag with a query
-	/*
-	 * @Transient private Set<Debate> debates;
-	 */
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE })
+	private Set<Debate> debates;
 
 	@Column
 	private String name;
@@ -36,6 +39,14 @@ public class Tag {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void setDebates(Set<Debate> debates) {
+		this.debates = debates;
+	}
+
+	public Set<Debate> getDebates() {
+		return debates;
 	}
 
 	/*

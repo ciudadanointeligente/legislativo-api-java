@@ -1,10 +1,14 @@
 package cl.votainteligente.legislativo.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -32,6 +36,15 @@ public class Chamber {
 	@OneToOne
 	@JoinColumn(name = "second_vice_president_id")
 	private LegislatorRole secondVicePresident;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="chamber")
+	private Set<Commission> commissions;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="originChamber")
+	private Set<Bill> bills;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="chamber")
+	private Set<Debate> debates;
 
 	public Long getId() {
 		return id;
@@ -75,5 +88,29 @@ public class Chamber {
 
 	public ChamberDO asDomainObject() {
 		return new ChamberDO(this);
+	}
+
+	public void setCommissions(Set<Commission> commissions) {
+		this.commissions = commissions;
+	}
+
+	public Set<Commission> getCommissions() {
+		return commissions;
+	}
+
+	public void setDebates(Set<Debate> debates) {
+		this.debates = debates;
+	}
+
+	public Set<Debate> getDebates() {
+		return debates;
+	}
+
+	public void setBills(Set<Bill> bills) {
+		this.bills = bills;
+	}
+
+	public Set<Bill> getBills() {
+		return bills;
 	}
 }
