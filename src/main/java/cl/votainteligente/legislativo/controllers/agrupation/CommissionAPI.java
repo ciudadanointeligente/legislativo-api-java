@@ -1,5 +1,6 @@
 package cl.votainteligente.legislativo.controllers.agrupation;
 
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -8,11 +9,10 @@ import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.model.domainobjects.CommissionDO;
 import cl.votainteligente.legislativo.model.domainobjects.CommissionDetailedDO;
 
-
 public interface CommissionAPI {
 	/**
 	 * Returns all the commissions registered in the system.
-	 *
+	 * 
 	 * @param page
 	 *            The number of the desired page to be retrieved.
 	 * @param perPage
@@ -22,16 +22,21 @@ public interface CommissionAPI {
 	 */
 	@GET
 	@Path("all")
-	public Page<CommissionDO> getAll(@PathParam("page") final int page,
+	public Page<CommissionDO> getAll(
+			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") final int perPage);
 
 	/**
-	 * TODO documentation
-	 *
+	 * Returns all the commissions find by name.
+	 * 
 	 * @param name
+	 *            The name of Commission
 	 * @param page
+	 *            The number of the desired page to be retrieved.
 	 * @param perPage
-	 * @return
+	 *            Amount of commissions to be retrieved in a page.
+	 * @return A Page of Commissions Abstracts (CommissionDO)
+	 * @see CommissionDO
 	 */
 	public Page<CommissionDO> findByName(@PathParam("name") final String name,
 			@PathParam("page") final int page,
@@ -39,7 +44,7 @@ public interface CommissionAPI {
 
 	/**
 	 * TODO documentation
-	 *
+	 * 
 	 * @param id
 	 * @param page
 	 * @param perPage
@@ -51,7 +56,7 @@ public interface CommissionAPI {
 
 	/**
 	 * TODO documentation
-	 *
+	 * 
 	 * @param type_id
 	 * @param page
 	 * @param perPage
@@ -64,6 +69,7 @@ public interface CommissionAPI {
 
 	/**
 	 * TODO documentation
+	 * 
 	 * @param chamber_id
 	 * @param page
 	 * @param perPage
@@ -74,3 +80,4 @@ public interface CommissionAPI {
 			@PathParam("page") final int page,
 			@PathParam("perPage") final int perPage);
 }
+
