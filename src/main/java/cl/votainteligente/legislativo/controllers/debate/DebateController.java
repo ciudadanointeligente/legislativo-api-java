@@ -105,6 +105,8 @@ public class DebateController implements DebateAPI {
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 			Bill bill = billService.getBill(id);
+			if (bill==null)
+				throw new ResourceNotFoundException();
 			return debateService.getDebateByBill(bill, page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
