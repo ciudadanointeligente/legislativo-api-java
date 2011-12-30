@@ -13,15 +13,18 @@ public interface SessionAPI {
 
 	/**
 	 * Returns all the sessions.
-	 * 
+	 *
 	 * @param page
-	 *            The number of the desired page to be retrieved.
+	 *            The number of the desired page to be retrieved (optional).
 	 * @param perPage
-	 *            Amount of sessions to be retrieved in a page.
+	 *            Amount of sessions to be retrieved in a page (optional).
 	 * @return A Page of Session Abstracts (SessionDO)
+	 * <br />
+	 * For example:
+	 * <a href="http://demo.ciudadanointeligente.cl/Legislativo/api/session/all?page=1&perPage=10">session/all?page=1&perPage=10</a>
 	 * @see SessionDO
 	 */
-	@Path("any")
+	@Path("all")
 	@GET
 	Page<SessionDO> getAll(
 			@PathParam("page") @DefaultValue("1") final int page,
@@ -29,10 +32,13 @@ public interface SessionAPI {
 
 	/**
 	 * Allows you to get all the information of a session.
-	 * 
+	 *
 	 * @param id
 	 *            The Session identification number.
 	 * @return Detailed of a session
+	 * <br />
+	 * For example:
+	 * <a href="http://demo.ciudadanointeligente.cl/Legislativo/api/session/any?id=1">session/any?id=1</a>
 	 * @see SessionDetailedDO
 	 */
 	@Path("any")
