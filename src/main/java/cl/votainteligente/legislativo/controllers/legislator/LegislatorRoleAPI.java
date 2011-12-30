@@ -129,7 +129,7 @@ public interface LegislatorRoleAPI {
 	 */
 	@Path("all")
 	@GET
-	public Page<PersonPartyDO> getLegislatorPersons(
+	public Page<PersonDO> getLegislatorPersons(
 			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") @DefaultValue("10") final int perPage);
 

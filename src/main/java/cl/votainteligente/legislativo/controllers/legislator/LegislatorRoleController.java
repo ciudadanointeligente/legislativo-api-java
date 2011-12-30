@@ -20,7 +20,6 @@ import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.domainobjects.LegislatorDO;
 import cl.votainteligente.legislativo.model.domainobjects.LegislatorDetailedDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
-import cl.votainteligente.legislativo.model.domainobjects.PersonPartyDO;
 import cl.votainteligente.legislativo.service.geo.CircunscriptionService;
 import cl.votainteligente.legislativo.service.geo.DistrictService;
 import cl.votainteligente.legislativo.service.legislator.LegislatorRoleService;
@@ -123,7 +122,7 @@ public class LegislatorRoleController implements LegislatorRoleAPI {
 
 	@RequestMapping(value = "legislator_role/all", method = RequestMethod.GET)
 	@ResponseBody
-	public final Page<PersonPartyDO> getLegislatorPersons(
+	public final Page<PersonDO> getLegislatorPersons(
 			@RequestParam(value = "page", required = false, defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE) final int page,
 			@RequestParam(value = "perPage", required = false, defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE) final int perPage) {
 		try {

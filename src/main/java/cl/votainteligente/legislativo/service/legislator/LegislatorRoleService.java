@@ -8,7 +8,6 @@ import cl.votainteligente.legislativo.model.LegislatorRole;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.domainobjects.LegislatorDO;
 import cl.votainteligente.legislativo.model.domainobjects.LegislatorDetailedDO;
-import cl.votainteligente.legislativo.model.domainobjects.PersonPartyDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 
 public interface LegislatorRoleService {
@@ -31,6 +30,6 @@ public interface LegislatorRoleService {
 
 	Page<PersonDO> getPersonDOs(int page, int perPage) throws ServiceException;
 
-	Page<PersonPartyDO> getLegislatorPersonDOs(int page, int perPage)
+	Page<PersonDO> getLegislatorPersonDOs(int page, int perPage)
 			throws ServiceException;
 }
