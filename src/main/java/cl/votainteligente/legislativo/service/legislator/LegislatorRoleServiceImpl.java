@@ -50,7 +50,7 @@ public class LegislatorRoleServiceImpl extends EntityManagerService implements
 	public Page<LegislatorDO> getLegislatorsByPerson(Person person, int page,
 			int perPage) throws ServiceException {
 		Query query = getEntityManager().createQuery(
-				"select l from Legislator l where l.person = ?");
+				"select l from LegislatorRole l where l.person = ?");
 		query.setParameter(1, person);
 		query.setFirstResult((page - 1) * perPage);
 		query.setMaxResults(perPage);
@@ -59,7 +59,7 @@ public class LegislatorRoleServiceImpl extends EntityManagerService implements
 			listDO.add(legislator.asDomainObject());
 		}
 		query = getEntityManager().createQuery(
-				"select count(l) from Legislator l where l.person = ?");
+				"select count(l) from LegislatorRole l where l.person = ?");
 		query.setParameter(1, person);
 		long total = (Long) query.getSingleResult();
 		return new Page<LegislatorDO>(listDO, page, perPage, total);
@@ -71,7 +71,7 @@ public class LegislatorRoleServiceImpl extends EntityManagerService implements
 			Circunscription circunscription, int page, int perPage)
 			throws ServiceException {
 		Query query = getEntityManager().createQuery(
-				"select p from Legislator p where p.circunscription = ?");
+				"select p from LegislatorRole p where p.circunscription = ?");
 		query.setParameter(1, circunscription);
 		query.setFirstResult((page - 1) * perPage);
 		query.setMaxResults(perPage);
@@ -81,7 +81,7 @@ public class LegislatorRoleServiceImpl extends EntityManagerService implements
 		}
 		query = getEntityManager()
 				.createQuery(
-						"select count(p) from Legislator p where p.circunscription = ?");
+						"select count(p) from LegislatorRole p where p.circunscription = ?");
 		query.setParameter(1, circunscription);
 		long total = (Long) query.getSingleResult();
 		return new Page<LegislatorDO>(listDO, page, perPage, total);
@@ -92,7 +92,7 @@ public class LegislatorRoleServiceImpl extends EntityManagerService implements
 	public Page<LegislatorDO> getLegislatorsByDistrict(District district,
 			int page, int perPage) throws ServiceException {
 		Query query = getEntityManager().createQuery(
-				"select p from Legislator p where p.district = ?");
+				"select p from LegislatorRole p where p.district = ?");
 		query.setParameter(1, district);
 		query.setFirstResult((page - 1) * perPage);
 		query.setMaxResults(perPage);
@@ -101,7 +101,7 @@ public class LegislatorRoleServiceImpl extends EntityManagerService implements
 			listDO.add(legislator.asDomainObject());
 		}
 		Query count = getEntityManager().createQuery(
-				"select count(p) from Legislator p where p.district = ?");
+				"select count(p) from LegislatorRole p where p.district = ?");
 		count.setParameter(1, district);
 		long total = (Long) count.getSingleResult();
 		return new Page<LegislatorDO>(listDO, page, perPage, total);
@@ -113,7 +113,7 @@ public class LegislatorRoleServiceImpl extends EntityManagerService implements
 			throws ServiceException {
 		Query query = getEntityManager()
 				.createQuery(
-						"select distinct p from Person p join p.roles r where r.class=Legislator");
+						"select distinct p from Person p join p.roles r where r.class=LegislatorRole");
 		query.setFirstResult((page - 1) * perPage);
 		query.setMaxResults(perPage);
 		List<PersonDO> results = new ArrayList<PersonDO>();
@@ -121,7 +121,7 @@ public class LegislatorRoleServiceImpl extends EntityManagerService implements
 			results.add(person.asDomainObject());
 		Query count = getEntityManager()
 				.createQuery(
-						"select count(distinct p) from Person p join p.roles r where r.class=Legislator");
+						"select count(distinct p) from Person p join p.roles r where r.class=LegislatorRole");
 		long totalElements = (Long) count.getSingleResult();
 		return new Page<PersonDO>(results, page, perPage, totalElements);
 	}
@@ -132,7 +132,7 @@ public class LegislatorRoleServiceImpl extends EntityManagerService implements
 			throws ServiceException {
 		Query query = getEntityManager()
 				.createQuery(
-						"select aa from AgrupationAffiliation aa join aa.person.roles r where r.class=Legislator and (r.endDate >= ? "
+						"select aa from AgrupationAffiliation aa join aa.person.roles r where r.class=LegislatorRole and (r.endDate >= ? "
 								+ "or r.endDate is null) and aa.agrupation in (select p from Party p)");
 		query.setParameter(1, new Date(), TemporalType.DATE);
 		query.setFirstResult((page - 1) * perPage);
@@ -145,7 +145,7 @@ public class LegislatorRoleServiceImpl extends EntityManagerService implements
 		}
 		Query count = getEntityManager()
 				.createQuery(
-						"select count(aa) from AgrupationAffiliation aa join aa.person.roles r where r.class=Legislator and (r.endDate >= ? "
+						"select count(aa) from AgrupationAffiliation aa join aa.person.roles r where r.class=LegislatorRole and (r.endDate >= ? "
 								+ "or r.endDate is null) and aa.agrupation in (select p from Party p)");
 		count.setParameter(1, new Date(), TemporalType.DATE);
 		Long totalElements = (Long) count.getSingleResult();

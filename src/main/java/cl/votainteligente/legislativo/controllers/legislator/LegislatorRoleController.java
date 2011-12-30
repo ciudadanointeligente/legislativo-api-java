@@ -122,6 +122,7 @@ public class LegislatorRoleController implements LegislatorRoleAPI {
 	}
 
 	@RequestMapping(value = "legislator_role/all", method = RequestMethod.GET)
+	@ResponseBody
 	public final Page<PersonPartyDO> getLegislatorPersons(
 			@RequestParam(value = "page", required = false, defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE) final int page,
 			@RequestParam(value = "perPage", required = false, defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE) final int perPage) {
