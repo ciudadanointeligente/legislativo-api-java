@@ -48,7 +48,7 @@ public class RegionController implements RegionAPI {
 	 * cl.votainteligente.legislativo.controllers.geo.RegionAPI#findRegionsByName
 	 * (java.lang.String, int, int)
 	 */
-	@RequestMapping(params = { "name", "page", "perPage" }, value = "geo/region/any", method = RequestMethod.GET)
+	@RequestMapping(params = { "name"}, value = "geo/region/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<Region> findRegionsByName(
 			@RequestParam(value = "name", required = true) final String name,

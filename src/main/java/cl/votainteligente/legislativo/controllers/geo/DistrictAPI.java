@@ -13,10 +13,15 @@ public interface DistrictAPI {
 	/**
 	 * 
 	 * @param page
-	 *            The number of the desired page to be retrieved.
+	 *            The number of the desired page to be retrieved (optional).
 	 * @param perPage
-	 *            Amount of districts to be retrieved in a page.
-	 * @return A Page of District Abstracts (DistrictDO)
+	 *            Amount of districts to be retrieved in a page (optional).
+	 * @return A Page of District Abstracts (DistrictDO) <br />
+	 *         For Example:
+	 * 
+	 *         <a href=
+	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/geo/district/all"
+	 *         >geo/district/all</a>
 	 * @see DistrictDO
 	 */
 	@Path("all")
@@ -31,10 +36,15 @@ public interface DistrictAPI {
 	 * @param name
 	 *            The District name to look for.
 	 * @param page
-	 *            The number of desired page to be retrieved.
+	 *            The number of desired page to be retrieved (optional).
 	 * @param perPage
-	 *            Amount of districts to be retrieved in a page.
-	 * @return A page of District Abstracts (DistrictDO)
+	 *            Amount of districts to be retrieved in a page (optional).
+	 * @return A page of District Abstracts (DistrictDO) <br />
+	 *         For Example:
+	 * 
+	 *         <a href=
+	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/geo/district/any?name=1"
+	 *         >geo/district/any?name=1</a>
 	 * @see DistrictDO
 	 */
 	@Path("any")
@@ -48,7 +58,12 @@ public interface DistrictAPI {
 	 * 
 	 * @param id
 	 *            The District identification number.
-	 * @return Detailed of a District
+	 * @return Detailed of a District <br />
+	 *         For Example:
+	 * 
+	 *         <a href=
+	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/geo/district/any?id=1"
+	 *         >geo/district/any?id=1</a>
 	 * @throws ResourceNotFoundException
 	 * @see DistrictDO
 	 */

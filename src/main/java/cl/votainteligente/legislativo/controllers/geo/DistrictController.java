@@ -50,7 +50,7 @@ public class DistrictController implements DistrictAPI {
 	 * @see cl.votainteligente.legislativo.controllers.geo.DistrictAPI#
 	 * findDistrictsByName(java.lang.String, int, int)
 	 */
-	@RequestMapping(params = { "name", "page", "perPage" }, value = "geo/district/any", method = RequestMethod.GET)
+	@RequestMapping(params = { "name"}, value = "geo/district/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<DistrictDO> findDistrictsByName(
 			@RequestParam(value = "name", required = true) final String name,
