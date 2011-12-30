@@ -13,12 +13,14 @@ import cl.votainteligente.legislativo.model.domainobjects.BillRoleDO;
 public interface BillAPI {
 	/**
 	 * Returns all the bills registered in the system.
-	 * 
 	 * @param page
 	 *            The number of the desired page to be retrieved.
 	 * @param perPage
 	 *            Amount of bills to be retrieved in a page.
 	 * @return A Page of Bill Abstracts (BillDO)
+	 * <br />
+	 * For example:
+	 * <a href="http://demo.ciudadanointeligente.cl/Legislativo/api/bill/all?page=1&perPage=10">bill/all?page=1&perPage=10</a>
 	 * @see BillDO
 	 */
 	@GET
@@ -29,11 +31,13 @@ public interface BillAPI {
 
 	/**
 	 * Allows you to get all the information of a bill.
-	 * 
+	 *
 	 * @param id
 	 *            The Bill identification number.
 	 * @return Detailed view of a bill (BillDetailedDO)
-	 * @throws ResourceNotFoundException
+	 * <br />
+	 * For example:
+	 * <a href="http://demo.ciudadanointeligente.cl/Legislativo/api/bill/any?id=1">bill/any?id=1</a>
 	 * @see BillDetailedDO
 	 */
 	@GET
@@ -42,7 +46,7 @@ public interface BillAPI {
 
 	/**
 	 * Gives all the bills presented between two dates.
-	 * 
+	 *
 	 * @param fromString
 	 *            Beggining of the interval, in date format.
 	 * @param toString
@@ -52,6 +56,9 @@ public interface BillAPI {
 	 * @param perPage
 	 *            Amount of bills to be retrieved in a page.
 	 * @return A Page of Bill Abstracts (BillDO)
+	 * <br />
+	 * For example:
+	 * <a href="http://demo.ciudadanointeligente.cl/Legislativo/api/bill/dateRange?from=01-01-2011&to=01-01-2012&page=1&perPage=10">bill/dateRange?from=01-01-2011&to=01-01-2012&page=1&perPage=10</a>
 	 * @see BillDO
 	 */
 	@GET
@@ -64,7 +71,7 @@ public interface BillAPI {
 
 	/**
 	 * Returns all the bills that currently are in a particular stage.
-	 * 
+	 *
 	 * @param stage_id
 	 *            The Stage identification number.
 	 * @param page
@@ -72,6 +79,9 @@ public interface BillAPI {
 	 * @param perPage
 	 *            Amount of bills to be retrieved in a page.
 	 * @return A Page of Bill Abstracts (BillDO)
+	 * <br />
+	 * For example:
+	 * <a href="http://demo.ciudadanointeligente.cl/Legislativo/api/bill/stage?id=page=1&perPage=10">bill/stage?id=1&page=1&perPage=10</a>
 	 * @see BillDO
 	 */
 	@GET
@@ -82,7 +92,7 @@ public interface BillAPI {
 
 	/**
 	 * Returns all the bills registered in the system of a particular matter.
-	 * 
+	 *
 	 * @param author_id
 	 *            The matter identificator.
 	 * @param page
@@ -90,6 +100,9 @@ public interface BillAPI {
 	 * @param perPage
 	 *            Amount of bills to be retrieved in a page.
 	 * @return A Page of Bill Abstracts (BillDO)
+	 * <br />
+	 * For example:
+	 * <a href="http://demo.ciudadanointeligente.cl/Legislativo/api/bill/matter?id=1&page=1&perPage=10">bill/matter?id=1&page=1&perPage=10</a>
 	 * @see BillDO
 	 */
 	@GET
@@ -101,7 +114,7 @@ public interface BillAPI {
 	/**
 	 * Returns all the bills and role (of person) registered in the system of a
 	 * particular author
-	 * 
+	 *
 	 * @param author_id
 	 *            The person id of the author
 	 * @param page
@@ -109,6 +122,9 @@ public interface BillAPI {
 	 * @param perPage
 	 *            Amount of bill-roles to be retrieved in a page.
 	 * @return A Page of BillRole Abstracts (BillRoleDO)
+	 * <br />
+	 * For example:
+	 * <a href="http://demo.ciudadanointeligente.cl/Legislativo/api/bill/author?id=1&page=1&perPage=10">bill/author?id=1&page=1&perPage=10</a>
 	 * @see BillRoleDO
 	 */
 	@GET
