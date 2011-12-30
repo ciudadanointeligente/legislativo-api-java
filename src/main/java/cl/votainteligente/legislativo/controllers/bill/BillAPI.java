@@ -14,9 +14,9 @@ public interface BillAPI {
 	/**
 	 * Returns all the bills registered in the system.
 	 * @param page
-	 *            The number of the desired page to be retrieved.
+	 *            The number of the desired page to be retrieved (optional).
 	 * @param perPage
-	 *            Amount of bills to be retrieved in a page.
+	 *            Amount of bills to be retrieved in a page (optional).
 	 * @return A Page of Bill Abstracts (BillDO)
 	 * <br />
 	 * For example:
@@ -47,14 +47,14 @@ public interface BillAPI {
 	/**
 	 * Gives all the bills presented between two dates.
 	 *
-	 * @param fromString
+	 * @param from
 	 *            Beggining of the interval, in date format.
-	 * @param toString
+	 * @param to
 	 *            End of the interval, in date format.
 	 * @param page
-	 *            The number of the desired page to be retrieved.
+	 *            The number of the desired page to be retrieved (optional).
 	 * @param perPage
-	 *            Amount of bills to be retrieved in a page.
+	 *            Amount of bills to be retrieved in a page (optional).
 	 * @return A Page of Bill Abstracts (BillDO)
 	 * <br />
 	 * For example:
@@ -75,9 +75,9 @@ public interface BillAPI {
 	 * @param stage_id
 	 *            The Stage identification number.
 	 * @param page
-	 *            The number of the desired page to be retrieved.
+	 *            The number of the desired page to be retrieved (optional).
 	 * @param perPage
-	 *            Amount of bills to be retrieved in a page.
+	 *            Amount of bills to be retrieved in a page (optional).
 	 * @return A Page of Bill Abstracts (BillDO)
 	 * <br />
 	 * For example:
@@ -96,9 +96,9 @@ public interface BillAPI {
 	 * @param author_id
 	 *            The matter identificator.
 	 * @param page
-	 *            The number of the desired page to be retrieved.
+	 *            The number of the desired page to be retrieved (optional).
 	 * @param perPage
-	 *            Amount of bills to be retrieved in a page.
+	 *            Amount of bills to be retrieved in a page (optional).
 	 * @return A Page of Bill Abstracts (BillDO)
 	 * <br />
 	 * For example:
@@ -118,9 +118,9 @@ public interface BillAPI {
 	 * @param author_id
 	 *            The person id of the author
 	 * @param page
-	 *            The number of the desired page to be retrieved.
+	 *            The number of the desired page to be retrieved (optional).
 	 * @param perPage
-	 *            Amount of bill-roles to be retrieved in a page.
+	 *            Amount of bill-roles to be retrieved in a page (optional).
 	 * @return A Page of BillRole Abstracts (BillRoleDO)
 	 * <br />
 	 * For example:
