@@ -15,10 +15,15 @@ public interface PartyAPI {
 	 * Returns all the parties.
 	 * 
 	 * @param page
-	 *            The number of the desired page to be retrieved.
+	 *            The number of the desired page to be retrieved (optional).
 	 * @param perPage
-	 *            Amount of parties to be retrieved in a page.
-	 * @return A Page of Party Abstracts (PartyDO)
+	 *            Amount of parties to be retrieved in a page (optional).
+	 * @return A Page of Party Abstracts (PartyDO) <br />
+	 *         For Example:
+	 * 
+	 *         <a href=
+	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/party/all"
+	 *         >party/all</a>
 	 * @see PartyDO
 	 */
 
@@ -34,10 +39,15 @@ public interface PartyAPI {
 	 * @param name
 	 *            The Party name to look for.
 	 * @param page
-	 *            The number of desired page to be retrieved.
+	 *            The number of desired page to be retrieved (optional).
 	 * @param perPage
-	 *            Amount of parties to be retrieved in a page.
-	 * @return A page of Party Abstracts (PartyDO)
+	 *            Amount of parties to be retrieved in a page (optional).
+	 * @return A page of Party Abstracts (PartyDO) <br />
+	 *         For Example:
+	 * 
+	 *         <a href=
+	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/party/any?name=Partido"
+	 *         >party/any?name=Partido</a>
 	 */
 	@GET
 	@Path("any")
@@ -50,7 +60,12 @@ public interface PartyAPI {
 	 * 
 	 * @param id
 	 *            The Party identification number.
-	 * @return Detailed of a party
+	 * @return Detailed of a party <br />
+	 *         For Example:
+	 * 
+	 *         <a href=
+	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/party/any?id=1"
+	 *         >party/any?id=1</a>
 	 * @see PartyDetailedDO
 	 */
 	@GET
@@ -63,10 +78,15 @@ public interface PartyAPI {
 	 * @param id
 	 *            The Party identification number.
 	 * @param page
-	 *            The number of desired page to be retrieved.
+	 *            The number of desired page to be retrieved (optional).
 	 * @param perPage
-	 *            Amount of people to be retrieved in a page.
-	 * @return A Page of Person Abstracts (Person DO)
+	 *            Amount of people to be retrieved in a page (optional).
+	 * @return A Page of Person Abstracts (Person DO) <br />
+	 *         For Example:
+	 * 
+	 *         <a href=
+	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/party/historicalAffiliates?id=1"
+	 *         >party/historicalAffiliates?id=1</a>
 	 */
 	@GET
 	@Path("historicalAffiliates")
@@ -81,10 +101,15 @@ public interface PartyAPI {
 	 * @param id
 	 *            The Party identification number.
 	 * @param page
-	 *            The number of desired page to be retrieved.
+	 *            The number of desired page to be retrieved (optional).
 	 * @param perPage
-	 *            Amount of people to be retrieved in a page.
-	 * @return A Page of Person Abstracts (Person DO)
+	 *            Amount of people to be retrieved in a page (optional).
+	 * @return A Page of Person Abstracts (Person DO) <br />
+	 *         For Example:
+	 * 
+	 *         <a href=
+	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/party/currentAffiliates?id=1"
+	 *         >party/currentAffiliates?id=1</a>
 	 */
 	@GET
 	@Path("currentAffiliates")
