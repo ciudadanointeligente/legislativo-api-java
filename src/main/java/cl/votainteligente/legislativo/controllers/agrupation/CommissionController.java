@@ -51,7 +51,7 @@ public class CommissionController implements CommissionAPI {
 		}
 	}
 
-	@RequestMapping(value = "commission/name", method = RequestMethod.GET)
+	@RequestMapping(value = "commission/any", method = RequestMethod.GET)
 	@ResponseBody
 	public Page<CommissionDO> findByName(
 			@RequestParam(value = "name", required = true) final String name,

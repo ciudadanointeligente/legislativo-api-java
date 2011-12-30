@@ -14,17 +14,23 @@ public interface CommissionAPI {
 	 * Returns all the commissions registered in the system.
 	 * 
 	 * @param page
-	 *            The number of the desired page to be retrieved.
+	 *            The number of the desired page to be retrieved (optional).
 	 * @param perPage
-	 *            Amount of commissions to be retrieved in a page.
-	 * @return A Page of Commissions Abstracts (CommissionDO)
+	 *            Amount of commissions to be retrieved in a page (optional).
+	 * @return A Page of Commissions Abstracts (CommissionDO) <br />
+	 *         For Example:
+	 * 
+	 *         <a href=
+	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/commission/all"
+	 *         >commission/all</a>
+	 * 
 	 * @see CommissionDO
 	 */
 	@GET
 	@Path("all")
 	public Page<CommissionDO> getAll(
 			@PathParam("page") @DefaultValue("1") final int page,
-			@PathParam("perPage") final int perPage);
+			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 	/**
 	 * Returns all the commissions find by name.
@@ -32,52 +38,89 @@ public interface CommissionAPI {
 	 * @param name
 	 *            The name of Commission
 	 * @param page
-	 *            The number of the desired page to be retrieved.
+	 *            The number of the desired page to be retrieved (optional).
 	 * @param perPage
-	 *            Amount of commissions to be retrieved in a page.
-	 * @return A Page of Commissions Abstracts (CommissionDO)
+	 *            Amount of commissions to be retrieved in a page (optional).
+	 * @return A Page of Commissions Abstracts (CommissionDO) <br />
+	 *         For Example:
+	 * 
+	 *         <a href="http://demo.ciudadanointeligente.cl/Legislativo/api/commission/any?name=Relaciones Exteriores"
+	 *         >commission/any?name=Relaciones Exteriores</a>
+	 * 
 	 * @see CommissionDO
 	 */
+	@GET
+	@Path("any")
 	public Page<CommissionDO> findByName(@PathParam("name") final String name,
-			@PathParam("page") final int page,
-			@PathParam("perPage") final int perPage);
+			@PathParam("page") @DefaultValue("1") final int page,
+			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 	/**
-	 * TODO documentation
+	 * Returns detailed information of a particular commission.
 	 * 
 	 * @param id
 	 * @param page
+	 *            The number of the desired page to be retrieved (optional).
 	 * @param perPage
-	 * @return
+	 *            Amount of commissions to be retrieved in a page (optional).
+	 * @return The information of a Commission <br />
+	 *         For Example:
+	 * 
+	 *         <a href=
+	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/commission/any?id=448"
+	 *         >commission/any?id=448</a>
+	 * 
+	 * @see CommisionDetailedDO
 	 */
+	@GET
+	@Path("any")
 	public CommissionDetailedDO getCommission(@PathParam("id") final long id,
-			@PathParam("page") final int page,
-			@PathParam("perPage") final int perPage);
+			@PathParam("page") @DefaultValue("1") final int page,
+			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 	/**
-	 * TODO documentation
+	 * Returns all the Commissions of a particular type.
 	 * 
-	 * @param type_id
+	 * @param id
 	 * @param page
+	 *            The number of the desired page to be retrieved (optional).
 	 * @param perPage
-	 * @return
+	 *            Amount of commissions to be retrieved in a page (optional).
+	 * @return A page of CommisionDOs.<br />
+	 *         For Example:
+	 * 
+	 *         <a href=
+	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/commission/type?id=1"
+	 *         >commission/type?id=1</a>
+	 * 
 	 */
+	@GET
+	@Path("type")
 	public Page<CommissionDO> findByType(
-			@PathParam("type_id") final long type_id,
-			@PathParam("page") final int page,
-			@PathParam("perPage") final int perPage);
+			@PathParam("type_id") final long id,
+			@PathParam("page") @DefaultValue("1") final int page,
+			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 	/**
-	 * TODO documentation
+	 * Returns all the Commissions of a particular Chamber.
 	 * 
-	 * @param chamber_id
+	 * @param id
+	 *            The chamber identifier.
 	 * @param page
+	 *            The number of the desired page to be retrieved (optional).
 	 * @param perPage
-	 * @return
+	 *            Amount of commissions to be retrieved in a page (optional).
+	 * @return A Page of CommissionDOs <br />
+	 *         For Example:
+	 * 
+	 *         <a href=
+	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/commission/chamber?id=1"
+	 *         >commission/chamber?id=1</a>
 	 */
+	@GET
+	@Path("chamber")
 	public Page<CommissionDO> findByChamber(
-			@PathParam("chamber_id") final long chamber_id,
-			@PathParam("page") final int page,
-			@PathParam("perPage") final int perPage);
+			@PathParam("id") final long id,
+			@PathParam("page") @DefaultValue("1") final int page,
+			@PathParam("perPage") @DefaultValue("10") final int perPage);
 }
-

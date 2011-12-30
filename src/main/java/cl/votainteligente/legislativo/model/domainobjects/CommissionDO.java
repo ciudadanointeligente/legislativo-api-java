@@ -1,15 +1,22 @@
 package cl.votainteligente.legislativo.model.domainobjects;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import cl.votainteligente.legislativo.model.Chamber;
 import cl.votainteligente.legislativo.model.Commission;
 import cl.votainteligente.legislativo.model.CommissionType;
 
+@XmlRootElement
 public class CommissionDO {
 
 	private Long commissionId;
 	private Chamber chamber;
 	private CommissionType commissionType;
 	private String name;
+
+	public CommissionDO() {
+
+	}
 
 	public CommissionDO(Commission commission) {
 		this.commissionId = commission.getId();

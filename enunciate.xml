@@ -10,6 +10,7 @@
 	</services>
 	<modules>
 		<java-client disabled="true" />
+		<csharp disabled="true" />
 		<xml disabled="true" />
 
 		<docs disableRestMountpoint="true"

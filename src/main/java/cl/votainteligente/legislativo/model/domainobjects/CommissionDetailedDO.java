@@ -4,17 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import cl.votainteligente.legislativo.model.Chamber;
 import cl.votainteligente.legislativo.model.Commission;
 import cl.votainteligente.legislativo.model.CommissionType;
 import cl.votainteligente.legislativo.model.LegislatorRole;
 
+@XmlRootElement
 public class CommissionDetailedDO {
 	private Long commissionId;
 	private Chamber chamber;
 	private CommissionType commissionType;
 	private String name;
 	private List<Long> membersId;
+
+	public CommissionDetailedDO() {
+
+	}
 
 	public CommissionDetailedDO(Commission commission) {
 		this.commissionId = commission.getId();
