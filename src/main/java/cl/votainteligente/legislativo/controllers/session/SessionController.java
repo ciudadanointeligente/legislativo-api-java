@@ -1,5 +1,7 @@
 package cl.votainteligente.legislativo.controllers.session;
 
+import javax.ws.rs.Path;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import cl.votainteligente.legislativo.model.domainobjects.SessionDO;
 import cl.votainteligente.legislativo.model.domainobjects.SessionDetailedDO;
 import cl.votainteligente.legislativo.service.session.SessionService;
 
+@Path("session")
 @Controller
 public class SessionController implements SessionAPI {
 
