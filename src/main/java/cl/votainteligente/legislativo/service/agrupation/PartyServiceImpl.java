@@ -50,7 +50,7 @@ public class PartyServiceImpl extends EntityManagerService implements
 	public Page<PartyDO> findPartiesByName(String name, int pageNumber,
 			int resultsPerPage) throws ServiceException {
 		Query query = getEntityManager().createQuery(
-				"select p from Party p where upper(p.firstName) like upper(?)");
+				"select p from Party p where upper(p.name) like upper(?)");
 		query.setParameter(1, "%" + name + "%");
 		query.setFirstResult((pageNumber - 1) * resultsPerPage);
 		query.setMaxResults(resultsPerPage);
@@ -60,7 +60,7 @@ public class PartyServiceImpl extends EntityManagerService implements
 		}
 		Query queryCount = getEntityManager()
 				.createQuery(
-						"select count(p) from Party p where upper(p.firstName) like upper(?)");
+						"select count(p) from Party p where upper(p.name) like upper(?)");
 		queryCount.setParameter(1, "%" + name + "%");
 		Long totalParties = (Long) queryCount.getSingleResult();
 
@@ -84,7 +84,7 @@ public class PartyServiceImpl extends EntityManagerService implements
 			int resultsPerPage) {
 		Query query = getEntityManager()
 				.createQuery(
-						"select distinct pa.person from AgrupationAffiliation pa where pa.agrupation = ? and (pa.departureDate is null or departureDate >= ?)");
+						"select distinct pa.person from AgrupationAffiliation pa where pa.agrupation = ? and (pa.departureDate is null or pa.departureDate >= ?)");
 		query.setFirstResult((pageNumber - 1) * resultsPerPage);
 		query.setMaxResults(resultsPerPage);
 		query.setParameter(1, p);
@@ -95,7 +95,7 @@ public class PartyServiceImpl extends EntityManagerService implements
 		}
 		Query queryCount = getEntityManager()
 				.createQuery(
-						"select count(distinct pa.person) from AgrupationAffiliation pa where pa.agrupation = ? and (pa.departureDate is null or departureDate >= ?)");
+						"select count(distinct pa.person) from AgrupationAffiliation pa where pa.agrupation = ? and (pa.departureDate is null or pa.departureDate >= ?)");
 		queryCount.setParameter(1, p);
 		queryCount.setParameter(2, new Date(), TemporalType.DATE);
 		Long totalParties = (Long) queryCount.getSingleResult();
