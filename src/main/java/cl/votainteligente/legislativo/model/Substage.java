@@ -11,7 +11,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "subtage")
+@Table(name = "substage")
 public class Substage {
 
 	@Id

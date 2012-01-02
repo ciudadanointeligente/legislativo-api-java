@@ -27,8 +27,8 @@ public class TestBill extends TestCase {
 
 		// Bill object
 		bill = new Bill();
-		bill.setBCNLawId(new Long(123));
-		bill.setBCNLawURL("law");
+		bill.setBcnLawId(new Long(123));
+		bill.setBcnLawURL("law");
 		bill.setBulletinNumber("123");
 		bill.setCreatedAt(createdAt = new Date());
 		bill.setDecree(new Long(123));
@@ -36,10 +36,10 @@ public class TestBill extends TestCase {
 		bill.setInitiative("initiative");
 		bill.setPublicationDate(publicationDate = new Date());
 		bill.setPublished(true);
-		bill.setSILIndicationsId(new Long(123));
-		bill.setSILOficiosId(new Long(123));
-		bill.setSILProcessingsId(new Long(123));
-		bill.setSILUrgenciesId(new Long(123));
+		bill.setSilIndicationsId(new Long(123));
+		bill.setSilOficiosId(new Long(123));
+		bill.setSilProcessingsId(new Long(123));
+		bill.setSilUrgenciesId(new Long(123));
 
 		HashSet<Stage> stages = new HashSet<Stage>();
 		stage1 = new Stage();
@@ -129,7 +129,7 @@ public class TestBill extends TestCase {
 	}
 
 	public void testGetBCNLawURL() {
-		assert (bill.getBCNLawURL().equals("law"));
+		assert (bill.getBcnLawURL().equals("law"));
 	}
 
 	public void testGetInitiative() {
@@ -163,19 +163,19 @@ public class TestBill extends TestCase {
 	}
 
 	public void testGetSILProcessingsId() {
-		assert (bill.getSILProcessingsId().equals(new Long(123)));
+		assert (bill.getSilProcessingsId().equals(new Long(123)));
 	}
 
 	public void testGetSILOficiosId() {
-		assert (bill.getSILOficiosId().equals(new Long(123)));
+		assert (bill.getSilOficiosId().equals(new Long(123)));
 	}
 
 	public void testGetSILIndicationsId() {
-		assert (bill.getSILIndicationsId().equals(new Long(123)));
+		assert (bill.getSilIndicationsId().equals(new Long(123)));
 	}
 
 	public void testGetSILUrgenciesId() {
-		assert (bill.getSILUrgenciesId().equals(new Long(123)));
+		assert (bill.getSilUrgenciesId().equals(new Long(123)));
 	}
 
 	public void testGetCreatedAt() {

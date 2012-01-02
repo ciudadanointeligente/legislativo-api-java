@@ -49,8 +49,8 @@ public class BillDetailedDO {
 					bill.getPublicationDate());
 		else
 			this.publicationDate = "no-date";
-		this.BCNLawId = bill.getBCNLawId();
-		this.BCNLawURL = bill.getBCNLawURL();
+		this.BCNLawId = bill.getBcnLawId();
+		this.BCNLawURL = bill.getBcnLawURL();
 		this.initiative = bill.getInitiative();
 		this.originChamberId = bill.getOriginChamber().getId();
 		this.urgency = bill.getUrgency();
@@ -58,10 +58,10 @@ public class BillDetailedDO {
 			this.matterId = bill.getMatter().getId();
 		this.decree = bill.getDecree();
 		this.summary = bill.getSummary();
-		this.SILIndicationsId = bill.getSILIndicationsId();
-		this.SILOficiosId = bill.getSILOficiosId();
-		this.SILProcessingsId = bill.getSILProcessingsId();
-		this.SILUrgenciesId = bill.getSILUrgenciesId();
+		this.SILIndicationsId = bill.getSilIndicationsId();
+		this.SILOficiosId = bill.getSilOficiosId();
+		this.SILProcessingsId = bill.getSilProcessingsId();
+		this.SILUrgenciesId = bill.getSilUrgenciesId();
 		this.authorsId = new HashSet<Long>();
 		Set<Person> billAuthors = bill.getAuthors();
 		for (Person p : billAuthors)
@@ -163,7 +163,7 @@ public class BillDetailedDO {
 	/**
 	 * @return the bCNLawId
 	 */
-	public Long getBCNLawId() {
+	public Long getBcnLawId() {
 		return BCNLawId;
 	}
 
@@ -171,14 +171,14 @@ public class BillDetailedDO {
 	 * @param bCNLawId
 	 *            the bCNLawId to set
 	 */
-	public void setBCNLawId(Long bCNLawId) {
+	public void setBcnLawId(Long bCNLawId) {
 		BCNLawId = bCNLawId;
 	}
 
 	/**
 	 * @return the bCNLawURL
 	 */
-	public String getBCNLawURL() {
+	public String getBcnLawURL() {
 		return BCNLawURL;
 	}
 
@@ -186,7 +186,7 @@ public class BillDetailedDO {
 	 * @param bCNLawURL
 	 *            the bCNLawURL to set
 	 */
-	public void setBCNLawURL(String bCNLawURL) {
+	public void setBcnLawURL(String bCNLawURL) {
 		BCNLawURL = bCNLawURL;
 	}
 
@@ -298,7 +298,7 @@ public class BillDetailedDO {
 	/**
 	 * @return the sILProcessingsId
 	 */
-	public Long getSILProcessingsId() {
+	public Long getSilProcessingsId() {
 		return SILProcessingsId;
 	}
 
@@ -306,14 +306,14 @@ public class BillDetailedDO {
 	 * @param sILProcessingsId
 	 *            the sILProcessingsId to set
 	 */
-	public void setSILProcessingsId(Long sILProcessingsId) {
+	public void setSilProcessingsId(Long sILProcessingsId) {
 		SILProcessingsId = sILProcessingsId;
 	}
 
 	/**
 	 * @return the sILOficiosId
 	 */
-	public Long getSILOficiosId() {
+	public Long getSilOficiosId() {
 		return SILOficiosId;
 	}
 
@@ -321,14 +321,14 @@ public class BillDetailedDO {
 	 * @param sILOficiosId
 	 *            the sILOficiosId to set
 	 */
-	public void setSILOficiosId(Long sILOficiosId) {
+	public void setSilOficiosId(Long sILOficiosId) {
 		SILOficiosId = sILOficiosId;
 	}
 
 	/**
 	 * @return the sILIndicationsId
 	 */
-	public Long getSILIndicationsId() {
+	public Long getSilIndicationsId() {
 		return SILIndicationsId;
 	}
 
@@ -336,14 +336,14 @@ public class BillDetailedDO {
 	 * @param sILIndicationsId
 	 *            the sILIndicationsId to set
 	 */
-	public void setSILIndicationsId(Long sILIndicationsId) {
+	public void setSilIndicationsId(Long sILIndicationsId) {
 		SILIndicationsId = sILIndicationsId;
 	}
 
 	/**
 	 * @return the sILUrgenciesId
 	 */
-	public Long getSILUrgenciesId() {
+	public Long getSilUrgenciesId() {
 		return SILUrgenciesId;
 	}
 
@@ -351,7 +351,7 @@ public class BillDetailedDO {
 	 * @param sILUrgenciesId
 	 *            the sILUrgenciesId to set
 	 */
-	public void setSILUrgenciesId(Long sILUrgenciesId) {
+	public void setSilUrgenciesId(Long sILUrgenciesId) {
 		SILUrgenciesId = sILUrgenciesId;
 	}
 

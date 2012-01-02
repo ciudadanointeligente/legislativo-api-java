@@ -44,9 +44,9 @@ public class Bill {
 	@Temporal(TemporalType.DATE)
 	private Date publicationDate;
 	@Column(name = "bcn_law_id")
-	private Long BCNLawId;
+	private Long bcnLawId;
 	@Column(name = "bcn_law_url")
-	private String BCNLawURL;
+	private String bcnLawURL;
 	private String initiative;
 	@ManyToOne
 	@JoinColumn(name = "origin_chamber")
@@ -60,13 +60,13 @@ public class Bill {
 	@Type(type = "text")
 	private String summary;
 	@Column(name = "sil_processings_id")
-	private Long SILProcessingsId;
+	private Long silProcessingsId;
 	@Column(name = "sil_oficios_id")
-	private Long SILOficiosId;
+	private Long silOficiosId;
 	@Column(name = "sil_indications_id")
-	private Long SILIndicationsId;
+	private Long silIndicationsId;
 	@Column(name = "sil_urgencies_id")
-	private Long SILUrgenciesId;
+	private Long silUrgenciesId;
 	@Temporal(TemporalType.DATE)
 	@Column(name = "created_at")
 	private Date createdAt;
@@ -132,15 +132,15 @@ public class Bill {
 	/**
 	 * @return the bCNLawId
 	 */
-	public Long getBCNLawId() {
-		return BCNLawId;
+	public Long getBcnLawId() {
+		return bcnLawId;
 	}
 
 	/**
 	 * @return the bCNLawURL
 	 */
-	public String getBCNLawURL() {
-		return BCNLawURL;
+	public String getBcnLawURL() {
+		return bcnLawURL;
 	}
 
 	/**
@@ -186,31 +186,31 @@ public class Bill {
 	}
 
 	/**
-	 * @return the sILProcessingsId
+	 * @return the silProcessingsId
 	 */
-	public Long getSILProcessingsId() {
-		return SILProcessingsId;
+	public Long getSilProcessingsId() {
+		return silProcessingsId;
 	}
 
 	/**
-	 * @return the sILOficiosId
+	 * @return the silOficiosId
 	 */
-	public Long getSILOficiosId() {
-		return SILOficiosId;
+	public Long getSilOficiosId() {
+		return silOficiosId;
 	}
 
 	/**
-	 * @return the sILIndicationsId
+	 * @return the silIndicationsId
 	 */
-	public Long getSILIndicationsId() {
-		return SILIndicationsId;
+	public Long getSilIndicationsId() {
+		return silIndicationsId;
 	}
 
 	/**
-	 * @return the sILUrgenciesId
+	 * @return the silUrgenciesId
 	 */
-	public Long getSILUrgenciesId() {
-		return SILUrgenciesId;
+	public Long getSilUrgenciesId() {
+		return silUrgenciesId;
 	}
 
 	/**
@@ -276,19 +276,19 @@ public class Bill {
 	}
 
 	/**
-	 * @param bCNLawId
-	 *            the bCNLawId to set
+	 * @param bcnLawId
+	 *            the bcnLawId to set
 	 */
-	public void setBCNLawId(Long bCNLawId) {
-		BCNLawId = bCNLawId;
+	public void setBcnLawId(Long bcnLawId) {
+		this.bcnLawId = bcnLawId;
 	}
 
 	/**
-	 * @param bCNLawURL
-	 *            the bCNLawURL to set
+	 * @param bcnLawURL
+	 *            the bcnLawURL to set
 	 */
-	public void setBCNLawURL(String bCNLawURL) {
-		BCNLawURL = bCNLawURL;
+	public void setBcnLawURL(String bcnLawURL) {
+		this.bcnLawURL = bcnLawURL;
 	}
 
 	/**
@@ -340,35 +340,35 @@ public class Bill {
 	}
 
 	/**
-	 * @param sILProcessingsId
-	 *            the sILProcessingsId to set
+	 * @param silProcessingsId
+	 *            the silProcessingsId to set
 	 */
-	public void setSILProcessingsId(Long sILProcessingsId) {
-		SILProcessingsId = sILProcessingsId;
+	public void setSilProcessingsId(Long silProcessingsId) {
+		this.silProcessingsId = silProcessingsId;
 	}
 
 	/**
-	 * @param sILOficiosId
-	 *            the sILOficiosId to set
+	 * @param silOficiosId
+	 *            the silOficiosId to set
 	 */
-	public void setSILOficiosId(Long sILOficiosId) {
-		SILOficiosId = sILOficiosId;
+	public void setSilOficiosId(Long silOficiosId) {
+		this.silOficiosId = silOficiosId;
 	}
 
 	/**
-	 * @param sILIndicationsId
-	 *            the sILIndicationsId to set
+	 * @param silIndicationsId
+	 *            the silIndicationsId to set
 	 */
-	public void setSILIndicationsId(Long sILIndicationsId) {
-		SILIndicationsId = sILIndicationsId;
+	public void setSilIndicationsId(Long silIndicationsId) {
+		this.silIndicationsId = silIndicationsId;
 	}
 
 	/**
-	 * @param sILUrgenciesId
-	 *            the sILUrgenciesId to set
+	 * @param silUrgenciesId
+	 *            the silUrgenciesId to set
 	 */
-	public void setSILUrgenciesId(Long sILUrgenciesId) {
-		SILUrgenciesId = sILUrgenciesId;
+	public void setSilUrgenciesId(Long silUrgenciesId) {
+		this.silUrgenciesId = silUrgenciesId;
 	}
 
 	/**
