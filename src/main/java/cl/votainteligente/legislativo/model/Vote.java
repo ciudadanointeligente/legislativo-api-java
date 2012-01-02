@@ -1,6 +1,7 @@
 package cl.votainteligente.legislativo.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,6 +37,10 @@ public class Vote {
 
 	@Column(name = "yes_votes")
 	private int yesVotes;
+
+	@OneToMany(mappedBy = "vote")
+	@Column
+	private Set<SingleVote> votes;
 
 	@Column(name = "no_votes")
 	private int noVotes;
@@ -211,6 +217,14 @@ public class Vote {
 	 */
 	public void setBill(Bill bill) {
 		this.bill = bill;
+	}
+
+	public void setVotes(Set<SingleVote> votes) {
+		this.votes = votes;
+	}
+
+	public Set<SingleVote> getVotes() {
+		return votes;
 	}
 
 }
