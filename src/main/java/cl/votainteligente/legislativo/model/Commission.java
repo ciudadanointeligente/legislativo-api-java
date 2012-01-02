@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -20,13 +21,20 @@ public class Commission extends Agrupation {
 
 	@Column(name = "executive_lawyer")
 	private String executiveLawyer;
+
 	@Column(name = "secretary_lawyer")
 	private String secretaryLawyer;
+
 	@Column(name = "assistant_lawyer")
 	private String assistantLawyer;
+
 	private String form;
+
 	@Column(name = "phone_number")
 	private String phoneNumber;
+
+	@OneToMany(cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY, mappedBy = "commission")
+	private Set<SessionCommission> sessions;
 
 	@OneToMany
 	private Set<LegislatorRole> members;
@@ -124,6 +132,29 @@ public class Commission extends Agrupation {
 	@Transient
 	public CommissionDO asDomainObject() {
 		return new CommissionDO(this);
+	}
+
+	/**
+	 * @return the sessions
+	 */
+	public Set<SessionCommission> getSessions() {
+		return sessions;
+	}
+
+	/**
+	 * @param sessions
+	 *            the sessions to set
+	 */
+	public void setSessions(Set<SessionCommission> sessions) {
+		this.sessions = sessions;
+	}
+
+	/**
+	 * @param executiveLawyer
+	 *            the executiveLawyer to set
+	 */
+	public void setExecutiveLawyer(String executiveLawyer) {
+		this.executiveLawyer = executiveLawyer;
 	}
 
 }

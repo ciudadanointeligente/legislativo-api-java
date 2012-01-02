@@ -8,23 +8,24 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import cl.votainteligente.legislativo.model.domainobjects.SessionDO;
-import cl.votainteligente.legislativo.model.domainobjects.SessionDetailedDO;
-
 @Entity
 @Table(name = "session")
-public class Session {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Session {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	@Column
 	private Long id;
 
 	@Column
@@ -38,9 +39,6 @@ public class Session {
 
 	@ManyToMany
 	private Set<Bill> discussedBills;
-
-	@ManyToOne
-	private Chamber chamber;
 
 	@Column
 	private String sessionTableURL;
@@ -84,21 +82,6 @@ public class Session {
 	 */
 	public void setNumber(Long number) {
 		this.number = number;
-	}
-
-	/**
-	 * @return the chamber
-	 */
-	public Chamber getChamber() {
-		return chamber;
-	}
-
-	/**
-	 * @param chamber
-	 *            the chamber to set
-	 */
-	public void setChamber(Chamber chamber) {
-		this.chamber = chamber;
 	}
 
 	/**
@@ -154,14 +137,6 @@ public class Session {
 
 	public Set<Vote> getVotes() {
 		return votes;
-	}
-
-	public SessionDO asDomainObject() {
-		return new SessionDO(this);
-	}
-
-	public SessionDetailedDO asDetailedDomainObject() {
-		return new SessionDetailedDO(this);
 	}
 
 	public void setLegislature(Long legislature) {
