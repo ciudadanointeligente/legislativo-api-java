@@ -25,6 +25,9 @@ public class SingleVote {
 	@JoinColumn(name = "vote_id")
 	private Vote vote;
 
+	@Column(name = "vote_detail")
+	private String voteDetail;
+
 	/**
 	 * @return the id
 	 */
@@ -68,5 +71,13 @@ public class SingleVote {
 	 */
 	public void setVote(Vote vote) {
 		this.vote = vote;
+	}
+
+	public void setVoteDetail(String voteDetail) {
+		this.voteDetail = voteDetail;
+	}
+
+	public String getVoteDetail() {
+		return voteDetail;
 	}
 }
