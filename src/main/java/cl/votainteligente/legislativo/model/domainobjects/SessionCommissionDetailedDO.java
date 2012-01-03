@@ -4,31 +4,31 @@ import java.util.HashSet;
 import java.util.Set;
 
 import cl.votainteligente.legislativo.model.Bill;
-import cl.votainteligente.legislativo.model.Chamber;
+import cl.votainteligente.legislativo.model.Commission;
 import cl.votainteligente.legislativo.model.Person;
-import cl.votainteligente.legislativo.model.Session;
+import cl.votainteligente.legislativo.model.SessionCommission;
 import cl.votainteligente.legislativo.model.Vote;
 
-public class SessionDetailedDO {
+public class SessionCommissionDetailedDO {
 
 	private Long id;
 	private Long number;
 	private Long legislature;
 	private Set<Long> discussedBillsId;
-	private Long chamberId;
 	private String date;
 	private Set<Long> assitantId;
+	private Long commissionId;
 	private String sessionTableURL;
 	private String sessionAccountURL;
 	private Set<Long> sessionVotesId;
 
-	public SessionDetailedDO(Session session) {
+	public SessionCommissionDetailedDO(SessionCommission session) {
 		this.id = session.getId();
 		this.number = session.getNumber();
 		this.setLegislature(session.getLegislature());
-		Chamber c = session.getChamber();
+		Commission c = session.getCommission();
 		if (c != null)
-			this.chamberId = c.getId();
+			this.setCommissionId(c.getId());
 		this.date = (session.getDate() != null) ? DOUtil.getDateFormat()
 				.format(session.getDate()) : null;
 		this.discussedBillsId = new HashSet<Long>();
@@ -47,7 +47,7 @@ public class SessionDetailedDO {
 			this.sessionVotesId.add(vote.getId());
 	}
 
-	public SessionDetailedDO() {
+	public SessionCommissionDetailedDO() {
 
 	}
 
@@ -94,21 +94,6 @@ public class SessionDetailedDO {
 	 */
 	public void setDiscussedBillsId(Set<Long> discussedBillsId) {
 		this.discussedBillsId = discussedBillsId;
-	}
-
-	/**
-	 * @return the chamberId
-	 */
-	public Long getChamberId() {
-		return chamberId;
-	}
-
-	/**
-	 * @param chamberId
-	 *            the chamberId to set
-	 */
-	public void setChamberId(Long chamberId) {
-		this.chamberId = chamberId;
 	}
 
 	/**
@@ -187,4 +172,11 @@ public class SessionDetailedDO {
 		return sessionVotesId;
 	}
 
+	public void setCommissionId(Long CommissionId) {
+		this.commissionId = CommissionId;
+	}
+
+	public Long getCommissionId() {
+		return commissionId;
+	}
 }

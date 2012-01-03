@@ -19,18 +19,18 @@ import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.exceptions.BadRequestException;
 import cl.votainteligente.legislativo.exceptions.ResourceNotFoundException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
-import cl.votainteligente.legislativo.model.Session;
-import cl.votainteligente.legislativo.model.domainobjects.SessionDO;
-import cl.votainteligente.legislativo.model.domainobjects.SessionDetailedDO;
-import cl.votainteligente.legislativo.service.session.SessionService;
+import cl.votainteligente.legislativo.model.SessionChamber;
+import cl.votainteligente.legislativo.model.domainobjects.SessionChamberDO;
+import cl.votainteligente.legislativo.model.domainobjects.SessionChamberDetailedDO;
+import cl.votainteligente.legislativo.service.session.SessionChamberService;
 
-@Path("session")
+@Path("sessionChamber")
 @Controller
-public class SessionController implements SessionAPI {
+public class SessionChamberController implements SessionChamberAPI {
 	private SimpleDateFormat dateFormat = new SimpleDateFormat(
 			ApplicationProperties.getProperty("controller.date.format"));
 	@Autowired
-	SessionService service;
+	SessionChamberService service;
 
 	/*
 	 * (non-Javadoc)
@@ -39,13 +39,13 @@ public class SessionController implements SessionAPI {
 	 * cl.votainteligente.legislativo.controllers.session.SessionAI#getAll(int,
 	 * int)
 	 */
-	@RequestMapping(value = "session/all", method = RequestMethod.GET)
+	@RequestMapping(value = "sessionChamber/all", method = RequestMethod.GET)
 	@ResponseBody
-	public final Page<SessionDO> getAll(
+	public final Page<SessionChamberDO> getAll(
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			return service.getAllSessionDO(page, perPage);
+			return service.getAllSessionChamberDO(page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -59,12 +59,12 @@ public class SessionController implements SessionAPI {
 	 * cl.votainteligente.legislativo.controllers.session.SessionAI#getById(
 	 * long)
 	 */
-	@RequestMapping(value = "session/any", method = RequestMethod.GET)
+	@RequestMapping(value = "sessionChamber/any", method = RequestMethod.GET)
 	@ResponseBody
-	public final SessionDetailedDO getById(
+	public final SessionChamberDetailedDO getById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			Session s = service.getSession(id);
+			SessionChamber s = service.getSessionChamber(id);
 			if (s == null)
 				throw new ResourceNotFoundException();
 			return s.asDetailedDomainObject();
@@ -76,9 +76,9 @@ public class SessionController implements SessionAPI {
 	}
 
 	@Override
-	@RequestMapping(value = "session/dateRange", method = RequestMethod.GET)
+	@RequestMapping(value = "sessionChamber/dateRange", method = RequestMethod.GET)
 	@ResponseBody
-	public Page<SessionDO> getDateRange(
+	public Page<SessionChamberDO> getDateRange(
 			@RequestParam(value = "from", required = true) final String fromString,
 			@RequestParam(value = "to", required = true) final String toString,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
@@ -96,17 +96,15 @@ public class SessionController implements SessionAPI {
 	}
 
 	@Override
-	@RequestMapping(value = "session/legislature", method = RequestMethod.GET)
+	@RequestMapping(value = "sessionChamber/legislature", method = RequestMethod.GET)
 	@ResponseBody
-	public Page<SessionDO> getByLegislature(
-			@RequestParam(value = "id", required=true) final long id,
+	public Page<SessionChamberDO> getByLegislature(
+			@RequestParam(value = "id", required = true) final long id,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage
-			) {
-		try{
+			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
+		try {
 			return service.getByLegislature(id, page, perPage);
-		}
-		catch(ServiceException e){
+		} catch (ServiceException e) {
 			throw new ServerErrorException();
 		}
 	}

@@ -5,9 +5,9 @@ import java.util.Set;
 
 import cl.votainteligente.legislativo.model.Bill;
 import cl.votainteligente.legislativo.model.Chamber;
-import cl.votainteligente.legislativo.model.Session;
+import cl.votainteligente.legislativo.model.SessionChamber;
 
-public class SessionDO {
+public class SessionChamberDO {
 
 	private Long id;
 	private Long legislature;
@@ -16,7 +16,7 @@ public class SessionDO {
 	private Long chamberId;
 	private String date;
 
-	public SessionDO(Session session) {
+	public SessionChamberDO(SessionChamber session) {
 		this.id = session.getId();
 		this.number = session.getNumber();
 		this.legislature = session.getLegislature();
@@ -31,7 +31,7 @@ public class SessionDO {
 			this.discussedBillsId.add(bill.getId());
 	}
 
-	public SessionDO() {
+	public SessionChamberDO() {
 
 	}
 

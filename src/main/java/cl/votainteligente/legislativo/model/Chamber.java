@@ -2,6 +2,7 @@ package cl.votainteligente.legislativo.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,14 +38,17 @@ public class Chamber {
 	@JoinColumn(name = "second_vice_president_id")
 	private LegislatorRole secondVicePresident;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="chamber")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "chamber")
 	private Set<Commission> commissions;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="originChamber")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "originChamber")
 	private Set<Bill> bills;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="chamber")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "chamber")
 	private Set<Debate> debates;
+
+	@OneToMany(cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY, mappedBy = "chamber")
+	private Set<SessionChamber> sessions;
 
 	public Long getId() {
 		return id;
@@ -112,5 +116,20 @@ public class Chamber {
 
 	public Set<Bill> getBills() {
 		return bills;
+	}
+
+	/**
+	 * @return the sessions
+	 */
+	public Set<SessionChamber> getSessions() {
+		return sessions;
+	}
+
+	/**
+	 * @param sessions
+	 *            the sessions to set
+	 */
+	public void setSessions(Set<SessionChamber> sessions) {
+		this.sessions = sessions;
 	}
 }
