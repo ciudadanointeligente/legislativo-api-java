@@ -1,12 +1,12 @@
 package cl.votainteligente.legislativo.service.bill;
 
-import java.util.List;
 
 import cl.votainteligente.legislativo.ServiceException;
+import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.model.StageDescription;
 
 public interface StageDescriptionService {
-	List<StageDescription> getAll() throws ServiceException;
-
+	Page<StageDescription> getAll(int pageNumber, int resultsPerPage) throws ServiceException;
+	Page<StageDescription> getByName(String name,int pageNumber, int resultsPerPage) throws ServiceException;
 	StageDescription getById(Long id) throws ServiceException;
 }
