@@ -19,7 +19,7 @@ public class Tag {
 	@Column
 	private Long id;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE })
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "tags", cascade={CascadeType.MERGE})
 	private Set<Debate> debates;
 
 	@Column
@@ -51,7 +51,7 @@ public class Tag {
 
 	/*
 	 * public void setDebates(Set<Debate> debates) { this.debates = debates; }
-	 *
+	 * 
 	 * public Set<Debate> getDebates() { return debates; }//
 	 */
 }

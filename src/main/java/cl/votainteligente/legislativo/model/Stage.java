@@ -3,6 +3,7 @@ package cl.votainteligente.legislativo.model;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,8 +30,10 @@ public class Stage {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "end_date")
 	private Date endDate;
-	@OneToMany
+	@OneToMany(mappedBy = "stage", cascade = CascadeType.ALL)
 	private Set<Substage> subStages;
+	@ManyToOne
+	private Bill bill;
 
 	@ManyToOne
 	@JoinColumn(name = "stage_description_id", nullable = false)
@@ -74,5 +77,13 @@ public class Stage {
 
 	public Set<Substage> getSubStages() {
 		return subStages;
+	}
+
+	public void setBill(Bill bill) {
+		this.bill = bill;
+	}
+
+	public Bill getBill() {
+		return bill;
 	}
 }

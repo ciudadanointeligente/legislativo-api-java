@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,6 +29,9 @@ public class Substage {
 
 	@Column
 	private String description;
+
+	@ManyToOne
+	private Stage stage;
 
 	public Long getId() {
 		return id;
@@ -59,6 +63,14 @@ public class Substage {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public void setStage(Stage stage) {
+		this.stage = stage;
+	}
+
+	public Stage getStage() {
+		return stage;
 	}
 
 }

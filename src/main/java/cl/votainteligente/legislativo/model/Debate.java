@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -51,7 +50,7 @@ public class Debate {
 	@Type(type = "text")
 	private String debate;
 
-	@ManyToMany(cascade = { CascadeType.REMOVE }, mappedBy = "debates")
+	@ManyToMany
 	private Set<Tag> tags;
 
 	@Column(name = "doc_url")
