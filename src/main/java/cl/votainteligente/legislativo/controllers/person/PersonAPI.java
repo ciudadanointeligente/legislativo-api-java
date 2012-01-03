@@ -14,10 +14,15 @@ public interface PersonAPI {
 	 * Returns all the people registered in the system.
 	 * 
 	 * @param page
-	 *            The number of the desired page to be retrieved.
+	 *            The number of the desired page to be retrieved (optional).
 	 * @param perPage
-	 *            Amount of people to be retrieved in a page.
-	 * @return A Page of Person Abstracts (PersonDO)
+	 *            Amount of people to be retrieved in a page (optional).
+	 * @return A Page of Person Abstracts (PersonDO) <br />
+	 *         For Example:
+	 * 
+	 *         <a href=
+	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/person/all"
+	 *         >person/all</a>
 	 * @see PersonDO
 	 */
 	@Path("all")
@@ -33,10 +38,15 @@ public interface PersonAPI {
 	 * @param firstName
 	 *            The person first name.
 	 * @param page
-	 *            The number of the desired page to be retrieved.
+	 *            The number of the desired page to be retrieved (optional).
 	 * @param perPage
-	 *            Amount of people to be retrieved in a page.
-	 * @return A Page of Person Abstracts (PersonDO)
+	 *            Amount of people to be retrieved in a page (optional).
+	 * @return A Page of Person Abstracts (PersonDO) <br />
+	 *         For Example:
+	 * 
+	 *         <a href=
+	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/person/any?firstName=Ana"
+	 *         >person/any?firstName=Ana</a>
 	 * @see PersonDO
 	 */
 	@Path("any")
@@ -53,10 +63,15 @@ public interface PersonAPI {
 	 * @param lastName
 	 *            The person last name.
 	 * @param page
-	 *            The number of the desired page to be retrieved.
+	 *            The number of the desired page to be retrieved (optional).
 	 * @param perPage
-	 *            Amount of people to be retrieved in a page.
-	 * @return A Page of Person Abstracts (PersonDO)
+	 *            Amount of people to be retrieved in a page (optional).
+	 * @return A Page of Person Abstracts (PersonDO) <br />
+	 *         For Example:
+	 * 
+	 *         <a href=
+	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/person/any?lastName=Girardi"
+	 *         >person/any?lastName=Girardi</a>
 	 * @see PersonDO
 	 */
 	@Path("any")
@@ -71,7 +86,12 @@ public interface PersonAPI {
 	 * 
 	 * @param id
 	 *            The person identification number.
-	 * @return Detailed of a Person
+	 * @return Detailed of a Person <br />
+	 *         For Example:
+	 * 
+	 *         <a href=
+	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/person/any?id=1"
+	 *         >person/any?id=1</a>
 	 * @throws ResourceNotFoundException
 	 * @see PersonDetailedDO
 	 */
