@@ -52,7 +52,7 @@ public class Bill {
 	@JoinColumn(name = "origin_chamber")
 	private Chamber originChamber;
 	private String urgency;
-	@OneToMany
+	@OneToMany(mappedBy = "bill", cascade = CascadeType.ALL)
 	private Set<Stage> stages;
 	@ManyToOne
 	private Matter matter;
