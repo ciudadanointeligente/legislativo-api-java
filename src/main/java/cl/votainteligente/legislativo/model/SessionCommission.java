@@ -26,11 +26,11 @@ public class SessionCommission extends Session {
 		return commission;
 	}
 
-	public SessionCommissionDO asDomainObject(){
+	public SessionCommissionDO asSessionCommissionDomainObject(){
 		return new SessionCommissionDO(this);
 	}
 
-	public SessionCommissionDetailedDO asDetailedDomainObject() {
+	public SessionCommissionDetailedDO asSessionCommissionDetailedDomainObject() {
 		return new SessionCommissionDetailedDO(this);
 	}
 }

@@ -31,7 +31,7 @@ public class SessionCommissionServiceImpl extends EntityManagerService
 		List<SessionCommissionDO> listDO = new ArrayList<SessionCommissionDO>();
 		for (SessionCommission session : (List<SessionCommission>) query
 				.getResultList()) {
-			listDO.add(session.asDomainObject());
+			listDO.add(session.asSessionCommissionDomainObject());
 		}
 		Query queryCount = getEntityManager().createQuery(
 				"select count(s) from SessionCommission s");
@@ -43,7 +43,7 @@ public class SessionCommissionServiceImpl extends EntityManagerService
 	@Override
 	public SessionCommissionDetailedDO getSessionCommissionDetailedDO(Long id)
 			throws ServiceException {
-		return getSessionCommission(id).asDetailedDomainObject();
+		return getSessionCommission(id).asSessionCommissionDetailedDomainObject();
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class SessionCommissionServiceImpl extends EntityManagerService
 		List<SessionCommissionDO> listDO = new ArrayList<SessionCommissionDO>();
 		for (SessionCommission session : (List<SessionCommission>) query
 				.getResultList()) {
-			listDO.add(session.asDomainObject());
+			listDO.add(session.asSessionCommissionDomainObject());
 		}
 		Query queryCount = getEntityManager()
 				.createQuery(
@@ -89,7 +89,7 @@ public class SessionCommissionServiceImpl extends EntityManagerService
 		List<SessionCommissionDO> listDO = new ArrayList<SessionCommissionDO>();
 		for (SessionCommission session : (List<SessionCommission>) query
 				.getResultList()) {
-			listDO.add(session.asDomainObject());
+			listDO.add(session.asSessionCommissionDomainObject());
 		}
 		Query queryCount = getEntityManager()
 				.createQuery(

@@ -31,7 +31,7 @@ public class SessionChamberServiceImpl extends EntityManagerService implements
 		List<SessionChamberDO> listDO = new ArrayList<SessionChamberDO>();
 		for (SessionChamber session : (List<SessionChamber>) query
 				.getResultList()) {
-			listDO.add(session.asDomainObject());
+			listDO.add(session.asSessionChamberDomainObject());
 		}
 		Query queryCount = getEntityManager().createQuery(
 				"select count(s) from SessionChamber s");
@@ -43,7 +43,7 @@ public class SessionChamberServiceImpl extends EntityManagerService implements
 	@Override
 	public SessionChamberDetailedDO getSessionChamberDetailedDO(Long id)
 			throws ServiceException {
-		return getSessionChamber(id).asDetailedDomainObject();
+		return getSessionChamber(id).asSessionChamberDetailedDomainObject();
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class SessionChamberServiceImpl extends EntityManagerService implements
 		List<SessionChamberDO> listDO = new ArrayList<SessionChamberDO>();
 		for (SessionChamber session : (List<SessionChamber>) query
 				.getResultList()) {
-			listDO.add(session.asDomainObject());
+			listDO.add(session.asSessionChamberDomainObject());
 		}
 		Query queryCount = getEntityManager()
 				.createQuery(
@@ -87,7 +87,7 @@ public class SessionChamberServiceImpl extends EntityManagerService implements
 		List<SessionChamberDO> listDO = new ArrayList<SessionChamberDO>();
 		for (SessionChamber session : (List<SessionChamber>) query
 				.getResultList()) {
-			listDO.add(session.asDomainObject());
+			listDO.add(session.asSessionChamberDomainObject());
 		}
 		Query queryCount = getEntityManager()
 				.createQuery(

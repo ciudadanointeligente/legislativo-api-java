@@ -18,6 +18,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import cl.votainteligente.legislativo.model.domainobjects.SessionDO;
+import cl.votainteligente.legislativo.model.domainobjects.SessionDetailedDO;
+
 @Entity
 @Table(name = "session")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -145,5 +148,13 @@ public abstract class Session {
 
 	public Long getLegislature() {
 		return legislature;
+	}
+
+	public SessionDO asDomainObject(){
+		return new SessionDO(this);
+	}
+
+	public SessionDetailedDO asDetailedDomainObject(){
+		return new SessionDetailedDO(this);
 	}
 }

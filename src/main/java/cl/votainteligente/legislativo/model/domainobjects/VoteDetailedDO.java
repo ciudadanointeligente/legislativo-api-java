@@ -10,7 +10,7 @@ public class VoteDetailedDO {
 
 	private Long id;
 	private Long billId;
-	private String result;
+	private Long result;
 	private Long sessionId;
 	private String updatedAt;
 	private int yesVotes;
@@ -76,14 +76,14 @@ public class VoteDetailedDO {
 	/**
 	 * @return the result
 	 */
-	public String getResult() {
+	public Long getResult() {
 		return result;
 	}
 
 	/**
 	 * @param result the result to set
 	 */
-	public void setResult(String result) {
+	public void setResult(Long result) {
 		this.result = result;
 	}
 

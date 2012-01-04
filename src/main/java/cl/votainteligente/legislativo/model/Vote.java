@@ -15,6 +15,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import cl.votainteligente.legislativo.model.domainobjects.VoteDO;
+import cl.votainteligente.legislativo.model.domainobjects.VoteDetailedDO;
+
 @XmlRootElement
 @Entity
 @Table(name = "vote")
@@ -54,8 +57,11 @@ public class Vote {
 	@Column(name = "matching_votes")
 	private int matchingVotes;
 
+	/*
+	 * 0 : Approved 1 : Rejected 2 : Draw 3 : No quorum
+	 */
 	@Column(name = "result")
-	private String result;
+	private Long result;
 
 	@Column(name = "quorum")
 	private String quorum;
@@ -87,7 +93,8 @@ public class Vote {
 	}
 
 	/**
-	 * @param createdAt the createdAt to set
+	 * @param createdAt
+	 *            the createdAt to set
 	 */
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
@@ -101,7 +108,8 @@ public class Vote {
 	}
 
 	/**
-	 * @param updatedAt the updatedAt to set
+	 * @param updatedAt
+	 *            the updatedAt to set
 	 */
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
@@ -115,7 +123,8 @@ public class Vote {
 	}
 
 	/**
-	 * @param yesVotes the yesVotes to set
+	 * @param yesVotes
+	 *            the yesVotes to set
 	 */
 	public void setYesVotes(int yesVotes) {
 		this.yesVotes = yesVotes;
@@ -129,7 +138,8 @@ public class Vote {
 	}
 
 	/**
-	 * @param noVotes the noVotes to set
+	 * @param noVotes
+	 *            the noVotes to set
 	 */
 	public void setNoVotes(int noVotes) {
 		this.noVotes = noVotes;
@@ -143,7 +153,8 @@ public class Vote {
 	}
 
 	/**
-	 * @param abstentionVotes the abstentionVotes to set
+	 * @param abstentionVotes
+	 *            the abstentionVotes to set
 	 */
 	public void setAbstentionVotes(int abstentionVotes) {
 		this.abstentionVotes = abstentionVotes;
@@ -157,7 +168,8 @@ public class Vote {
 	}
 
 	/**
-	 * @param absentVotes the absentVotes to set
+	 * @param absentVotes
+	 *            the absentVotes to set
 	 */
 	public void setAbsentVotes(int absentVotes) {
 		this.absentVotes = absentVotes;
@@ -171,7 +183,8 @@ public class Vote {
 	}
 
 	/**
-	 * @param matchingVotes the matchingVotes to set
+	 * @param matchingVotes
+	 *            the matchingVotes to set
 	 */
 	public void setMatchingVotes(int matchingVotes) {
 		this.matchingVotes = matchingVotes;
@@ -180,14 +193,15 @@ public class Vote {
 	/**
 	 * @return the result
 	 */
-	public String getResult() {
+	public Long getResult() {
 		return result;
 	}
 
 	/**
-	 * @param result the result to set
+	 * @param result
+	 *            the result to set
 	 */
-	public void setResult(String result) {
+	public void setResult(Long result) {
 		this.result = result;
 	}
 
@@ -199,7 +213,8 @@ public class Vote {
 	}
 
 	/**
-	 * @param quorum the quorum to set
+	 * @param quorum
+	 *            the quorum to set
 	 */
 	public void setQuorum(String quorum) {
 		this.quorum = quorum;
@@ -213,7 +228,8 @@ public class Vote {
 	}
 
 	/**
-	 * @param bill the bill to set
+	 * @param bill
+	 *            the bill to set
 	 */
 	public void setBill(Bill bill) {
 		this.bill = bill;
@@ -225,6 +241,14 @@ public class Vote {
 
 	public Set<SingleVote> getVotes() {
 		return votes;
+	}
+
+	public VoteDO asDomainObject() {
+		return new VoteDO(this);
+	}
+
+	public VoteDetailedDO asDetailedDomainObject() {
+		return new VoteDetailedDO(this);
 	}
 
 }

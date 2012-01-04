@@ -7,7 +7,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import cl.votainteligente.legislativo.model.domainobjects.SingleVoteDO;
+
+@XmlRootElement
 @Entity
 @Table(name = "single_vote")
 public class SingleVote {
@@ -79,5 +83,9 @@ public class SingleVote {
 
 	public String getVoteDetail() {
 		return voteDetail;
+	}
+
+	public SingleVoteDO asDomainObject(){
+		return new SingleVoteDO(this);
 	}
 }

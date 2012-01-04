@@ -33,11 +33,11 @@ public class SessionChamber extends Session {
 		this.chamber = chamber;
 	}
 
-	public SessionChamberDO asDomainObject() {
+	public SessionChamberDO asSessionChamberDomainObject() {
 		return new SessionChamberDO(this);
 	}
 
-	public SessionChamberDetailedDO asDetailedDomainObject() {
+	public SessionChamberDetailedDO asSessionChamberDetailedDomainObject() {
 		return new SessionChamberDetailedDO(this);
 	}
 }

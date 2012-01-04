@@ -67,7 +67,7 @@ public class SessionCommissionController implements SessionCommissionAPI {
 			SessionCommission s = service.getSessionCommission(id);
 			if (s == null)
 				throw new ResourceNotFoundException();
-			return s.asDetailedDomainObject();
+			return s.asSessionCommissionDetailedDomainObject();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();

@@ -6,7 +6,7 @@ public class VoteDO {
 
 	private Long id;
 	private Long billId;
-	private String result;
+	private Long result;
 
 	public VoteDO(Vote vote) {
 		this.id = vote.getId();
@@ -52,7 +52,7 @@ public class VoteDO {
 	/**
 	 * @return the result
 	 */
-	public String getResult() {
+	public Long getResult() {
 		return result;
 	}
 
@@ -60,7 +60,7 @@ public class VoteDO {
 	 * @param result
 	 *            the result to set
 	 */
-	public void setResult(String result) {
+	public void setResult(Long result) {
 		this.result = result;
 	}
 

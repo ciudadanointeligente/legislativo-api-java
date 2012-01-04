@@ -67,7 +67,7 @@ public class SessionChamberController implements SessionChamberAPI {
 			SessionChamber s = service.getSessionChamber(id);
 			if (s == null)
 				throw new ResourceNotFoundException();
-			return s.asDetailedDomainObject();
+			return s.asSessionChamberDetailedDomainObject();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
