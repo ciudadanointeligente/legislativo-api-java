@@ -57,6 +57,7 @@ public class Bill {
 	@ManyToOne
 	private Matter matter;
 	private Long decree;
+	private String decreeUrl;
 	@Type(type = "text")
 	private String summary;
 	@Column(name = "sil_processings_id")
@@ -419,5 +420,13 @@ public class Bill {
 
 	public Set<Debate> getDebates() {
 		return debates;
+	}
+
+	public void setDecreeUrl(String decreeUrl) {
+		this.decreeUrl = decreeUrl;
+	}
+
+	public String getDecreeUrl() {
+		return decreeUrl;
 	}
 }
