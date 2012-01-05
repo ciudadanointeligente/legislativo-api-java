@@ -15,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class TestCommissionAPI extends TestAPI {
 
+	Type pageType = new TypeToken<Page<CommissionDO>>(){}.getType();
 	public void testAll() throws Exception {
 		/*
 		 * First, get through the "all" service a list of commissions.
@@ -27,10 +28,9 @@ public class TestCommissionAPI extends TestAPI {
 		 * Parse it. It should be a JSON from Page<CommissionDO>
 		 */
 
-		Type type = new TypeToken<Page<CommissionDO>>() {
-		}.getType();
 		Page<CommissionDO> dos = getGson().fromJson(
-				EntityUtils.toString(response.getEntity()), type);
+				EntityUtils.toString(response.getEntity()),
+				pageType);
 		assertNotNull("Null GSON at " + route, dos);
 
 		/*
@@ -55,7 +55,7 @@ public class TestCommissionAPI extends TestAPI {
 		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
 			assertNotNull("Null GSON at " + route, getGson().fromJson(
 					EntityUtils.toString(response.getEntity()),
-					new Page<CommissionDO>().getClass()));
+					pageType));
 		else
 			assertEquals(response.getStatusLine().getStatusCode(),
 					HttpStatus.SC_NOT_FOUND);
@@ -69,7 +69,7 @@ public class TestCommissionAPI extends TestAPI {
 		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
 			assertNotNull("Null GSON at " + route, getGson().fromJson(
 					EntityUtils.toString(response.getEntity()),
-					new Page<CommissionDO>().getClass()));
+					pageType));
 		/*
 		 * TODO: After deployment update, this lines should be removed.
 		 */
@@ -91,24 +91,24 @@ public class TestCommissionAPI extends TestAPI {
 		if (response.getStatusLine().getStatusCode() == 200)
 			assertNotNull("Null GSON  at " + route, getGson().fromJson(
 					EntityUtils.toString(response.getEntity()),
-					new Page<CommissionDO>().getClass()));
+					pageType));
 
 		route = DeploymentTestConfiguration.apiRoute("commission/any?id=448");
 		response = getClient().execute(new HttpGet(route));
 		assertNotNull("Null GSON at " + route, getGson().fromJson(
 				EntityUtils.toString(response.getEntity()),
-				new Page<CommissionDO>().getClass()));
+				pageType));
 
 		route = DeploymentTestConfiguration.apiRoute("commission/chamber?id=1");
 		response = getClient().execute(new HttpGet(route));
 		assertNotNull("Null GSON at " + route, getGson().fromJson(
 				EntityUtils.toString(response.getEntity()),
-				new Page<CommissionDO>().getClass()));
+				pageType));
 
 		route = DeploymentTestConfiguration.apiRoute("commission/type?id=1");
 		response = getClient().execute(new HttpGet(route));
 		assertNotNull("Null GSON at " + route, getGson().fromJson(
 				EntityUtils.toString(response.getEntity()),
-				new Page<CommissionDO>().getClass()));
+				pageType));
 	}
 }
