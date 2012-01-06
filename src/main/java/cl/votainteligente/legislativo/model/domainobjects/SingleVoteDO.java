@@ -5,14 +5,14 @@ import cl.votainteligente.legislativo.model.SingleVote;
 public class SingleVoteDO {
 
 	private Long id;
-	private Long legislatorRoleId;
+	private Long personId;
 	private Long voteId;
 	private String voteDetail;
 
 	public SingleVoteDO(SingleVote singleVote) {
 		this.id = singleVote.getId();
-		if (singleVote.getLegislatorRole() != null)
-			this.legislatorRoleId = singleVote.getLegislatorRole().getId();
+		if (singleVote.getPerson() != null)
+			this.personId = singleVote.getPerson().getId();
 		if (singleVote.getVote() != null)
 			this.voteId = singleVote.getVote().getId();
 		this.voteDetail = singleVote.getVoteDetail();
@@ -38,18 +38,18 @@ public class SingleVoteDO {
 	}
 
 	/**
-	 * @return the legislatorRoleId
+	 * @return the personId
 	 */
-	public Long getLegislatorRoleId() {
-		return legislatorRoleId;
+	public Long getPersonId() {
+		return personId;
 	}
 
 	/**
-	 * @param legislatorRoleId
-	 *            the legislatorRoleId to set
+	 * @param personId
+	 *            the personId to set
 	 */
-	public void setLegislatorRoleId(Long legislatorRoleId) {
-		this.legislatorRoleId = legislatorRoleId;
+	public void setPersonId(Long personId) {
+		this.personId = personId;
 	}
 
 	/**

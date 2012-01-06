@@ -1,5 +1,6 @@
 package cl.votainteligente.legislativo.model.domainobjects;
 
+import java.sql.Time;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,11 +13,14 @@ public class VoteDetailedDO {
 	private Long billId;
 	private Long result;
 	private Long sessionId;
+	private Time time;
+	private String name;
 	private String updatedAt;
 	private int yesVotes;
 	private Set<Long> votesId;
 	private int noVotes;
 	private int abstentionVotes;
+	private String type;
 	private int absentVotes;
 	private int matchingVotes;
 	private String quorum;
@@ -30,7 +34,9 @@ public class VoteDetailedDO {
 			this.sessionId = vote.getSession().getId();
 		this.updatedAt = DOUtil.getDateFormat().format(vote.getUpdatedAt());
 		this.yesVotes = vote.getYesVotes();
+		this.setType(vote.getType());
 		this.noVotes = vote.getNoVotes();
+		this.setName(vote.getName());
 		this.absentVotes = vote.getAbsentVotes();
 		this.abstentionVotes = vote.getAbstentionVotes();
 		this.quorum = vote.getQuorum();
@@ -101,6 +107,22 @@ public class VoteDetailedDO {
 		this.sessionId = sessionId;
 	}
 
+	public void setTime(Time time) {
+		this.time = time;
+	}
+
+	public Time getTime() {
+		return time;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
 	/**
 	 * @return the updatedAt
 	 */
@@ -169,6 +191,14 @@ public class VoteDetailedDO {
 	 */
 	public void setAbstentionVotes(int abstentionVotes) {
 		this.abstentionVotes = abstentionVotes;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getType() {
+		return type;
 	}
 
 	/**

@@ -33,20 +33,20 @@ public interface SingleVoteAPI {
 	 * Returns all the single votes registered by legislator.
 	 * 
 	 * @param id
-	 *            The LegislatorRole id.
+	 *            The Person id.
 	 * @param page
 	 *            The number of the desired page to be retrieved (optional).
 	 * @param perPage
 	 *            Amount of single votes to be retrieved in a page (optional).
 	 * @return A Page of SingleVote Abstracts (SingleVoteDO) <br />
 	 *         For example: <a href=
-	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/singleVote/legislator?id=1&page=1&perPage=10"
-	 *         >singleVote/legislator?id=1&page=1&perPage=10</a>
+	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/singleVote/person?id=1&page=1&perPage=10"
+	 *         >singleVote/person?id=1&page=1&perPage=10</a>
 	 * @see SingleVoteDO
 	 */
-	@Path("legislator")
+	@Path("person")
 	@GET
-	Page<SingleVoteDO> getAllByLegislator(@PathParam("id") final long id,
+	Page<SingleVoteDO> getAllByPerson(@PathParam("id") final long id,
 			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") @DefaultValue("10") final int perPage);
 

@@ -77,6 +77,9 @@ public class Bill {
 	@Column
 	private String type;
 
+	@OneToMany(mappedBy = "bill", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Vote> votes;
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "bill", cascade = { CascadeType.REMOVE })
 	private Set<Debate> debates;
 
@@ -412,6 +415,14 @@ public class Bill {
 
 	public String getType() {
 		return type;
+	}
+
+	public void setVotes(Set<Vote> votes) {
+		this.votes = votes;
+	}
+
+	public Set<Vote> getVotes() {
+		return votes;
 	}
 
 	public void setDebates(Set<Debate> debates) {

@@ -49,6 +49,14 @@ public abstract class Session {
 	@Column
 	private String sessionAccountURL;
 
+	@Column(name = "created_at")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdAt;
+
+	@Column(name = "updated_at")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updatedAt;
+
 	@Column
 	@Temporal(TemporalType.DATE)
 	private Date date;
@@ -150,11 +158,27 @@ public abstract class Session {
 		return legislature;
 	}
 
-	public SessionDO asDomainObject(){
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public SessionDO asDomainObject() {
 		return new SessionDO(this);
 	}
 
-	public SessionDetailedDO asDetailedDomainObject(){
+	public SessionDetailedDO asDetailedDomainObject() {
 		return new SessionDetailedDO(this);
 	}
 }

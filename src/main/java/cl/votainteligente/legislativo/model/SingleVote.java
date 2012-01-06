@@ -22,8 +22,8 @@ public class SingleVote {
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "legislator_role_id")
-	private LegislatorRole legislatorRole;
+	@JoinColumn(name = "person_id")
+	private Person person;
 
 	@ManyToOne
 	@JoinColumn(name = "vote_id")
@@ -48,18 +48,18 @@ public class SingleVote {
 	}
 
 	/**
-	 * @return the legislatorRole
+	 * @return the person
 	 */
-	public LegislatorRole getLegislatorRole() {
-		return legislatorRole;
+	public Person getPerson() {
+		return person;
 	}
 
 	/**
-	 * @param legislatorRole
-	 *            the legislatorRole to set
+	 * @param person
+	 *            the person to set
 	 */
-	public void setLegislatorRole(LegislatorRole legislatorRole) {
-		this.legislatorRole = legislatorRole;
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 	/**

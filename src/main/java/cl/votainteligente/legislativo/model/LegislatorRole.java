@@ -1,12 +1,9 @@
 package cl.votainteligente.legislativo.model;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -55,9 +52,6 @@ public class LegislatorRole extends Role {
 	// ID del sitio web de senado
 	@Column(name = "parliament_site_id")
 	private Integer parliamentSiteId;
-
-	@OneToMany(mappedBy = "legislatorRole")
-	private Set<SingleVote> legislatorVotes;
 
 	public Chamber getChamber() {
 		return chamber;
@@ -129,14 +123,6 @@ public class LegislatorRole extends Role {
 
 	public void setParliamentSiteId(Integer parliamentSiteId) {
 		this.parliamentSiteId = parliamentSiteId;
-	}
-
-	public void setLegislatorVotes(Set<SingleVote> legislatorVotes) {
-		this.legislatorVotes = legislatorVotes;
-	}
-
-	public Set<SingleVote> getLegislatorVotes() {
-		return legislatorVotes;
 	}
 
 	@Transient

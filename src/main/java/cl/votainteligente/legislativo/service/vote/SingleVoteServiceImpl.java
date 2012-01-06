@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
-import cl.votainteligente.legislativo.model.LegislatorRole;
+import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.SingleVote;
 import cl.votainteligente.legislativo.model.Vote;
 import cl.votainteligente.legislativo.model.domainobjects.SingleVoteDO;
@@ -50,12 +50,11 @@ public class SingleVoteServiceImpl extends EntityManagerService implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Page<SingleVoteDO> getAllByLegislatorRole(LegislatorRole legislator,
-			int page, int perPage) throws ServiceException {
-		Query query = getEntityManager()
-				.createQuery(
-						"select s from SingleVote s join s.legislatorRole l where l = ?");
-		query.setParameter(1, legislator);
+	public Page<SingleVoteDO> getAllByPerson(Person person, int page,
+			int perPage) throws ServiceException {
+		Query query = getEntityManager().createQuery(
+				"select s from SingleVote s join s.person l where l = ?");
+		query.setParameter(1, person);
 		query.setFirstResult((page - 1) * perPage);
 		query.setMaxResults(perPage);
 		List<SingleVoteDO> listDO = new ArrayList<SingleVoteDO>();
@@ -64,8 +63,8 @@ public class SingleVoteServiceImpl extends EntityManagerService implements
 		}
 		Query queryCount = getEntityManager()
 				.createQuery(
-						"select count(s) from SingleVote s join s.legislatorRole l where l = ?");
-		query.setParameter(1, legislator);
+						"select count(s) from SingleVote s join s.person l where l = ?");
+		query.setParameter(1, person);
 		Long total = (Long) queryCount.getSingleResult();
 
 		return new Page<SingleVoteDO>(listDO, page, perPage, total);

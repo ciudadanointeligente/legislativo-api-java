@@ -2,6 +2,7 @@ package cl.votainteligente.legislativo.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,9 @@ import cl.votainteligente.legislativo.model.domainobjects.PersonDetailedDO;
 @Entity
 @Table(name = "person")
 public class Person extends Participant {
+
+	@OneToMany(mappedBy = "person")
+	private Set<SingleVote> personVotes;
 
 	@OneToMany
 	private List<Role> roles;
@@ -180,5 +184,13 @@ public class Person extends Participant {
 	@Transient
 	public PersonDetailedDO asDetailedDomainObject() {
 		return new PersonDetailedDO(this);
+	}
+
+	public void setPersonVotes(Set<SingleVote> personVotes) {
+		this.personVotes = personVotes;
+	}
+
+	public Set<SingleVote> getPersonVotes() {
+		return personVotes;
 	}
 }

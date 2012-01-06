@@ -6,8 +6,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import junit.framework.TestCase;
-import cl.votainteligente.legislativo.model.Chamber;
-import cl.votainteligente.legislativo.model.LegislatorRole;
+import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.SingleVote;
 import cl.votainteligente.legislativo.model.Vote;
 
@@ -15,8 +14,7 @@ public class TestSingleVote extends TestCase {
 
 	private EntityManager em;
 	private SingleVote singleVote;
-	private LegislatorRole legislatorRole;
-	private Chamber chamber;
+	private Person person;
 	private Vote vote;
 	private String voteDetail;
 
@@ -28,21 +26,18 @@ public class TestSingleVote extends TestCase {
 		emf.close();
 		singleVote = new SingleVote();
 
-		legislatorRole = new LegislatorRole();
-		chamber = new Chamber();
-		legislatorRole.setChamber(chamber);
+		person = new Person();
 
 		vote = new Vote();
 		voteDetail = "A string";
 
-		singleVote.setLegislatorRole(legislatorRole);
+		singleVote.setPerson(person);
 		singleVote.setVote(vote);
 		singleVote.setVoteDetail(voteDetail);
 
 		EntityTransaction tr = em.getTransaction();
 		tr.begin();
-		em.persist(chamber);
-		em.persist(legislatorRole);
+		em.persist(person);
 		em.persist(vote);
 		em.persist(singleVote);
 		tr.commit();
@@ -54,8 +49,7 @@ public class TestSingleVote extends TestCase {
 		tr.begin();
 		em.remove(singleVote);
 		em.remove(vote);
-		em.remove(legislatorRole);
-		em.remove(chamber);
+		em.remove(person);
 		tr.commit();
 		em.close();
 	}
@@ -73,8 +67,8 @@ public class TestSingleVote extends TestCase {
 		assert (singleVote.getVote().equals(vote));
 	}
 
-	public void testGetLegislatorRole() {
-		assert (singleVote.getLegislatorRole().equals(legislatorRole));
+	public void testGetPerson() {
+		assert (singleVote.getPerson().equals(person));
 	}
 
 	public void testGetVoteDetails() {

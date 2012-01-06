@@ -26,9 +26,16 @@ public class Vote {
 	@GeneratedValue
 	private Long id;
 
+	@Column(name = "name")
+	private String name;
+
 	@ManyToOne
 	@JoinColumn(name = "session_id")
 	private Session session;
+
+	@Column(name = "time")
+	@Temporal(TemporalType.TIME)
+	private Date time;
 
 	@Column(name = "created_at")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -40,6 +47,9 @@ public class Vote {
 
 	@Column(name = "yes_votes")
 	private int yesVotes;
+
+	@Column(name = "type")
+	private String type;
 
 	@OneToMany(mappedBy = "vote")
 	@Column
@@ -67,6 +77,7 @@ public class Vote {
 	private String quorum;
 
 	@ManyToOne
+	@JoinColumn(name = "bill_id")
 	private Bill bill;
 
 	public void setId(Long id) {
@@ -77,12 +88,28 @@ public class Vote {
 		return id;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
 	public void setSession(Session session) {
 		this.session = session;
 	}
 
 	public Session getSession() {
 		return session;
+	}
+
+	public void setTime(Date time) {
+		this.time = time;
+	}
+
+	public Date getTime() {
+		return time;
 	}
 
 	/**
@@ -128,6 +155,14 @@ public class Vote {
 	 */
 	public void setYesVotes(int yesVotes) {
 		this.yesVotes = yesVotes;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getType() {
+		return type;
 	}
 
 	/**

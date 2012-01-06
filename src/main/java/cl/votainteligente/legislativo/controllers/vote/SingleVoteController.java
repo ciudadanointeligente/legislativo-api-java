@@ -14,11 +14,11 @@ import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.exceptions.ResourceNotFoundException;
 import cl.votainteligente.legislativo.exceptions.ServerErrorException;
-import cl.votainteligente.legislativo.model.LegislatorRole;
+import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.SingleVote;
 import cl.votainteligente.legislativo.model.Vote;
 import cl.votainteligente.legislativo.model.domainobjects.SingleVoteDO;
-import cl.votainteligente.legislativo.service.legislator.LegislatorRoleService;
+import cl.votainteligente.legislativo.service.person.PersonService;
 import cl.votainteligente.legislativo.service.vote.SingleVoteService;
 import cl.votainteligente.legislativo.service.vote.VoteService;
 
@@ -30,7 +30,7 @@ public class SingleVoteController implements SingleVoteAPI {
 	SingleVoteService singleVoteService;
 
 	@Autowired
-	LegislatorRoleService legislatorRoleService;
+	PersonService personService;
 
 	@Autowired
 	VoteService voteService;
@@ -50,16 +50,15 @@ public class SingleVoteController implements SingleVoteAPI {
 
 	@RequestMapping(value = "singleVote/legislator", method = RequestMethod.GET)
 	@ResponseBody
-	public final Page<SingleVoteDO> getAllByLegislator(
+	public final Page<SingleVoteDO> getAllByPerson(
 			@RequestParam(value = "id", required = true) final long id,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			LegislatorRole legislator = legislatorRoleService.getLegislator(id);
-			if (legislator == null)
+			Person person = personService.getPerson(id);
+			if (person == null)
 				throw new ResourceNotFoundException();
-			return singleVoteService.getAllByLegislatorRole(legislator, page,
-					perPage);
+			return singleVoteService.getAllByPerson(person, page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
