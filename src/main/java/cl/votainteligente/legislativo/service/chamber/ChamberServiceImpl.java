@@ -16,6 +16,11 @@ import cl.votainteligente.legislativo.service.EntityManagerService;
 @Service
 public class ChamberServiceImpl extends EntityManagerService implements
 		ChamberService {
+	@Override
+	public Chamber newChamber(Chamber chamber) throws ServiceException {
+		getEntityManager().persist(chamber);
+		return chamber;
+	}
 
 	@Override
 	public Chamber getById(Long id) throws ServiceException {
@@ -41,7 +46,6 @@ public class ChamberServiceImpl extends EntityManagerService implements
 				"select count(c) from Chamber c");
 		Long totalParties = (Long) queryCount.getSingleResult();
 
-		return new Page<ChamberDO>(listDO, page, perPage,
-				totalParties);
+		return new Page<ChamberDO>(listDO, page, perPage, totalParties);
 	}
 }

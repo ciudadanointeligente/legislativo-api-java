@@ -28,6 +28,7 @@ public class BillRoleDO {
 		this.billEntryDate = bill.getEntryDate();
 		this.roleStartDate = role.getStartDate();
 		this.roleEndDate = role.getEndDate();
+		this.billTitle = bill.getTitle();
 	}
 
 	public Long getBillId() {

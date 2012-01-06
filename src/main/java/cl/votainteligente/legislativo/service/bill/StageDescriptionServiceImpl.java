@@ -15,6 +15,13 @@ import cl.votainteligente.legislativo.service.EntityManagerService;
 public class StageDescriptionServiceImpl extends EntityManagerService implements
 		StageDescriptionService {
 
+	@Override
+	public StageDescription newStageDescription(
+			StageDescription stageDescription) throws ServiceException {
+		getEntityManager().persist(stageDescription);
+		return stageDescription;
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public Page<StageDescription> getAll(int pageNumber, int resultsPerPage)
