@@ -83,7 +83,7 @@ public class PartyController implements PartyAPI {
 			Party p = partyService.getParty(id);
 			if(p == null)
 				throw new ResourceNotFoundException();
-			return p.asDetailedDomainObject();
+			return (PartyDetailedDO)p.asDetailedDomainObject();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();

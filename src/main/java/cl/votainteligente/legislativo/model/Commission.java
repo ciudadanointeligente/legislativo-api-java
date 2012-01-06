@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import cl.votainteligente.legislativo.model.domainobjects.AgrupationDO;
 import cl.votainteligente.legislativo.model.domainobjects.CommissionDO;
 
 @Entity
@@ -35,9 +36,6 @@ public class Commission extends Agrupation {
 
 	@OneToMany(cascade = { CascadeType.REMOVE }, fetch = FetchType.LAZY, mappedBy = "commission")
 	private Set<SessionCommission> sessions;
-
-	@OneToMany
-	private Set<LegislatorRole> members;
 
 	@ManyToOne
 	@JoinColumn(name = "chamber_id", nullable = false)
@@ -106,21 +104,6 @@ public class Commission extends Agrupation {
 		this.commissionType = commissionType;
 	}
 
-	/**
-	 * @param members
-	 *            the members to set
-	 */
-	public void setMembers(Set<LegislatorRole> members) {
-		this.members = members;
-	}
-
-	/**
-	 * @return the members
-	 */
-	public Set<LegislatorRole> getMembers() {
-		return members;
-	}
-
 	public void setDebates(Set<DebateInCommission> debates) {
 		this.debates = debates;
 	}
@@ -130,7 +113,7 @@ public class Commission extends Agrupation {
 	}
 
 	@Transient
-	public CommissionDO asDomainObject() {
+	public AgrupationDO asDomainObject() {
 		return new CommissionDO(this);
 	}
 

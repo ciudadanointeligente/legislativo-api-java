@@ -38,7 +38,7 @@ public class CommissionServiceImpl extends EntityManagerService implements
 		query.setMaxResults(resultsPerPage);
 		List<CommissionDO> listDO = new ArrayList<CommissionDO>();
 		for (Commission commission : (List<Commission>) query.getResultList()) {
-			listDO.add(commission.asDomainObject());
+			listDO.add((CommissionDO)commission.asDomainObject());
 		}
 		return new Page<CommissionDO>(listDO, pageNumber, resultsPerPage,
 				totalCommissions);
@@ -56,7 +56,7 @@ public class CommissionServiceImpl extends EntityManagerService implements
 		query.setMaxResults(resultsPerPage);
 		List<CommissionDO> listDO = new ArrayList<CommissionDO>();
 		for (Commission commission : (List<Commission>) query.getResultList()) {
-			listDO.add(commission.asDomainObject());
+			listDO.add((CommissionDO)commission.asDomainObject());
 		}
 		return new Page<CommissionDO>(listDO, pageNumber, resultsPerPage,
 				totalCommissions);
@@ -79,7 +79,7 @@ public class CommissionServiceImpl extends EntityManagerService implements
 		query.setMaxResults(resultsPerPage);
 		List<CommissionDO> listDO = new ArrayList<CommissionDO>();
 		for (Commission commission : (List<Commission>) query.getResultList()) {
-			listDO.add(commission.asDomainObject());
+			listDO.add((CommissionDO)commission.asDomainObject());
 		}
 		return new Page<CommissionDO>(listDO, pageNumber, resultsPerPage,
 				totalCommissions);
@@ -97,7 +97,7 @@ public class CommissionServiceImpl extends EntityManagerService implements
 		query.setMaxResults(resultsPerPage);
 		List<CommissionDO> listDO = new ArrayList<CommissionDO>();
 		for (Commission commission : (List<Commission>) query.getResultList()) {
-			listDO.add(commission.asDomainObject());
+			listDO.add((CommissionDO)commission.asDomainObject());
 		}
 		return new Page<CommissionDO>(listDO, pageNumber, resultsPerPage,
 				totalCommissions);
@@ -111,7 +111,7 @@ public class CommissionServiceImpl extends EntityManagerService implements
 
 	@Override
 	public CommissionDO getCommissionDO(Long id) throws ServiceException {
-		return getCommissionById(id).asDomainObject();
+		return (CommissionDO)getCommissionById(id).asDomainObject();
 	}
 
 }

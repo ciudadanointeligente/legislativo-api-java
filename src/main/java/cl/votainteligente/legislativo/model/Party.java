@@ -13,6 +13,8 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 
+import cl.votainteligente.legislativo.model.domainobjects.AgrupationDO;
+import cl.votainteligente.legislativo.model.domainobjects.AgrupationDetailedDO;
 import cl.votainteligente.legislativo.model.domainobjects.PartyDO;
 import cl.votainteligente.legislativo.model.domainobjects.PartyDetailedDO;
 
@@ -104,12 +106,12 @@ public class Party extends Agrupation {
 	}
 
 	@Transient
-	public PartyDO asDomainObject() {
+	public AgrupationDO asDomainObject() {
 		return new PartyDO(this);
 	}
 
 	@Transient
-	public PartyDetailedDO asDetailedDomainObject() {
+	public AgrupationDetailedDO asDetailedDomainObject() {
 		return new PartyDetailedDO(this);
 	}
 

@@ -11,6 +11,10 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import cl.votainteligente.legislativo.model.domainobjects.AgrupationDO;
+import cl.votainteligente.legislativo.model.domainobjects.AgrupationDetailedDO;
 
 @Entity
 @Table(name = "agrupation")
@@ -117,4 +121,13 @@ public class Agrupation extends Participant {
 		return agrupationAffiliations;
 	}
 
+	@Transient
+	public AgrupationDO asDomainObject() {
+		return new AgrupationDO(this);
+	}
+
+	@Transient
+	public AgrupationDetailedDO asDetailedDomainObject() {
+		return new AgrupationDetailedDO(this);
+	}
 }

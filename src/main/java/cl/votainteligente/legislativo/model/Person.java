@@ -4,8 +4,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -63,6 +65,9 @@ public class Person extends Participant {
 
 	@Column(name = "statement_of_heritage")
 	private String statementOfHeritage;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "person", cascade = { CascadeType.REMOVE })
+	private Set<AgrupationAffiliation> agrupationAffiliations;
 
 	public String getMailAddress() {
 		return mailAddress;
@@ -192,5 +197,15 @@ public class Person extends Participant {
 
 	public Set<SingleVote> getPersonVotes() {
 		return personVotes;
+
+	}
+
+	public void setAgrupationAffiliations(
+			Set<AgrupationAffiliation> agrupationAffiliations) {
+		this.agrupationAffiliations = agrupationAffiliations;
+	}
+
+	public Set<AgrupationAffiliation> getAgrupationAffiliations() {
+		return agrupationAffiliations;
 	}
 }

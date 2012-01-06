@@ -9,10 +9,8 @@ import cl.votainteligente.legislativo.model.Party;
 import cl.votainteligente.legislativo.model.Person;
 
 @XmlRootElement
-public class PartyDetailedDO {
+public class PartyDetailedDO extends AgrupationDetailedDO {
 
-	private Long id;
-	private String name;
 	private String address;
 	private String history;
 	private String initials;
@@ -22,12 +20,11 @@ public class PartyDetailedDO {
 	private Set<Long> adultBoardId;
 
 	public PartyDetailedDO() {
-
+		super();
 	}
 
 	public PartyDetailedDO(Party party) {
-		this.id = party.getId();
-		this.name = party.getName();
+		super(party);
 		this.address = party.getAddress();
 		this.history = party.getHistory();
 		this.initials = party.getInitials();
@@ -41,28 +38,6 @@ public class PartyDetailedDO {
 		Set<Person> adultBoard = party.getAdultBoard();
 		for (Person p : adultBoard)
 			this.adultBoardId.add(p.getId());
-	}
-
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	/**

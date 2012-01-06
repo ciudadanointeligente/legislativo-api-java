@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import cl.votainteligente.legislativo.model.AgrupationAffiliation;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.Role;
 
@@ -17,6 +18,7 @@ public class PersonDetailedDO {
 	private String gender;
 	private String birthday;
 	private List<Long> rolesId;
+	private List<Long> groupAffiliatedIds;
 	private String mailAddress;
 	private String website;
 	private String twitterAccount;
@@ -55,6 +57,10 @@ public class PersonDetailedDO {
 		List<Role> personRoles = person.getRoles();
 		for (Role role : personRoles)
 			this.rolesId.add(role.getId());
+		this.groupAffiliatedIds = new ArrayList<Long>();
+		for (AgrupationAffiliation agrupations : person
+				.getAgrupationAffiliations())
+			this.groupAffiliatedIds.add(agrupations.getAgrupation().getId());
 	}
 
 	/**
@@ -103,6 +109,14 @@ public class PersonDetailedDO {
 	 */
 	public void setRolesId(List<Long> rolesId) {
 		this.rolesId = rolesId;
+	}
+
+	public List<Long> getGroupAffiliatedIds() {
+		return groupAffiliatedIds;
+	}
+
+	public void setGroupAffiliatedIds(List<Long> groupAffiliatedIds) {
+		this.groupAffiliatedIds = groupAffiliatedIds;
 	}
 
 	/**

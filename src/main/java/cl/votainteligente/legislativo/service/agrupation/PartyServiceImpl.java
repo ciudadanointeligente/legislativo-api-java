@@ -35,7 +35,7 @@ public class PartyServiceImpl extends EntityManagerService implements
 		query.setMaxResults(resultsPerPage);
 		List<PartyDO> listDO = new ArrayList<PartyDO>();
 		for (Party party : (List<Party>) query.getResultList()) {
-			listDO.add(party.asDomainObject());
+			listDO.add((PartyDO)party.asDomainObject());
 		}
 		Query queryCount = getEntityManager().createQuery(
 				"select count(p) from Party p");
@@ -56,7 +56,7 @@ public class PartyServiceImpl extends EntityManagerService implements
 		query.setMaxResults(resultsPerPage);
 		List<PartyDO> listDO = new ArrayList<PartyDO>();
 		for (Party party : (List<Party>) query.getResultList()) {
-			listDO.add(party.asDomainObject());
+			listDO.add((PartyDO)party.asDomainObject());
 		}
 		Query queryCount = getEntityManager()
 				.createQuery(
