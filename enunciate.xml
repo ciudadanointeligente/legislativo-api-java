@@ -12,8 +12,8 @@
 	<modules>
 		<csharp disabled="true" />
 		<c disabled="true" />
-		<docs includeExampleJson="true" includeExampleXML="false"
-			disableRestMountpoint="true" css="src/main/webapp/WEB-INF/enunciate/default.css"
+		<docs docsDir="legislativo-api-docs/" includeExampleJson="true"
+			includeExampleXML="false" css="src/main/webapp/WEB-INF/enunciate/default.css"
 			title="Api Legislativo" copyright="Fundación Ciudadano Inteligente"
 			defaultNamespace="api">
 			<!--
