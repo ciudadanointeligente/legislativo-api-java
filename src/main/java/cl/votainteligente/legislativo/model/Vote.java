@@ -13,12 +13,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import cl.votainteligente.legislativo.model.domainobjects.VoteDO;
 import cl.votainteligente.legislativo.model.domainobjects.VoteDetailedDO;
 
-@XmlRootElement
 @Entity
 @Table(name = "vote")
 public class Vote {

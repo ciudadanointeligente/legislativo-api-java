@@ -4,13 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import cl.votainteligente.legislativo.model.domainobjects.SessionChamberDO;
 import cl.votainteligente.legislativo.model.domainobjects.SessionChamberDetailedDO;
 
 @Entity
-@XmlRootElement
 @Table(name = "session_chamber")
 public class SessionChamber extends Session {
 

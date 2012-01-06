@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDetailedDO;
 
-@XmlRootElement
+
 @Entity
 @Table(name = "person")
 public class Person extends Participant {
