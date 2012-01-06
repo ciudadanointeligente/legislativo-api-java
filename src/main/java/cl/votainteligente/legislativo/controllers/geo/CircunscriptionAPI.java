@@ -92,7 +92,7 @@ public interface CircunscriptionAPI {
 	@Path("any")
 	@GET
 	Page<CircunscriptionDO> getCircunscriptionByRegionId(
-			@PathParam("region_id") final long id,
+			@PathParam("region_id") final long region_id,
 			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
