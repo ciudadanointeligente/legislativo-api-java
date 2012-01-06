@@ -48,9 +48,9 @@ public interface BillAPI {
 	 * Gives all the bills presented between two dates.
 	 *
 	 * @param from
-	 *            Beggining of the interval, in date format.
+	 *            Beggining of the interval, in date format (dd-MM-yyyy).
 	 * @param to
-	 *            End of the interval, in date format.
+	 *            End of the interval, in date format (dd-MM-yyyy).
 	 * @param page
 	 *            The number of the desired page to be retrieved (optional).
 	 * @param perPage
@@ -58,14 +58,14 @@ public interface BillAPI {
 	 * @return A Page of Bill Abstracts (BillDO)
 	 * <br />
 	 * For example:
-	 * <a href="http://demo.ciudadanointeligente.cl/Legislativo/api/bill/dateRange?from=01-01-2011&to=01-01-2012&page=1&perPage=10">bill/dateRange?from=01-01-2011&to=01-01-2012&page=1&perPage=10</a>
+	 * <a href="http://demo.ciudadanointeligente.cl/Legislativo/api/bill/dateRange?from=01-01-2011&to=31-12-2011&page=1&perPage=10">bill/dateRange?from=01-01-2011&to=01-01-2012&page=1&perPage=10</a>
 	 * @see BillDO
 	 */
 	@GET
 	@Path("dateRange")
 	public Page<BillDO> getDateRange(
-			@PathParam("from") final String fromString,
-			@PathParam("to") final String toString,
+			@PathParam("from") final String from,
+			@PathParam("to") final String to,
 			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") @DefaultValue("10") final int perPage);
 

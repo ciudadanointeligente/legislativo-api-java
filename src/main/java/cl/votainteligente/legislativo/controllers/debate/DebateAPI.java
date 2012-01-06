@@ -30,9 +30,9 @@ public interface DebateAPI {
 	 * Gives all the debates presented between two dates.
 	 *
 	 * @param from
-	 *            Beggining of the interval, in date format.
+	 *            Beggining of the interval, in date format (dd-MM-yyyy).
 	 * @param to
-	 *            End of the interval, in date format.
+	 *            End of the interval, in date format (dd-MM-yyyy).
 	 * @param page
 	 *            The number of the desired page to be retrieved (optional).
 	 * @param perPage
@@ -46,8 +46,8 @@ public interface DebateAPI {
 	@Path("dateRange")
 	@GET
 	public abstract Page<DebateDO> getDateRange(
-			@PathParam("from") final String fromString,
-			@PathParam("to") final String toString,
+			@PathParam("from") final String from,
+			@PathParam("to") final String to,
 			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
