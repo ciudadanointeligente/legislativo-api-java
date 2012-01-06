@@ -24,7 +24,7 @@ import cl.votainteligente.legislativo.service.person.PersonService;
 
 @Path("agrupation")
 @Controller
-public class AgrupationController implements AgrupationApi {
+public class AgrupationController implements AgrupationAPI {
 
 	@Autowired
 	AgrupationService agrupationService;
