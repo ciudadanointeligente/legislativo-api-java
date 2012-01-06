@@ -41,10 +41,12 @@ import cl.votainteligente.legislativo.model.Party;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.Region;
 import cl.votainteligente.legislativo.model.Role;
+import cl.votainteligente.legislativo.model.SessionChamber;
 import cl.votainteligente.legislativo.model.Stage;
 import cl.votainteligente.legislativo.model.StageDescription;
 import cl.votainteligente.legislativo.model.Substage;
 import cl.votainteligente.legislativo.model.Tag;
+import cl.votainteligente.legislativo.model.Vote;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.service.agrupation.CommissionService;
 import cl.votainteligente.legislativo.service.agrupation.CommissionTypeService;
@@ -59,6 +61,9 @@ import cl.votainteligente.legislativo.service.geo.DistrictService;
 import cl.votainteligente.legislativo.service.geo.RegionService;
 import cl.votainteligente.legislativo.service.matter.MatterService;
 import cl.votainteligente.legislativo.service.person.PersonService;
+import cl.votainteligente.legislativo.service.session.SessionChamberService;
+import cl.votainteligente.legislativo.service.vote.SingleVoteService;
+import cl.votainteligente.legislativo.service.vote.VoteService;
 
 @Controller
 public class Migrate {
@@ -81,6 +86,9 @@ public class Migrate {
 	private DebateService debateService;
 	private StageDescriptionService stageDescriptionService;
 	private BillService billService;
+	private SessionChamberService sessionChamberService;
+	private SingleVoteService singleVoteService;
+	private VoteService voteService;
 
 	private Pattern pattern = Pattern.compile("\\d+");
 
@@ -99,6 +107,9 @@ public class Migrate {
 	private LinkedList<Long[]> debateIds = new LinkedList<Long[]>();
 	private LinkedList<Long[]> matterIds = new LinkedList<Long[]>();
 	private LinkedList<Long[]> commissionIds = new LinkedList<Long[]>();
+	private LinkedList<Long[]> sessionChamberIds = new LinkedList<Long[]>();
+	private LinkedList<Long[]> singleVoteIds = new LinkedList<Long[]>();
+	private LinkedList<Long[]> voteIds = new LinkedList<Long[]>();
 
 	private LinkedList<Long> personPartyAffiliation = new LinkedList<Long>();
 
@@ -135,7 +146,7 @@ public class Migrate {
 				"Matter", "MergedBill", "Participant", "Party", "Person",
 				"Role", "Session", "Stage", "Substage", "Tag", "Chamber",
 				"Circunscription", "Commune", "District", "Region",
-				"StageDescription" };
+				"StageDescription", "Session", "SingleVote", "Vote" };
 
 		for (String tableName : tableNames) {
 			EntityTransaction tr = em.getTransaction();
@@ -191,6 +202,14 @@ public class Migrate {
 			System.out.println("Loaded Tags Successfully...");
 			this.loadDebateTags();
 			System.out.println("Loaded Debates-Tags relation Successfully...");
+
+			this.loadSessionChamber();
+			System.out.println("Loaded SessionChambers Succesfully...");
+			this.loadVotes();
+			System.out.println("Loaded Votes Successfully...");
+			this.loadSingleVotes();
+			System.out.println("Loaded SingleVotes Successfully...");
+
 			System.out.println("Migrated Successfully");
 			return "Migrated Successfully";
 		} catch (SQLException e) {
@@ -485,9 +504,9 @@ public class Migrate {
 		for (PersonDO pname : listName.getElements())
 			for (PersonDO plastname : listLastName.getElements())
 				if (pname.getId().longValue() == plastname.getId().longValue()) {
-					System.out.println("Persona Encontrada,  id: "
-							+ pname.getId() + ", name: " + pname.getFirstName()
-							+ ", lastname: " + plastname.getLastName());
+					// System.out.println("Persona Encontrada,  id: "
+					// + pname.getId() + ", name: " + pname.getFirstName()
+					// + ", lastname: " + plastname.getLastName());
 					return personService.getPerson(pname.getId());
 				}
 
@@ -648,8 +667,8 @@ public class Migrate {
 			setupDebates(oldBillId, b);
 
 			if (b.getId().longValue() % 100 == 0) {
-				System.out.println("Added bill, Old id: " + oldBillId
-						+ ", new id: " + b.getId());
+				//System.out.println("Added bill, Old id: " + oldBillId
+						//+ ", new id: " + b.getId());
 
 				tr.commit();
 				tr.begin();
@@ -832,7 +851,7 @@ public class Migrate {
 			em.merge(d);
 			rs.close();
 			if (bill[1] % 300 == 0) {
-				System.out.println("Authors set for bill: " + bill[1]);
+				// System.out.println("Authors set for bill: " + bill[1]);
 				tr.commit();
 				tr.begin();
 			}
@@ -860,6 +879,93 @@ public class Migrate {
 			em.persist(agr);
 		}
 		tr.commit();
+	}
+
+	private void loadSessionChamber() throws SQLException, ServiceException {
+		EntityTransaction tr = em.getTransaction();
+		tr.begin();
+		ResultSet rs = getTableData("sesion");
+		while (rs.next()) {
+			SessionChamber ses = new SessionChamber();
+			ses.setCreatedAt(getSafeDate(rs, "created_at"));
+			ses.setUpdatedAt(getSafeDate(rs, "updated_at"));
+			ses.setDate(getSafeDate(rs, "fecha"));
+			ses.setChamber((rs.getString("camara").toLowerCase()
+					.indexOf("senado") != -1) ? sChamber : dChamber);
+
+			em.persist(ses);
+
+			Long oldSessionId = rs.getLong("id_sesion");
+			Long newSessionId = ses.getId();
+			Long[] array = new Long[2];
+			array[0] = oldSessionId;
+			array[1] = newSessionId;
+			sessionChamberIds.add(array);
+		}
+		tr.commit();
+	}
+
+	private void loadVotes() throws SQLException, ServiceException {
+		EntityTransaction tr = em.getTransaction();
+		tr.begin();
+		ResultSet rs = getTableData("votacion");
+		while (rs.next()) {
+			Vote vot = new Vote();
+			vot.setName(rs.getString("name"));
+			vot.setType(rs.getString("tipo"));
+			vot.setCreatedAt(getSafeDate(rs, "created_at"));
+			vot.setUpdatedAt(getSafeDate(rs, "updated_at"));
+			vot.setYesVotes(rs.getInt("voto_si"));
+			vot.setNoVotes(rs.getInt("voto_no"));
+			vot.setAbsentVotes(rs.getInt("voto_aus"));
+			vot.setAbstentionVotes(rs.getInt("voto_abs"));
+			vot.setMatchingVotes(rs.getInt("voto_pareos"));
+			vot.setQuorum(rs.getString("quorum"));
+			String resultStr = rs.getString("resultado").toLowerCase();
+			Long resultL = 0L;
+			if (resultStr.equals("rechazado"))
+				resultL = 1L;
+			else if (resultStr.equals("empate"))
+				resultL = 2L;
+			else if (resultStr.equals("no quorum"))
+				resultL = 3L;
+			vot.setResult(resultL);
+			Long newBillId = findNewId(billIds, rs.getLong("id_proyecto_ley"));
+			if(newBillId == null)
+				continue;
+			Bill bill = billService.getBill(newBillId);
+			vot.setBill(bill);
+
+			Long oldSessionId = rs.getLong("id_sesion");
+			Long newSessionId = findNewId(sessionChamberIds, oldSessionId);
+			SessionChamber sessionChamber = null;
+			try {
+				sessionChamber = sessionChamberService
+						.getSessionChamber(newSessionId);
+			} catch (Exception e) {
+				System.out.println("Sesión no encontrada para el id antiguo "
+						+ oldSessionId + " y id nuevo " + newSessionId);
+			}
+			if (sessionChamber == null)
+				continue;
+			vot.setSession(sessionChamber);
+			vot.setTime(getSafeDate(rs, "hora"));
+
+			em.persist(vot);
+
+			Long oldVoteId = rs.getLong("id_votacion");
+			Long newVoteId = vot.getId();
+			Long[] array = new Long[2];
+			array[0] = oldVoteId;
+			array[1] = newVoteId;
+			voteIds.add(array);
+		}
+		tr.commit();
+	}
+
+	private void loadSingleVotes() throws SQLException, ServiceException {
+		// TODO Auto-generated method stub
+
 	}
 
 	private void loadTags() throws SQLException {
@@ -1021,6 +1127,19 @@ public class Migrate {
 
 	public void setEm(EntityManager em) {
 		this.em = em;
+	}
+
+	public void setSessionChamberService(
+			SessionChamberService sessionChamberService) {
+		this.sessionChamberService = sessionChamberService;
+	}
+
+	public void setSingleVoteService(SingleVoteService singleVoteService) {
+		this.singleVoteService = singleVoteService;
+	}
+
+	public void setVoteService(VoteService voteService) {
+		this.voteService = voteService;
 	}
 
 }
