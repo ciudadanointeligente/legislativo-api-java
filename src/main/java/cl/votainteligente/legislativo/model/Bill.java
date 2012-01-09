@@ -2,7 +2,6 @@ package cl.votainteligente.legislativo.model;
 
 import java.util.Date;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,9 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-
 import org.hibernate.annotations.Type;
-
 import cl.votainteligente.legislativo.model.domainobjects.BillDO;
 import cl.votainteligente.legislativo.model.domainobjects.BillDetailedDO;
 
@@ -52,12 +49,11 @@ public class Bill {
 	@JoinColumn(name = "origin_chamber")
 	private Chamber originChamber;
 	private String urgency;
-	@OneToMany(mappedBy = "bill", cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Stage> stages;
 	@ManyToOne
 	private Matter matter;
 	private Long decree;
-	private String decreeUrl;
 	@Type(type = "text")
 	private String summary;
 	@Column(name = "sil_processings_id")
@@ -76,12 +72,15 @@ public class Bill {
 	private Date updatedAt;
 	@Column
 	private String type;
-
 	@OneToMany(mappedBy = "bill", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Vote> votes;
-
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "bill", cascade = { CascadeType.REMOVE })
 	private Set<Debate> debates;
+	@ManyToOne
+	@JoinColumn(name = "merged_bills")
+	private MergedBillContainer mergedBills;
+	@Column(name = "decree_url")
+	private String decreeUrl;
 
 	/**
 	 * @return the id
@@ -433,11 +432,33 @@ public class Bill {
 		return debates;
 	}
 
+	/**
+	 * @return the decreeUrl
+	 */
+	public String getDecreeUrl() {
+		return decreeUrl;
+	}
+
+	/**
+	 * @param decreeUrl
+	 *            the decreeUrl to set
+	 */
 	public void setDecreeUrl(String decreeUrl) {
 		this.decreeUrl = decreeUrl;
 	}
 
-	public String getDecreeUrl() {
-		return decreeUrl;
+	/**
+	 * @return the mergedBills
+	 */
+	public MergedBillContainer getMergedBills() {
+		return mergedBills;
+	}
+
+	/**
+	 * @param mergedBills
+	 *            the mergedBills to set
+	 */
+	public void setMergedBills(MergedBillContainer mergedBills) {
+		this.mergedBills = mergedBills;
 	}
 }

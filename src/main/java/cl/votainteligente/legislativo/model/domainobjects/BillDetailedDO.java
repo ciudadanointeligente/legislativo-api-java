@@ -33,6 +33,7 @@ public class BillDetailedDO {
 	private Long SILOficiosId;
 	private Long SILIndicationsId;
 	private Long SILUrgenciesId;
+	private Set<BillDO> mergedBills;
 
 	public BillDetailedDO() {
 
@@ -70,6 +71,13 @@ public class BillDetailedDO {
 		Set<Stage> billStages = bill.getStages();
 		for (Stage s : billStages)
 			this.stagesId.add(s.getId());
+		this.mergedBills = new HashSet<BillDO>();
+		if(bill.getMergedBills() != null) {
+			for (Bill mergedBill : bill.getMergedBills().getBills()) {
+				if(!mergedBill.getBulletinNumber().equals(bill.getBulletinNumber()))
+					mergedBills.add(mergedBill.asDomainObject());
+			}
+		}
 	}
 
 	/**
@@ -387,4 +395,18 @@ public class BillDetailedDO {
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * @return the mergedBills
+	 */
+	public Set<BillDO> getMergedBills() {
+		return mergedBills;
+	}
+
+	/**
+	 * @param mergedBills
+	 *            the mergedBills to set
+	 */
+	public void setMergedBills(Set<BillDO> mergedBills) {
+		this.mergedBills = mergedBills;
+	}
 }

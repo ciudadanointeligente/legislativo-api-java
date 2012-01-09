@@ -28,11 +28,10 @@ public class Stage {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "end_date")
 	private Date endDate;
-	@OneToMany(mappedBy = "stage", cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Substage> subStages;
 	@ManyToOne
 	private Bill bill;
-
 	@ManyToOne
 	@JoinColumn(name = "stage_description_id", nullable = false)
 	private StageDescription stageDescription;
