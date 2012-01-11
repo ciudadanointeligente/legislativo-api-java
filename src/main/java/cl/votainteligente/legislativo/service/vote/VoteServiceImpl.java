@@ -52,7 +52,7 @@ public class VoteServiceImpl extends EntityManagerService implements
 		}
 		Query queryCount = getEntityManager().createQuery(
 				"select count(v) from Vote v join v.session s where s = ?");
-		query.setParameter(1, session);
+		queryCount.setParameter(1, session);
 		Long total = (Long) queryCount.getSingleResult();
 
 		return new Page<VoteDO>(listDO, page, perPage, total);
@@ -63,7 +63,7 @@ public class VoteServiceImpl extends EntityManagerService implements
 	public Page<VoteDO> getByResult(Long result, int page, int perPage)
 			throws ServiceException {
 		Query query = getEntityManager().createQuery(
-				"select v from Vote v join v.result r where r = ?");
+				"select v from Vote v where v.result = ?");
 		query.setParameter(1, result);
 		query.setFirstResult((page - 1) * perPage);
 		query.setMaxResults(perPage);
@@ -72,8 +72,8 @@ public class VoteServiceImpl extends EntityManagerService implements
 			listDO.add(vote.asDomainObject());
 		}
 		Query queryCount = getEntityManager().createQuery(
-				"select count(v) from Vote v join v.result r where r = ?");
-		query.setParameter(1, result);
+				"select count(v) from Vote v where v.result = ?");
+		queryCount.setParameter(1, result);
 		Long total = (Long) queryCount.getSingleResult();
 
 		return new Page<VoteDO>(listDO, page, perPage, total);

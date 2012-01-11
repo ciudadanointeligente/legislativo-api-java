@@ -64,8 +64,8 @@ public class SingleVoteServiceImpl extends EntityManagerService implements
 		Query queryCount = getEntityManager()
 				.createQuery(
 						"select count(s) from SingleVote s join s.person l where l = ?");
-		query.setParameter(1, person);
 		Long total = (Long) queryCount.getSingleResult();
+		queryCount.setParameter(1, person);
 
 		return new Page<SingleVoteDO>(listDO, page, perPage, total);
 	}
@@ -85,7 +85,7 @@ public class SingleVoteServiceImpl extends EntityManagerService implements
 		}
 		Query queryCount = getEntityManager().createQuery(
 				"select count(s) from SingleVote s join s.vote v where v = ?");
-		query.setParameter(1, vote);
+		queryCount.setParameter(1, vote);
 		Long total = (Long) queryCount.getSingleResult();
 
 		return new Page<SingleVoteDO>(listDO, page, perPage, total);
