@@ -26,6 +26,8 @@ import cl.votainteligente.legislativo.service.geo.DistrictService;
 import cl.votainteligente.legislativo.service.geo.RegionService;
 import cl.votainteligente.legislativo.service.matter.MatterService;
 import cl.votainteligente.legislativo.service.person.PersonService;
+import cl.votainteligente.legislativo.service.session.SessionChamberService;
+import cl.votainteligente.legislativo.service.vote.VoteService;
 
 @Controller
 public class MigrateController {
@@ -55,6 +57,10 @@ public class MigrateController {
 	private DebateService debateService;
 	@Autowired
 	private BillService billService;
+	@Autowired
+	private SessionChamberService sessionChamberService;
+	@Autowired
+	private VoteService voteService;
 
 	protected EntityManager entityManager;
 
@@ -95,6 +101,8 @@ public class MigrateController {
 			m.setDebateService(debateService);
 			m.setStageDescriptionService(stageDescriptionService);
 			m.setTagService(tagService);
+			m.setSessionChamberService(sessionChamberService);
+			m.setVoteService(voteService);
 			m.loadEntityManager();
 			System.out.println("Trying to Clean database");
 			m.clean();

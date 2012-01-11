@@ -1,6 +1,7 @@
 package cl.votainteligente.legislativo.model;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -180,5 +181,11 @@ public abstract class Session {
 
 	public SessionDetailedDO asDetailedDomainObject() {
 		return new SessionDetailedDO(this);
+	}
+
+	public void addDiscussedBill(Bill bill) {
+		if(discussedBills == null)
+			this.discussedBills = new HashSet<Bill>();
+		this.discussedBills.add(bill);
 	}
 }
