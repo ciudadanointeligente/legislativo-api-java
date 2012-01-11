@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import cl.votainteligente.legislativo.model.domainobjects.SingleVoteDO;
-
+import cl.votainteligente.legislativo.model.domainobjects.SingleVoteDetailedDO;
 
 @Entity
 @Table(name = "single_vote")
@@ -84,7 +84,11 @@ public class SingleVote {
 		return voteDetail;
 	}
 
-	public SingleVoteDO asDomainObject(){
+	public SingleVoteDetailedDO asDetailedDomainObject() {
+		return new SingleVoteDetailedDO(this);
+	}
+
+	public SingleVoteDO asDomainObject() {
 		return new SingleVoteDO(this);
 	}
 }

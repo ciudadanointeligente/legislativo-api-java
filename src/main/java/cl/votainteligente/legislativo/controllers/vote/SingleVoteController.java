@@ -17,7 +17,7 @@ import cl.votainteligente.legislativo.exceptions.ServerErrorException;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.SingleVote;
 import cl.votainteligente.legislativo.model.Vote;
-import cl.votainteligente.legislativo.model.domainobjects.SingleVoteDO;
+import cl.votainteligente.legislativo.model.domainobjects.SingleVoteDetailedDO;
 import cl.votainteligente.legislativo.service.person.PersonService;
 import cl.votainteligente.legislativo.service.vote.SingleVoteService;
 import cl.votainteligente.legislativo.service.vote.VoteService;
@@ -37,11 +37,11 @@ public class SingleVoteController implements SingleVoteAPI {
 
 	@RequestMapping(value = "singleVote/all", method = RequestMethod.GET)
 	@ResponseBody
-	public final Page<SingleVoteDO> getAll(
+	public final Page<SingleVoteDetailedDO> getAll(
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			return singleVoteService.getAllSingleVoteDO(page, perPage);
+			return singleVoteService.getAllSingleVoteDetailedDO(page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -50,7 +50,7 @@ public class SingleVoteController implements SingleVoteAPI {
 
 	@RequestMapping(value = "singleVote/legislator", method = RequestMethod.GET)
 	@ResponseBody
-	public final Page<SingleVoteDO> getAllByPerson(
+	public final Page<SingleVoteDetailedDO> getAllByPerson(
 			@RequestParam(value = "id", required = true) final long id,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
@@ -67,7 +67,7 @@ public class SingleVoteController implements SingleVoteAPI {
 
 	@RequestMapping(value = "singleVote/vote", method = RequestMethod.GET)
 	@ResponseBody
-	public final Page<SingleVoteDO> getAllByVote(
+	public final Page<SingleVoteDetailedDO> getAllByVote(
 			@RequestParam(value = "id", required = true) final long id,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
@@ -84,13 +84,13 @@ public class SingleVoteController implements SingleVoteAPI {
 
 	@RequestMapping(value = "singleVote/any", method = RequestMethod.GET)
 	@ResponseBody
-	public final SingleVoteDO getAllById(
+	public final SingleVoteDetailedDO getAllById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
 			SingleVote singleVote = singleVoteService.getSingleVote(id);
 			if (singleVote == null)
 				throw new ResourceNotFoundException();
-			return singleVote.asDomainObject();
+			return singleVote.asDetailedDomainObject();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();

@@ -12,7 +12,7 @@ import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.SingleVote;
 import cl.votainteligente.legislativo.model.Vote;
-import cl.votainteligente.legislativo.model.domainobjects.SingleVoteDO;
+import cl.votainteligente.legislativo.model.domainobjects.SingleVoteDetailedDO;
 import cl.votainteligente.legislativo.service.EntityManagerService;
 
 @Service
@@ -25,70 +25,70 @@ public class SingleVoteServiceImpl extends EntityManagerService implements
 	}
 
 	@Override
-	public SingleVoteDO getSingleVoteDO(Long id) throws ServiceException {
-		return getSingleVote(id).asDomainObject();
+	public SingleVoteDetailedDO getSingleVoteDetailedDO(Long id) throws ServiceException {
+		return getSingleVote(id).asDetailedDomainObject();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Page<SingleVoteDO> getAllSingleVoteDO(int page, int perPage)
+	public Page<SingleVoteDetailedDO> getAllSingleVoteDetailedDO(int page, int perPage)
 			throws ServiceException {
 		Query query = getEntityManager().createQuery(
 				"select s from SingleVote s");
 		query.setFirstResult((page - 1) * perPage);
 		query.setMaxResults(perPage);
-		List<SingleVoteDO> listDO = new ArrayList<SingleVoteDO>();
+		List<SingleVoteDetailedDO> listDO = new ArrayList<SingleVoteDetailedDO>();
 		for (SingleVote singleVote : (List<SingleVote>) query.getResultList()) {
-			listDO.add(singleVote.asDomainObject());
+			listDO.add(singleVote.asDetailedDomainObject());
 		}
 		Query queryCount = getEntityManager().createQuery(
 				"select count(s) from SingleVote s");
 		Long total = (Long) queryCount.getSingleResult();
 
-		return new Page<SingleVoteDO>(listDO, page, perPage, total);
+		return new Page<SingleVoteDetailedDO>(listDO, page, perPage, total);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Page<SingleVoteDO> getAllByPerson(Person person, int page,
+	public Page<SingleVoteDetailedDO> getAllByPerson(Person person, int page,
 			int perPage) throws ServiceException {
 		Query query = getEntityManager().createQuery(
 				"select s from SingleVote s join s.person l where l = ?");
 		query.setParameter(1, person);
 		query.setFirstResult((page - 1) * perPage);
 		query.setMaxResults(perPage);
-		List<SingleVoteDO> listDO = new ArrayList<SingleVoteDO>();
+		List<SingleVoteDetailedDO> listDO = new ArrayList<SingleVoteDetailedDO>();
 		for (SingleVote singleVote : (List<SingleVote>) query.getResultList()) {
-			listDO.add(singleVote.asDomainObject());
+			listDO.add(singleVote.asDetailedDomainObject());
 		}
 		Query queryCount = getEntityManager()
 				.createQuery(
 						"select count(s) from SingleVote s join s.person l where l = ?");
-		Long total = (Long) queryCount.getSingleResult();
 		queryCount.setParameter(1, person);
+		Long total = (Long) queryCount.getSingleResult();
 
-		return new Page<SingleVoteDO>(listDO, page, perPage, total);
+		return new Page<SingleVoteDetailedDO>(listDO, page, perPage, total);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Page<SingleVoteDO> getAllByVote(Vote vote, int page, int perPage)
+	public Page<SingleVoteDetailedDO> getAllByVote(Vote vote, int page, int perPage)
 			throws ServiceException {
 		Query query = getEntityManager().createQuery(
 				"select s from SingleVote s join s.vote v where v = ?");
 		query.setParameter(1, vote);
 		query.setFirstResult((page - 1) * perPage);
 		query.setMaxResults(perPage);
-		List<SingleVoteDO> listDO = new ArrayList<SingleVoteDO>();
+		List<SingleVoteDetailedDO> listDO = new ArrayList<SingleVoteDetailedDO>();
 		for (SingleVote singleVote : (List<SingleVote>) query.getResultList()) {
-			listDO.add(singleVote.asDomainObject());
+			listDO.add(singleVote.asDetailedDomainObject());
 		}
 		Query queryCount = getEntityManager().createQuery(
 				"select count(s) from SingleVote s join s.vote v where v = ?");
 		queryCount.setParameter(1, vote);
 		Long total = (Long) queryCount.getSingleResult();
 
-		return new Page<SingleVoteDO>(listDO, page, perPage, total);
+		return new Page<SingleVoteDetailedDO>(listDO, page, perPage, total);
 	}
 
 }

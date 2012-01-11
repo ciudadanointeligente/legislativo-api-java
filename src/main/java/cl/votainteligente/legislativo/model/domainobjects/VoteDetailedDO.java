@@ -10,26 +10,34 @@ import cl.votainteligente.legislativo.model.Vote;
 public class VoteDetailedDO {
 
 	private Long id;
-	private Long billId;
-	private Long result;
+	private BillDO billDetail;
+	private String result;
 	private Long sessionId;
 	private Time time;
 	private String name;
 	private String updatedAt;
 	private int yesVotes;
-	private Set<Long> votesId;
 	private int noVotes;
 	private int abstentionVotes;
 	private String type;
 	private int absentVotes;
 	private int matchingVotes;
 	private String quorum;
+	private Set<SingleVoteDO> voteDetails;
 
 	public VoteDetailedDO(Vote vote) {
 		this.id = vote.getId();
 		if (vote.getBill() != null)
-			this.billId = vote.getBill().getId();
-		this.result = vote.getResult();
+			this.billDetail = vote.getBill().asDomainObject();
+		Long resultInt = vote.getResult();
+		if (resultInt == 0L)
+			this.result = "0: Aprobado";
+		else if (resultInt == 1L)
+			this.result = "1: Rechazado";
+		else if (resultInt == 2L)
+			this.result = "2: Empate";
+		else if (resultInt == 3L)
+			this.result = "3: No quorum";
 		if (vote.getSession() != null)
 			this.sessionId = vote.getSession().getId();
 		this.updatedAt = DOUtil.getDateFormat().format(vote.getUpdatedAt());
@@ -41,10 +49,10 @@ public class VoteDetailedDO {
 		this.abstentionVotes = vote.getAbstentionVotes();
 		this.quorum = vote.getQuorum();
 		this.matchingVotes = vote.getMatchingVotes();
-		this.votesId = new HashSet<Long>();
+		this.voteDetails = new HashSet<SingleVoteDO>();
 		Set<SingleVote> votes = vote.getVotes();
-		for(SingleVote v : votes)
-			votesId.add(v.getId());
+		for (SingleVote v : votes)
+			voteDetails.add(v.asDomainObject());
 	}
 
 	public VoteDetailedDO() {
@@ -59,37 +67,40 @@ public class VoteDetailedDO {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
 	/**
-	 * @return the billId
+	 * @return the billDetail
 	 */
-	public Long getBillId() {
-		return billId;
+	public BillDO getBillDetail() {
+		return billDetail;
 	}
 
 	/**
-	 * @param billId the billId to set
+	 * @param billDetail
+	 *            the billDetail to set
 	 */
-	public void setBillId(Long billId) {
-		this.billId = billId;
+	public void setBillDetail(BillDO billDetail) {
+		this.billDetail = billDetail;
 	}
 
 	/**
 	 * @return the result
 	 */
-	public Long getResult() {
+	public String getResult() {
 		return result;
 	}
 
 	/**
-	 * @param result the result to set
+	 * @param result
+	 *            the result to set
 	 */
-	public void setResult(Long result) {
+	public void setResult(String result) {
 		this.result = result;
 	}
 
@@ -101,7 +112,8 @@ public class VoteDetailedDO {
 	}
 
 	/**
-	 * @param sessionId the sessionId to set
+	 * @param sessionId
+	 *            the sessionId to set
 	 */
 	public void setSessionId(Long sessionId) {
 		this.sessionId = sessionId;
@@ -131,7 +143,8 @@ public class VoteDetailedDO {
 	}
 
 	/**
-	 * @param updatedAt the updatedAt to set
+	 * @param updatedAt
+	 *            the updatedAt to set
 	 */
 	public void setUpdatedAt(String updatedAt) {
 		this.updatedAt = updatedAt;
@@ -145,24 +158,26 @@ public class VoteDetailedDO {
 	}
 
 	/**
-	 * @param yesVotes the yesVotes to set
+	 * @param yesVotes
+	 *            the yesVotes to set
 	 */
 	public void setYesVotes(int yesVotes) {
 		this.yesVotes = yesVotes;
 	}
 
 	/**
-	 * @return the votesId
+	 * @return the voteDetails
 	 */
-	public Set<Long> getVotesId() {
-		return votesId;
+	public Set<SingleVoteDO> getVoteDetails() {
+		return voteDetails;
 	}
 
 	/**
-	 * @param votesId the votesId to set
+	 * @param voteDetails
+	 *            the voteDetails to set
 	 */
-	public void setVotesId(Set<Long> votesId) {
-		this.votesId = votesId;
+	public void setVoteDetails(Set<SingleVoteDO> voteDetails) {
+		this.voteDetails = voteDetails;
 	}
 
 	/**
@@ -173,7 +188,8 @@ public class VoteDetailedDO {
 	}
 
 	/**
-	 * @param noVotes the noVotes to set
+	 * @param noVotes
+	 *            the noVotes to set
 	 */
 	public void setNoVotes(int noVotes) {
 		this.noVotes = noVotes;
@@ -187,7 +203,8 @@ public class VoteDetailedDO {
 	}
 
 	/**
-	 * @param abstentionVotes the abstentionVotes to set
+	 * @param abstentionVotes
+	 *            the abstentionVotes to set
 	 */
 	public void setAbstentionVotes(int abstentionVotes) {
 		this.abstentionVotes = abstentionVotes;
@@ -209,7 +226,8 @@ public class VoteDetailedDO {
 	}
 
 	/**
-	 * @param absentVotes the absentVotes to set
+	 * @param absentVotes
+	 *            the absentVotes to set
 	 */
 	public void setAbsentVotes(int absentVotes) {
 		this.absentVotes = absentVotes;
@@ -223,7 +241,8 @@ public class VoteDetailedDO {
 	}
 
 	/**
-	 * @param matchingVotes the matchingVotes to set
+	 * @param matchingVotes
+	 *            the matchingVotes to set
 	 */
 	public void setMatchingVotes(int matchingVotes) {
 		this.matchingVotes = matchingVotes;
@@ -237,7 +256,8 @@ public class VoteDetailedDO {
 	}
 
 	/**
-	 * @param quorum the quorum to set
+	 * @param quorum
+	 *            the quorum to set
 	 */
 	public void setQuorum(String quorum) {
 		this.quorum = quorum;

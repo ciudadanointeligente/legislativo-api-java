@@ -5,21 +5,21 @@ import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.model.Person;
 import cl.votainteligente.legislativo.model.SingleVote;
 import cl.votainteligente.legislativo.model.Vote;
-import cl.votainteligente.legislativo.model.domainobjects.SingleVoteDO;
+import cl.votainteligente.legislativo.model.domainobjects.SingleVoteDetailedDO;
 
 public interface SingleVoteService {
 
-	Page<SingleVoteDO> getAllSingleVoteDO(int page, int perPage)
+	Page<SingleVoteDetailedDO> getAllSingleVoteDetailedDO(int page, int perPage)
 			throws ServiceException;
 
-	Page<SingleVoteDO> getAllByPerson(Person person, int page, int perPage)
+	Page<SingleVoteDetailedDO> getAllByPerson(Person person, int page, int perPage)
 			throws ServiceException;
 
-	Page<SingleVoteDO> getAllByVote(Vote vote, int page, int perPage)
+	Page<SingleVoteDetailedDO> getAllByVote(Vote vote, int page, int perPage)
 			throws ServiceException;
 
 	SingleVote getSingleVote(Long id) throws ServiceException;
 
-	SingleVoteDO getSingleVoteDO(Long id) throws ServiceException;
+	SingleVoteDetailedDO getSingleVoteDetailedDO(Long id) throws ServiceException;
 
 }
