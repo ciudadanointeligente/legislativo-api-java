@@ -21,6 +21,7 @@ public class TestChamber extends TestCase {
 				.createEntityManagerFactory("PersistenceLegislativo");
 		em = emf.createEntityManager();
 		emf.close();
+
 		createdAt = new Timestamp(123214);
 		updatedAt = new Timestamp(123214);
 		chamber = new Chamber();

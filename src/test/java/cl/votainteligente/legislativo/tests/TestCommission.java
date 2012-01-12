@@ -30,6 +30,7 @@ public class TestCommission extends TestCase {
 				.createEntityManagerFactory("PersistenceLegislativo");
 		em = emf.createEntityManager();
 		emf.close();
+
 		commission = new Commission();
 		executiveLawyer = "Sergio Malagamba Stiglich";
 		secretaryLawyer = "Leonardo Lueiza Ureta";

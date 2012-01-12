@@ -19,12 +19,14 @@ public class TestLegislator extends TestCase {
 	private Region region;
 	private Set<Region> regions;
 	private Person person;
+
 	protected void setUp() throws Exception {
 		super.setUp();
 		EntityManagerFactory emf = Persistence
 				.createEntityManagerFactory("PersistenceLegislativo");
 		em = emf.createEntityManager();
 		emf.close();
+
 		chamber = new Chamber();
 		circunscription = new Circunscription();
 		district = new District();

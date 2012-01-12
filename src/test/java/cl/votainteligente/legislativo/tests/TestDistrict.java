@@ -25,6 +25,7 @@ public class TestDistrict extends TestCase {
 				.createEntityManagerFactory("PersistenceLegislativo");
 		em = emf.createEntityManager();
 		emf.close();
+
 		circunscription = new Circunscription();
 		circunscriptionName = "Maule Norte";
 		circunscription.setName(circunscriptionName);

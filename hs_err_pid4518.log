@@ -1,0 +1,607 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0xb4bdac17, pid=4518, tid=3079568240
+#
+# JRE version: 6.0_23-b23
+# Java VM: OpenJDK Server VM (20.0-b11 mixed mode linux-x86 )
+# Derivative: IcedTea6 1.11pre
+# Distribution: Ubuntu 11.10, package 6b23~pre11-0ubuntu1.11.10
+# Problematic frame:
+# J  com.sun.org.apache.xerces.internal.impl.xs.models.XSDFACM.calcFollowList(Lcom/sun/org/apache/xerces/internal/impl/dtd/models/CMNode;)V
+#
+# If you would like to submit a bug report, please include
+# instructions how to reproduce the bug and visit:
+#   https://bugs.launchpad.net/ubuntu/+source/openjdk-6/
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x09e12800):  JavaThread "main" [_thread_in_Java, id=4519, stack(0xb7897000,0xb78e8000)]
+
+siginfo:si_signo=SIGSEGV: si_errno=0, si_code=128 (), si_addr=0x00000000
+
+Registers:
+EAX=0xb4bda5cc, EBX=0x00000001, ECX=0xb092f4d0, EDX=0xb092f4d0
+ESP=0xb78e67c0, EBP=0x8d2d6298, ESI=0xb78e6810, EDI=0xb092f4d0
+EIP=0xb4bdac17, EFLAGS=0x00010293, CR2=0x00000004
+
+Top of Stack: (sp=0xb78e67c0)
+0xb78e67c0:   b092f4d0 b092f528 003a0070 002f002f
+0xb78e67d0:   0061006a 00610076 0073002e 006e0075
+0xb78e67e0:   0063002e 00000206 b4bdacf4 b78e6810
+0xb78e67f0:   b78e6808 b78e6808 8d2d8ef8 b092f4d0
+0xb78e6800:   b092f528 b4bda5cc b092f500 b4bdad00
+0xb78e6810:   b092f500 b092f528 b78e683c b4b0471a
+0xb78e6820:   00000000 b4b049a0 b4b049c0 b4b08440
+0xb78e6830:   b4b049c0 b4b08440 b4b08484 0153cd48 
+
+Instructions: (pc=0xb4bdac17)
+0xb4bdabf7:   04 8b 59 0c 85 db 7e 6d 8b 5c 24 08 85 db 0f 84
+0xb4bdac07:   dc 44 00 00 33 ed e9 8c 00 00 00 89 14 24 8b ca
+0xb4bdac17:   e8 2c 79 00 00 83 f8 04 0f 84 b8 00 00 00 8b 0c
+0xb4bdac27:   24 66 66 90 e8 b0 94 ce ff 83 f8 06 0f 84 a4 00 
+
+Register to memory mapping:
+
+EAX=0xb4bd9c08 [CodeBlob (0xb4bd9c08)]
+Framesize: 20
+EBX=0x00000001 is an unknown value
+ECX=0xb092f4d0 is an oop
+com.sun.org.apache.xerces.internal.impl.xs.models.XSCMLeaf 
+ - klass: 'com/sun/org/apache/xerces/internal/impl/xs/models/XSCMLeaf'
+EDX=0xb092f4d0 is an oop
+com.sun.org.apache.xerces.internal.impl.xs.models.XSCMLeaf 
+ - klass: 'com/sun/org/apache/xerces/internal/impl/xs/models/XSCMLeaf'
+ESP=0xb78e67c0 is pointing into the stack for thread: 0x09e12800
+EBP=0x8d2d6298 is an oop
+{instance class} 
+ - klass: {other class}
+ESI=0xb78e6810 is pointing into the stack for thread: 0x09e12800
+EDI=0xb092f4d0 is an oop
+com.sun.org.apache.xerces.internal.impl.xs.models.XSCMLeaf 
+ - klass: 'com/sun/org/apache/xerces/internal/impl/xs/models/XSCMLeaf'
+
+
+Stack: [0xb7897000,0xb78e8000],  sp=0xb78e67c0,  free space=317k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+J  com.sun.org.apache.xerces.internal.impl.xs.models.XSDFACM.calcFollowList(Lcom/sun/org/apache/xerces/internal/impl/dtd/models/CMNode;)V
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x0a1d1c00 JavaThread "MySQL Statement Cancellation Timer" daemon [_thread_blocked, id=4538, stack(0x8b839000,0x8b88a000)]
+  0x8b969400 JavaThread "ReaderThread" [_thread_in_native, id=4537, stack(0x8b88d000,0x8b8de000)]
+  0x09eb6400 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=4534, stack(0x8bdd6000,0x8be27000)]
+  0x09eb2c00 JavaThread "C2 CompilerThread1" daemon [_thread_in_native, id=4533, stack(0x8be27000,0x8bea8000)]
+  0x09eb0c00 JavaThread "C2 CompilerThread0" daemon [_thread_in_native_trans, id=4532, stack(0x8bea8000,0x8bf29000)]
+  0x09eaf400 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=4531, stack(0x8bf29000,0x8bf7a000)]
+  0x09e9c800 JavaThread "Finalizer" daemon [_thread_blocked, id=4530, stack(0x8c1bb000,0x8c20c000)]
+  0x09e9b000 JavaThread "Reference Handler" daemon [_thread_blocked, id=4529, stack(0x8c20c000,0x8c25d000)]
+=>0x09e12800 JavaThread "main" [_thread_in_Java, id=4519, stack(0xb7897000,0xb78e8000)]
+
+Other Threads:
+  0x09e97400 VMThread [stack: 0x8c25d000,0x8c2de000] [id=4528]
+  0x09eb8000 WatcherThread [stack: 0x8bd55000,0x8bdd6000] [id=4535]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ PSYoungGen      total 155264K, used 125578K [0xa9d30000, 0xb47d0000, 0xb47d0000)
+  eden space 141184K, 78% used [0xa9d30000,0xb0a160f0,0xb2710000)
+  from space 14080K, 99% used [0xb3a10000,0xb47cca50,0xb47d0000)
+  to   space 16768K, 0% used [0xb2710000,0xb2710000,0xb3770000)
+ PSOldGen        total 89280K, used 58732K [0x947d0000, 0x99f00000, 0xa9d30000)
+  object space 89280K, 65% used [0x947d0000,0x9812b300,0x99f00000)
+ PSPermGen       total 43648K, used 21271K [0x8c7d0000, 0x8f270000, 0x947d0000)
+  object space 43648K, 48% used [0x8c7d0000,0x8dc95e30,0x8f270000)
+
+Code Cache  [0xb4897000, 0xb4bef000, 0xb7897000)
+ total_blobs=1243 nmethods=1086 adapters=110 free_code_cache=46910208 largest_free_block=39424
+
+Dynamic libraries:
+00110000-0012c000 r-xp 00000000 08:06 1180602    /lib/i386-linux-gnu/libgcc_s.so.1
+0012c000-0012d000 r--p 0001b000 08:06 1180602    /lib/i386-linux-gnu/libgcc_s.so.1
+0012d000-0012e000 rw-p 0001c000 08:06 1180602    /lib/i386-linux-gnu/libgcc_s.so.1
+0012e000-00132000 r-xp 00000000 08:06 1709407    /usr/lib/i386-linux-gnu/libplc4.so
+00132000-00133000 r--p 00003000 08:06 1709407    /usr/lib/i386-linux-gnu/libplc4.so
+00133000-00134000 rw-p 00004000 08:06 1709407    /usr/lib/i386-linux-gnu/libplc4.so
+00135000-00153000 r-xp 00000000 08:06 1180568    /lib/i386-linux-gnu/ld-2.13.so
+00153000-00154000 r--p 0001d000 08:06 1180568    /lib/i386-linux-gnu/ld-2.13.so
+00154000-00155000 rw-p 0001e000 08:06 1180568    /lib/i386-linux-gnu/ld-2.13.so
+00155000-0015c000 r-xp 00000000 08:06 1180645    /lib/i386-linux-gnu/librt-2.13.so
+0015c000-0015d000 r--p 00006000 08:06 1180645    /lib/i386-linux-gnu/librt-2.13.so
+0015d000-0015e000 rw-p 00007000 08:06 1180645    /lib/i386-linux-gnu/librt-2.13.so
+0015e000-00169000 r-xp 00000000 08:06 1718780    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libverify.so
+00169000-0016a000 ---p 0000b000 08:06 1718780    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libverify.so
+0016a000-0016b000 r--p 0000b000 08:06 1718780    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libverify.so
+0016b000-0016c000 rw-p 0000c000 08:06 1718780    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libverify.so
+0016c000-00192000 r-xp 00000000 08:06 1718395    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libjava.so
+00192000-00193000 r--p 00025000 08:06 1718395    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libjava.so
+00193000-00195000 rw-p 00026000 08:06 1718395    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libjava.so
+00195000-0019d000 r-xp 00000000 08:06 1180618    /lib/i386-linux-gnu/libnss_compat-2.13.so
+0019d000-0019e000 r--p 00007000 08:06 1180618    /lib/i386-linux-gnu/libnss_compat-2.13.so
+0019e000-0019f000 rw-p 00008000 08:06 1180618    /lib/i386-linux-gnu/libnss_compat-2.13.so
+0019f000-001b4000 r-xp 00000000 08:06 1718788    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnet.so
+001b4000-001b5000 r--p 00014000 08:06 1718788    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnet.so
+001b5000-001b6000 rw-p 00015000 08:06 1718788    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnet.so
+001b6000-001cd000 r-xp 00000000 08:06 1709381    /usr/lib/i386-linux-gnu/libnssutil3.so
+001cd000-001d0000 r--p 00016000 08:06 1709381    /usr/lib/i386-linux-gnu/libnssutil3.so
+001d0000-001d1000 rw-p 00019000 08:06 1709381    /usr/lib/i386-linux-gnu/libnssutil3.so
+001d1000-001d4000 r-xp 00000000 08:06 1709408    /usr/lib/i386-linux-gnu/libplds4.so
+001d4000-001d5000 r--p 00002000 08:06 1709408    /usr/lib/i386-linux-gnu/libplds4.so
+001d5000-001d6000 rw-p 00003000 08:06 1709408    /usr/lib/i386-linux-gnu/libplds4.so
+001d6000-0020d000 r-xp 00000000 08:06 1709372    /usr/lib/i386-linux-gnu/libnspr4.so
+0020d000-0020e000 ---p 00037000 08:06 1709372    /usr/lib/i386-linux-gnu/libnspr4.so
+0020e000-0020f000 r--p 00037000 08:06 1709372    /usr/lib/i386-linux-gnu/libnspr4.so
+0020f000-00210000 rw-p 00038000 08:06 1709372    /usr/lib/i386-linux-gnu/libnspr4.so
+00210000-00212000 rw-p 00000000 00:00 0 
+00212000-00214000 r-xp 00000000 08:06 1179714    /lib/libnss_mdns4_minimal.so.2
+00214000-00215000 r--p 00001000 08:06 1179714    /lib/libnss_mdns4_minimal.so.2
+00215000-00216000 rw-p 00002000 08:06 1179714    /lib/libnss_mdns4_minimal.so.2
+0021a000-0022d000 r-xp 00000000 08:06 1180664    /lib/i386-linux-gnu/libz.so.1.2.3.4
+0022d000-0022e000 r--p 00012000 08:06 1180664    /lib/i386-linux-gnu/libz.so.1.2.3.4
+0022e000-0022f000 rw-p 00013000 08:06 1180664    /lib/i386-linux-gnu/libz.so.1.2.3.4
+0022f000-0026f000 r-xp 00000000 08:06 1709872    /usr/lib/i386-linux-gnu/nss/libsoftokn3.so
+0026f000-00270000 r--p 0003f000 08:06 1709872    /usr/lib/i386-linux-gnu/nss/libsoftokn3.so
+00270000-00271000 rw-p 00040000 08:06 1709872    /usr/lib/i386-linux-gnu/nss/libsoftokn3.so
+00277000-0028e000 r-xp 00000000 08:06 1180641    /lib/i386-linux-gnu/libpthread-2.13.so
+0028e000-0028f000 r--p 00016000 08:06 1180641    /lib/i386-linux-gnu/libpthread-2.13.so
+0028f000-00290000 rw-p 00017000 08:06 1180641    /lib/i386-linux-gnu/libpthread-2.13.so
+00290000-00292000 rw-p 00000000 00:00 0 
+00292000-002e5000 r-xp 00000000 08:06 1709867    /usr/lib/i386-linux-gnu/nss/libfreebl3.so
+002e5000-002e6000 r--p 00052000 08:06 1709867    /usr/lib/i386-linux-gnu/nss/libfreebl3.so
+002e6000-002e7000 rw-p 00053000 08:06 1709867    /usr/lib/i386-linux-gnu/nss/libfreebl3.so
+002e7000-002eb000 rw-p 00000000 00:00 0 
+002eb000-002f0000 r-xp 00000000 08:06 1180620    /lib/i386-linux-gnu/libnss_dns-2.13.so
+002f0000-002f1000 r--p 00004000 08:06 1180620    /lib/i386-linux-gnu/libnss_dns-2.13.so
+002f1000-002f2000 rw-p 00005000 08:06 1180620    /lib/i386-linux-gnu/libnss_dns-2.13.so
+002f2000-0042e000 r-xp 00000000 08:06 1709373    /usr/lib/i386-linux-gnu/libnss3.so
+0042e000-00431000 r--p 0013b000 08:06 1709373    /usr/lib/i386-linux-gnu/libnss3.so
+00431000-00433000 rw-p 0013e000 08:06 1709373    /usr/lib/i386-linux-gnu/libnss3.so
+00433000-004d1000 r-xp 00000000 08:06 1709444    /usr/lib/i386-linux-gnu/libsqlite3.so.0.8.6
+004d1000-004d2000 ---p 0009e000 08:06 1709444    /usr/lib/i386-linux-gnu/libsqlite3.so.0.8.6
+004d2000-004d3000 r--p 0009e000 08:06 1709444    /usr/lib/i386-linux-gnu/libsqlite3.so.0.8.6
+004d3000-004d4000 rw-p 0009f000 08:06 1709444    /usr/lib/i386-linux-gnu/libsqlite3.so.0.8.6
+004d4000-004d5000 rw-p 00000000 00:00 0 
+004d5000-004e8000 r-xp 00000000 08:06 1180643    /lib/i386-linux-gnu/libresolv-2.13.so
+004e8000-004e9000 r--p 00012000 08:06 1180643    /lib/i386-linux-gnu/libresolv-2.13.so
+004e9000-004ea000 rw-p 00013000 08:06 1180643    /lib/i386-linux-gnu/libresolv-2.13.so
+004ea000-004ec000 rw-p 00000000 00:00 0 
+005fd000-00600000 r-xp 00000000 08:06 1180592    /lib/i386-linux-gnu/libdl-2.13.so
+00600000-00601000 r--p 00002000 08:06 1180592    /lib/i386-linux-gnu/libdl-2.13.so
+00601000-00602000 rw-p 00003000 08:06 1180592    /lib/i386-linux-gnu/libdl-2.13.so
+0072c000-00733000 r-xp 00000000 08:06 1718400    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libzip.so
+00733000-00734000 r--p 00006000 08:06 1718400    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libzip.so
+00734000-00735000 rw-p 00007000 08:06 1718400    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libzip.so
+0073b000-00763000 r-xp 00000000 08:06 1180611    /lib/i386-linux-gnu/libm-2.13.so
+00763000-00764000 r--p 00028000 08:06 1180611    /lib/i386-linux-gnu/libm-2.13.so
+00764000-00765000 rw-p 00029000 08:06 1180611    /lib/i386-linux-gnu/libm-2.13.so
+00785000-0079a000 r-xp 00000000 08:06 1180616    /lib/i386-linux-gnu/libnsl-2.13.so
+0079a000-0079b000 r--p 00015000 08:06 1180616    /lib/i386-linux-gnu/libnsl-2.13.so
+0079b000-0079c000 rw-p 00016000 08:06 1180616    /lib/i386-linux-gnu/libnsl-2.13.so
+0079c000-0079e000 rw-p 00000000 00:00 0 
+0086f000-0087e000 r-xp 00000000 08:06 1718396    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libj2pkcs11.so
+0087e000-0087f000 r--p 0000e000 08:06 1718396    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libj2pkcs11.so
+0087f000-00880000 rw-p 0000f000 08:06 1718396    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libj2pkcs11.so
+0088e000-0096c000 r-xp 00000000 08:06 1709449    /usr/lib/i386-linux-gnu/libstdc++.so.6.0.16
+0096c000-0096d000 ---p 000de000 08:06 1709449    /usr/lib/i386-linux-gnu/libstdc++.so.6.0.16
+0096d000-00971000 r--p 000de000 08:06 1709449    /usr/lib/i386-linux-gnu/libstdc++.so.6.0.16
+00971000-00972000 rw-p 000e2000 08:06 1709449    /usr/lib/i386-linux-gnu/libstdc++.so.6.0.16
+00972000-00979000 rw-p 00000000 00:00 0 
+00a01000-00a05000 r-xp 00000000 08:06 1718403    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/jli/libjli.so
+00a05000-00a06000 r--p 00003000 08:06 1718403    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/jli/libjli.so
+00a06000-00a07000 rw-p 00004000 08:06 1718403    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/jli/libjli.so
+00a3d000-00a3e000 r-xp 00000000 00:00 0          [vdso]
+00a8e000-00a98000 r-xp 00000000 08:06 1180626    /lib/i386-linux-gnu/libnss_nis-2.13.so
+00a98000-00a99000 r--p 00009000 08:06 1180626    /lib/i386-linux-gnu/libnss_nis-2.13.so
+00a99000-00a9a000 rw-p 0000a000 08:06 1180626    /lib/i386-linux-gnu/libnss_nis-2.13.so
+00af3000-00afe000 r-xp 00000000 08:06 1180622    /lib/i386-linux-gnu/libnss_files-2.13.so
+00afe000-00aff000 r--p 0000a000 08:06 1180622    /lib/i386-linux-gnu/libnss_files-2.13.so
+00aff000-00b00000 rw-p 0000b000 08:06 1180622    /lib/i386-linux-gnu/libnss_files-2.13.so
+00b65000-00cdb000 r-xp 00000000 08:06 1180581    /lib/i386-linux-gnu/libc-2.13.so
+00cdb000-00cdd000 r--p 00176000 08:06 1180581    /lib/i386-linux-gnu/libc-2.13.so
+00cdd000-00cde000 rw-p 00178000 08:06 1180581    /lib/i386-linux-gnu/libc-2.13.so
+00cde000-00ce1000 rw-p 00000000 00:00 0 
+00ce1000-014ff000 r-xp 00000000 08:06 1718772    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/server/libjvm.so
+014ff000-01544000 r--p 0081e000 08:06 1718772    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/server/libjvm.so
+01544000-01553000 rw-p 00863000 08:06 1718772    /usr/lib/jvm/java-6-openjdk/jre/lib/i386/server/libjvm.so
+01553000-0196d000 rw-p 00000000 00:00 0 
+08048000-08051000 r-xp 00000000 08:06 1704211    /usr/lib/jvm/java-6-openjdk/jre/bin/java
+08051000-08052000 r--p 00008000 08:06 1704211    /usr/lib/jvm/java-6-openjdk/jre/bin/java
+08052000-08053000 rw-p 00009000 08:06 1704211    /usr/lib/jvm/java-6-openjdk/jre/bin/java
+09e03000-0ce85000 rw-p 00000000 00:00 0          [heap]
+85100000-851b1000 rw-p 00000000 00:00 0 
+851b1000-85200000 ---p 00000000 00:00 0 
+85300000-853e5000 rw-p 00000000 00:00 0 
+853e5000-85400000 ---p 00000000 00:00 0 
+85400000-854f0000 rw-p 00000000 00:00 0 
+854f0000-85500000 ---p 00000000 00:00 0 
+85500000-855e5000 rw-p 00000000 00:00 0 
+855e5000-85600000 ---p 00000000 00:00 0 
+85600000-856f4000 rw-p 00000000 00:00 0 
+856f4000-85700000 ---p 00000000 00:00 0 
+85700000-857ea000 rw-p 00000000 00:00 0 
+857ea000-85800000 ---p 00000000 00:00 0 
+85800000-858f9000 rw-p 00000000 00:00 0 
+858f9000-85900000 ---p 00000000 00:00 0 
+85900000-859fe000 rw-p 00000000 00:00 0 
+859fe000-85a00000 ---p 00000000 00:00 0 
+85a00000-85b00000 rw-p 00000000 00:00 0 
+85b00000-85bf8000 rw-p 00000000 00:00 0 
+85bf8000-85c00000 ---p 00000000 00:00 0 
+85c00000-85cf7000 rw-p 00000000 00:00 0 
+85cf7000-85d00000 ---p 00000000 00:00 0 
+85d00000-85f00000 rw-p 00000000 00:00 0 
+85f00000-86100000 rw-p 00000000 00:00 0 
+86100000-86300000 rw-p 00000000 00:00 0 
+86300000-86500000 rw-p 00000000 00:00 0 
+86500000-86700000 rw-p 00000000 00:00 0 
+86700000-86900000 rw-p 00000000 00:00 0 
+86900000-86b00000 rw-p 00000000 00:00 0 
+86b00000-86d00000 rw-p 00000000 00:00 0 
+86d00000-86f00000 rw-p 00000000 00:00 0 
+86f00000-87100000 rw-p 00000000 00:00 0 
+87100000-87300000 rw-p 00000000 00:00 0 
+87300000-87500000 rw-p 00000000 00:00 0 
+87500000-87700000 rw-p 00000000 00:00 0 
+87700000-87900000 rw-p 00000000 00:00 0 
+87900000-87b00000 rw-p 00000000 00:00 0 
+87b00000-87d00000 rw-p 00000000 00:00 0 
+87d00000-87f00000 rw-p 00000000 00:00 0 
+87f00000-88100000 rw-p 00000000 00:00 0 
+88100000-881fb000 rw-p 00000000 00:00 0 
+881fb000-88200000 ---p 00000000 00:00 0 
+88300000-883ef000 rw-p 00000000 00:00 0 
+883ef000-88400000 ---p 00000000 00:00 0 
+88400000-884fc000 rw-p 00000000 00:00 0 
+884fc000-88500000 ---p 00000000 00:00 0 
+88500000-885fe000 rw-p 00000000 00:00 0 
+885fe000-88600000 ---p 00000000 00:00 0 
+88600000-886f9000 rw-p 00000000 00:00 0 
+886f9000-88700000 ---p 00000000 00:00 0 
+88700000-887fb000 rw-p 00000000 00:00 0 
+887fb000-88800000 ---p 00000000 00:00 0 
+88900000-889e0000 rw-p 00000000 00:00 0 
+889e0000-88a00000 ---p 00000000 00:00 0 
+88a00000-88af9000 rw-p 00000000 00:00 0 
+88af9000-88b00000 ---p 00000000 00:00 0 
+88b00000-88bfa000 rw-p 00000000 00:00 0 
+88bfa000-88c00000 ---p 00000000 00:00 0 
+88c00000-88cfe000 rw-p 00000000 00:00 0 
+88cfe000-88d00000 ---p 00000000 00:00 0 
+88d00000-88ee5000 rw-p 00000000 00:00 0 
+88ee5000-88f00000 ---p 00000000 00:00 0 
+88f00000-88ff0000 rw-p 00000000 00:00 0 
+88ff0000-89000000 ---p 00000000 00:00 0 
+89000000-890f4000 rw-p 00000000 00:00 0 
+890f4000-89100000 ---p 00000000 00:00 0 
+89100000-89300000 rw-p 00000000 00:00 0 
+89300000-89500000 rw-p 00000000 00:00 0 
+89500000-89700000 rw-p 00000000 00:00 0 
+89700000-89900000 rw-p 00000000 00:00 0 
+89900000-89b00000 rw-p 00000000 00:00 0 
+89b00000-89d00000 rw-p 00000000 00:00 0 
+89d00000-89dfe000 rw-p 00000000 00:00 0 
+89dfe000-89e00000 ---p 00000000 00:00 0 
+89f00000-89ffa000 rw-p 00000000 00:00 0 
+89ffa000-8a000000 ---p 00000000 00:00 0 
+8a000000-8a100000 rw-p 00000000 00:00 0 
+8a100000-8a1c7000 rw-p 00000000 00:00 0 
+8a1c7000-8a200000 ---p 00000000 00:00 0 
+8a200000-8a2fa000 rw-p 00000000 00:00 0 
+8a2fa000-8a300000 ---p 00000000 00:00 0 
+8a300000-8a3ce000 rw-p 00000000 00:00 0 
+8a3ce000-8a400000 ---p 00000000 00:00 0 
+8a400000-8a4fa000 rw-p 00000000 00:00 0 
+8a4fa000-8a500000 ---p 00000000 00:00 0 
+8a500000-8a5fa000 rw-p 00000000 00:00 0 
+8a5fa000-8a600000 ---p 00000000 00:00 0 
+8a600000-8a700000 rw-p 00000000 00:00 0 
+8a700000-8a8fc000 rw-p 00000000 00:00 0 
+8a8fc000-8a900000 ---p 00000000 00:00 0 
+8a900000-8aafe000 rw-p 00000000 00:00 0 
+8aafe000-8ab00000 ---p 00000000 00:00 0 
+8ab00000-8abef000 rw-p 00000000 00:00 0 
+8abef000-8ac00000 ---p 00000000 00:00 0 
+8ac00000-8acfb000 rw-p 00000000 00:00 0 
+8acfb000-8ad00000 ---p 00000000 00:00 0 
+8ad00000-8adfe000 rw-p 00000000 00:00 0 
+8adfe000-8ae00000 ---p 00000000 00:00 0 
+8ae00000-8aef8000 rw-p 00000000 00:00 0 
+8aef8000-8af00000 ---p 00000000 00:00 0 
+8af00000-8afc6000 rw-p 00000000 00:00 0 
+8afc6000-8b000000 ---p 00000000 00:00 0 
+8b000000-8b0fd000 rw-p 00000000 00:00 0 
+8b0fd000-8b100000 ---p 00000000 00:00 0 
+8b100000-8b1b4000 rw-p 00000000 00:00 0 
+8b1b4000-8b200000 ---p 00000000 00:00 0 
+8b200000-8b2fe000 rw-p 00000000 00:00 0 
+8b2fe000-8b300000 ---p 00000000 00:00 0 
+8b300000-8b3fb000 rw-p 00000000 00:00 0 
+8b3fb000-8b400000 ---p 00000000 00:00 0 
+8b4f9000-8b500000 r--s 000fb000 08:06 1718392    /usr/lib/jvm/java-6-openjdk/jre/lib/resources.jar
+8b500000-8b5fe000 rw-p 00000000 00:00 0 
+8b5fe000-8b600000 ---p 00000000 00:00 0 
+8b6f7000-8b6fb000 r--s 00038000 08:06 1709415    /usr/lib/jvm/java-6-openjdk/jre/lib/ext/sunpkcs11.jar
+8b6fb000-8b6fd000 r--s 00013000 08:06 1706883    /usr/lib/jvm/java-6-openjdk/jre/lib/jce.jar
+8b6fd000-8b700000 r--s 00031000 08:06 1709417    /usr/lib/jvm/java-6-openjdk/jre/lib/ext/sunjce_provider.jar
+8b700000-8b7f9000 rw-p 00000000 00:00 0 
+8b7f9000-8b800000 ---p 00000000 00:00 0 
+8b839000-8b83c000 ---p 00000000 00:00 0 
+8b83c000-8b88a000 rw-p 00000000 00:00 0 
+8b88a000-8b88d000 r--s 0007d000 08:06 1704369    /usr/lib/jvm/java-6-openjdk/jre/lib/jsse.jar
+8b88d000-8b890000 ---p 00000000 00:00 0 
+8b890000-8b8de000 rw-p 00000000 00:00 0 
+8b8de000-8b8e3000 r--s 00065000 08:06 1860498    /home/aldo/.m2/repository/org/hibernate/antlr/2.7.5H3/antlr-2.7.5H3.jar
+8b8e3000-8b8e8000 r--s 00028000 08:06 1446145    /home/aldo/.m2/repository/org/apache/httpcomponents/httpcore/4.1.2/httpcore-4.1.2.jar
+8b8e8000-8b8f0000 r--s 0004e000 08:06 1446144    /home/aldo/.m2/repository/org/apache/httpcomponents/httpclient/4.1.2/httpclient-4.1.2.jar
+8b8f0000-8b8f4000 r--s 00027000 08:06 1446150    /home/aldo/.m2/repository/com/google/code/gson/gson/1.7.2/gson-1.7.2.jar
+8b8f4000-8b8f5000 r--s 00001000 08:06 1452410    /home/aldo/.m2/repository/javax/jws/jsr181-api/1.0-MR1/jsr181-api-1.0-MR1.jar
+8b8f5000-8b8f7000 r--s 00004000 08:06 1451368    /home/aldo/.m2/repository/org/codehaus/enunciate/enunciate-ruby/1.24/enunciate-ruby-1.24.jar
+8b8f7000-8b8f9000 r--s 00008000 08:06 1451365    /home/aldo/.m2/repository/org/codehaus/enunciate/enunciate-csharp/1.24/enunciate-csharp-1.24.jar
+8b8f9000-8b8fb000 r--s 0000b000 08:06 1451338    /home/aldo/.m2/repository/org/codehaus/enunciate/enunciate-obj-c/1.24/enunciate-obj-c-1.24.jar
+8b8fb000-8b8fc000 r--s 0000a000 08:06 1451337    /home/aldo/.m2/repository/org/codehaus/enunciate/enunciate-c/1.24/enunciate-c-1.24.jar
+8b8fc000-8b8fe000 r--s 00008000 08:06 1451271    /home/aldo/.m2/repository/org/codehaus/enunciate/enunciate-java-client/1.24/enunciate-java-client-1.24.jar
+8b8fe000-8b900000 r--s 00006000 08:06 1451270    /home/aldo/.m2/repository/org/codehaus/enunciate/enunciate-xml/1.24/enunciate-xml-1.24.jar
+8b900000-8b9fc000 rw-p 00000000 00:00 0 
+8b9fc000-8ba00000 ---p 00000000 00:00 0 
+8ba01000-8ba14000 r--s 000c4000 08:06 1451269    /home/aldo/.m2/repository/com/sun/xml/bind/jaxb-impl/2.1.13/jaxb-impl-2.1.13.jar
+8ba14000-8ba1a000 r--s 00059000 08:06 1451268    /home/aldo/.m2/repository/javax/mail/mail/1.4/mail-1.4.jar
+8ba1a000-8ba25000 r--s 00065000 08:06 1451265    /home/aldo/.m2/repository/com/sun/jersey/jersey-core/1.5/jersey-core-1.5.jar
+8ba25000-8ba36000 r--s 00096000 08:06 1451256    /home/aldo/.m2/repository/com/sun/jersey/jersey-server/1.5/jersey-server-1.5.jar
+8ba36000-8ba37000 r--s 00007000 08:06 1451255    /home/aldo/.m2/repository/org/codehaus/jackson/jackson-xc/1.7.4/jackson-xc-1.7.4.jar
+8ba37000-8ba38000 r--s 00004000 08:06 1451250    /home/aldo/.m2/repository/org/codehaus/jackson/jackson-jaxrs/1.7.4/jackson-jaxrs-1.7.4.jar
+8ba38000-8ba39000 r--s 00005000 08:06 1451248    /home/aldo/.m2/repository/org/codehaus/enunciate/enunciate-jersey-rt/1.24/enunciate-jersey-rt-1.24.jar
+8ba39000-8ba3b000 r--s 00002000 08:06 1451227    /home/aldo/.m2/repository/org/codehaus/enunciate/enunciate-jersey/1.24/enunciate-jersey-1.24.jar
+8ba3b000-8ba3e000 r--s 00023000 08:06 1451226    /home/aldo/.m2/repository/org/jdom/jdom/1.1/jdom-1.1.jar
+8ba3e000-8ba40000 r--s 0001f000 08:06 1451225    /home/aldo/.m2/repository/org/codehaus/enunciate/enunciate-docs/1.24/enunciate-docs-1.24.jar
+8ba40000-8ba42000 r--s 00002000 08:06 1451224    /home/aldo/.m2/repository/org/codehaus/enunciate/enunciate-jaxws-ri/1.24/enunciate-jaxws-ri-1.24.jar
+8ba42000-8ba43000 r--s 00002000 08:06 1451223    /home/aldo/.m2/repository/org/codehaus/enunciate/enunciate-jaxws-support/1.24/enunciate-jaxws-support-1.24.jar
+8ba43000-8ba45000 r--s 0001e000 08:06 1451221    /home/aldo/.m2/repository/org/codehaus/enunciate/enunciate-top/1.24/enunciate-top-1.24.jar
+8ba45000-8baa5000 r--s 00d92000 08:06 1449265    /home/aldo/workspace/legislativo-api-java/target/tools-local.jar
+8baa5000-8baa9000 r--s 0001f000 08:06 1451220    /home/aldo/.m2/repository/commons-digester/commons-digester/1.7/commons-digester-1.7.jar
+8baa9000-8bab8000 r--s 000c6000 08:06 1451219    /home/aldo/.m2/repository/org/freemarker/freemarker/2.3.14/freemarker-2.3.14.jar
+8bab8000-8babc000 r--s 00016000 08:06 1451217    /home/aldo/.m2/repository/net/sf/apt-jelly/apt-jelly-core/2.14/apt-jelly-core-2.14.jar
+8babc000-8babe000 r--s 00005000 08:06 1451216    /home/aldo/.m2/repository/net/sf/apt-jelly/apt-jelly-freemarker/2.14/apt-jelly-freemarker-2.14.jar
+8babe000-8bac0000 r--s 0000a000 08:06 1451215    /home/aldo/.m2/repository/javax/ws/rs/jsr311-api/1.1.1/jsr311-api-1.1.1.jar
+8bac0000-8bac1000 r--s 00001000 08:06 1451214    /home/aldo/.m2/repository/javax/annotation/jsr250-api/1.0/jsr250-api-1.0.jar
+8bac1000-8bac3000 r--s 00002000 08:06 1451213    /home/aldo/.m2/repository/org/codehaus/enunciate/enunciate-core-annotations/1.24/enunciate-core-annotations-1.24.jar
+8bac3000-8bac4000 r--s 00005000 08:06 1451211    /home/aldo/.m2/repository/org/codehaus/enunciate/enunciate-core-rt/1.24/enunciate-core-rt-1.24.jar
+8bac4000-8bad0000 r--s 0007c000 08:06 1451210    /home/aldo/.m2/repository/org/codehaus/enunciate/enunciate-core/1.24/enunciate-core-1.24.jar
+8bad0000-8bad5000 r--s 00039000 08:06 1452408    /home/aldo/.m2/repository/org/codehaus/plexus/plexus-utils/1.5.6/plexus-utils-1.5.6.jar
+8bad5000-8bad7000 r--s 0000b000 08:06 1452407    /home/aldo/.m2/repository/org/codehaus/plexus/plexus-interpolation/1.6/plexus-interpolation-1.6.jar
+8bad7000-8bad8000 r--s 0000b000 08:06 1452400    /home/aldo/.m2/repository/org/apache/maven/maven-settings/2.0.6/maven-settings-2.0.6.jar
+8bad8000-8bad9000 r--s 00002000 08:06 1452394    /home/aldo/.m2/repository/org/apache/maven/maven-monitor/2.0.6/maven-monitor-2.0.6.jar
+8bad9000-8badc000 r--s 0001b000 08:06 1452390    /home/aldo/.m2/repository/com/jcraft/jsch/0.1.27/jsch-0.1.27.jar
+8badc000-8badd000 r--s 00005000 08:06 1452389    /home/aldo/.m2/repository/org/apache/maven/wagon/wagon-ssh/1.0-beta-2/wagon-ssh-1.0-beta-2.jar
+8badd000-8badf000 r--s 00002000 08:06 1446399    /home/aldo/.m2/repository/org/codehaus/plexus/plexus-interactivity-api/1.0-alpha-4/plexus-interactivity-api-1.0-alpha-4.jar
+8badf000-8bae1000 r--s 00008000 08:06 1452388    /home/aldo/.m2/repository/org/apache/maven/maven-plugin-descriptor/2.0.6/maven-plugin-descriptor-2.0.6.jar
+8bae1000-8bae3000 r--s 00005000 08:06 1452387    /home/aldo/.m2/repository/org/apache/maven/wagon/wagon-ssh-common/1.0-beta-2/wagon-ssh-common-1.0-beta-2.jar
+8bae3000-8bae5000 r--s 00002000 08:06 1452383    /home/aldo/.m2/repository/org/apache/maven/wagon/wagon-ssh-external/1.0-beta-2/wagon-ssh-external-1.0-beta-2.jar
+8bae5000-8bae7000 r--s 00006000 08:06 1446398    /home/aldo/.m2/repository/commons-cli/commons-cli/1.0/commons-cli-1.0.jar
+8bae7000-8bae9000 r--s 00002000 08:06 1452381    /home/aldo/.m2/repository/org/apache/maven/maven-error-diagnostics/2.0.6/maven-error-diagnostics-2.0.6.jar
+8bae9000-8baea000 r--s 00001000 08:06 1446397    /home/aldo/.m2/repository/org/apache/maven/doxia/doxia-sink-api/1.0-alpha-7/doxia-sink-api-1.0-alpha-7.jar
+8baea000-8baeb000 r--s 00002000 08:06 1446396    /home/aldo/.m2/repository/org/apache/maven/reporting/maven-reporting-api/2.0.6/maven-reporting-api-2.0.6.jar
+8baeb000-8baee000 r--s 0001f000 08:06 1452374    /home/aldo/.m2/repository/jtidy/jtidy/4aug2000r7-dev/jtidy-4aug2000r7-dev.jar
+8baee000-8baef000 r--s 00002000 08:06 1452373    /home/aldo/.m2/repository/org/apache/maven/wagon/wagon-http-shared/1.0-beta-2/wagon-http-shared-1.0-beta-2.jar
+8baef000-8baf1000 r--s 00002000 08:06 1452370    /home/aldo/.m2/repository/org/apache/maven/wagon/wagon-http-lightweight/1.0-beta-2/wagon-http-lightweight-1.0-beta-2.jar
+8baf1000-8baf3000 r--s 00004000 08:06 1452368    /home/aldo/.m2/repository/org/apache/maven/maven-plugin-parameter-documenter/2.0.6/maven-plugin-parameter-documenter-2.0.6.jar
+8baf3000-8baf4000 r--s 00002000 08:06 1452361    /home/aldo/.m2/repository/org/apache/maven/wagon/wagon-file/1.0-beta-2/wagon-file-1.0-beta-2.jar
+8baf4000-8baf8000 r--s 00022000 08:06 1452357    /home/aldo/.m2/repository/org/apache/maven/maven-core/2.0.6/maven-core-2.0.6.jar
+8baf8000-8bafa000 r--s 00007000 08:06 1446991    /home/aldo/.m2/repository/org/apache/maven/shared/maven-filtering/1.0-beta-2/maven-filtering-1.0-beta-2.jar
+8bafa000-8bafe000 r--s 00010000 08:06 1452356    /home/aldo/.m2/repository/org/apache/maven/maven-artifact/2.0/maven-artifact-2.0.jar
+8bafe000-8bb00000 r--s 00008000 08:06 1452355    /home/aldo/.m2/repository/classworlds/classworlds/1.1-alpha-2/classworlds-1.1-alpha-2.jar
+8bb00000-8bb07000 r--s 00029000 08:06 1452349    /home/aldo/.m2/repository/org/codehaus/plexus/plexus-container-default/1.0-alpha-8/plexus-container-default-1.0-alpha-8.jar
+8bb07000-8bb09000 r--s 0000b000 08:06 1452346    /home/aldo/.m2/repository/org/apache/maven/wagon/wagon-provider-api/1.0-alpha-5/wagon-provider-api-1.0-alpha-5.jar
+8bb09000-8bb0b000 r--s 00004000 08:06 1452345    /home/aldo/.m2/repository/org/apache/maven/maven-repository-metadata/2.0/maven-repository-metadata-2.0.jar
+8bb0b000-8bb0d000 r--s 0000b000 08:06 1452344    /home/aldo/.m2/repository/org/apache/maven/maven-artifact-manager/2.0/maven-artifact-manager-2.0.jar
+8bb0d000-8bb10000 r--s 00011000 08:06 1452343    /home/aldo/.m2/repository/org/apache/maven/maven-model/2.0/maven-model-2.0.jar
+8bb10000-8bb12000 r--s 00006000 08:06 1452339    /home/aldo/.m2/repository/org/apache/maven/maven-profile/2.0/maven-profile-2.0.jar
+8bb12000-8bb15000 r--s 00017000 08:06 1452329    /home/aldo/.m2/repository/org/apache/maven/maven-project/2.0/maven-project-2.0.jar
+8bb15000-8bb17000 r--s 00001000 08:06 1452328    /home/aldo/.m2/repository/org/apache/maven/maven-plugin-api/2.0.1/maven-plugin-api-2.0.1.jar
+8bb17000-8bb18000 r--s 00003000 08:06 1451209    /home/aldo/.m2/repository/org/apache/maven/plugins/maven-deploy-plugin/2.3/maven-deploy-plugin-2.3.jar
+8bb18000-8bb19000 r--s 00002000 08:06 1451208    /home/aldo/.m2/repository/org/codehaus/plexus/plexus-digest/1.0/plexus-digest-1.0.jar
+8bb19000-8bb1a000 r--s 00005000 08:06 1451207    /home/aldo/.m2/repository/org/apache/maven/plugins/maven-install-plugin/2.3/maven-install-plugin-2.3.jar
+8bb1a000-8bb1b000 r--s 00009000 08:06 1451206    /home/aldo/.m2/repository/org/codehaus/enunciate/maven-enunciate-slim-plugin/1.24/maven-enunciate-slim-plugin-1.24.jar
+8bb1b000-8bb1c000 r--s 00002000 08:06 1451205    /home/aldo/.m2/repository/org/codehaus/enunciate/maven-enunciate-plugin/1.24/maven-enunciate-plugin-1.24.jar
+8bb1c000-8bb1e000 r--s 00011000 08:06 1452316    /home/aldo/.m2/repository/net/sf/ezmorph/ezmorph/1.0.1/ezmorph-1.0.1.jar
+8bb1e000-8bb22000 r--s 00038000 08:06 1452315    /home/aldo/.m2/repository/commons-lang/commons-lang/2.2/commons-lang-2.2.jar
+8bb22000-8bb27000 r--s 0002a000 08:06 1452314    /home/aldo/.m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar
+8bb27000-8bb29000 r--s 0000c000 08:06 1452313    /home/aldo/.m2/repository/net/sf/json-lib/json-lib/1.0/json-lib-1.0-jdk15.jar
+8bb29000-8bb2e000 r--s 00018000 08:06 1577131    /home/aldo/.m2/repository/org/aspectj/aspectjrt/1.6.2/aspectjrt-1.6.2.jar
+8bb2e000-8bb34000 r--s 0002d000 08:06 1577130    /home/aldo/.m2/repository/org/springframework/spring-test/3.0.6.RELEASE/spring-test-3.0.6.RELEASE.jar
+8bb34000-8bb36000 r--s 00007000 08:06 1577129    /home/aldo/.m2/repository/org/springframework/spring-aspects/3.0.6.RELEASE/spring-aspects-3.0.6.RELEASE.jar
+8bb36000-8bb3e000 r--s 0008a000 08:06 1445913    /home/aldo/.m2/repository/javassist/javassist/3.9.0.GA/javassist-3.9.0.GA.jar
+8bb3e000-8bb3f000 r--s 0000a000 08:06 1445912    /home/aldo/.m2/repository/asm/asm/3.1/asm-3.1.jar
+8bb3f000-8bb46000 r--s 0003e000 08:06 1445911    /home/aldo/.m2/repository/cglib/cglib/2.2/cglib-2.2.jar
+8bb46000-8bb4f000 r--s 0005c000 08:06 1445902    /home/aldo/.m2/repository/org/hibernate/hibernate-entitymanager/3.5.1-Final/hibernate-entitymanager-3.5.1-Final.jar
+8bb4f000-8bb54000 r--s 00014000 08:06 1445919    /home/aldo/.m2/repository/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.0.Final/hibernate-jpa-2.0-api-1.0.0.Final.jar
+8bb54000-8bb57000 r--s 0000f000 08:06 1445910    /home/aldo/.m2/repository/org/hibernate/hibernate-commons-annotations/3.2.0.Final/hibernate-commons-annotations-3.2.0.Final.jar
+8bb57000-8bb5d000 r--s 00054000 08:06 1445904    /home/aldo/.m2/repository/org/hibernate/hibernate-annotations/3.5.1-Final/hibernate-annotations-3.5.1-Final.jar
+8bb5d000-8bb62000 r--s 00016000 08:06 1446142    /home/aldo/.m2/repository/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar
+8bb62000-8bb67000 r--s 00048000 08:06 1446131    /home/aldo/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar
+8bb67000-8bb74000 r--s 0007c000 08:06 1446130    /home/aldo/.m2/repository/commons-collections/commons-collections/3.1/commons-collections-3.1.jar
+8bb74000-8bb7a000 r--s 00067000 08:06 1446129    /home/aldo/.m2/repository/antlr/antlr/2.7.6/antlr-2.7.6.jar
+8bb7a000-8bba1000 r--s 00246000 08:06 1445903    /home/aldo/.m2/repository/org/hibernate/hibernate-core/3.5.1-Final/hibernate-core-3.5.1-Final.jar
+8bba1000-8bba8000 r--s 000aa000 08:06 1446127    /home/aldo/.m2/repository/mysql/mysql-connector-java/5.1.8/mysql-connector-java-5.1.8.jar
+8bba8000-8bbaa000 r--s 00011000 08:06 1450247    /home/aldo/.m2/repository/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar
+8bbaa000-8bbb1000 r--s 00037000 08:06 1450246    /home/aldo/.m2/repository/junit/junit/4.10/junit-4.10.jar
+8bbb1000-8bbb4000 r--s 0001e000 08:06 1446155    /home/aldo/.m2/repository/org/tuckey/urlrewrite/2.5.2/urlrewrite-2.5.2.jar
+8bbb4000-8bbbd000 r--s 00096000 08:06 1446154    /home/aldo/.m2/repository/org/javassist/javassist/3.15.0-GA/javassist-3.15.0-GA.jar
+8bbbd000-8bbbf000 r--s 0000d000 08:06 1446146    /home/aldo/.m2/repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar
+8bbbf000-8bbc2000 r--s 0000d000 08:06 1446153    /home/aldo/.m2/repository/org/scribe/scribe/1.2.3/scribe-1.2.3.jar
+8bbc2000-8bbc6000 r--s 00034000 08:06 1446152    /home/aldo/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.1/jackson-core-asl-1.9.1.jar
+8bbc6000-8bbd4000 r--s 000ad000 08:06 1446151    /home/aldo/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.1/jackson-mapper-asl-1.9.1.jar
+8bbd4000-8bbdd000 r--s 0005e000 08:06 1446125    /home/aldo/.m2/repository/org/springframework/spring-webmvc/3.0.6.RELEASE/spring-webmvc-3.0.6.RELEASE.jar
+8bbdd000-8bbe7000 r--s 00058000 08:06 1446123    /home/aldo/.m2/repository/org/springframework/spring-web/3.0.6.RELEASE/spring-web-3.0.6.RELEASE.jar
+8bbe7000-8bbef000 r--s 0004a000 08:06 1446122    /home/aldo/.m2/repository/org/springframework/spring-orm/3.0.6.RELEASE/spring-orm-3.0.6.RELEASE.jar
+8bbef000-8bbf9000 r--s 00055000 08:06 1446121    /home/aldo/.m2/repository/org/springframework/spring-jdbc/3.0.6.RELEASE/spring-jdbc-3.0.6.RELEASE.jar
+8bbf9000-8bc00000 r--s 00032000 08:06 1446120    /home/aldo/.m2/repository/org/springframework/spring-tx/3.0.6.RELEASE/spring-tx-3.0.6.RELEASE.jar
+8bc00000-8bd00000 rw-p 00000000 00:00 0 
+8bd00000-8bd03000 r--s 00013000 08:06 1446148    /home/aldo/.m2/repository/org/apache/commons/commons-io/1.3.2/commons-io-1.3.2.jar
+8bd03000-8bd06000 r--s 00016000 08:06 1446126    /home/aldo/.m2/repository/org/springframework/spring-context-support/3.0.6.RELEASE/spring-context-support-3.0.6.RELEASE.jar
+8bd06000-8bd0a000 r--s 00026000 08:06 1446119    /home/aldo/.m2/repository/org/springframework/spring-expression/3.0.6.RELEASE/spring-expression-3.0.6.RELEASE.jar
+8bd0a000-8bd1b000 r--s 00093000 08:06 1446117    /home/aldo/.m2/repository/org/springframework/spring-context/3.0.6.RELEASE/spring-context-3.0.6.RELEASE.jar
+8bd1b000-8bd1d000 r--s 00000000 08:06 1446116    /home/aldo/.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar
+8bd1d000-8bd26000 r--s 00046000 08:06 1446115    /home/aldo/.m2/repository/org/springframework/spring-aop/3.0.6.RELEASE/spring-aop-3.0.6.RELEASE.jar
+8bd26000-8bd31000 r--s 0007d000 08:06 1446114    /home/aldo/.m2/repository/org/springframework/spring-beans/3.0.6.RELEASE/spring-beans-3.0.6.RELEASE.jar
+8bd31000-8bd3a000 r--s 00055000 08:06 1446111    /home/aldo/.m2/repository/org/springframework/spring-core/3.0.6.RELEASE/spring-core-3.0.6.RELEASE.jar
+8bd3a000-8bd44000 r--s 0005c000 08:06 1446110    /home/aldo/.m2/repository/javax/servlet/jstl/1.2/jstl-1.2.jar
+8bd44000-8bd4d000 r--s 0006d000 08:06 1446105    /home/aldo/.m2/repository/log4j/log4j/1.2.16/log4j-1.2.16.jar
+8bd4d000-8bd55000 r--s 00066000 08:06 146646     /usr/share/java/gnome-java-bridge.jar
+8bd55000-8bd56000 ---p 00000000 00:00 0 
+8bd56000-8bdd6000 rw-p 00000000 00:00 0 
+8bdd6000-8bdd9000 ---p 00000000 00:00 0 
+8bdd9000-8be27000 rw-p 00000000 00:00 0 
+8be27000-8be2a000 ---p 00000000 00:00 0 
+8be2a000-8bea8000 rw-p 00000000 00:00 0 
+8bea8000-8beab000 ---p 00000000 00:00 0 
+8beab000-8bf29000 rw-p 00000000 00:00 0 
+8bf29000-8bf2c000 ---p 00000000 00:00 0 
+8bf2c000-8bf7a000 rw-p 00000000 00:00 0 
+8bf7a000-8bf7b000 r--p 0043a000 08:06 1711580    /usr/lib/locale/locale-archive
+8bf7b000-8bfbb000 r--p 002bd000 08:06 1711580    /usr/lib/locale/locale-archive
+8bfbb000-8c1bb000 r--p 00000000 08:06 1711580    /usr/lib/locale/locale-archive
+8c1bb000-8c1be000 ---p 00000000 00:00 0 
+8c1be000-8c20c000 rw-p 00000000 00:00 0 
+8c20c000-8c20f000 ---p 00000000 00:00 0 
+8c20f000-8c25d000 rw-p 00000000 00:00 0 
+8c25d000-8c25e000 ---p 00000000 00:00 0 
+8c25e000-8c311000 rw-p 00000000 00:00 0 
+8c311000-8c4a2000 r--s 037b8000 08:06 1718791    /usr/lib/jvm/java-6-openjdk/jre/lib/rt.jar
+8c4a2000-8c4a3000 ---p 00000000 00:00 0 
+8c4a3000-8c523000 rw-p 00000000 00:00 0 
+8c523000-8c524000 ---p 00000000 00:00 0 
+8c524000-8c5ba000 rw-p 00000000 00:00 0 
+8c5ba000-8c5e4000 rw-p 00000000 00:00 0 
+8c5e4000-8c610000 rw-p 00000000 00:00 0 
+8c610000-8c68f000 rw-p 00000000 00:00 0 
+8c68f000-8c6a5000 rw-p 00000000 00:00 0 
+8c6a5000-8c6cf000 rw-p 00000000 00:00 0 
+8c6cf000-8c6fb000 rw-p 00000000 00:00 0 
+8c6fb000-8c779000 rw-p 00000000 00:00 0 
+8c779000-8c7cf000 rw-p 00000000 00:00 0 
+8c7cf000-8f270000 rw-p 00000000 00:00 0 
+8f270000-8f330000 ---p 00000000 00:00 0 
+8f330000-947d0000 rw-p 00000000 00:00 0 
+947d0000-99f00000 rw-p 00000000 00:00 0 
+99f00000-a9d30000 rw-p 00000000 00:00 0 
+a9d30000-b47d0000 rw-p 00000000 00:00 0 
+b47d0000-b47d2000 r--s 0000d000 08:06 1446149    /home/aldo/.m2/repository/commons-fileupload/commons-fileupload/1.2.2/commons-fileupload-1.2.2.jar
+b47d2000-b47d4000 r--s 0000d000 08:06 1446113    /home/aldo/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar
+b47d4000-b47d7000 r--s 00016000 08:06 1446108    /home/aldo/.m2/repository/javax/servlet/jsp/jsp-api/2.1/jsp-api-2.1.jar
+b47d7000-b47e5000 rw-p 00000000 00:00 0 
+b47e5000-b4897000 rw-p 00000000 00:00 0 
+b4897000-b4bef000 rwxp 00000000 00:00 0 
+b4bef000-b7897000 rw-p 00000000 00:00 0 
+b7897000-b789a000 ---p 00000000 00:00 0 
+b789a000-b78eb000 rw-p 00000000 00:00 0 
+b78eb000-b78ec000 r--s 00003000 08:06 1446143    /home/aldo/.m2/repository/javax/transaction/jta/1.1/jta-1.1.jar
+b78ec000-b78ed000 r--s 0000c000 08:06 1446112    /home/aldo/.m2/repository/org/springframework/spring-asm/3.0.6.RELEASE/spring-asm-3.0.6.RELEASE.jar
+b78ed000-b78ef000 r--s 00018000 08:06 1446107    /home/aldo/.m2/repository/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar
+b78ef000-b78f1000 r--s 00005000 08:06 1446106    /home/aldo/.m2/repository/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar
+b78f1000-b78f2000 r--s 00002000 08:06 1446104    /home/aldo/.m2/repository/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1.jar
+b78f2000-b78f4000 r--s 0000f000 08:06 1710030    /usr/lib/jvm/java-6-openjdk/jre/lib/ext/pulse-java.jar
+b78f4000-b78fc000 rw-s 00000000 08:06 1860413    /tmp/hsperfdata_aldo/4518
+b78fc000-b78fd000 rw-p 00000000 00:00 0 
+b78fd000-b78fe000 r--p 00000000 00:00 0 
+b78fe000-b7900000 rw-p 00000000 00:00 0 
+bfcec000-bfd10000 rw-p 00000000 00:00 0          [stack]
+
+VM Arguments:
+jvm_args: -Dfile.encoding=UTF-8 
+java_command: org.eclipse.jdt.internal.junit.runner.RemoteTestRunner -version 3 -port 40639 -testLoaderClass org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader -loaderpluginname org.eclipse.jdt.junit4.runtime -testNameFile /tmp/testNames3539487831862380585.txt
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+USERNAME=aldo
+LD_LIBRARY_PATH=/usr/lib/jvm/java-6-openjdk/jre/lib/i386/server:/usr/lib/jvm/java-6-openjdk/jre/lib/i386:/usr/lib/jvm/java-6-openjdk/jre/../lib/i386:/usr/lib/jvm/java-6-openjdk/jre/lib/i386/client:/usr/lib/jvm/java-6-openjdk/jre/lib/i386:
+SHELL=/bin/bash
+DISPLAY=:0.0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x66a530], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGBUS: [libjvm.so+0x66a530], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGFPE: [libjvm.so+0x52e2c0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGPIPE: SIG_IGN, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGXFSZ: [libjvm.so+0x52e2c0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGILL: [libjvm.so+0x52e2c0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: [libjvm.so+0x52e150], sa_mask[0]=0x00000004, sa_flags=0x10000004
+SIGHUP: [libjvm.so+0x5311f0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGINT: [libjvm.so+0x5311f0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGTERM: [libjvm.so+0x5311f0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGQUIT: [libjvm.so+0x5311f0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+
+
+---------------  S Y S T E M  ---------------
+
+OS:Ubuntu 11.10 (oneiric)
+uname:Linux 3.0.0-14-generic #23-Ubuntu SMP Mon Nov 21 20:34:47 UTC 2011 i686
+libc:glibc 2.13 NPTL 2.13 
+rlimit: STACK 8192k, CORE 0k, NPROC 14960, NOFILE 4096, AS infinity
+load average:1.95 0.91 0.92
+
+/proc/meminfo:
+MemTotal:        1929000 kB
+MemFree:          113572 kB
+Buffers:           12876 kB
+Cached:           280312 kB
+SwapCached:        94204 kB
+Active:           865204 kB
+Inactive:         874152 kB
+Active(anon):     790296 kB
+Inactive(anon):   798828 kB
+Active(file):      74908 kB
+Inactive(file):    75324 kB
+Unevictable:          16 kB
+Mlocked:              16 kB
+HighTotal:       1053072 kB
+HighFree:          13384 kB
+LowTotal:         875928 kB
+LowFree:          100188 kB
+SwapTotal:       1957884 kB
+SwapFree:        1631916 kB
+Dirty:               728 kB
+Writeback:             0 kB
+AnonPages:       1363852 kB
+Mapped:            70160 kB
+Shmem:            143148 kB
+Slab:              33508 kB
+SReclaimable:      17404 kB
+SUnreclaim:        16104 kB
+KernelStack:        4224 kB
+PageTables:        11932 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     2922384 kB
+Committed_AS:    4623440 kB
+VmallocTotal:     122880 kB
+VmallocUsed:       27536 kB
+VmallocChunk:      90108 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       4096 kB
+DirectMap4k:       16376 kB
+DirectMap4M:      892928 kB
+
+
+CPU:total 2 (2 cores per cpu, 1 threads per core) family 6 model 23 stepping 10, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1
+
+Memory: 4k page, physical 1929000k(113572k free), swap 1957884k(1631916k free)
+
+vm_info: OpenJDK Server VM (20.0-b11) for linux-x86 JRE (1.6.0_23-b23), built on Oct 22 2011 01:02:34 by "buildd" with gcc 4.6.1
+
+time: Thu Jan 12 15:53:32 2012
+elapsed time: 22 seconds
+
