@@ -20,10 +20,8 @@ public class TestBill extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		EntityManagerFactory emf = Persistence
-				.createEntityManagerFactory("PersistenceLegislativo");
+		EntityManagerFactory emf = LocalEntityManager.factory();
 		em = emf.createEntityManager();
-		emf.close();
 
 		// Bill object
 		bill = new Bill();
@@ -96,6 +94,7 @@ public class TestBill extends TestCase {
 		em.remove(matter);
 		em.remove(originChamber);
 		tr.commit();
+		em.clear();
 		em.close();
 	}
 

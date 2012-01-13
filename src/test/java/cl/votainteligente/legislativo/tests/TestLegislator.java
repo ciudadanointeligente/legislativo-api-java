@@ -1,11 +1,20 @@
 package cl.votainteligente.legislativo.tests;
 
 import java.util.Date;
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+
 import junit.framework.TestCase;
-import cl.votainteligente.legislativo.model.*;
-import javax.persistence.*;
+import cl.votainteligente.legislativo.model.Chamber;
+import cl.votainteligente.legislativo.model.Circunscription;
+import cl.votainteligente.legislativo.model.District;
+import cl.votainteligente.legislativo.model.LegislatorRole;
+import cl.votainteligente.legislativo.model.Person;
+import cl.votainteligente.legislativo.model.Region;
 
 public class TestLegislator extends TestCase {
 
@@ -22,8 +31,7 @@ public class TestLegislator extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		EntityManagerFactory emf = Persistence
-				.createEntityManagerFactory("PersistenceLegislativo");
+		EntityManagerFactory emf = LocalEntityManager.factory();
 		em = emf.createEntityManager();
 		emf.close();
 
@@ -85,6 +93,7 @@ public class TestLegislator extends TestCase {
 		em.remove(chamber);
 		em.remove(person);
 		tr.commit();
+		em.clear();
 		em.close();
 	}
 

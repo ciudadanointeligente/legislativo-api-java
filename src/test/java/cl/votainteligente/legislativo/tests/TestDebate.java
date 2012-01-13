@@ -68,6 +68,7 @@ public class TestDebate extends TestCase {
 		em.remove(bill);
 		em.remove(chamber);
 		tr.commit();
+		em.clear();
 		em.close();
 	}
 

@@ -2,7 +2,6 @@ package cl.votainteligente.legislativo.tests;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 import junit.framework.TestCase;
 
@@ -13,8 +12,7 @@ public class TestEntityManager extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		// Everything you need to do before this class tests start
-		EntityManagerFactory emf = Persistence
-				.createEntityManagerFactory("PersistenceLegislativo");
+		EntityManagerFactory emf = LocalEntityManager.factory();
 		em = emf.createEntityManager();
 		emf.close();// */
 	}

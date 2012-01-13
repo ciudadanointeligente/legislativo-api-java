@@ -1,10 +1,14 @@
 package cl.votainteligente.legislativo.tests;
 
-import java.util.Date;
 import java.sql.Timestamp;
+import java.util.Date;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+
 import junit.framework.TestCase;
-import cl.votainteligente.legislativo.model.*;
-import javax.persistence.*;
+import cl.votainteligente.legislativo.model.Person;
 
 public class TestPerson extends TestCase {
 
@@ -15,8 +19,7 @@ public class TestPerson extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		EntityManagerFactory emf = Persistence
-				.createEntityManagerFactory("PersistenceLegislativo");
+		EntityManagerFactory emf = LocalEntityManager.factory();
 		em = emf.createEntityManager();
 		emf.close();
 

@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 
 import junit.framework.TestCase;
 import cl.votainteligente.legislativo.model.Chamber;
@@ -26,8 +25,7 @@ public class TestCommission extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		EntityManagerFactory emf = Persistence
-				.createEntityManagerFactory("PersistenceLegislativo");
+		EntityManagerFactory emf = LocalEntityManager.factory();
 		em = emf.createEntityManager();
 		emf.close();
 
