@@ -1,54 +1,8 @@
 package cl.votainteligente.legislativo.migration;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-
-import org.springframework.stereotype.Controller;
-
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
-import cl.votainteligente.legislativo.model.AgrupationAffiliation;
-import cl.votainteligente.legislativo.model.Bill;
-import cl.votainteligente.legislativo.model.Chamber;
-import cl.votainteligente.legislativo.model.Circunscription;
-import cl.votainteligente.legislativo.model.Commission;
-import cl.votainteligente.legislativo.model.CommissionType;
-import cl.votainteligente.legislativo.model.Commune;
-import cl.votainteligente.legislativo.model.Debate;
-import cl.votainteligente.legislativo.model.DebateInCommission;
-import cl.votainteligente.legislativo.model.DiscussionType;
-import cl.votainteligente.legislativo.model.District;
-import cl.votainteligente.legislativo.model.LegislatorRole;
-import cl.votainteligente.legislativo.model.Matter;
-import cl.votainteligente.legislativo.model.Party;
-import cl.votainteligente.legislativo.model.Person;
-import cl.votainteligente.legislativo.model.Region;
-import cl.votainteligente.legislativo.model.Role;
-import cl.votainteligente.legislativo.model.SessionChamber;
-import cl.votainteligente.legislativo.model.SessionCommission;
-import cl.votainteligente.legislativo.model.SingleVote;
-import cl.votainteligente.legislativo.model.Stage;
-import cl.votainteligente.legislativo.model.StageDescription;
-import cl.votainteligente.legislativo.model.Substage;
-import cl.votainteligente.legislativo.model.Tag;
-import cl.votainteligente.legislativo.model.Vote;
+import cl.votainteligente.legislativo.model.*;
 import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
 import cl.votainteligente.legislativo.service.agrupation.CommissionService;
 import cl.votainteligente.legislativo.service.agrupation.CommissionTypeService;
@@ -65,6 +19,18 @@ import cl.votainteligente.legislativo.service.matter.MatterService;
 import cl.votainteligente.legislativo.service.person.PersonService;
 import cl.votainteligente.legislativo.service.session.SessionChamberService;
 import cl.votainteligente.legislativo.service.vote.VoteService;
+
+import org.springframework.stereotype.Controller;
+
+import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.persistence.*;
 
 @Controller
 public class Migrate {
@@ -129,8 +95,7 @@ public class Migrate {
 		password = "Puh7kaiF";
 	}
 
-	public Migrate(String url, String dbName, String driver, String userName,
-			String password) {
+	public Migrate(String url, String dbName, String driver, String userName, String password) {
 		this.url = url;
 		this.dbName = dbName;
 		this.driver = driver;
@@ -140,14 +105,7 @@ public class Migrate {
 
 	@SuppressWarnings("unchecked")
 	public boolean clean() {
-		String tableNames[] = { "Agrupation", "AgrupationAffiliation", "Bill",
-				"Coalition", "CoalitionAffiliation", "Commission",
-				"CommissionType", "Committee", "Debate", "DebateInCommission",
-				"DiscussionType", "GovernmentExecutive", "LegislatorRole",
-				"Matter", "MergedBillContainer", "Participant", "Party",
-				"Person", "Role", "Session", "Stage", "Substage", "Tag",
-				"Chamber", "Circunscription", "Commune", "District", "Region",
-				"StageDescription", "Session", "SingleVote", "Vote" };
+		String tableNames[] = { "Agrupation", "AgrupationAffiliation", "Bill", "Coalition", "CoalitionAffiliation", "Commission", "CommissionType", "Committee", "Debate", "DebateInCommission", "DiscussionType", "GovernmentExecutive", "LegislatorRole", "Matter", "MergedBillContainer", "Participant", "Party", "Person", "Role", "Session", "Stage", "Substage", "Tag", "Chamber", "Circunscription", "Commune", "District", "Region", "StageDescription", "Session", "SingleVote", "Vote" };
 
 		for (String tableName : tableNames) {
 			EntityTransaction tr = em.getTransaction();
@@ -221,8 +179,7 @@ public class Migrate {
 	}
 
 	public boolean loadEntityManager() {
-		EntityManagerFactory emf = Persistence
-				.createEntityManagerFactory("PersistenceLegislativo");
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PersistenceLegislativo");
 		em = emf.createEntityManager();
 		emf.close();
 		return em != null;
@@ -303,12 +260,10 @@ public class Migrate {
 			Long oldDistrictId = rsDi.getLong("id_distrito");
 			Long oldCircunscriptionId = rsDi.getLong("id_circunscripcion");
 			Long oldRegionId = rsDi.getLong("id_region");
-			Long newCircunscriptionId = findNewId(circunscriptionIds,
-					oldCircunscriptionId);
+			Long newCircunscriptionId = findNewId(circunscriptionIds, oldCircunscriptionId);
 			Long newRegionId = findNewId(regionIds, oldRegionId);
 
-			p.setCircunscription(circunscriptionService
-					.getCircunscription(newCircunscriptionId));
+			p.setCircunscription(circunscriptionService.getCircunscription(newCircunscriptionId));
 			p.setRegion(regionService.getRegion(newRegionId));
 			em.persist(p);
 
@@ -431,8 +386,7 @@ public class Migrate {
 			p.setTwitterAccount(rspar.getString("p.twitter"));
 			p.setFacebookAccount(rspar.getString("p.facebook"));
 			p.setStatementOfInterest(rspar.getString("p.declaracion_interes"));
-			p.setUniversityEducation(rspar
-					.getString("p.educacion_universitaria"));
+			p.setUniversityEducation(rspar.getString("p.educacion_universitaria"));
 
 			tr.begin();
 			if (p.getId() == null) {
@@ -447,10 +401,8 @@ public class Migrate {
 			array[1] = p.getId();
 			parliamentarianToPersonIds.add(array);
 
-			Matcher md = pattern.matcher(rspar
-					.getString("p.periodos_diputado_desc"));
-			Matcher ms = pattern.matcher(rspar
-					.getString("p.periodos_senador_desc"));
+			Matcher md = pattern.matcher(rspar.getString("p.periodos_diputado_desc"));
+			Matcher ms = pattern.matcher(rspar.getString("p.periodos_senador_desc"));
 			List<LegislatorRole> dip = setupLegislator(md, dChamber, rspar);
 			List<LegislatorRole> sen = setupLegislator(ms, sChamber, rspar);
 
@@ -493,14 +445,10 @@ public class Migrate {
 
 	}
 
-	private Person getPerson(String firstName, String lastname)
-			throws ServiceException {
-		Page<PersonDO> listName = personService.findPersonsByFirstName(
-				firstName, 1, Integer.MAX_VALUE);
-		Page<PersonDO> listLastName = personService.findPersonsByLastName(
-				lastname, 1, Integer.MAX_VALUE);
-		if (listName.getTotalElements().longValue() == 0L
-				|| listLastName.getTotalElements().longValue() == 0L)
+	private Person getPerson(String firstName, String lastname) throws ServiceException {
+		Page<PersonDO> listName = personService.findPersonsByFirstName(firstName, 1, Integer.MAX_VALUE);
+		Page<PersonDO> listLastName = personService.findPersonsByLastName(lastname, 1, Integer.MAX_VALUE);
+		if (listName.getTotalElements().longValue() == 0L || listLastName.getTotalElements().longValue() == 0L)
 			return null;
 		for (PersonDO pname : listName.getElements())
 			for (PersonDO plastname : listLastName.getElements())
@@ -514,8 +462,7 @@ public class Migrate {
 		return null;
 	}
 
-	private List<LegislatorRole> setupLegislator(Matcher m, Chamber c,
-			ResultSet rspar) throws SQLException, ServiceException {
+	private List<LegislatorRole> setupLegislator(Matcher m, Chamber c, ResultSet rspar) throws SQLException, ServiceException {
 		LinkedList<LegislatorRole> list = new LinkedList<LegislatorRole>();
 		while (m.find()) {
 			LegislatorRole leg = new LegislatorRole();
@@ -541,16 +488,12 @@ public class Migrate {
 			leg.setStartDate(startDate);
 			if (leg.getStartDate() != null) {
 				if (startDateInt == date2005int) {
-					leg.setCampaignFinance(rspar
-							.getLong("p.financiamiento_electoral2005"));
-					leg.setCampaignSpending(rspar
-							.getLong("p.gasto_electoral2005"));
+					leg.setCampaignFinance(rspar.getLong("p.financiamiento_electoral2005"));
+					leg.setCampaignSpending(rspar.getLong("p.gasto_electoral2005"));
 				}
 				if (startDateInt == date2009int) {
-					leg.setCampaignFinance(rspar
-							.getLong("p.financiamiento_electoral2005"));
-					leg.setCampaignSpending(rspar
-							.getLong("p.gasto_electoral2005"));
+					leg.setCampaignFinance(rspar.getLong("p.financiamiento_electoral2005"));
+					leg.setCampaignSpending(rspar.getLong("p.gasto_electoral2005"));
 				}
 			}
 			leg.setAllowance(rspar.getInt("p.dietas"));
@@ -574,12 +517,9 @@ public class Migrate {
 			}
 
 			try {
-				Long oldCircunscritionId = rspar
-						.getLong("p.id_circunscripcion");
-				Long newCircunscriptionId = findNewId(circunscriptionIds,
-						oldCircunscritionId);
-				Circunscription cir = circunscriptionService
-						.getCircunscription(newCircunscriptionId);
+				Long oldCircunscritionId = rspar.getLong("p.id_circunscripcion");
+				Long newCircunscriptionId = findNewId(circunscriptionIds, oldCircunscritionId);
+				Circunscription cir = circunscriptionService.getCircunscription(newCircunscriptionId);
 				leg.setCircunscription(cir);
 			} catch (Exception e) {
 				// System.out.println("Falle en agregar Circunscripcion.");
@@ -613,9 +553,7 @@ public class Migrate {
 
 			try {
 				HashSet<Stage> hs = new HashSet<Stage>();
-				StageDescription sd = stageDescriptionService
-						.getByName(stageDescriptionString, 1, Integer.MAX_VALUE)
-						.getElements().get(0);
+				StageDescription sd = stageDescriptionService.getByName(stageDescriptionString, 1, Integer.MAX_VALUE).getElements().get(0);
 				Stage s = new Stage();
 				s.setBill(b);
 				s.setStageDescription(sd);
@@ -629,8 +567,7 @@ public class Migrate {
 				b.setStages(hs);
 
 			} catch (Exception e) {
-				System.out.println("No Encontre etapa: |"
-						+ stageDescriptionString + "|");
+				System.out.println("No Encontre etapa: |" + stageDescriptionString + "|");
 			}
 
 			try {
@@ -643,8 +580,7 @@ public class Migrate {
 					}
 				}
 			} catch (Exception e) {
-				System.out
-						.println("Error agregando materia: " + e.getMessage());
+				System.out.println("Error agregando materia: " + e.getMessage());
 				// e.printStackTrace();
 			}
 			b.setPublished(false);
@@ -653,8 +589,7 @@ public class Migrate {
 				b.setPublicationDate(m);
 				b.setPublished(true);
 			}
-			b.setOriginChamber((bills.getString("camara_origen").toLowerCase()
-					.indexOf("senado") != -1) ? sChamber : dChamber);
+			b.setOriginChamber((bills.getString("camara_origen").toLowerCase().indexOf("senado") != -1) ? sChamber : dChamber);
 
 			em.persist(b);
 
@@ -680,10 +615,8 @@ public class Migrate {
 
 	}
 
-	private void setupDebates(long old_bill_id, Bill b) throws SQLException,
-			ServiceException {
-		ResultSet debates = getTableData("debate where id_proyecto_ley ="
-				+ old_bill_id);
+	private void setupDebates(long old_bill_id, Bill b) throws SQLException, ServiceException {
+		ResultSet debates = getTableData("debate where id_proyecto_ley =" + old_bill_id);
 
 		while (debates.next()) {
 			Debate d;
@@ -704,10 +637,8 @@ public class Migrate {
 			d.setDebate(debates.getString("debate"));
 			d.setDocUrl(debates.getString("docs"));
 			d.setTopic(debates.getString("tema"));
-			d.setChamber((debates.getString("camara").toLowerCase()
-					.indexOf("senado") != -1) ? sChamber : dChamber);
-			d.setDiscussionType(discussionTypeService
-					.getDisscussionType(new Long(debates.getInt("discusion"))));
+			d.setChamber((debates.getString("camara").toLowerCase().indexOf("senado") != -1) ? sChamber : dChamber);
+			d.setDiscussionType(discussionTypeService.getDisscussionType(new Long(debates.getInt("discusion"))));
 			d.setBill(b);
 
 			em.persist(d);
@@ -746,13 +677,10 @@ public class Migrate {
 			Commission c = new Commission();
 
 			c.setName(rs.getString("nombre"));
-			c.setChamber((rs.getString("camara").toLowerCase()
-					.indexOf("senado") != -1) ? sChamber : dChamber);
-			c.setCommissionType((rs.getString("tipo").toLowerCase()
-					.indexOf("especial") != -1) ? special : permanent);
+			c.setChamber((rs.getString("camara").toLowerCase().indexOf("senado") != -1) ? sChamber : dChamber);
+			c.setCommissionType((rs.getString("tipo").toLowerCase().indexOf("especial") != -1) ? special : permanent);
 
-			c.setChamber((rs.getString("camara").toLowerCase()
-					.indexOf("senado") != -1) ? sChamber : dChamber);
+			c.setChamber((rs.getString("camara").toLowerCase().indexOf("senado") != -1) ? sChamber : dChamber);
 			c.setMailAddress(rs.getString("contacto_mail"));
 			c.setPhoneNumber(rs.getString("contacto_tel"));
 			c.setForm(rs.getString("contacto_form"));
@@ -782,16 +710,13 @@ public class Migrate {
 		for (Long[] debate : debateIds) {
 			Debate d = debateService.getDebate(debate[1]);
 			if (d instanceof DebateInCommission) {
-				ResultSet rs = getTableData("debatecomision where id_debate="
-						+ debate[0]);
+				ResultSet rs = getTableData("debatecomision where id_debate=" + debate[0]);
 				DebateInCommission dic = (DebateInCommission) d;
 				HashSet<Commission> participants = new HashSet<Commission>();
 				while (rs.next()) {
 					Long oldCommissionId = rs.getLong("id_comision");
-					Long newCommissionId = findNewId(commissionIds,
-							oldCommissionId);
-					Commission c = commissionService
-							.getCommissionById(newCommissionId);
+					Long newCommissionId = findNewId(commissionIds, oldCommissionId);
+					Commission c = commissionService.getCommissionById(newCommissionId);
 
 					participants.add(c);
 				}
@@ -809,16 +734,14 @@ public class Migrate {
 		for (Long[] debate : debateIds) {
 			Debate d = debateService.getDebate(debate[1]);
 
-			ResultSet rs = completeQueryDate("Select tags from debate where id_debate="
-					+ debate[0]);
+			ResultSet rs = completeQueryDate("Select tags from debate where id_debate=" + debate[0]);
 			try {
 				rs.next();
 				String tags[] = rs.getString("tags").split(",");
 				HashSet<Tag> hstags = new HashSet<Tag>();
 				for (int i = 0; i < tags.length; i++) {
 					String currentTag = tags[i].trim();
-					List<Tag> tagList = tagService.findByName(currentTag, 1,
-							Integer.MAX_VALUE).getElements();
+					List<Tag> tagList = tagService.findByName(currentTag, 1, Integer.MAX_VALUE).getElements();
 					for (Tag t : tagList)
 						hstags.add(t);
 				}
@@ -837,8 +760,7 @@ public class Migrate {
 		tr.begin();
 		for (Long[] bill : billIds) {
 			Bill d = billService.getBill(bill[1]);
-			ResultSet rs = getTableData("autorproyectoley where id_proyecto_ley="
-					+ bill[0]);
+			ResultSet rs = getTableData("autorproyectoley where id_proyecto_ley=" + bill[0]);
 			HashSet<Person> authors = new HashSet<Person>();
 			while (rs.next()) {
 				Long oldPersonId = rs.getLong("id_autor");
@@ -859,8 +781,7 @@ public class Migrate {
 		tr.commit();
 	}
 
-	private void loadCommissionAffiliation() throws SQLException,
-			ServiceException {
+	private void loadCommissionAffiliation() throws SQLException, ServiceException {
 		EntityTransaction tr = em.getTransaction();
 		tr.begin();
 		ResultSet rs = getTableData("parlamentarioencomision");
@@ -869,12 +790,10 @@ public class Migrate {
 			Long oldParliamentarianId = rs.getLong("id_parlamentario");
 			Long oldCommissionId = rs.getLong("id_comision");
 
-			Long newPersonId = findNewId(parliamentarianToPersonIds,
-					oldParliamentarianId);
+			Long newPersonId = findNewId(parliamentarianToPersonIds, oldParliamentarianId);
 			Long newCommissionId = findNewId(commissionIds, oldCommissionId);
 
-			agr.setAgrupation(commissionService
-					.getCommissionById(newCommissionId));
+			agr.setAgrupation(commissionService.getCommissionById(newCommissionId));
 			agr.setPerson(personService.getPerson(newPersonId));
 			em.persist(agr);
 		}
@@ -891,8 +810,7 @@ public class Migrate {
 			ses.setCreatedAt(getSafeDate(rs, "created_at"));
 			ses.setUpdatedAt(getSafeDate(rs, "updated_at"));
 			ses.setDate(getSafeDate(rs, "fecha"));
-			ses.setChamber((rs.getString("camara").toLowerCase()
-					.indexOf("senado") != -1) ? sChamber : dChamber);
+			ses.setChamber((rs.getString("camara").toLowerCase().indexOf("senado") != -1) ? sChamber : dChamber);
 
 			em.persist(ses);
 
@@ -946,11 +864,9 @@ public class Migrate {
 			if (newSessionId == null)
 				continue;
 			try {
-				sessionChamber = sessionChamberService
-						.getSessionChamber(newSessionId);
+				sessionChamber = sessionChamberService.getSessionChamber(newSessionId);
 			} catch (Exception e) {
-				System.out.println("Sesión no encontrada para el id antiguo "
-						+ oldSessionId + " y id nuevo " + newSessionId);
+				System.out.println("Sesión no encontrada para el id antiguo " + oldSessionId + " y id nuevo " + newSessionId);
 				// e.printStackTrace();
 				// break;
 			}
@@ -1009,11 +925,9 @@ public class Migrate {
 			if (newCommissionId == null)
 				continue;
 			try {
-				sessionCommission.setCommission(commissionService
-						.getCommissionById(newCommissionId));
+				sessionCommission.setCommission(commissionService.getCommissionById(newCommissionId));
 			} catch (Exception e) {
-				System.out.println("Comisión no encontrada para el id antiguo "
-						+ oldCommissionId + " y id nuevo " + newCommissionId);
+				System.out.println("Comisión no encontrada para el id antiguo " + oldCommissionId + " y id nuevo " + newCommissionId);
 			}
 			sessionCommission.addDiscussedBill(bill);
 			vot.setSession(sessionCommission);
@@ -1040,8 +954,7 @@ public class Migrate {
 			SingleVote svo = new SingleVote();
 			svo.setVoteDetail(rs.getString("voto"));
 			Long oldLegislatorId = rs.getLong("id_parlamentario");
-			Long newPersonId = findNewId(parliamentarianToPersonIds,
-					oldLegislatorId);
+			Long newPersonId = findNewId(parliamentarianToPersonIds, oldLegislatorId);
 			Long oldVoteId = rs.getLong("id_votacion");
 			Long newVoteId = findNewId(voteIds, oldVoteId);
 			svo.setPerson(personService.getPerson(newPersonId));
@@ -1050,8 +963,7 @@ public class Migrate {
 			try {
 				svo.setVote(voteService.getVote(newVoteId));
 			} catch (Exception e) {
-				System.out.println("Votación no encontrada para el id antiguo "
-						+ oldVoteId + " y id nuevo " + newVoteId);
+				System.out.println("Votación no encontrada para el id antiguo " + oldVoteId + " y id nuevo " + newVoteId);
 				// if(newVoteId != null)
 				// e.printStackTrace();
 			}
@@ -1066,13 +978,12 @@ public class Migrate {
 			SingleVote svo = new SingleVote();
 			svo.setVoteDetail(rs.getString("voto"));
 			Long oldLegislatorId = rs.getLong("id_parlamentario");
-			Long newPersonId = findNewId(parliamentarianToPersonIds,
-					oldLegislatorId);
-			if(newPersonId == null)
+			Long newPersonId = findNewId(parliamentarianToPersonIds, oldLegislatorId);
+			if (newPersonId == null)
 				continue;
 			Long oldVoteId = rs.getLong("id_votacion");
 			Long newVoteId = findNewId(voteIds, oldVoteId);
-			if(newVoteId == null)
+			if (newVoteId == null)
 				continue;
 			svo.setPerson(personService.getPerson(newPersonId));
 			svo.setVote(voteService.getVote(newVoteId));
@@ -1187,8 +1098,7 @@ public class Migrate {
 		this.personService = personService;
 	}
 
-	public void setCircunscriptionService(
-			CircunscriptionService circunscriptionService) {
+	public void setCircunscriptionService(CircunscriptionService circunscriptionService) {
 		this.circunscriptionService = circunscriptionService;
 	}
 
@@ -1204,13 +1114,11 @@ public class Migrate {
 		this.matterService = matterService;
 	}
 
-	public void setDiscussionTypeService(
-			DiscussionTypeService discussionTypeService) {
+	public void setDiscussionTypeService(DiscussionTypeService discussionTypeService) {
 		this.discussionTypeService = discussionTypeService;
 	}
 
-	public void setCommissionTypeService(
-			CommissionTypeService commissionTypeService) {
+	public void setCommissionTypeService(CommissionTypeService commissionTypeService) {
 		this.commissionTypeService = commissionTypeService;
 	}
 
@@ -1230,8 +1138,7 @@ public class Migrate {
 		this.debateService = debateService;
 	}
 
-	public void setStageDescriptionService(
-			StageDescriptionService stageDescriptionService) {
+	public void setStageDescriptionService(StageDescriptionService stageDescriptionService) {
 		this.stageDescriptionService = stageDescriptionService;
 	}
 
@@ -1243,8 +1150,7 @@ public class Migrate {
 		this.em = em;
 	}
 
-	public void setSessionChamberService(
-			SessionChamberService sessionChamberService) {
+	public void setSessionChamberService(SessionChamberService sessionChamberService) {
 		this.sessionChamberService = sessionChamberService;
 	}
 
