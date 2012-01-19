@@ -38,8 +38,8 @@ public class Migrate {
 	private Chamber sChamber;
 	private Chamber dChamber;
 
-	private Connection c;
-	private EntityManager em;
+	private Connection connection;
+	private EntityManager entityManager;
 	private PartyService partyService;
 	private PersonService personService;
 	private CircunscriptionService circunscriptionService;
@@ -105,20 +105,28 @@ public class Migrate {
 
 	@SuppressWarnings("unchecked")
 	public boolean clean() {
-		String tableNames[] = { "Agrupation", "AgrupationAffiliation", "Bill", "Coalition", "CoalitionAffiliation", "Commission", "CommissionType", "Committee", "Debate", "DebateInCommission", "DiscussionType", "GovernmentExecutive", "LegislatorRole", "Matter", "MergedBillContainer", "Participant", "Party", "Person", "Role", "Session", "Stage", "Substage", "Tag", "Chamber", "Circunscription", "Commune", "District", "Region", "StageDescription", "Session", "SingleVote", "Vote" };
+		String tableNames[] = { "Agrupation", "AgrupationAffiliation", "Bill",
+								"Coalition", "CoalitionAffiliation", "Commission",
+								"CommissionType", "Committee", "Debate",
+								"DebateInCommission", "DiscussionType", "GovernmentExecutive",
+								"LegislatorRole", "Matter", "MergedBillContainer",
+								"Participant", "Party", "Person", "Role",
+								"Session", "Stage", "Substage", "Tag", "Chamber",
+								"Circunscription", "Commune", "District", "Region",
+								"StageDescription", "Session", "SingleVote", "Vote" };
 
 		for (String tableName : tableNames) {
-			EntityTransaction tr = em.getTransaction();
-			tr.begin();
-			Query q = em.createQuery("Select p from " + tableName + " p");
-			List<Object> list = q.getResultList();
-			int n = 0;
-			for (Object o : list) {
-				em.remove(o);
-				n++;
+			EntityTransaction entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			Query query = entityManager.createQuery("Select p from " + tableName + " p");
+			List<Object> list = query.getResultList();
+			int deletedRows = 0;
+			for (Object object : list) {
+				entityManager.remove(object);
+				deletedRows++;
 			}
-			System.out.println("Deleted " + n + " rows from " + tableName);
-			tr.commit();
+			System.out.println("Deleted " + deletedRows + " rows from " + tableName);
+			entityTransaction.commit();
 		}
 		return true;
 
@@ -179,31 +187,31 @@ public class Migrate {
 	}
 
 	public boolean loadEntityManager() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PersistenceLegislativo");
-		em = emf.createEntityManager();
-		emf.close();
-		return em != null;
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("PersistenceLegislativo");
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManagerFactory.close();
+		return entityManager != null;
 	}
 
 	private void loadParty() throws SQLException, ServiceException {
-		ResultSet rs = getTableData("partido");
-		EntityTransaction tr = em.getTransaction();
-		tr.begin();
-		while (rs.next()) {
-			Party p = new Party();
-			p.setName(rs.getString("nombre"));
-			p.setInitials(rs.getString("sigla"));
-			p.setAddress(rs.getString("direccion"));
-			p.setPhoneNumber(rs.getString("telefono"));
-			p.setMailAddress(rs.getString("mail"));
-			p.setHistory(rs.getString("historia"));
-			p.setWebsite(rs.getString("web"));
-			p.setPrinciples(rs.getString("principios"));
-			p.setUpdatedAt(getSafeDate(rs, "updated_at"));
-			p.setCreatedAt(getSafeDate(rs, "created_at"));
-			em.persist(p);
-			Long newId = p.getId();
-			Long oldId = rs.getLong("id_partido");
+		ResultSet resultSetParty = getTableData("partido");
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		while (resultSetParty.next()) {
+			Party party = new Party();
+			party.setName(resultSetParty.getString("nombre"));
+			party.setInitials(resultSetParty.getString("sigla"));
+			party.setAddress(resultSetParty.getString("direccion"));
+			party.setPhoneNumber(resultSetParty.getString("telefono"));
+			party.setMailAddress(resultSetParty.getString("mail"));
+			party.setHistory(resultSetParty.getString("historia"));
+			party.setWebsite(resultSetParty.getString("web"));
+			party.setPrinciples(resultSetParty.getString("principios"));
+			party.setUpdatedAt(getSafeDate(resultSetParty, "updated_at"));
+			party.setCreatedAt(getSafeDate(resultSetParty, "created_at"));
+			entityManager.persist(party);
+			Long newId = party.getId();
+			Long oldId = resultSetParty.getLong("id_partido");
 
 			Long[] array = new Long[2];
 			array[0] = oldId;
@@ -211,237 +219,240 @@ public class Migrate {
 			partyIds.add(array);
 
 		}
-		rs.close();
-		tr.commit();
+		resultSetParty.close();
+		entityTransaction.commit();
 	}
 
 	private void loadGeo() throws SQLException, ServiceException {
-		ResultSet rsC = getTableData("comuna");
-		ResultSet rsR = getTableData("region");
-		ResultSet rsCi = getTableData("circunscripcion");
-		ResultSet rsDi = getTableData("distrito");
+		ResultSet resultSetCommune = getTableData("comuna");
+		ResultSet resultSetRegion = getTableData("region");
+		ResultSet resultSerCircunscription = getTableData("circunscripcion");
+		ResultSet resultSetDistrict = getTableData("distrito");
 
-		EntityTransaction tr = em.getTransaction();
-		tr.begin();
-		while (rsR.next()) {
-			Region p = new Region();
-			p.setName(rsR.getString("nombre"));
-			p.setInitials(rsR.getString("sigla"));
-			em.persist(p);
-			Long newId = p.getId();
-			Long oldId = rsR.getLong("id_region");
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		while (resultSetRegion.next()) {
+			Region region = new Region();
+			region.setName(resultSetRegion.getString("nombre"));
+			region.setInitials(resultSetRegion.getString("sigla"));
+			entityManager.persist(region);
+			Long newId = region.getId();
+			Long oldId = resultSetRegion.getLong("id_region");
 
 			Long[] array = new Long[2];
 			array[0] = oldId;
 			array[1] = newId;
 			regionIds.add(array);
 		}
-		rsR.close();
-		while (rsCi.next()) {
-			Circunscription p = new Circunscription();
-			p.setName(rsCi.getString("nombre"));
-			em.persist(p);
-			Long newId = p.getId();
-			Long oldId = rsCi.getLong("id_circunscripcion");
+		resultSetRegion.close();
+		while (resultSerCircunscription.next()) {
+			Circunscription circunscription = new Circunscription();
+			circunscription.setName(resultSerCircunscription.getString("nombre"));
+			entityManager.persist(circunscription);
+			Long newId = circunscription.getId();
+			Long oldId = resultSerCircunscription.getLong("id_circunscripcion");
 
 			Long[] array = new Long[2];
 			array[0] = oldId;
 			array[1] = newId;
 			circunscriptionIds.add(array);
 		}
-		rsCi.close();
-		tr.commit();
+		resultSerCircunscription.close();
+		entityTransaction.commit();
 
-		tr = em.getTransaction();
-		tr.begin();
+		entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 
-		while (rsDi.next()) {
-			District p = new District();
-			Long oldDistrictId = rsDi.getLong("id_distrito");
-			Long oldCircunscriptionId = rsDi.getLong("id_circunscripcion");
-			Long oldRegionId = rsDi.getLong("id_region");
+		while (resultSetDistrict.next()) {
+			District district = new District();
+			Long oldDistrictId = resultSetDistrict.getLong("id_distrito");
+			Long oldCircunscriptionId = resultSetDistrict.getLong("id_circunscripcion");
+			Long oldRegionId = resultSetDistrict.getLong("id_region");
 			Long newCircunscriptionId = findNewId(circunscriptionIds, oldCircunscriptionId);
 			Long newRegionId = findNewId(regionIds, oldRegionId);
 
-			p.setCircunscription(circunscriptionService.getCircunscription(newCircunscriptionId));
-			p.setRegion(regionService.getRegion(newRegionId));
-			em.persist(p);
+			district.setCircunscription(circunscriptionService.getCircunscription(newCircunscriptionId));
+			district.setRegion(regionService.getRegion(newRegionId));
+			entityManager.persist(district);
 
 			Long[] array = new Long[2];
 			array[0] = oldDistrictId;
-			array[1] = p.getId();
+			array[1] = district.getId();
 			districtIds.add(array);
 
 		}
-		tr.commit();
-		rsDi.close();
+		entityTransaction.commit();
+		resultSetDistrict.close();
 
-		tr = em.getTransaction();
-		tr.begin();
-		while (rsC.next()) {
-			Commune p = new Commune();
-			p.setName(rsC.getString("nombre"));
-			Long oldDistrictId = rsC.getLong("id_distrito");
+		entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		while (resultSetCommune.next()) {
+			Commune commune = new Commune();
+			commune.setName(resultSetCommune.getString("nombre"));
+			Long oldDistrictId = resultSetCommune.getLong("id_distrito");
 			Long newDistrictId = findNewId(districtIds, oldDistrictId);
 
-			p.setDistrict(districtService.getDistrict(newDistrictId));
-			em.persist(p);
-			Long oldCommuneId = rsC.getLong("id_comuna");
+			commune.setDistrict(districtService.getDistrict(newDistrictId));
+			entityManager.persist(commune);
+			Long oldCommuneId = resultSetCommune.getLong("id_comuna");
 			Long[] array = new Long[2];
 			array[0] = oldCommuneId;
-			array[1] = p.getId();
+			array[1] = commune.getId();
 			communeIds.add(array);
 		}
-		rsC.close();
-		tr.commit();
+		resultSetCommune.close();
+		entityTransaction.commit();
 	}
 
 	private void loadChamber() {
-		Chamber s = new Chamber();
-		s.setName("Senado");
-		Chamber d = new Chamber();
-		d.setName("C.Diputados");
-		EntityTransaction tr = em.getTransaction();
-		tr.begin();
-		em.persist(s);
-		em.persist(d);
-		tr.commit();
+		Chamber senateChamber = new Chamber();
+		senateChamber.setName("Senado");
+		Chamber deputyChamber = new Chamber();
+		deputyChamber.setName("C.Diputados");
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		entityManager.persist(senateChamber);
+		entityManager.persist(deputyChamber);
+		entityTransaction.commit();
 
-		dChamber = d;
-		sChamber = s;
+		dChamber = deputyChamber;
+		sChamber = senateChamber;
 	}
 
 	private void loadMatter() throws SQLException {
-		ResultSet rs = getTableData("materia");
-		EntityTransaction tr = em.getTransaction();
-		tr.begin();
-		while (rs.next()) {
-			Matter m = new Matter();
-			m.setCreatedAt(getSafeDate(rs, "created_at"));
-			m.setUpdatedAt(getSafeDate(rs, "updated_at"));
-			m.setName(rs.getString("nombre"));
-			m.setSuperMatter(rs.getString("super_materia"));
-			em.persist(m);
+		ResultSet resultSetMatter = getTableData("materia");
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		while (resultSetMatter.next()) {
+			Matter matter = new Matter();
+			matter.setCreatedAt(getSafeDate(resultSetMatter, "created_at"));
+			matter.setUpdatedAt(getSafeDate(resultSetMatter, "updated_at"));
+			matter.setName(resultSetMatter.getString("nombre"));
+			matter.setSuperMatter(resultSetMatter.getString("super_materia"));
+			entityManager.persist(matter);
 
-			Long oldId = rs.getLong("id_materia");
+			Long oldId = resultSetMatter.getLong("id_materia");
 			Long[] array = new Long[2];
 			array[0] = oldId;
-			array[1] = m.getId();
+			array[1] = matter.getId();
 			matterIds.add(array);
 		}
-		rs.close();
-		tr.commit();
+		resultSetMatter.close();
+		entityTransaction.commit();
 	}
 
 	private void loadDiscussionType() throws SQLException {
-		EntityTransaction tr = em.getTransaction();
-		tr.begin();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		String[] discussions = { "General", "Particular", "Ambas", "Unicas" };
-		for (String s : discussions) {
-			DiscussionType dt = new DiscussionType();
-			dt.setName(s);
-			em.persist(dt);
+		for (String discussion : discussions) {
+			DiscussionType discussionType = new DiscussionType();
+			discussionType.setName(discussion);
+			entityManager.persist(discussionType);
 		}
-		tr.commit();
+		entityTransaction.commit();
 	}
 
 	private void loadPerson() throws SQLException, ServiceException {
-		ResultSet rsau = getTableData("autor");
-		EntityTransaction tr = em.getTransaction();
-		while (rsau.next()) {
-			Person p = new Person();
-			p.setFirstName(rsau.getString("nombre"));
-			p.setLastName(rsau.getString("apellidos"));
-			Person exist = getPerson(p.getFirstName(), p.getLastName());
+		ResultSet resultSetAuthor = getTableData("autor");
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		while (resultSetAuthor.next()) {
+			Person person = new Person();
+			person.setFirstName(resultSetAuthor.getString("nombre"));
+			person.setLastName(resultSetAuthor.getString("apellidos"));
+			Person exist = getPerson(person.getFirstName(), person.getLastName());
 			if (exist == null) {
-				p.setCreatedAt(getSafeDate(rsau, "created_at"));
-				p.setUpdatedAt(getSafeDate(rsau, "updated_at"));
-				tr.begin();
-				em.persist(p);
-				tr.commit();
+				person.setCreatedAt(getSafeDate(resultSetAuthor, "created_at"));
+				person.setUpdatedAt(getSafeDate(resultSetAuthor, "updated_at"));
+				entityTransaction.begin();
+				entityManager.persist(person);
+				entityTransaction.commit();
 			} else
-				p = exist;
-			Long oldId = rsau.getLong("id_autor");
+				person = exist;
+			Long oldId = resultSetAuthor.getLong("id_autor");
 			Long[] array = new Long[2];
 			array[0] = oldId;
-			array[1] = p.getId();
+			array[1] = person.getId();
 			authorsToPersonIds.add(array);
 		}
-		rsau.close();
-		tr = em.getTransaction();
-		ResultSet rspar = getTableData("parlamentario as p");
+		resultSetAuthor.close();
+		entityTransaction = entityManager.getTransaction();
+		ResultSet resultSetParliamentarian = getTableData("parlamentario as p");
 
-		while (rspar.next()) {
-			Person p = new Person();
-			p.setFirstName(rspar.getString("p.nombre"));
-			p.setLastName(rspar.getString("p.apellidos"));
-			Person exist = getPerson(p.getFirstName(), p.getLastName());
+		while (resultSetParliamentarian.next()) {
+			Person person = new Person();
+			person.setFirstName(resultSetParliamentarian.getString("p.nombre"));
+			person.setLastName(resultSetParliamentarian.getString("p.apellidos"));
+			Person exist = getPerson(person.getFirstName(), person.getLastName());
 			if (exist != null)
-				p = exist;
-			p.setGender(rspar.getString("p.sexo"));
-			p.setBirthday(getSafeDate(rspar, "p.fecha_nacimiento"));
-			p.setProfession(rspar.getString("p.profesion"));
-			p.setMailAddress(rspar.getString("p.mail"));
-			p.setWebsite(rspar.getString("p.web"));
-			p.setTwitterAccount(rspar.getString("p.twitter"));
-			p.setFacebookAccount(rspar.getString("p.facebook"));
-			p.setStatementOfInterest(rspar.getString("p.declaracion_interes"));
-			p.setUniversityEducation(rspar.getString("p.educacion_universitaria"));
+				person = exist;
+			person.setGender(resultSetParliamentarian.getString("p.sexo"));
+			person.setBirthday(getSafeDate(resultSetParliamentarian, "p.fecha_nacimiento"));
+			person.setProfession(resultSetParliamentarian.getString("p.profesion"));
+			person.setMailAddress(resultSetParliamentarian.getString("p.mail"));
+			person.setWebsite(resultSetParliamentarian.getString("p.web"));
+			person.setTwitterAccount(resultSetParliamentarian.getString("p.twitter"));
+			person.setFacebookAccount(resultSetParliamentarian.getString("p.facebook"));
+			person.setStatementOfInterest(resultSetParliamentarian.getString("p.declaracion_interes"));
+			person.setUniversityEducation(resultSetParliamentarian.getString("p.educacion_universitaria"));
 
-			tr.begin();
-			if (p.getId() == null) {
-				em.persist(p);
+			entityTransaction.begin();
+			if (person.getId() == null) {
+				entityManager.persist(person);
 			} else
-				em.merge(p);
+				entityManager.merge(person);
 
 			// Parliamentarian to person
-			Long oldId = rspar.getLong("id_parlamentario");
+			Long oldId = resultSetParliamentarian.getLong("id_parlamentario");
 			Long[] array = new Long[2];
 			array[0] = oldId;
-			array[1] = p.getId();
+			array[1] = person.getId();
 			parliamentarianToPersonIds.add(array);
 
-			Matcher md = pattern.matcher(rspar.getString("p.periodos_diputado_desc"));
-			Matcher ms = pattern.matcher(rspar.getString("p.periodos_senador_desc"));
-			List<LegislatorRole> dip = setupLegislator(md, dChamber, rspar);
-			List<LegislatorRole> sen = setupLegislator(ms, sChamber, rspar);
+			Matcher matcherDeputy = pattern.matcher(resultSetParliamentarian.getString("p.periodos_diputado_desc"));
+			Matcher matcherSenator = pattern.matcher(resultSetParliamentarian.getString("p.periodos_senador_desc"));
+			List<LegislatorRole> deputyRoleList = setupLegislator(matcherDeputy, dChamber, resultSetParliamentarian);
+			List<LegislatorRole> senatorRoleList = setupLegislator(matcherSenator, sChamber, resultSetParliamentarian);
 
 			LinkedList<Role> roles = new LinkedList<Role>();
-			for (LegislatorRole d : dip) {
-				d.setPerson(p);
-				roles.add(d);
-				em.persist(d);
+			for (LegislatorRole legislatorRole : deputyRoleList) {
+				legislatorRole.setPerson(person);
+				roles.add(legislatorRole);
+				entityManager.persist(legislatorRole);
 			}
-			for (LegislatorRole d : sen) {
-				d.setPerson(p);
-				roles.add(d);
-				em.persist(d);
-			}
-			p.setRoles(roles);
-			em.merge(p);
 
-			Long oldPartyid = rspar.getLong("p.id_partido");
+			for (LegislatorRole legislatorRole : senatorRoleList) {
+				legislatorRole.setPerson(person);
+				roles.add(legislatorRole);
+				entityManager.persist(legislatorRole);
+			}
+			person.setRoles(roles);
+			entityManager.merge(person);
+
+			Long oldPartyid = resultSetParliamentarian.getLong("p.id_partido");
 			Long newPartyId = findNewId(partyIds, oldPartyid);
 			if (newPartyId != null) {
 				boolean found = false;
-				for (Long ids : personPartyAffiliation)
-					if (p.getId().longValue() == ids.longValue()) {
+				for (Long ids : personPartyAffiliation) {
+					if (person.getId().longValue() == ids.longValue()) {
 						found = true;
 						break;
 					}
+				}
+
 				if (!found) {
 					Party party = partyService.getParty(newPartyId);
 					AgrupationAffiliation agr = new AgrupationAffiliation();
 					agr.setAgrupation(party);
-					agr.setPerson(p);
-					em.persist(agr);
-					personPartyAffiliation.add(p.getId());
+					agr.setPerson(person);
+					entityManager.persist(agr);
+					personPartyAffiliation.add(person.getId());
 				}
 			}
-			tr.commit();
+			entityTransaction.commit();
 
 		}
-		rspar.close();
+		resultSetParliamentarian.close();
 
 	}
 
@@ -453,121 +464,113 @@ public class Migrate {
 		for (PersonDO pname : listName.getElements())
 			for (PersonDO plastname : listLastName.getElements())
 				if (pname.getId().longValue() == plastname.getId().longValue()) {
-					// System.out.println("Persona Encontrada,  id: "
-					// + pname.getId() + ", name: " + pname.getFirstName()
-					// + ", lastname: " + plastname.getLastName());
 					return personService.getPerson(pname.getId());
 				}
 
 		return null;
 	}
 
-	private List<LegislatorRole> setupLegislator(Matcher m, Chamber c, ResultSet rspar) throws SQLException, ServiceException {
+	private List<LegislatorRole> setupLegislator(Matcher matcher, Chamber chamber, ResultSet resultSet) throws SQLException, ServiceException {
 		LinkedList<LegislatorRole> list = new LinkedList<LegislatorRole>();
-		while (m.find()) {
-			LegislatorRole leg = new LegislatorRole();
+		while (matcher.find()) {
+			LegislatorRole legislatorRole = new LegislatorRole();
 			Date startDate;
 			int startDateInt = -1;
 			try {
-				String tmp = m.group();
+				String tmp = matcher.group();
 				startDate = dateFormat.parse(tmp);
 				startDateInt = Integer.parseInt(tmp);
 			} catch (ParseException e) {
-				// e.printStackTrace();
 				startDate = null;
 			}
-			if (m.find()) {
+			if (matcher.find()) {
 				try {
 					Date endDate;
-					endDate = dateFormat.parse(m.group());
-					leg.setEndDate(endDate);
+					endDate = dateFormat.parse(matcher.group());
+					legislatorRole.setEndDate(endDate);
 				} catch (ParseException e) {
-					// e.printStackTrace();
 				}
 			}
-			leg.setStartDate(startDate);
-			if (leg.getStartDate() != null) {
+			legislatorRole.setStartDate(startDate);
+			if (legislatorRole.getStartDate() != null) {
 				if (startDateInt == date2005int) {
-					leg.setCampaignFinance(rspar.getLong("p.financiamiento_electoral2005"));
-					leg.setCampaignSpending(rspar.getLong("p.gasto_electoral2005"));
+					legislatorRole.setCampaignFinance(resultSet.getLong("p.financiamiento_electoral2005"));
+					legislatorRole.setCampaignSpending(resultSet.getLong("p.gasto_electoral2005"));
 				}
 				if (startDateInt == date2009int) {
-					leg.setCampaignFinance(rspar.getLong("p.financiamiento_electoral2005"));
-					leg.setCampaignSpending(rspar.getLong("p.gasto_electoral2005"));
+					legislatorRole.setCampaignFinance(resultSet.getLong("p.financiamiento_electoral2005"));
+					legislatorRole.setCampaignSpending(resultSet.getLong("p.gasto_electoral2005"));
 				}
 			}
-			leg.setAllowance(rspar.getInt("p.dietas"));
-			leg.setChamber(c);
-			leg.setComiteEnvoy(rspar.getString("p.comite_parlamentario"));
-			leg.setCurrentComissions(rspar.getString("p.comisiones_actuales"));
-			leg.setPastComissions(rspar.getString("p.comisiones_anteriores"));
-			leg.setElectionCharges(rspar.getString("p.cargos_eleccion"));
-			leg.setGovernmentCharges(rspar.getString("p.cargos_gobierno"));
-			leg.setParliamentSiteId(rspar.getInt("p.id_parlamento"));
-			leg.setVoteNumber(rspar.getLong("p.voto_nro"));
-			leg.setVotePercentage(rspar.getDouble("p.voto_porcentaje"));
+			legislatorRole.setAllowance(resultSet.getInt("p.dietas"));
+			legislatorRole.setChamber(chamber);
+			legislatorRole.setComiteEnvoy(resultSet.getString("p.comite_parlamentario"));
+			legislatorRole.setCurrentComissions(resultSet.getString("p.comisiones_actuales"));
+			legislatorRole.setPastComissions(resultSet.getString("p.comisiones_anteriores"));
+			legislatorRole.setElectionCharges(resultSet.getString("p.cargos_eleccion"));
+			legislatorRole.setGovernmentCharges(resultSet.getString("p.cargos_gobierno"));
+			legislatorRole.setParliamentSiteId(resultSet.getInt("p.id_parlamento"));
+			legislatorRole.setVoteNumber(resultSet.getLong("p.voto_nro"));
+			legislatorRole.setVotePercentage(resultSet.getDouble("p.voto_porcentaje"));
 
 			try {
-				Long id_district = rspar.getLong("p.id_distrito");
+				Long id_district = resultSet.getLong("p.id_distrito");
 				Long newDistrictId = findNewId(districtIds, id_district);
 				District d = districtService.getDistrict(newDistrictId);
-				leg.setDistrict(d);
+				legislatorRole.setDistrict(d);
 			} catch (Exception e) {
-				// e.printStackTrace();
 			}
 
 			try {
-				Long oldCircunscritionId = rspar.getLong("p.id_circunscripcion");
+				Long oldCircunscritionId = resultSet.getLong("p.id_circunscripcion");
 				Long newCircunscriptionId = findNewId(circunscriptionIds, oldCircunscritionId);
 				Circunscription cir = circunscriptionService.getCircunscription(newCircunscriptionId);
-				leg.setCircunscription(cir);
+				legislatorRole.setCircunscription(cir);
 			} catch (Exception e) {
-				// System.out.println("Falle en agregar Circunscripcion.");
-				// e.printStackTrace();
 			}
-			list.add(leg);
+			list.add(legislatorRole);
 		}
 		return list;
 	}
 
 	private void loadBills() throws ServiceException, SQLException {
 		ResultSet bills = getTableData("proyectoley as p");
-		EntityTransaction tr = em.getTransaction();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
 
-		tr.begin();
+		entityTransaction.begin();
 		while (bills.next()) {
-			Bill b = new Bill();
+			Bill bill = new Bill();
 
-			b.setDecree(bills.getLong("p.decreto"));
-			b.setCreatedAt(getSafeDate(bills, "p.created_at"));
-			b.setUpdatedAt(getSafeDate(bills, "p.updated_at"));
-			b.setBulletinNumber(bills.getString("p.nro_boletin"));
-			b.setEntryDate(getSafeDate(bills, "p.fecha_ingreso"));
-			b.setBcnLawId(bills.getLong("p.ley"));
-			b.setBcnLawURL(bills.getString("p.ley_bcn"));
-			b.setInitiative(bills.getString("p.iniciativa"));
-			b.setSummary(bills.getString("p.resumen"));
-			b.setTitle(bills.getString("p.titulo"));
-			b.setUrgency(bills.getString("p.urgencia"));
+			bill.setDecree(bills.getLong("p.decreto"));
+			bill.setCreatedAt(getSafeDate(bills, "p.created_at"));
+			bill.setUpdatedAt(getSafeDate(bills, "p.updated_at"));
+			bill.setBulletinNumber(bills.getString("p.nro_boletin"));
+			bill.setEntryDate(getSafeDate(bills, "p.fecha_ingreso"));
+			bill.setBcnLawId(bills.getLong("p.ley"));
+			bill.setBcnLawURL(bills.getString("p.ley_bcn"));
+			bill.setInitiative(bills.getString("p.iniciativa"));
+			bill.setSummary(bills.getString("p.resumen"));
+			bill.setTitle(bills.getString("p.titulo"));
+			bill.setUrgency(bills.getString("p.urgencia"));
 			String stageDescriptionString = bills.getString("p.etapa");
 
 			try {
-				HashSet<Stage> hs = new HashSet<Stage>();
-				StageDescription sd = stageDescriptionService.getByName(stageDescriptionString, 1, Integer.MAX_VALUE).getElements().get(0);
-				Stage s = new Stage();
-				s.setBill(b);
-				s.setStageDescription(sd);
-				HashSet<Substage> sub = new HashSet<Substage>();
-				Substage subs = new Substage();
-				subs.setDescription(bills.getString("p.sub_etapa"));
-				subs.setStage(s);
-				sub.add(subs);
-				s.setSubStages(sub);
-				hs.add(s);
-				b.setStages(hs);
+				Set<Stage> stageSet = new HashSet<Stage>();
+				StageDescription stageDescription = stageDescriptionService.getByName(stageDescriptionString, 1, Integer.MAX_VALUE).getElements().get(0);
+				Stage stage = new Stage();
+				stage.setBill(bill);
+				stage.setStageDescription(stageDescription);
+				Set<Substage> substageSet = new HashSet<Substage>();
+				Substage substage = new Substage();
+				substage.setDescription(bills.getString("p.sub_etapa"));
+				substage.setStage(stage);
+				substageSet.add(substage);
+				stage.setSubStages(substageSet);
+				stageSet.add(stage);
+				bill.setStages(stageSet);
 
 			} catch (Exception e) {
-				System.out.println("No Encontre etapa: |" + stageDescriptionString + "|");
+				System.out.println("Stage not found: |" + stageDescriptionString + "|");
 			}
 
 			try {
@@ -575,273 +578,268 @@ public class Migrate {
 				if (oldMatterId != null) {
 					Long newMatterId = findNewId(matterIds, oldMatterId);
 					if (newMatterId != null) {
-						Matter m = matterService.getById(newMatterId);
-						b.setMatter(m);
+						Matter matter = matterService.getById(newMatterId);
+						bill.setMatter(matter);
 					}
 				}
 			} catch (Exception e) {
-				System.out.println("Error agregando materia: " + e.getMessage());
-				// e.printStackTrace();
+				System.out.println("Error while adding matter: " + e.getMessage());
 			}
-			b.setPublished(false);
-			Date m = getSafeDate(bills, "p.fecha_publicacion");
-			if (m != null) {
-				b.setPublicationDate(m);
-				b.setPublished(true);
+			bill.setPublished(false);
+			Date publishDate = getSafeDate(bills, "p.fecha_publicacion");
+			if (publishDate != null) {
+				bill.setPublicationDate(publishDate);
+				bill.setPublished(true);
 			}
-			b.setOriginChamber((bills.getString("camara_origen").toLowerCase().indexOf("senado") != -1) ? sChamber : dChamber);
+			bill.setOriginChamber((bills.getString("camara_origen").toLowerCase().indexOf("senado") != -1) ? sChamber : dChamber);
 
-			em.persist(b);
+			entityManager.persist(bill);
 
 			Long oldBillId = bills.getLong("p.id_proyecto_ley");
-			Long newBillId = b.getId();
+			Long newBillId = bill.getId();
 			Long[] array = new Long[2];
 			array[0] = oldBillId;
 			array[1] = newBillId;
 			billIds.add(array);
 
-			setupDebates(oldBillId, b);
+			setupDebates(oldBillId, bill);
 
-			if (b.getId().longValue() % 100 == 0) {
-				// System.out.println("Added bill, Old id: " + oldBillId
-				// + ", new id: " + b.getId());
-
-				tr.commit();
-				tr.begin();
+			if (bill.getId().longValue() % 100 == 0) {
+				entityTransaction.commit();
+				entityTransaction.begin();
 			}
 		}
-		tr.commit();
+		entityTransaction.commit();
 		bills.close();
 
 	}
 
-	private void setupDebates(long old_bill_id, Bill b) throws SQLException, ServiceException {
-		ResultSet debates = getTableData("debate where id_proyecto_ley =" + old_bill_id);
+	private void setupDebates(long oldBillId, Bill bill) throws SQLException, ServiceException {
+		ResultSet resultSetDebate = getTableData("debate where id_proyecto_ley =" + oldBillId);
 
-		while (debates.next()) {
-			Debate d;
-			if (debates.getInt("comision_sala") == 1)
-				d = new DebateInCommission();
-			else
-				d = new Debate();
-			d.setAbstractText(debates.getString("destacado_texto"));
-			d.setAbstractText(debates.getString("destacado_titulo"));
-			d.setCreatedAt(getSafeDate(debates, "created_at"));
-			d.setUpdatedAt(getSafeDate(debates, "updated_at"));
+		while (resultSetDebate.next()) {
+			Debate debate;
+			if (resultSetDebate.getInt("comision_sala") == 1) {
+				debate = new DebateInCommission();
+			} else {
+				debate = new Debate();
+			}
+			debate.setAbstractText(resultSetDebate.getString("destacado_texto"));
+			debate.setAbstractText(resultSetDebate.getString("destacado_titulo"));
+			debate.setCreatedAt(getSafeDate(resultSetDebate, "created_at"));
+			debate.setUpdatedAt(getSafeDate(resultSetDebate, "updated_at"));
 
-			Date m = getSafeDate(debates, "fecha");
-			if (m != null) {
-				d.setDate(m);
+			Date date = getSafeDate(resultSetDebate, "fecha");
+			if (date != null) {
+				debate.setDate(date);
 			}
 
-			d.setDebate(debates.getString("debate"));
-			d.setDocUrl(debates.getString("docs"));
-			d.setTopic(debates.getString("tema"));
-			d.setChamber((debates.getString("camara").toLowerCase().indexOf("senado") != -1) ? sChamber : dChamber);
-			d.setDiscussionType(discussionTypeService.getDisscussionType(new Long(debates.getInt("discusion"))));
-			d.setBill(b);
+			debate.setDebate(resultSetDebate.getString("debate"));
+			debate.setDocUrl(resultSetDebate.getString("docs"));
+			debate.setTopic(resultSetDebate.getString("tema"));
+			debate.setChamber((resultSetDebate.getString("camara").toLowerCase().indexOf("senado") != -1) ? sChamber : dChamber);
+			debate.setDiscussionType(discussionTypeService.getDisscussionType(new Long(resultSetDebate.getInt("discusion"))));
+			debate.setBill(bill);
 
-			em.persist(d);
+			entityManager.persist(debate);
 
-			Long oldDebateId = debates.getLong("id_debate");
-			Long newDebateId = d.getId();
+			Long oldDebateId = resultSetDebate.getLong("id_debate");
+			Long newDebateId = debate.getId();
 			Long[] array = new Long[2];
 			array[0] = oldDebateId;
 			array[1] = newDebateId;
 			debateIds.add(array);
 		}
-		debates.close();
+		resultSetDebate.close();
 	}
 
 	private void loadCommissionTypes() {
-		CommissionType special = new CommissionType();
-		special.setName("Especial");
-		CommissionType permanent = new CommissionType();
-		permanent.setName("Permanente");
+		CommissionType specialCommission = new CommissionType();
+		specialCommission.setName("Especial");
+		CommissionType permanentCommission = new CommissionType();
+		permanentCommission.setName("Permanente");
 
-		EntityTransaction tr = em.getTransaction();
-		tr.begin();
-		em.persist(special);
-		em.persist(permanent);
-		tr.commit();
+		EntityTransaction entitytransaction = entityManager.getTransaction();
+		entitytransaction.begin();
+		entityManager.persist(specialCommission);
+		entityManager.persist(permanentCommission);
+		entitytransaction.commit();
 	}
 
 	private void loadCommission() throws ServiceException, SQLException {
-		ResultSet rs = getTableData("comision");
-		CommissionType special = commissionTypeService.getAll().get(0);
-		CommissionType permanent = commissionTypeService.getAll().get(1);
+		ResultSet resultSetCommission = getTableData("comision");
+		CommissionType specialCommission = commissionTypeService.getAll().get(0);
+		CommissionType permanentCommission = commissionTypeService.getAll().get(1);
 
-		EntityTransaction tr = em.getTransaction();
-		tr.begin();
-		while (rs.next()) {
-			Commission c = new Commission();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		while (resultSetCommission.next()) {
+			Commission commission = new Commission();
 
-			c.setName(rs.getString("nombre"));
-			c.setChamber((rs.getString("camara").toLowerCase().indexOf("senado") != -1) ? sChamber : dChamber);
-			c.setCommissionType((rs.getString("tipo").toLowerCase().indexOf("especial") != -1) ? special : permanent);
+			commission.setName(resultSetCommission.getString("nombre"));
+			commission.setChamber((resultSetCommission.getString("camara").toLowerCase().indexOf("senado") != -1) ? sChamber : dChamber);
+			commission.setCommissionType((resultSetCommission.getString("tipo").toLowerCase().indexOf("especial") != -1) ? specialCommission : permanentCommission);
 
-			c.setChamber((rs.getString("camara").toLowerCase().indexOf("senado") != -1) ? sChamber : dChamber);
-			c.setMailAddress(rs.getString("contacto_mail"));
-			c.setPhoneNumber(rs.getString("contacto_tel"));
-			c.setForm(rs.getString("contacto_form"));
-			c.setSecretaryLawyer(rs.getString("abogado_secretario"));
-			c.setAssistantLawyer(rs.getString("abogado_ayudante"));
-			c.setExecutive_lawyer(rs.getString("secretario_ejecutivo"));
-			c.setCreatedAt(getSafeDate(rs, "created_at"));
-			c.setUpdatedAt(getSafeDate(rs, "updated_at"));
+			commission.setChamber((resultSetCommission.getString("camara").toLowerCase().indexOf("senado") != -1) ? sChamber : dChamber);
+			commission.setMailAddress(resultSetCommission.getString("contacto_mail"));
+			commission.setPhoneNumber(resultSetCommission.getString("contacto_tel"));
+			commission.setForm(resultSetCommission.getString("contacto_form"));
+			commission.setSecretaryLawyer(resultSetCommission.getString("abogado_secretario"));
+			commission.setAssistantLawyer(resultSetCommission.getString("abogado_ayudante"));
+			commission.setExecutive_lawyer(resultSetCommission.getString("secretario_ejecutivo"));
+			commission.setCreatedAt(getSafeDate(resultSetCommission, "created_at"));
+			commission.setUpdatedAt(getSafeDate(resultSetCommission, "updated_at"));
 
-			em.persist(c);
+			entityManager.persist(commission);
 
-			Long oldCommissionId = rs.getLong("id_comision");
-			Long newCommissionId = c.getId();
+			Long oldCommissionId = resultSetCommission.getLong("id_comision");
+			Long newCommissionId = commission.getId();
 			Long[] array = new Long[2];
 			array[0] = oldCommissionId;
 			array[1] = newCommissionId;
 			commissionIds.add(array);
 
 		}
-		tr.commit();
-		rs.close();
+		entityTransaction.commit();
+		resultSetCommission.close();
 	}
 
 	private void loadDebateCommission() throws SQLException, ServiceException {
-		EntityTransaction tr = em.getTransaction();
-		tr.begin();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		for (Long[] debate : debateIds) {
-			Debate d = debateService.getDebate(debate[1]);
-			if (d instanceof DebateInCommission) {
-				ResultSet rs = getTableData("debatecomision where id_debate=" + debate[0]);
-				DebateInCommission dic = (DebateInCommission) d;
+			Debate debateTemp = debateService.getDebate(debate[1]);
+			if (debateTemp instanceof DebateInCommission) {
+				ResultSet resultSetDebateCommission = getTableData("debatecomision where id_debate=" + debate[0]);
+				DebateInCommission debateInCommission = (DebateInCommission) debateTemp;
 				HashSet<Commission> participants = new HashSet<Commission>();
-				while (rs.next()) {
-					Long oldCommissionId = rs.getLong("id_comision");
+				while (resultSetDebateCommission.next()) {
+					Long oldCommissionId = resultSetDebateCommission.getLong("id_comision");
 					Long newCommissionId = findNewId(commissionIds, oldCommissionId);
-					Commission c = commissionService.getCommissionById(newCommissionId);
+					Commission commission = commissionService.getCommissionById(newCommissionId);
 
-					participants.add(c);
+					participants.add(commission);
 				}
-				dic.setParticipantCommissions(participants);
-				em.merge(dic);
-				rs.close();
+				debateInCommission.setParticipantCommissions(participants);
+				entityManager.merge(debateInCommission);
+				resultSetDebateCommission.close();
 			}
 		}
-		tr.commit();
+		entityTransaction.commit();
 	}
 
 	private void loadDebateTags() throws SQLException, ServiceException {
-		EntityTransaction tr = em.getTransaction();
-		tr.begin();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		for (Long[] debate : debateIds) {
-			Debate d = debateService.getDebate(debate[1]);
+			Debate debateTemp = debateService.getDebate(debate[1]);
 
-			ResultSet rs = completeQueryDate("Select tags from debate where id_debate=" + debate[0]);
+			ResultSet resultSetTags = completeQueryDate("Select tags from debate where id_debate=" + debate[0]);
 			try {
-				rs.next();
-				String tags[] = rs.getString("tags").split(",");
-				HashSet<Tag> hstags = new HashSet<Tag>();
+				resultSetTags.next();
+				String tags[] = resultSetTags.getString("tags").split(",");
+				Set<Tag> tagSet = new HashSet<Tag>();
 				for (int i = 0; i < tags.length; i++) {
 					String currentTag = tags[i].trim();
 					List<Tag> tagList = tagService.findByName(currentTag, 1, Integer.MAX_VALUE).getElements();
 					for (Tag t : tagList)
-						hstags.add(t);
+						tagSet.add(t);
 				}
-				d.setTags(hstags);
+				debateTemp.setTags(tagSet);
 			} catch (Exception e) {
-				// e.printStackTrace();
 			}
-			em.merge(d);
-			rs.close();
+			entityManager.merge(debateTemp);
+			resultSetTags.close();
 		}
-		tr.commit();
+		entityTransaction.commit();
 	}
 
 	private void loadBillAuthors() throws SQLException, ServiceException {
-		EntityTransaction tr = em.getTransaction();
-		tr.begin();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		for (Long[] bill : billIds) {
-			Bill d = billService.getBill(bill[1]);
-			ResultSet rs = getTableData("autorproyectoley where id_proyecto_ley=" + bill[0]);
-			HashSet<Person> authors = new HashSet<Person>();
-			while (rs.next()) {
-				Long oldPersonId = rs.getLong("id_autor");
+			Bill billTemp = billService.getBill(bill[1]);
+			ResultSet resultSetAuthor = getTableData("autorproyectoley where id_proyecto_ley=" + bill[0]);
+			Set<Person> authors = new HashSet<Person>();
+			while (resultSetAuthor.next()) {
+				Long oldPersonId = resultSetAuthor.getLong("id_autor");
 				Long newPersonId = findNewId(authorsToPersonIds, oldPersonId);
-				Person c = personService.getPerson(newPersonId);
+				Person person = personService.getPerson(newPersonId);
 
-				authors.add(c);
+				authors.add(person);
 			}
-			d.setAuthors(authors);
-			em.merge(d);
-			rs.close();
+			billTemp.setAuthors(authors);
+			entityManager.merge(billTemp);
+			resultSetAuthor.close();
 			if (bill[1] % 300 == 0) {
-				// System.out.println("Authors set for bill: " + bill[1]);
-				tr.commit();
-				tr.begin();
+				entityTransaction.commit();
+				entityTransaction.begin();
 			}
 		}
-		tr.commit();
+		entityTransaction.commit();
 	}
 
 	private void loadCommissionAffiliation() throws SQLException, ServiceException {
-		EntityTransaction tr = em.getTransaction();
-		tr.begin();
-		ResultSet rs = getTableData("parlamentarioencomision");
-		while (rs.next()) {
-			AgrupationAffiliation agr = new AgrupationAffiliation();
-			Long oldParliamentarianId = rs.getLong("id_parlamentario");
-			Long oldCommissionId = rs.getLong("id_comision");
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		ResultSet resultSetParliamentarianCommission = getTableData("parlamentarioencomision");
+		while (resultSetParliamentarianCommission.next()) {
+			AgrupationAffiliation agrupationAffiliation = new AgrupationAffiliation();
+			Long oldParliamentarianId = resultSetParliamentarianCommission.getLong("id_parlamentario");
+			Long oldCommissionId = resultSetParliamentarianCommission.getLong("id_comision");
 
 			Long newPersonId = findNewId(parliamentarianToPersonIds, oldParliamentarianId);
 			Long newCommissionId = findNewId(commissionIds, oldCommissionId);
 
-			agr.setAgrupation(commissionService.getCommissionById(newCommissionId));
-			agr.setPerson(personService.getPerson(newPersonId));
-			em.persist(agr);
+			agrupationAffiliation.setAgrupation(commissionService.getCommissionById(newCommissionId));
+			agrupationAffiliation.setPerson(personService.getPerson(newPersonId));
+			entityManager.persist(agrupationAffiliation);
 		}
-		tr.commit();
-		rs.close();
+		entityTransaction.commit();
+		resultSetParliamentarianCommission.close();
 	}
 
 	private void loadSessionChamber() throws SQLException, ServiceException {
-		EntityTransaction tr = em.getTransaction();
-		tr.begin();
-		ResultSet rs = getTableData("sesion");
-		while (rs.next()) {
-			SessionChamber ses = new SessionChamber();
-			ses.setCreatedAt(getSafeDate(rs, "created_at"));
-			ses.setUpdatedAt(getSafeDate(rs, "updated_at"));
-			ses.setDate(getSafeDate(rs, "fecha"));
-			ses.setChamber((rs.getString("camara").toLowerCase().indexOf("senado") != -1) ? sChamber : dChamber);
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		ResultSet resultSetSession = getTableData("sesion");
+		while (resultSetSession.next()) {
+			SessionChamber session = new SessionChamber();
+			session.setCreatedAt(getSafeDate(resultSetSession, "created_at"));
+			session.setUpdatedAt(getSafeDate(resultSetSession, "updated_at"));
+			session.setDate(getSafeDate(resultSetSession, "fecha"));
+			session.setChamber((resultSetSession.getString("camara").toLowerCase().indexOf("senado") != -1) ? sChamber : dChamber);
 
-			em.persist(ses);
+			entityManager.persist(session);
 
-			Long oldSessionId = rs.getLong("id_sesion");
-			Long newSessionId = ses.getId();
+			Long oldSessionId = resultSetSession.getLong("id_sesion");
+			Long newSessionId = session.getId();
 			Long[] array = new Long[2];
 			array[0] = oldSessionId;
 			array[1] = newSessionId;
 			sessionChamberIds.add(array);
 		}
-		tr.commit();
-		rs.close();
+		entityTransaction.commit();
+		resultSetSession.close();
 	}
 
 	private void loadVotes() throws SQLException, ServiceException {
-		EntityTransaction tr = em.getTransaction();
-		tr.begin();
-		ResultSet rs = getTableData("votacion");
-		while (rs.next()) {
-			Vote vot = new Vote();
-			vot.setName(rs.getString("name"));
-			vot.setType(rs.getString("tipo"));
-			vot.setCreatedAt(getSafeDate(rs, "created_at"));
-			vot.setUpdatedAt(getSafeDate(rs, "updated_at"));
-			vot.setYesVotes(rs.getInt("voto_si"));
-			vot.setNoVotes(rs.getInt("voto_no"));
-			vot.setAbsentVotes(rs.getInt("voto_aus"));
-			vot.setAbstentionVotes(rs.getInt("voto_abs"));
-			vot.setMatchingVotes(rs.getInt("voto_pareos"));
-			vot.setQuorum(rs.getString("quorum"));
-			String resultStr = rs.getString("resultado").toLowerCase();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		ResultSet resultSetVote = getTableData("votacion");
+		while (resultSetVote.next()) {
+			Vote vote = new Vote();
+			vote.setName(resultSetVote.getString("name"));
+			vote.setType(resultSetVote.getString("tipo"));
+			vote.setCreatedAt(getSafeDate(resultSetVote, "created_at"));
+			vote.setUpdatedAt(getSafeDate(resultSetVote, "updated_at"));
+			vote.setYesVotes(resultSetVote.getInt("voto_si"));
+			vote.setNoVotes(resultSetVote.getInt("voto_no"));
+			vote.setAbsentVotes(resultSetVote.getInt("voto_aus"));
+			vote.setAbstentionVotes(resultSetVote.getInt("voto_abs"));
+			vote.setMatchingVotes(resultSetVote.getInt("voto_pareos"));
+			vote.setQuorum(resultSetVote.getString("quorum"));
+			String resultStr = resultSetVote.getString("resultado").toLowerCase();
 
 			Long resultL = 0L;
 			if (resultStr.equals("rechazado"))
@@ -850,58 +848,61 @@ public class Migrate {
 				resultL = 2L;
 			else if (resultStr.equals("no quorum"))
 				resultL = 3L;
-			vot.setResult(resultL);
+			vote.setResult(resultL);
 
-			Long newBillId = findNewId(billIds, rs.getLong("id_proyecto_ley"));
+			Long newBillId = findNewId(billIds, resultSetVote.getLong("id_proyecto_ley"));
 			if (newBillId == null)
 				continue;
 			Bill bill = billService.getBill(newBillId);
-			vot.setBill(bill);
+			vote.setBill(bill);
 
-			Long oldSessionId = rs.getLong("id_sesion");
+			Long oldSessionId = resultSetVote.getLong("id_sesion");
 			Long newSessionId = findNewId(sessionChamberIds, oldSessionId);
 			SessionChamber sessionChamber = null;
-			if (newSessionId == null)
+
+			if (newSessionId == null) {
 				continue;
+			}
+
 			try {
 				sessionChamber = sessionChamberService.getSessionChamber(newSessionId);
 			} catch (Exception e) {
 				System.out.println("Sesión no encontrada para el id antiguo " + oldSessionId + " y id nuevo " + newSessionId);
-				// e.printStackTrace();
-				// break;
 			}
 
-			if (sessionChamber == null)
+			if (sessionChamber == null) {
 				continue;
-			vot.setSession(sessionChamber);
-			vot.setTime(getSafeDate(rs, "hora"));
+			}
 
-			em.persist(vot);
+			vote.setSession(sessionChamber);
+			vote.setTime(getSafeDate(resultSetVote, "hora"));
 
-			Long oldVoteId = rs.getLong("id_votacion");
-			Long newVoteId = vot.getId();
+			entityManager.persist(vote);
+
+			Long oldVoteId = resultSetVote.getLong("id_votacion");
+			Long newVoteId = vote.getId();
 			Long[] array = new Long[2];
 			array[0] = oldVoteId;
 			array[1] = newVoteId;
 			voteIds.add(array);
 		}
-		tr.commit();
-		tr.begin();
-		rs.close();
+		entityTransaction.commit();
+		entityTransaction.begin();
+		resultSetVote.close();
 
-		rs = getTableData("votacioncomision");
-		while (rs.next()) {
-			Vote vot = new Vote();
-			vot.setType(rs.getString("tipo"));
-			vot.setCreatedAt(getSafeDate(rs, "created_at"));
-			vot.setUpdatedAt(getSafeDate(rs, "updated_at"));
-			vot.setYesVotes(rs.getInt("voto_si"));
-			vot.setNoVotes(rs.getInt("voto_no"));
-			vot.setAbsentVotes(rs.getInt("voto_aus"));
-			vot.setAbstentionVotes(rs.getInt("voto_abs"));
-			vot.setMatchingVotes(rs.getInt("voto_pareos"));
-			vot.setQuorum(rs.getString("quorum"));
-			String resultStr = rs.getString("resultado").toLowerCase();
+		resultSetVote = getTableData("votacioncomision");
+		while (resultSetVote.next()) {
+			Vote vote = new Vote();
+			vote.setType(resultSetVote.getString("tipo"));
+			vote.setCreatedAt(getSafeDate(resultSetVote, "created_at"));
+			vote.setUpdatedAt(getSafeDate(resultSetVote, "updated_at"));
+			vote.setYesVotes(resultSetVote.getInt("voto_si"));
+			vote.setNoVotes(resultSetVote.getInt("voto_no"));
+			vote.setAbsentVotes(resultSetVote.getInt("voto_aus"));
+			vote.setAbstentionVotes(resultSetVote.getInt("voto_abs"));
+			vote.setMatchingVotes(resultSetVote.getInt("voto_pareos"));
+			vote.setQuorum(resultSetVote.getString("quorum"));
+			String resultStr = resultSetVote.getString("resultado").toLowerCase();
 
 			Long resultL = 0L;
 			if (resultStr.equals("rechazado"))
@@ -910,96 +911,109 @@ public class Migrate {
 				resultL = 2L;
 			else if (resultStr.equals("no quorum"))
 				resultL = 3L;
-			vot.setResult(resultL);
+			vote.setResult(resultL);
 
-			Long newBillId = findNewId(billIds, rs.getLong("id_proyecto_ley"));
-			if (newBillId == null)
+			Long newBillId = findNewId(billIds, resultSetVote.getLong("id_proyecto_ley"));
+
+			if (newBillId == null) {
 				continue;
+			}
+
 			Bill bill = billService.getBill(newBillId);
-			vot.setBill(bill);
+			vote.setBill(bill);
 
 			// creation of sessionComission
 			SessionCommission sessionCommission = new SessionCommission();
-			Long oldCommissionId = rs.getLong("id_comision");
+			Long oldCommissionId = resultSetVote.getLong("id_comision");
 			Long newCommissionId = findNewId(commissionIds, oldCommissionId);
-			if (newCommissionId == null)
+
+			if (newCommissionId == null) {
 				continue;
+			}
+
 			try {
 				sessionCommission.setCommission(commissionService.getCommissionById(newCommissionId));
 			} catch (Exception e) {
 				System.out.println("Comisión no encontrada para el id antiguo " + oldCommissionId + " y id nuevo " + newCommissionId);
 			}
 			sessionCommission.addDiscussedBill(bill);
-			vot.setSession(sessionCommission);
+			vote.setSession(sessionCommission);
 
-			em.persist(sessionCommission);
-			em.persist(vot);
+			entityManager.persist(sessionCommission);
+			entityManager.persist(vote);
 
-			Long oldVoteId = rs.getLong("id_votacion");
-			Long newVoteId = vot.getId();
+			Long oldVoteId = resultSetVote.getLong("id_votacion");
+			Long newVoteId = vote.getId();
 			Long[] array = new Long[2];
 			array[0] = oldVoteId;
 			array[1] = newVoteId;
 			voteIds.add(array);
 		}
-		tr.commit();
-		rs.close();
+		entityTransaction.commit();
+		resultSetVote.close();
 	}
 
 	private void loadSingleVotes() throws SQLException, ServiceException {
-		EntityTransaction tr = em.getTransaction();
-		tr.begin();
-		ResultSet rs = getTableData("votacionparlamentario");
-		while (rs.next()) {
-			SingleVote svo = new SingleVote();
-			svo.setVoteDetail(rs.getString("voto"));
-			Long oldLegislatorId = rs.getLong("id_parlamentario");
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		ResultSet resultSetParliamentarianVote = getTableData("votacionparlamentario");
+		while (resultSetParliamentarianVote.next()) {
+			SingleVote singleVote = new SingleVote();
+			singleVote.setVoteDetail(resultSetParliamentarianVote.getString("voto"));
+			Long oldLegislatorId = resultSetParliamentarianVote.getLong("id_parlamentario");
 			Long newPersonId = findNewId(parliamentarianToPersonIds, oldLegislatorId);
-			Long oldVoteId = rs.getLong("id_votacion");
+			Long oldVoteId = resultSetParliamentarianVote.getLong("id_votacion");
 			Long newVoteId = findNewId(voteIds, oldVoteId);
-			svo.setPerson(personService.getPerson(newPersonId));
-			if (newVoteId == null)
+			singleVote.setPerson(personService.getPerson(newPersonId));
+
+			if (newVoteId == null) {
 				continue;
+			}
+
 			try {
-				svo.setVote(voteService.getVote(newVoteId));
+				singleVote.setVote(voteService.getVote(newVoteId));
 			} catch (Exception e) {
 				System.out.println("Votación no encontrada para el id antiguo " + oldVoteId + " y id nuevo " + newVoteId);
-				// if(newVoteId != null)
-				// e.printStackTrace();
 			}
-			em.persist(svo);
+			entityManager.persist(singleVote);
 		}
-		rs.close();
-		tr.commit();
+		resultSetParliamentarianVote.close();
+		entityTransaction.commit();
 
-		rs = getTableData("votacioncomisionparlamentario");
-		tr.begin();
-		while (rs.next()) {
-			SingleVote svo = new SingleVote();
-			svo.setVoteDetail(rs.getString("voto"));
-			Long oldLegislatorId = rs.getLong("id_parlamentario");
+		resultSetParliamentarianVote = getTableData("votacioncomisionparlamentario");
+		entityTransaction.begin();
+		while (resultSetParliamentarianVote.next()) {
+			SingleVote singleVote = new SingleVote();
+			singleVote.setVoteDetail(resultSetParliamentarianVote.getString("voto"));
+			Long oldLegislatorId = resultSetParliamentarianVote.getLong("id_parlamentario");
 			Long newPersonId = findNewId(parliamentarianToPersonIds, oldLegislatorId);
-			if (newPersonId == null)
+
+			if (newPersonId == null) {
 				continue;
-			Long oldVoteId = rs.getLong("id_votacion");
+			}
+
+			Long oldVoteId = resultSetParliamentarianVote.getLong("id_votacion");
 			Long newVoteId = findNewId(voteIds, oldVoteId);
-			if (newVoteId == null)
+
+			if (newVoteId == null) {
 				continue;
-			svo.setPerson(personService.getPerson(newPersonId));
-			svo.setVote(voteService.getVote(newVoteId));
-			em.persist(svo);
+			}
+
+			singleVote.setPerson(personService.getPerson(newPersonId));
+			singleVote.setVote(voteService.getVote(newVoteId));
+			entityManager.persist(singleVote);
 		}
-		tr.commit();
-		rs.close();
+		entityTransaction.commit();
+		resultSetParliamentarianVote.close();
 	}
 
 	private void loadTags() throws SQLException {
-		ResultSet stages = completeQueryDate("Select distinct(tags) from debate");
-		EntityTransaction tr = em.getTransaction();
+		ResultSet resultSetDebateTags = completeQueryDate("Select distinct(tags) from debate");
+		EntityTransaction entityTransaction = entityManager.getTransaction();
 		String tags = ",";
-		while (stages.next()) {
+		while (resultSetDebateTags.next()) {
 			try {
-				String tagsArray[] = stages.getString("tags").split(",");
+				String tagsArray[] = resultSetDebateTags.getString("tags").split(",");
 				for (String tag : tagsArray) {
 					String tagTrim = tag.trim();
 					if (tags.indexOf("," + tagTrim + ",") == -1)
@@ -1010,38 +1024,38 @@ public class Migrate {
 			}
 		}
 		String[] realTags = tags.split(",");
-		tr.begin();
+		entityTransaction.begin();
 		for (String tag : realTags) {
 			if (!tag.equals("")) {
 				Tag t = new Tag();
 				t.setName(tag);
-				em.persist(t);
+				entityManager.persist(t);
 			}
 		}
-		tr.commit();
-		stages.close();
+		entityTransaction.commit();
+		resultSetDebateTags.close();
 	}
 
 	private void loadStageDescriptions() throws SQLException {
-		ResultSet stages = completeQueryDate("Select distinct(etapa) from proyectoley");
-		EntityTransaction tr = em.getTransaction();
-		tr.begin();
-		while (stages.next()) {
-			StageDescription sd = new StageDescription();
-			sd.setDescription(stages.getString("etapa"));
-			em.persist(sd);
+		ResultSet resultSetBillStages = completeQueryDate("Select distinct(etapa) from proyectoley");
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		while (resultSetBillStages.next()) {
+			StageDescription stageDescription = new StageDescription();
+			stageDescription.setDescription(resultSetBillStages.getString("etapa"));
+			entityManager.persist(stageDescription);
 		}
-		tr.commit();
-		stages.close();
+		entityTransaction.commit();
+		resultSetBillStages.close();
 	}
 
 	private ResultSet completeQueryDate(String query) {
 		Statement statement = null;
-		ResultSet rs = null;
+		ResultSet resultSet = null;
 		try {
-			statement = c.createStatement();
-			rs = statement.executeQuery(query);
-			return rs;
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(query);
+			return resultSet;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -1050,11 +1064,11 @@ public class Migrate {
 
 	private ResultSet getTableData(String tablename) {
 		Statement statement = null;
-		ResultSet rs = null;
+		ResultSet resultSet = null;
 		try {
-			statement = c.createStatement();
-			rs = statement.executeQuery("SELECT * FROM " + tablename);
-			return rs;
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery("SELECT * FROM " + tablename);
+			return resultSet;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -1064,8 +1078,8 @@ public class Migrate {
 	public boolean connect() {
 		try {
 			Class.forName(driver).newInstance();
-			c = DriverManager.getConnection(url + dbName, userName, password);
-			if (c != null) {
+			connection = DriverManager.getConnection(url + dbName, userName, password);
+			if (connection != null) {
 				System.out.println("Connected to the database");
 				return true;
 			}
@@ -1083,12 +1097,10 @@ public class Migrate {
 		return null;
 	}
 
-	private Date getSafeDate(ResultSet r, String fieldName) {
+	private Date getSafeDate(ResultSet resultSet, String fieldName) {
 		try {
-			return r.getDate(fieldName);
+			return resultSet.getDate(fieldName);
 		} catch (Exception e) {
-			// e.printStackTrace();
-			// System.out.println("Fail Parsing date");
 			return null;
 		}
 
@@ -1146,8 +1158,8 @@ public class Migrate {
 		this.tagService = tagService;
 	}
 
-	public void setEm(EntityManager em) {
-		this.em = em;
+	public void setEm(EntityManager entityManager) {
+		this.entityManager = entityManager;
 	}
 
 	public void setSessionChamberService(SessionChamberService sessionChamberService) {
