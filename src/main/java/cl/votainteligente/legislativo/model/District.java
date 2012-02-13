@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import cl.votainteligente.legislativo.model.domainobjects.DistrictDO;
+import cl.votainteligente.legislativo.model.DO.DistrictDO;
 
 @Entity
 @Table(name = "district")

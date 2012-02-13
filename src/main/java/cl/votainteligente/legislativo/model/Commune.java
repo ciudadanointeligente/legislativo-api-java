@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import cl.votainteligente.legislativo.model.domainobjects.CommuneDO;
+import cl.votainteligente.legislativo.model.DO.CommuneDO;
 
 @Entity
 @Table(name = "commune")

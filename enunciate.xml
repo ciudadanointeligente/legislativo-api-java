@@ -28,10 +28,10 @@
 
 	</modules>
 	<api-classes>
-		<include pattern="cl.votainteligente.legislativo.controllers.*" />
-		<include pattern="cl.votainteligente.legislativo.controllers.*.*" />
+		<include pattern="cl.votainteligente.legislativo.controller.rest.*" />
+		<include pattern="cl.votainteligente.legislativo.controller.rest.iface.*" />
 		<include pattern="cl.votainteligente.legislativo.model.*" />
-		<include pattern="cl.votainteligente.legislativo.model.domainobjects.*" />
+		<include pattern="cl.votainteligente.legislativo.model.DO.*" />
 		<include pattern="cl.votainteligente.legislativo.common.*" />
 	</api-classes>
 </enunciate>

@@ -8,8 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import cl.votainteligente.legislativo.model.domainobjects.SingleVoteDO;
-import cl.votainteligente.legislativo.model.domainobjects.SingleVoteDetailedDO;
+import cl.votainteligente.legislativo.model.DO.SingleVoteDO;
+import cl.votainteligente.legislativo.model.DO.SingleVoteDetailedDO;
 
 @Entity
 @Table(name = "single_vote")

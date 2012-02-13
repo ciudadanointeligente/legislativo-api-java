@@ -3,22 +3,8 @@ package cl.votainteligente.legislativo.migration;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.model.*;
-import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
-import cl.votainteligente.legislativo.service.agrupation.CommissionService;
-import cl.votainteligente.legislativo.service.agrupation.CommissionTypeService;
-import cl.votainteligente.legislativo.service.agrupation.PartyService;
-import cl.votainteligente.legislativo.service.bill.BillService;
-import cl.votainteligente.legislativo.service.bill.StageDescriptionService;
-import cl.votainteligente.legislativo.service.debate.DebateService;
-import cl.votainteligente.legislativo.service.debate.DiscussionTypeService;
-import cl.votainteligente.legislativo.service.debate.TagService;
-import cl.votainteligente.legislativo.service.geo.CircunscriptionService;
-import cl.votainteligente.legislativo.service.geo.DistrictService;
-import cl.votainteligente.legislativo.service.geo.RegionService;
-import cl.votainteligente.legislativo.service.matter.MatterService;
-import cl.votainteligente.legislativo.service.person.PersonService;
-import cl.votainteligente.legislativo.service.session.SessionChamberService;
-import cl.votainteligente.legislativo.service.vote.VoteService;
+import cl.votainteligente.legislativo.model.DO.PersonDO;
+import cl.votainteligente.legislativo.service.*;
 
 import org.springframework.stereotype.Controller;
 

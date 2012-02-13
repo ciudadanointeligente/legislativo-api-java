@@ -1,7 +1,7 @@
 package cl.votainteligente.legislativo.tests.deployment;
 
 import cl.votainteligente.legislativo.common.Page;
-import cl.votainteligente.legislativo.model.domainobjects.CommissionDO;
+import cl.votainteligente.legislativo.model.DO.CommissionDO;
 
 import org.apache.http.HttpStatus;
 

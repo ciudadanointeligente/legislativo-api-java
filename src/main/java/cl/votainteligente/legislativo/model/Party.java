@@ -13,10 +13,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 
-import cl.votainteligente.legislativo.model.domainobjects.AgrupationDO;
-import cl.votainteligente.legislativo.model.domainobjects.AgrupationDetailedDO;
-import cl.votainteligente.legislativo.model.domainobjects.PartyDO;
-import cl.votainteligente.legislativo.model.domainobjects.PartyDetailedDO;
+import cl.votainteligente.legislativo.model.DO.*;
 
 @Entity
 @Table(name = "party")

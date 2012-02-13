@@ -13,8 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import cl.votainteligente.legislativo.model.domainobjects.AgrupationDO;
-import cl.votainteligente.legislativo.model.domainobjects.AgrupationDetailedDO;
+import cl.votainteligente.legislativo.model.DO.AgrupationDO;
+import cl.votainteligente.legislativo.model.DO.AgrupationDetailedDO;
 
 @Entity
 @Table(name = "agrupation")

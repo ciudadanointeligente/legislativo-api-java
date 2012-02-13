@@ -17,8 +17,8 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 
-import cl.votainteligente.legislativo.model.domainobjects.DebateDO;
-import cl.votainteligente.legislativo.model.domainobjects.DebateDetailedDO;
+import cl.votainteligente.legislativo.model.DO.DebateDO;
+import cl.votainteligente.legislativo.model.DO.DebateDetailedDO;
 
 @Entity
 @Table(name = "debate")

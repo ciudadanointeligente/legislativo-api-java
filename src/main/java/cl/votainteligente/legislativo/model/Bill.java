@@ -17,8 +17,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
-import cl.votainteligente.legislativo.model.domainobjects.BillDO;
-import cl.votainteligente.legislativo.model.domainobjects.BillDetailedDO;
+
+import cl.votainteligente.legislativo.model.DO.BillDO;
+import cl.votainteligente.legislativo.model.DO.BillDetailedDO;
 
 @Entity
 @Table(name = "bill")

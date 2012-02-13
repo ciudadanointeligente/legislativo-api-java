@@ -19,8 +19,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import cl.votainteligente.legislativo.model.domainobjects.SessionDO;
-import cl.votainteligente.legislativo.model.domainobjects.SessionDetailedDO;
+import cl.votainteligente.legislativo.model.DO.SessionDO;
+import cl.votainteligente.legislativo.model.DO.SessionDetailedDO;
 
 @Entity
 @Table(name = "session")
