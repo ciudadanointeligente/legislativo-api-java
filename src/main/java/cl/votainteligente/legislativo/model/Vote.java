@@ -14,8 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import cl.votainteligente.legislativo.model.domainobjects.VoteDO;
-import cl.votainteligente.legislativo.model.domainobjects.VoteDetailedDO;
+import cl.votainteligente.legislativo.model.DO.VoteDO;
+import cl.votainteligente.legislativo.model.DO.VoteDetailedDO;
 
 @Entity
 @Table(name = "vote")

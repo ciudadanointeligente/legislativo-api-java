@@ -10,7 +10,7 @@
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			<property name="hibernate.connection.url" value="jdbc:mysql://localhost/legislativo-api" />
 			<property name="hibernate.connection.username" value="legislativo-api" />
-			<property name="hibernate.connection.password" value="Puh7kaiF" />
+			<property name="hibernate.connection.password" value="eop2Thah" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 		</properties>
 	</persistence-unit>

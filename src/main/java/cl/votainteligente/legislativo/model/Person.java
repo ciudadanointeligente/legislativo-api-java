@@ -13,8 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
-import cl.votainteligente.legislativo.model.domainobjects.PersonDetailedDO;
+import cl.votainteligente.legislativo.model.DO.PersonDO;
+import cl.votainteligente.legislativo.model.DO.PersonDetailedDO;
 
 
 @Entity

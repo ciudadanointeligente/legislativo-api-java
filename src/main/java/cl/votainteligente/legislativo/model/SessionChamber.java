@@ -5,8 +5,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import cl.votainteligente.legislativo.model.domainobjects.SessionChamberDO;
-import cl.votainteligente.legislativo.model.domainobjects.SessionChamberDetailedDO;
+import cl.votainteligente.legislativo.model.DO.SessionChamberDO;
+import cl.votainteligente.legislativo.model.DO.SessionChamberDetailedDO;
 
 @Entity
 @Table(name = "session_chamber")

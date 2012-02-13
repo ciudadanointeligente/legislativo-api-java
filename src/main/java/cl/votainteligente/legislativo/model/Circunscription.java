@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import cl.votainteligente.legislativo.model.domainobjects.CircunscriptionDO;
+import cl.votainteligente.legislativo.model.DO.CircunscriptionDO;
 
 @Entity
 @Table(name = "circunscription")

@@ -3,22 +3,20 @@ package cl.votainteligente.legislativo.migration;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.model.*;
-import cl.votainteligente.legislativo.model.domainobjects.PersonDO;
-import cl.votainteligente.legislativo.service.agrupation.CommissionService;
-import cl.votainteligente.legislativo.service.agrupation.CommissionTypeService;
-import cl.votainteligente.legislativo.service.agrupation.PartyService;
-import cl.votainteligente.legislativo.service.bill.BillService;
-import cl.votainteligente.legislativo.service.bill.StageDescriptionService;
-import cl.votainteligente.legislativo.service.debate.DebateService;
-import cl.votainteligente.legislativo.service.debate.DiscussionTypeService;
-import cl.votainteligente.legislativo.service.debate.TagService;
-import cl.votainteligente.legislativo.service.geo.CircunscriptionService;
-import cl.votainteligente.legislativo.service.geo.DistrictService;
-import cl.votainteligente.legislativo.service.geo.RegionService;
-import cl.votainteligente.legislativo.service.matter.MatterService;
-import cl.votainteligente.legislativo.service.person.PersonService;
-import cl.votainteligente.legislativo.service.session.SessionChamberService;
-import cl.votainteligente.legislativo.service.vote.VoteService;
+import cl.votainteligente.legislativo.model.DO.PersonDO;
+import cl.votainteligente.legislativo.service.*;
+
+import org.springframework.stereotype.Controller;
+
+import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.persistence.*;
 
 import org.springframework.stereotype.Controller;
 
@@ -92,7 +90,7 @@ public class Migrate {
 		dbName = "votainteligente_proyectos";
 		driver = "com.mysql.jdbc.Driver";
 		userName = "legislativo-api";
-		password = "Puh7kaiF";
+		password = "eop2Thah";
 	}
 
 	public Migrate(String url, String dbName, String driver, String userName, String password) {
@@ -873,12 +871,21 @@ public class Migrate {
 			if (sessionChamber == null) {
 				continue;
 			}
+<<<<<<< HEAD
 
 			vote.setSession(sessionChamber);
 			vote.setTime(getSafeDate(resultSetVote, "hora"));
 
 			entityManager.persist(vote);
 
+=======
+
+			vote.setSession(sessionChamber);
+			vote.setTime(getSafeDate(resultSetVote, "hora"));
+
+			entityManager.persist(vote);
+
+>>>>>>> master
 			Long oldVoteId = resultSetVote.getLong("id_votacion");
 			Long newVoteId = vote.getId();
 			Long[] array = new Long[2];

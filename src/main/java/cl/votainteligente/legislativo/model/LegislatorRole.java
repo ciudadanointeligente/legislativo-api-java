@@ -9,7 +9,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 
-import cl.votainteligente.legislativo.model.domainobjects.LegislatorDO;
+import cl.votainteligente.legislativo.model.DO.LegislatorDO;
 
 @Entity
 @Table(name = "legislator")
