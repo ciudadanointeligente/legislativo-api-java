@@ -24,7 +24,7 @@ public class ChamberController implements ChamberAPI {
 	ChamberService service;
 
 	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controller.rest.ChamberAPI#getAll(int, int)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.ChamberAPI#getAll(int, int)
 	 */
 	@RequestMapping(value = "chamber/all", method = RequestMethod.GET)
 	@ResponseBody
@@ -40,17 +40,20 @@ public class ChamberController implements ChamberAPI {
 	}
 
 	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controller.rest.ChamberAPI#getById(long)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.ChamberAPI#getById(long)
 	 */
 	@RequestMapping(value = "chamber/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final ChamberDO getById(
-			@RequestParam(value = "id", required = true) final long id) {
+			@RequestParam(value = "id", required = true) final long chamberId) {
 		try {
-			Chamber c = service.getById(id);
-			if(c == null)
+			Chamber chamber = service.getById(chamberId);
+
+			if(chamber == null) {
 				throw new ResourceNotFoundException();
-			return c.asDomainObject();
+			}
+
+			return chamber.asDomainObject();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
