@@ -78,7 +78,7 @@ public class Migrate {
 		dbName = "votainteligente_proyectos";
 		driver = "com.mysql.jdbc.Driver";
 		userName = "legislativo-api";
-		password = "eop2Thah";
+		password = "Eicum8ei";
 	}
 
 	public Migrate(String url, String dbName, String driver, String userName, String password) {
