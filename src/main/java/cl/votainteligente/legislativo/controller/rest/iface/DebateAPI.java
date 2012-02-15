@@ -1,46 +1,35 @@
 package cl.votainteligente.legislativo.controller.rest.iface;
 
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-
 import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.model.DO.DebateDO;
 import cl.votainteligente.legislativo.model.DO.DebateDetailedDO;
 
+import javax.ws.rs.*;
+
 public interface DebateAPI {
 	/**
-	 * Allows you to get all the information of a debate. 
+	 * Allows you to get all the information of a debate.
 	 *
-	 * @param id
-	 *            The debate identification number
-	 * @return Detailed view of a debate (DebateDetailedDO)
-	 * <br />
-	 * For example:
-	 * <a href="http://demo.ciudadanointeligente.cl/Legislativo/api/debate/any?id=1">debate/any?id=1</a>
+	 * @param id Debate identification number
+	 * @return Detailed view of a debate (DebateDetailedDO)<br />
+	 * 			For example:
+	 * 			<a href="http://demo.ciudadanointeligente.cl/Legislativo/api/debate/any?id=1">debate/any?id=1</a>
 	 * @see DebateDetailedDO
 	 */
 	@Path("any")
 	@GET
-	public abstract DebateDetailedDO getDebateById(
-			@PathParam("id") final long id);
+	public abstract DebateDetailedDO getDebateById(@PathParam("id") final long id);
 
 	/**
 	 * Gives all the debates presented between two dates.
 	 *
-	 * @param from
-	 *            Beggining of the interval, in date format (dd-MM-yyyy).
-	 * @param to
-	 *            End of the interval, in date format (dd-MM-yyyy).
-	 * @param page
-	 *            The number of the desired page to be retrieved (optional).
-	 * @param perPage
-	 *            Amount of bills to be retrieved in a page (optional).
-	 * @return A Page of Debate Abstracts (DebateDO)
-	 * <br />
-	 * For example:
-	 * <a href="http://demo.ciudadanointeligente.cl/Legislativo/api/debate/dateRange?from=01-01-2011&to=01-01-2012&page=1&perPage=10">debate/dateRange?from=01-01-2011&to=01-01-2012&page=1&perPage=10</a>
+	 * @param from Beggining of the interval, in date format (dd-MM-yyyy).
+	 * @param to End of the interval, in date format (dd-MM-yyyy).
+	 * @param page The number of the desired page to be retrieved (optional).
+	 * @param perPage Amount of bills to be retrieved in a page (optional).
+	 * @return A Page of Debate Abstracts (DebateDO)<br />
+	 * 			For example:
+	 * 			<a href="http://demo.ciudadanointeligente.cl/Legislativo/api/debate/dateRange?from=01-01-2011&to=01-01-2012&page=1&perPage=10">debate/dateRange?from=01-01-2011&to=01-01-2012&page=1&perPage=10</a>
 	 * @see DebateDO
 	 */
 	@Path("dateRange")
@@ -54,16 +43,12 @@ public interface DebateAPI {
 	/**
 	 * Returns all the debates registered in the system of a particular bill.
 	 *
-	 * @param id
-	 *            The bill identification number
-	 * @param page
-	 *            The number of the desired page to be retrieved (optional).
-	 * @param perPage
-	 *            Amount of bills to be retrieved in a page (optional).
-	 * @return A Page of Debate Abstracts (DebateDO)
-	 * <br />
-	 * For example:
-	 * <a href="http://demo.ciudadanointeligente.cl/Legislativo/api/debate/bill?id=1&page=1&perPage=10">debate/bill?id=1&page=1&perPage=10</a>
+	 * @param id Bill identification number
+	 * @param page The number of the desired page to be retrieved (optional).
+	 * @param perPage Amount of bills to be retrieved in a page (optional).
+	 * @return A Page of Debate Abstracts (DebateDO)<br />
+	 * 			For example:
+	 * 			<a href="http://demo.ciudadanointeligente.cl/Legislativo/api/debate/bill?id=1&page=1&perPage=10">debate/bill?id=1&page=1&perPage=10</a>
 	 * @see DebateDO
 	 */
 	@Path("bill")

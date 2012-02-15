@@ -26,20 +26,16 @@ import javax.ws.rs.Path;
 @Path("debate")
 @Controller
 public class DebateController implements DebateAPI {
-	private SimpleDateFormat dateFormat = new SimpleDateFormat(
-			ApplicationProperties.getProperty("controller.date.format"));
+	private SimpleDateFormat dateFormat = new SimpleDateFormat(ApplicationProperties.getProperty("controller.date.format"));
 
 	@Autowired
 	DebateService debateService;
-
 	@Autowired
 	BillService billService;
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see
-	 * cl.votainteligente.legislativo.controller.rest.DebateAPI#getDebateById(long)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.DebateAPI#getDebateById(long)
 	 */
 	@Override
 	@RequestMapping(params = { "id" }, value = "debate/any", method = RequestMethod.GET)
@@ -48,8 +44,11 @@ public class DebateController implements DebateAPI {
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
 			DebateDetailedDO debate = debateService.getDebateDetailedDO(id);
-			if (debate == null)
+
+			if (debate == null) {
 				throw new ResourceNotFoundException();
+			}
+
 			return debate;
 		} catch (ServiceException e) {
 			e.printStackTrace();
@@ -59,23 +58,20 @@ public class DebateController implements DebateAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see
-	 * cl.votainteligente.legislativo.controller.rest.DebateAPI#getDateRange(java.lang.String, java.lang.String, int, int)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.DebateAPI#getDateRange(java.lang.String, java.lang.String, int, int)
 	 */
 	@Override
 	@RequestMapping(value = "debate/dateRange", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<DebateDO> getDateRange(
-			@RequestParam(value = "from", required = true) final String fromString,
-			@RequestParam(value = "to", required = true) final String toString,
+			@RequestParam(value = "from", required = true) final String from,
+			@RequestParam(value = "to", required = true) final String to,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			Date from = dateFormat.parse(fromString);
-			Date to = dateFormat.parse(toString);
-			Page<DebateDO> resultPage = debateService.getDebateByDateRange(
-					from, to, page, perPage);
+			Date startDAte = dateFormat.parse(from);
+			Date endDate = dateFormat.parse(to);
+			Page<DebateDO> resultPage = debateService.getDebateByDateRange(startDAte, endDate, page, perPage);
 			return resultPage;
 		} catch (ServiceException e) {
 			e.printStackTrace();
@@ -87,9 +83,7 @@ public class DebateController implements DebateAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see
-	 * cl.votainteligente.legislativo.controller.rest.DebateAPI#getDebateByBill(long, int, int)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.DebateAPI#getDebateByBill(long, int, int)
 	 */
 	@Override
 	@RequestMapping(params = { "id" }, value = "debate/bill", method = RequestMethod.GET)
@@ -100,8 +94,11 @@ public class DebateController implements DebateAPI {
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 			Bill bill = billService.getBill(id);
-			if (bill==null)
+
+			if (bill==null) {
 				throw new ResourceNotFoundException();
+			}
+
 			return debateService.getDebateByBill(bill, page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
