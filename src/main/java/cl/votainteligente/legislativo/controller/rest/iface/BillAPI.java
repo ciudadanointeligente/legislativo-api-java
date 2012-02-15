@@ -27,7 +27,7 @@ public interface BillAPI {
 	/**
 	 * Allows you to get all the information of a bill.
 	 *
-	 * @param billId The Bill identification number.
+	 * @param id Bill identification number.
 	 * @return Detailed view of a bill (BillDetailedDO)<br />
 	 * 			For example:
 	 * 			<a href="http://demo.ciudadanointeligente.cl/Legislativo/api/bill/any?id=1">bill/any?id=1</a>
@@ -35,13 +35,13 @@ public interface BillAPI {
 	 */
 	@GET
 	@Path("any")
-	public BillDetailedDO getBillById(@PathParam("id") final long billId);
+	public BillDetailedDO getBillById(@PathParam("id") final long id);
 
 	/**
 	 * Gives all the bills presented between two dates.
 	 *
-	 * @param startDate Beggining of the interval, in date format (dd-MM-yyyy).
-	 * @param endDate End of the interval, in date format (dd-MM-yyyy).
+	 * @param from Beggining of the interval, in date format (dd-MM-yyyy).
+	 * @param to End of the interval, in date format (dd-MM-yyyy).
 	 * @param page The number of the desired page to be retrieved (optional).
 	 * @param perPage Amount of bills to be retrieved in a page (optional).
 	 * @return A Page of Bill Abstracts (BillDO)<br />
@@ -52,15 +52,15 @@ public interface BillAPI {
 	@GET
 	@Path("dateRange")
 	public Page<BillDO> getDateRange(
-			@PathParam("from") final String startDate,
-			@PathParam("to") final String endDate,
+			@PathParam("from") final String from,
+			@PathParam("to") final String to,
 			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 	/**
 	 * Returns all the bills that currently are in a particular stage.
 	 *
-	 * @param stageId The Stage identification number.
+	 * @param id Stage identification number.
 	 * @param page The number of the desired page to be retrieved (optional).
 	 * @param perPage Amount of bills to be retrieved in a page (optional).
 	 * @return A Page of Bill Abstracts (BillDO)<br />
@@ -70,14 +70,15 @@ public interface BillAPI {
 	 */
 	@GET
 	@Path("stage")
-	public Page<BillDO> getBillsByStage(@PathParam("id") final long stageId,
+	public Page<BillDO> getBillsByStage(
+			@PathParam("id") final long id,
 			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 	/**
 	 * Returns all the bills registered in the system of a particular matter.
 	 *
-	 * @param matterId The matter identificator.
+	 * @param id Matter identification number.
 	 * @param page The number of the desired page to be retrieved (optional).
 	 * @param perPage Amount of bills to be retrieved in a page (optional).
 	 * @return A Page of Bill Abstracts (BillDO)<br />
@@ -87,7 +88,8 @@ public interface BillAPI {
 	 */
 	@GET
 	@Path("matter")
-	public Page<BillDO> getByMatter(@PathParam("id") final long matterId,
+	public Page<BillDO> getByMatter(
+			@PathParam("id") final long id,
 			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
@@ -95,7 +97,7 @@ public interface BillAPI {
 	 * Returns all the bills and role (of person) registered in the system of a
 	 * particular author
 	 *
-	 * @param authorId The person id of the author
+	 * @param id Author identification number.
 	 * @param page The number of the desired page to be retrieved (optional).
 	 * @param perPage Amount of bill-roles to be retrieved in a page (optional).
 	 * @return A Page of BillRole Abstracts (BillRoleDO)<br />
@@ -106,7 +108,7 @@ public interface BillAPI {
 	@GET
 	@Path("author")
 	public Page<BillRoleDO> getBillRoleByPerson(
-			@PathParam("id") final long authorId,
+			@PathParam("id") final long id,
 			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") @DefaultValue("10") final int perPage);
 

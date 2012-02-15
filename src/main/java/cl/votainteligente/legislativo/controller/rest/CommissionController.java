@@ -57,11 +57,11 @@ public class CommissionController implements CommissionAPI {
 	@RequestMapping(params={"name"}, value = "commission/any", method = RequestMethod.GET)
 	@ResponseBody
 	public Page<CommissionDO> findByName(
-			@RequestParam(value = "name", required = true) final String comissionName,
+			@RequestParam(value = "name", required = true) final String name,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			Page<CommissionDO> resultPage = commissionService.findCommissionsByName(comissionName, page, perPage);
+			Page<CommissionDO> resultPage = commissionService.findCommissionsByName(name, page, perPage);
 			return resultPage;
 		} catch (ServiceException e) {
 			e.printStackTrace();
@@ -76,11 +76,11 @@ public class CommissionController implements CommissionAPI {
 	@RequestMapping(params={"id"},value = "commission/any", method = RequestMethod.GET)
 	@ResponseBody
 	public CommissionDetailedDO getCommission(
-			@RequestParam(value = "id", required = true) final long commissionId,
+			@RequestParam(value = "id", required = true) final long id,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			Commission commission = commissionService.getCommissionById(commissionId);
+			Commission commission = commissionService.getCommissionById(id);
 
 			if (commission == null) {
 				throw new ResourceNotFoundException();
@@ -101,11 +101,11 @@ public class CommissionController implements CommissionAPI {
 	@RequestMapping(value = "commission/type", method = RequestMethod.GET)
 	@ResponseBody
 	public Page<CommissionDO> findByType(
-			@RequestParam(value = "id", required = true) final long commissionTypeId,
+			@RequestParam(value = "id", required = true) final long id,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			CommissionType commissionType = commissionTypeService.getById(commissionTypeId);
+			CommissionType commissionType = commissionTypeService.getById(id);
 			Page<CommissionDO> resultPage = commissionService.getCommissionsByType(commissionType, page, perPage);
 			return resultPage;
 		} catch (ServiceException e) {
@@ -121,11 +121,11 @@ public class CommissionController implements CommissionAPI {
 	@RequestMapping(value = "commission/chamber", method = RequestMethod.GET)
 	@ResponseBody
 	public Page<CommissionDO> findByChamber(
-			@RequestParam(value = "id", required = true) final long chamberId,
+			@RequestParam(value = "id", required = true) final long id,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			Chamber chamber = chamberService.getById(chamberId);
+			Chamber chamber = chamberService.getById(id);
 			Page<CommissionDO> resultPage = commissionService.getCommissionsByChamber(chamber, page, perPage);
 			return resultPage;
 		} catch (ServiceException e) {

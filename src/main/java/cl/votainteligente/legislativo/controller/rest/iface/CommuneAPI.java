@@ -14,7 +14,7 @@ public interface CommuneAPI {
 	 * @param perPage Amount of communes to be retrieved in a page (optional).
 	 * @return A Page of Commune Abstracts (CommuneDO) <br />
 	 * 			For Example:
-	 * 			<a href="http://demo.ciudadanointeligente.cl/Legislativo/api/geo/commune/all">geo/commune/all</a>
+	 * 			<a href="http://demo.ciudadanointeligente.cl/Legislativo/api/commune/all">commune/all</a>
 	 * @see CommuneDO
 	 */
 	@Path("all")
@@ -26,12 +26,12 @@ public interface CommuneAPI {
 	/**
 	 * Returns all the communes with a specific name.
 	 *
-	 * @param name The Commune name to look for.
+	 * @param name Commune name to look for.
 	 * @param page The number of desired page to be retrieved (optional).
 	 * @param perPage Amount of communes to be retrieved in a page (optional).
 	 * @return A page of Commune Abstracts (CommuneDO) <br />
 	 * 			For Example:
-	 * 			<a href="http://demo.ciudadanointeligente.cl/Legislativo/api/geo/commune/any?name=Puerto">geo/commune/any?name=Puerto</a>
+	 * 			<a href="http://demo.ciudadanointeligente.cl/Legislativo/api/commune/any?name=Puerto">commune/any?name=Puerto</a>
 	 * @see CommuneDO
 	 */
 	@Path("any")
@@ -44,10 +44,10 @@ public interface CommuneAPI {
 	/**
 	 * Allows you to get all the information of a commune.
 	 *
-	 * @param id The Commune identification number.
+	 * @param id Commune identification number.
 	 * @return Detailed of a commune <br />
 	 * 			For Example:
-	 * 			<a href="http://demo.ciudadanointeligente.cl/Legislativo/api/geo/commune/any?id=1">geo/commune/any?id=1</a>
+	 * 			<a href="http://demo.ciudadanointeligente.cl/Legislativo/api/commune/any?id=1">commune/any?id=1</a>
 	 * @throws ResourceNotFoundException
 	 * @see CommuneDO
 	 */

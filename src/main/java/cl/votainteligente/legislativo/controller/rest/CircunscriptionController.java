@@ -47,11 +47,11 @@ public class CircunscriptionController implements CircunscriptionAPI {
 	@RequestMapping(params = { "name" }, value = "geo/circunscription/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<CircunscriptionDO> findCircunscriptionsByName(
-			@RequestParam(value = "name", required = true) final String circunscriptionName,
+			@RequestParam(value = "name", required = true) final String name,
 			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
 		try {
-			Page<CircunscriptionDO> resultPage = service.findCircunscriptionDOsByName(circunscriptionName, page, perPage);
+			Page<CircunscriptionDO> resultPage = service.findCircunscriptionDOsByName(name, page, perPage);
 			return resultPage;
 		} catch (ServiceException e) {
 			e.printStackTrace();
@@ -66,9 +66,9 @@ public class CircunscriptionController implements CircunscriptionAPI {
 	@RequestMapping(params = { "id" }, value = "geo/circunscription/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final CircunscriptionDO getCircunscriptionById(
-			@RequestParam(value = "id", required = true) final long circunscriptionId) {
+			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			Circunscription circunscription = service.getCircunscription(circunscriptionId);
+			Circunscription circunscription = service.getCircunscription(id);
 
 			if (circunscription == null) {
 				throw new ResourceNotFoundException();
@@ -85,14 +85,14 @@ public class CircunscriptionController implements CircunscriptionAPI {
 	 * (non-Javadoc)
 	 * @see cl.votainteligente.legislativo.controller.rest.iface.CircunscriptionAPI#getCircunscriptionByRegionId(long, int, int)
 	 */
-	@RequestMapping(params = { "region_id" }, value = "geo/circunscription/any", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" }, value = "geo/circunscription/region", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<CircunscriptionDO> getCircunscriptionByRegionId(
-			@RequestParam(value = "region_id", required = true) final long regionId,
+			@RequestParam(value = "region_id", required = true) final long id,
 			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
 		try {
-			Page<CircunscriptionDO> resultPage = service.getAllCircunscriptionDOsByRegion(regionId, page, perPage);
+			Page<CircunscriptionDO> resultPage = service.getAllCircunscriptionDOsByRegion(id, page, perPage);
 			return resultPage;
 		} catch (ServiceException e) {
 			e.printStackTrace();

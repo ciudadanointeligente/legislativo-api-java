@@ -26,7 +26,7 @@ public interface CircunscriptionAPI {
 	/**
 	 * Returns all the Circunscriptions with a specific name.
 	 *
-	 * @param circunscriptionName The Circunscription name to look for.
+	 * @param name Circunscription name to look for.
 	 * @param page The number of desired page to be retrieved (optional).
 	 * @param perPage Amount of circunscriptions to be retrieved in a page (optional).
 	 * @return A page of Circunscription Abstracts (CircunscriptionDO) <br />
@@ -37,14 +37,14 @@ public interface CircunscriptionAPI {
 	@Path("any")
 	@GET
 	Page<CircunscriptionDO> findCircunscriptionsByName(
-			@PathParam("name") final String circunscriptionName,
+			@PathParam("name") final String name,
 			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") @DefaultValue("10") final int perPage);
 
 	/**
 	 * Allows you to get all the information of a Circunscription.
 	 *
-	 * @param circunscriptionId The Circunscription identification number.
+	 * @param id Circunscription identification number.
 	 * @return Detailed of a Circunscription <br />
 	 * 			For Example:
 	 * 			<a href="http://demo.ciudadanointeligente.cl/Legislativo/api/geo/circunscription/any?id=17">geo/circunscription/any?id=17</a>
@@ -53,23 +53,23 @@ public interface CircunscriptionAPI {
 	 */
 	@Path("any")
 	@GET
-	CircunscriptionDO getCircunscriptionById(@PathParam("id") final long circunscriptionId);
+	CircunscriptionDO getCircunscriptionById(@PathParam("id") final long id);
 
 	/**
 	 * Returns all the Circunscriptions of a region.
 	 *
-	 * @param regionId The Region id to look for.
+	 * @param id Region id to look for.
 	 * @param page The number of desired page to be retrieved (optional).
 	 * @param perPage Amount of circunscriptions to be retrieved in a page (optional).
 	 * @return A page of Circunscription Abstracts (CircunscriptionDO) <br />
 	 * 			For Example:
-	 * 			<a href="http://demo.ciudadanointeligente.cl/Legislativo/api/geo/circunscription/any?region_id=1">geo/circunscription/any?region_id=1</a>
+	 * 			<a href="http://demo.ciudadanointeligente.cl/Legislativo/api/geo/circunscription/region?id=1">geo/circunscription/region?id=1</a>
 	 * @see CircunscriptionDO
 	 */
-	@Path("any")
+	@Path("region")
 	@GET
 	Page<CircunscriptionDO> getCircunscriptionByRegionId(
-			@PathParam("region_id") final long regionId,
+			@PathParam("id") final long id,
 			@PathParam("page") @DefaultValue("1") final int page,
 			@PathParam("perPage") @DefaultValue("10") final int perPage);
 

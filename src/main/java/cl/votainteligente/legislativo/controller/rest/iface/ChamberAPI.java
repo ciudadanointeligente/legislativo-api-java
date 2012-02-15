@@ -25,7 +25,7 @@ public interface ChamberAPI {
 	/**
 	 * Allows you to get all the information of a chamber.
 	 *
-	 * @param chamberId The Chamber identification number.
+	 * @param id Chamber identification number.
 	 * @return Detailed of a chamber<br />
 	 * 			For example:
 	 * 			<a href="http://demo.ciudadanointeligente.cl/Legislativo/api/chamber/any?id=1">chamber/any?id=1</a>
@@ -33,5 +33,5 @@ public interface ChamberAPI {
 	 */
 	@Path("any")
 	@GET
-	ChamberDO getById(@PathParam("id") final long chamberId);
+	ChamberDO getById(@PathParam("id") final long id);
 }

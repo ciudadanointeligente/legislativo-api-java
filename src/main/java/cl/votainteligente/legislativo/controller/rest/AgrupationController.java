@@ -54,35 +54,11 @@ public class AgrupationController implements AgrupationAPI {
 	@RequestMapping(params = { "name" },value = "agrupation/any", method = RequestMethod.GET)
 	@ResponseBody
 	public Page<AgrupationDO> getByName(
-			@RequestParam(value = "name", required = true) final String agrupationName,
+			@RequestParam(value = "name", required = true) final String name,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			return agrupationService.findAgrupationByName(agrupationName, page, perPage);
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			throw new ServerErrorException();
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controller.rest.iface.AgrupationAPI#getByPerson (long, int, int)
-	 */
-	@RequestMapping(params = { "person" },value = "agrupation/any", method = RequestMethod.GET)
-	@ResponseBody
-	public Page<AgrupationDO> getByPerson(
-			@RequestParam(value = "person", required = true) final long personId,
-			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
-		try {
-			Person person = personService.getPerson(personId);
-
-			if (person == null) {
-				throw new ResourceNotFoundException();
-			}
-
-			return agrupationService.getAgrupationsByPerson(person, page, perPage);
+			return agrupationService.findAgrupationByName(name, page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -96,9 +72,9 @@ public class AgrupationController implements AgrupationAPI {
 	@RequestMapping(params = { "id" },value = "agrupation/any", method = RequestMethod.GET)
 	@ResponseBody
 	public AgrupationDetailedDO getById(
-			@RequestParam(value = "id", required = true) final long agrupationId) {
+			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			Agrupation agrupation = agrupationService.getAgrupationById(agrupationId);
+			Agrupation agrupation = agrupationService.getAgrupationById(id);
 
 			if (agrupation == null) {
 				throw new ResourceNotFoundException();
@@ -113,29 +89,53 @@ public class AgrupationController implements AgrupationAPI {
 
 	/*
 	 * (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controller.rest.iface.AgrupationAPI#getHistoricalAffiliatesByAgrupation (long, int, int)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.AgrupationAPI#getByPerson (long, int, int)
 	 */
-	@RequestMapping(value = "agrupation/historicalAffiliates", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" },value = "agrupation/person", method = RequestMethod.GET)
 	@ResponseBody
-	public Page<PersonDO> getHistoricalAffiliatesByAgrupation(
-			@RequestParam(value = "id", required = true) final long agrupationId,
+	public Page<AgrupationDO> getByPerson(
+			@RequestParam(value = "id", required = true) final long id,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
-		// TODO: Define getHistoricalAffiliatesByAgrupation functionallity
+		try {
+			Person person = personService.getPerson(id);
+
+			if (person == null) {
+				throw new ResourceNotFoundException();
+			}
+
+			return agrupationService.getAgrupationsByPerson(person, page, perPage);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			throw new ServerErrorException();
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.AgrupationAPI#getHistoricalMembersByAgrupation (long, int, int)
+	 */
+	@RequestMapping(value = "agrupation/historicalMembers", method = RequestMethod.GET)
+	@ResponseBody
+	public Page<PersonDO> getHistoricalMembersByAgrupation(
+			@RequestParam(value = "id", required = true) final long id,
+			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
+		// TODO: Define getHistoricalMembersByAgrupation functionallity
 		return null;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controller.rest.iface.AgrupationAPI#getCurrentAffiliatesByAgrupation (long, int, int)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.AgrupationAPI#getCurrentMembersByAgrupation (long, int, int)
 	 */
-	@RequestMapping(value = "agrupation/currentAffiliates", method = RequestMethod.GET)
+	@RequestMapping(value = "agrupation/currentMembers", method = RequestMethod.GET)
 	@ResponseBody
-	public Page<PersonDO> getCurrentAffiliatesByAgrupation(
-			@RequestParam(value = "id", required = true) final long agrupationId,
+	public Page<PersonDO> getCurrentMembersByAgrupation(
+			@RequestParam(value = "id", required = true) final long id,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
-		// TODO: Define getCurrentAffiliatesByAgrupation functionallity
+		// TODO: Define getCurrentMembersByAgrupation functionallity
 		return null;
 	}
 

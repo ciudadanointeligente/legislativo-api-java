@@ -63,9 +63,9 @@ public class BillController implements BillAPI {
 	@RequestMapping(params = { "id" }, value = "bill/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final BillDetailedDO getBillById(
-			@RequestParam(value = "id", required = true) final long billId) {
+			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			Bill bill = service.getBill(billId);
+			Bill bill = service.getBill(id);
 
 			if (bill == null) {
 				throw new ResourceNotFoundException();
@@ -85,14 +85,14 @@ public class BillController implements BillAPI {
 	@RequestMapping(value = "bill/dateRange", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<BillDO> getDateRange(
-			@RequestParam(value = "from", required = true) final String startDate,
-			@RequestParam(value = "to", required = true) final String endDate,
+			@RequestParam(value = "from", required = true) final String from,
+			@RequestParam(value = "to", required = true) final String to,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			Date start = dateFormat.parse(startDate);
-			Date end = dateFormat.parse(endDate);
-			Page<BillDO> resultPage = service.getByDateRange(start, end, page, perPage);
+			Date startDate = dateFormat.parse(from);
+			Date endDate = dateFormat.parse(to);
+			Page<BillDO> resultPage = service.getByDateRange(startDate, endDate, page, perPage);
 			return resultPage;
 		} catch (ServiceException e) {
 			e.printStackTrace();
@@ -109,11 +109,11 @@ public class BillController implements BillAPI {
 	@RequestMapping(params = { "id" }, value = "bill/stage", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<BillDO> getBillsByStage(
-			@RequestParam(value = "id", required = true) final long stageId,
+			@RequestParam(value = "id", required = true) final long id,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			StageDescription stageDescription = stageDescriptionService.getById(stageId);
+			StageDescription stageDescription = stageDescriptionService.getById(id);
 			Page<BillDO> resultPage = service.getByStage(stageDescription, page, perPage);
 			return resultPage;
 		} catch (ServiceException e) {
@@ -129,12 +129,12 @@ public class BillController implements BillAPI {
 	@RequestMapping(params = { "id" }, value = "bill/matter", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<BillDO> getByMatter(
-			@RequestParam(value = "id", required = true) final long matterId,
+			@RequestParam(value = "id", required = true) final long id,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 
-			Matter matter = matterService.getById(matterId);
+			Matter matter = matterService.getById(id);
 
 			if (matter == null) {
 				throw new ResourceNotFoundException();
@@ -155,11 +155,11 @@ public class BillController implements BillAPI {
 	@RequestMapping(params = { "id" }, value = "bill/author", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<BillRoleDO> getBillRoleByPerson(
-			@RequestParam(value = "id", required = true) final long authorId,
+			@RequestParam(value = "id", required = true) final long id,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			Person person = personService.getPerson(authorId);
+			Person person = personService.getPerson(id);
 
 			if (person == null) {
 				throw new ResourceNotFoundException();

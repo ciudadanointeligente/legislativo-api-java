@@ -45,9 +45,9 @@ public class ChamberController implements ChamberAPI {
 	@RequestMapping(value = "chamber/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final ChamberDO getById(
-			@RequestParam(value = "id", required = true) final long chamberId) {
+			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			Chamber chamber = service.getById(chamberId);
+			Chamber chamber = service.getById(id);
 
 			if(chamber == null) {
 				throw new ResourceNotFoundException();

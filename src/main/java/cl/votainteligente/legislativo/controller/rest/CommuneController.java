@@ -26,7 +26,7 @@ public class CommuneController implements CommuneAPI {
 	 * (non-Javadoc)
 	 * @see cl.votainteligente.legislativo.controller.rest.iface.CommuneAPI#getAll(int,int)
 	 */
-	@RequestMapping(value = "geo/commune/all", method = RequestMethod.GET)
+	@RequestMapping(value = "commune/all", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<CommuneDO> getAll(
 			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
@@ -43,7 +43,7 @@ public class CommuneController implements CommuneAPI {
 	 * (non-Javadoc)
 	 * @see cl.votainteligente.legislativo.controller.rest.iface.CommuneAPI#findCommunesByName(java.lang.String, int, int)
 	 */
-	@RequestMapping(params = { "name" }, value = "geo/commune/any", method = RequestMethod.GET)
+	@RequestMapping(params = { "name" }, value = "commune/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<CommuneDO> findCommunesByName(
 			@RequestParam(value = "name", required = true) final String name,
@@ -61,7 +61,7 @@ public class CommuneController implements CommuneAPI {
 	 * (non-Javadoc)
 	 * @see cl.votainteligente.legislativo.controller.rest.iface.CommuneAPI#getCommuneById(long)
 	 */
-	@RequestMapping(params = { "id" }, value = "geo/commune/any", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" }, value = "commune/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final CommuneDO getCommuneById(
 			@RequestParam(value = "id", required = true) final long id) {
