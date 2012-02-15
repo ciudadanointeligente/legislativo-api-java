@@ -24,11 +24,9 @@ public class DistrictController implements DistrictAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see
-	 * cl.votainteligente.legislativo.controller.rest.DistrictAPI#getAll(int,int)
+	 * @see cl.votainteligente.legislativo.controller.rest.DistrictAPI#getAll(int,int)
 	 */
-	@RequestMapping(value = "geo/district/all", method = RequestMethod.GET)
+	@RequestMapping(value = "district/all", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<DistrictDO> getAll(
 			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
@@ -43,10 +41,9 @@ public class DistrictController implements DistrictAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see cl.votainteligente.legislativo.controller.rest.DistrictAPI#findDistrictsByName(java.lang.String, int, int)
 	 */
-	@RequestMapping(params = { "name"}, value = "geo/district/any", method = RequestMethod.GET)
+	@RequestMapping(params = { "name"}, value = "district/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<DistrictDO> findDistrictsByName(
 			@RequestParam(value = "name", required = true) final String name,
@@ -62,19 +59,21 @@ public class DistrictController implements DistrictAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see
 	 * cl.votainteligente.legislativo.controller.rest.DistrictAPI#getDistrictById(long)
 	 */
-	@RequestMapping(params = { "id" }, value = "geo/district/any", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" }, value = "district/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final DistrictDO getDistrictById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			District d = service.getDistrict(id);
-			if (d == null)
+			District district = service.getDistrict(id);
+
+			if (district == null) {
 				throw new ResourceNotFoundException();
-			return d.asDomainObject();
+			}
+
+			return district.asDomainObject();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
