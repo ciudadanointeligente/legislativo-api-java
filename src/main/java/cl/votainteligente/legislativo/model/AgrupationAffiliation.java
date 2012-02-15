@@ -1,13 +1,8 @@
 package cl.votainteligente.legislativo.model;
 
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "agrupation_affiliation")
@@ -36,40 +31,39 @@ public class AgrupationAffiliation {
 		return id;
 	}
 
-	public Person getPerson() {
-		return person;
-	}
-
-	public Agrupation getAgrupation() {
-		return agrupation;
-	}
-
-	public Date getAdmissionDate() {
-		return admissionDate;
-	}
-
-	public Date getDepartureDate() {
-		return departureDate;
-	}
-
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Person getPerson() {
+		return person;
 	}
 
 	public void setPerson(Person person) {
 		this.person = person;
 	}
 
+	public Agrupation getAgrupation() {
+		return agrupation;
+	}
+
 	public void setAgrupation(Agrupation agrupation) {
 		this.agrupation = agrupation;
+	}
+
+	public Date getAdmissionDate() {
+		return admissionDate;
 	}
 
 	public void setAdmissionDate(Date admissionDate) {
 		this.admissionDate = admissionDate;
 	}
 
+	public Date getDepartureDate() {
+		return departureDate;
+	}
+
 	public void setDepartureDate(Date departureDate) {
 		this.departureDate = departureDate;
 	}
-
 }

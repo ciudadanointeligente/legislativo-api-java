@@ -1,15 +1,11 @@
 package cl.votainteligente.legislativo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "committee")
 public class Committee {
+
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -44,12 +40,12 @@ public class Committee {
 		this.president = president;
 	}
 
-	public String getEmail() {
-		return email;
+	public LegislatorRole getPresidentSubstitute() {
+		return presidentSubstitute;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setPresidentSubstitute(LegislatorRole presidentSubstitute) {
+		this.presidentSubstitute = presidentSubstitute;
 	}
 
 	public Party getParty() {
@@ -60,11 +56,11 @@ public class Committee {
 		this.party = party;
 	}
 
-	public void setPresidentSubstitute(LegislatorRole presidentSubstitute) {
-		this.presidentSubstitute = presidentSubstitute;
+	public String getEmail() {
+		return email;
 	}
 
-	public LegislatorRole getPresidentSubstitute() {
-		return presidentSubstitute;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

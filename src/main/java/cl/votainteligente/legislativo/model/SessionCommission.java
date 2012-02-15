@@ -1,12 +1,9 @@
 package cl.votainteligente.legislativo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import cl.votainteligente.legislativo.model.DO.SessionCommissionDO;
 import cl.votainteligente.legislativo.model.DO.SessionCommissionDetailedDO;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "session_commission")
@@ -16,15 +13,15 @@ public class SessionCommission extends Session {
 	@JoinColumn(name = "commission_id")
 	private Commission commission;
 
-	public void setCommission(Commission commission) {
-		this.commission = commission;
-	}
-
 	public Commission getCommission() {
 		return commission;
 	}
 
-	public SessionCommissionDO asSessionCommissionDomainObject(){
+	public void setCommission(Commission commission) {
+		this.commission = commission;
+	}
+
+	public SessionCommissionDO asSessionCommissionDomainObject() {
 		return new SessionCommissionDO(this);
 	}
 

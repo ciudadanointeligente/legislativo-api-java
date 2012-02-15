@@ -3,10 +3,7 @@ package cl.votainteligente.legislativo.model;
 import java.net.URL;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "coalition")
@@ -19,7 +16,6 @@ public class Coalition {
 	private String address;
 	private String name;
 	private URL web;
-
 	private Date foundationDate;
 	private Date dissolutionDate;
 

@@ -183,6 +183,7 @@ public class Migrate {
 		ResultSet resultSetParty = getTableData("partido");
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
+
 		while (resultSetParty.next()) {
 			Party party = new Party();
 			party.setName(resultSetParty.getString("nombre"));
@@ -203,7 +204,6 @@ public class Migrate {
 			array[0] = oldId;
 			array[1] = newId;
 			partyIds.add(array);
-
 		}
 		resultSetParty.close();
 		entityTransaction.commit();
@@ -217,6 +217,7 @@ public class Migrate {
 
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
+
 		while (resultSetRegion.next()) {
 			Region region = new Region();
 			region.setName(resultSetRegion.getString("nombre"));
@@ -231,6 +232,7 @@ public class Migrate {
 			regionIds.add(array);
 		}
 		resultSetRegion.close();
+
 		while (resultSerCircunscription.next()) {
 			Circunscription circunscription = new Circunscription();
 			circunscription.setName(resultSerCircunscription.getString("nombre"));
@@ -265,13 +267,13 @@ public class Migrate {
 			array[0] = oldDistrictId;
 			array[1] = district.getId();
 			districtIds.add(array);
-
 		}
 		entityTransaction.commit();
 		resultSetDistrict.close();
 
 		entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
+
 		while (resultSetCommune.next()) {
 			Commune commune = new Commune();
 			commune.setName(resultSetCommune.getString("nombre"));
@@ -309,6 +311,7 @@ public class Migrate {
 		ResultSet resultSetMatter = getTableData("materia");
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
+
 		while (resultSetMatter.next()) {
 			Matter matter = new Matter();
 			matter.setCreatedAt(getSafeDate(resultSetMatter, "created_at"));
@@ -331,6 +334,7 @@ public class Migrate {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		String[] discussions = { "General", "Particular", "Ambas", "Unicas" };
+
 		for (String discussion : discussions) {
 			DiscussionType discussionType = new DiscussionType();
 			discussionType.setName(discussion);
@@ -342,19 +346,22 @@ public class Migrate {
 	private void loadPerson() throws SQLException, ServiceException {
 		ResultSet resultSetAuthor = getTableData("autor");
 		EntityTransaction entityTransaction = entityManager.getTransaction();
+
 		while (resultSetAuthor.next()) {
 			Person person = new Person();
 			person.setFirstName(resultSetAuthor.getString("nombre"));
 			person.setLastName(resultSetAuthor.getString("apellidos"));
 			Person exist = getPerson(person.getFirstName(), person.getLastName());
+
 			if (exist == null) {
 				person.setCreatedAt(getSafeDate(resultSetAuthor, "created_at"));
 				person.setUpdatedAt(getSafeDate(resultSetAuthor, "updated_at"));
 				entityTransaction.begin();
 				entityManager.persist(person);
 				entityTransaction.commit();
-			} else
+			} else {
 				person = exist;
+			}
 			Long oldId = resultSetAuthor.getLong("id_autor");
 			Long[] array = new Long[2];
 			array[0] = oldId;
@@ -370,8 +377,10 @@ public class Migrate {
 			person.setFirstName(resultSetParliamentarian.getString("p.nombre"));
 			person.setLastName(resultSetParliamentarian.getString("p.apellidos"));
 			Person exist = getPerson(person.getFirstName(), person.getLastName());
-			if (exist != null)
+
+			if (exist != null) {
 				person = exist;
+			}
 			person.setGender(resultSetParliamentarian.getString("p.sexo"));
 			person.setBirthday(getSafeDate(resultSetParliamentarian, "p.fecha_nacimiento"));
 			person.setProfession(resultSetParliamentarian.getString("p.profesion"));
@@ -385,8 +394,9 @@ public class Migrate {
 			entityTransaction.begin();
 			if (person.getId() == null) {
 				entityManager.persist(person);
-			} else
+			} else {
 				entityManager.merge(person);
+			}
 
 			// Parliamentarian to person
 			Long oldId = resultSetParliamentarian.getLong("id_parlamentario");
@@ -401,6 +411,7 @@ public class Migrate {
 			List<LegislatorRole> senatorRoleList = setupLegislator(matcherSenator, sChamber, resultSetParliamentarian);
 
 			LinkedList<Role> roles = new LinkedList<Role>();
+
 			for (LegislatorRole legislatorRole : deputyRoleList) {
 				legislatorRole.setPerson(person);
 				roles.add(legislatorRole);
@@ -417,6 +428,7 @@ public class Migrate {
 
 			Long oldPartyid = resultSetParliamentarian.getLong("p.id_partido");
 			Long newPartyId = findNewId(partyIds, oldPartyid);
+
 			if (newPartyId != null) {
 				boolean found = false;
 				for (Long ids : personPartyAffiliation) {
@@ -439,25 +451,26 @@ public class Migrate {
 
 		}
 		resultSetParliamentarian.close();
-
 	}
 
 	private Person getPerson(String firstName, String lastname) throws ServiceException {
 		Page<PersonDO> listName = personService.findPersonsByFirstName(firstName, 1, Integer.MAX_VALUE);
 		Page<PersonDO> listLastName = personService.findPersonsByLastName(lastname, 1, Integer.MAX_VALUE);
-		if (listName.getTotalElements().longValue() == 0L || listLastName.getTotalElements().longValue() == 0L)
+		if (listName.getTotalElements().longValue() == 0L || listLastName.getTotalElements().longValue() == 0L) {
 			return null;
+		}
+
 		for (PersonDO pname : listName.getElements())
 			for (PersonDO plastname : listLastName.getElements())
 				if (pname.getId().longValue() == plastname.getId().longValue()) {
 					return personService.getPerson(pname.getId());
 				}
-
 		return null;
 	}
 
 	private List<LegislatorRole> setupLegislator(Matcher matcher, Chamber chamber, ResultSet resultSet) throws SQLException, ServiceException {
 		LinkedList<LegislatorRole> list = new LinkedList<LegislatorRole>();
+
 		while (matcher.find()) {
 			LegislatorRole legislatorRole = new LegislatorRole();
 			Date startDate;
@@ -659,6 +672,7 @@ public class Migrate {
 
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
+
 		while (resultSetCommission.next()) {
 			Commission commission = new Commission();
 
@@ -672,7 +686,7 @@ public class Migrate {
 			commission.setForm(resultSetCommission.getString("contacto_form"));
 			commission.setSecretaryLawyer(resultSetCommission.getString("abogado_secretario"));
 			commission.setAssistantLawyer(resultSetCommission.getString("abogado_ayudante"));
-			commission.setExecutive_lawyer(resultSetCommission.getString("secretario_ejecutivo"));
+			commission.setExecutiveLawyer(resultSetCommission.getString("secretario_ejecutivo"));
 			commission.setCreatedAt(getSafeDate(resultSetCommission, "created_at"));
 			commission.setUpdatedAt(getSafeDate(resultSetCommission, "updated_at"));
 
@@ -693,12 +707,14 @@ public class Migrate {
 	private void loadDebateCommission() throws SQLException, ServiceException {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
+
 		for (Long[] debate : debateIds) {
 			Debate debateTemp = debateService.getDebate(debate[1]);
 			if (debateTemp instanceof DebateInCommission) {
 				ResultSet resultSetDebateCommission = getTableData("debatecomision where id_debate=" + debate[0]);
 				DebateInCommission debateInCommission = (DebateInCommission) debateTemp;
 				HashSet<Commission> participants = new HashSet<Commission>();
+
 				while (resultSetDebateCommission.next()) {
 					Long oldCommissionId = resultSetDebateCommission.getLong("id_comision");
 					Long newCommissionId = findNewId(commissionIds, oldCommissionId);
@@ -717,6 +733,7 @@ public class Migrate {
 	private void loadDebateTags() throws SQLException, ServiceException {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
+
 		for (Long[] debate : debateIds) {
 			Debate debateTemp = debateService.getDebate(debate[1]);
 
@@ -743,6 +760,7 @@ public class Migrate {
 	private void loadBillAuthors() throws SQLException, ServiceException {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
+
 		for (Long[] bill : billIds) {
 			Bill billTemp = billService.getBill(bill[1]);
 			ResultSet resultSetAuthor = getTableData("autorproyectoley where id_proyecto_ley=" + bill[0]);
@@ -769,6 +787,7 @@ public class Migrate {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		ResultSet resultSetParliamentarianCommission = getTableData("parlamentarioencomision");
+
 		while (resultSetParliamentarianCommission.next()) {
 			AgrupationAffiliation agrupationAffiliation = new AgrupationAffiliation();
 			Long oldParliamentarianId = resultSetParliamentarianCommission.getLong("id_parlamentario");
@@ -789,6 +808,7 @@ public class Migrate {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		ResultSet resultSetSession = getTableData("sesion");
+
 		while (resultSetSession.next()) {
 			SessionChamber session = new SessionChamber();
 			session.setCreatedAt(getSafeDate(resultSetSession, "created_at"));
@@ -813,6 +833,7 @@ public class Migrate {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		ResultSet resultSetVote = getTableData("votacion");
+
 		while (resultSetVote.next()) {
 			Vote vote = new Vote();
 			vote.setName(resultSetVote.getString("name"));
@@ -828,17 +849,19 @@ public class Migrate {
 			String resultStr = resultSetVote.getString("resultado").toLowerCase();
 
 			Long resultL = 0L;
-			if (resultStr.equals("rechazado"))
+			if (resultStr.equals("rechazado")) {
 				resultL = 1L;
-			else if (resultStr.equals("empate"))
+			} else if (resultStr.equals("empate")) {
 				resultL = 2L;
-			else if (resultStr.equals("no quorum"))
+			} else if (resultStr.equals("no quorum")) {
 				resultL = 3L;
+			}
 			vote.setResult(resultL);
 
 			Long newBillId = findNewId(billIds, resultSetVote.getLong("id_proyecto_ley"));
-			if (newBillId == null)
+			if (newBillId == null) {
 				continue;
+			}
 			Bill bill = billService.getBill(newBillId);
 			vote.setBill(bill);
 
@@ -891,12 +914,13 @@ public class Migrate {
 			String resultStr = resultSetVote.getString("resultado").toLowerCase();
 
 			Long resultL = 0L;
-			if (resultStr.equals("rechazado"))
+			if (resultStr.equals("rechazado")) {
 				resultL = 1L;
-			else if (resultStr.equals("empate"))
+			} else if (resultStr.equals("empate")) {
 				resultL = 2L;
-			else if (resultStr.equals("no quorum"))
+			} else if (resultStr.equals("no quorum")) {
 				resultL = 3L;
+			}
 			vote.setResult(resultL);
 
 			Long newBillId = findNewId(billIds, resultSetVote.getLong("id_proyecto_ley"));
@@ -943,6 +967,7 @@ public class Migrate {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		ResultSet resultSetParliamentarianVote = getTableData("votacionparlamentario");
+
 		while (resultSetParliamentarianVote.next()) {
 			SingleVote singleVote = new SingleVote();
 			singleVote.setVoteDetail(resultSetParliamentarianVote.getString("voto"));
@@ -968,6 +993,7 @@ public class Migrate {
 
 		resultSetParliamentarianVote = getTableData("votacioncomisionparlamentario");
 		entityTransaction.begin();
+
 		while (resultSetParliamentarianVote.next()) {
 			SingleVote singleVote = new SingleVote();
 			singleVote.setVoteDetail(resultSetParliamentarianVote.getString("voto"));
@@ -997,6 +1023,7 @@ public class Migrate {
 		ResultSet resultSetDebateTags = completeQueryDate("Select distinct(tags) from debate");
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		String tags = ",";
+
 		while (resultSetDebateTags.next()) {
 			try {
 				String tagsArray[] = resultSetDebateTags.getString("tags").split(",");
@@ -1026,6 +1053,7 @@ public class Migrate {
 		ResultSet resultSetBillStages = completeQueryDate("Select distinct(etapa) from proyectoley");
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
+
 		while (resultSetBillStages.next()) {
 			StageDescription stageDescription = new StageDescription();
 			stageDescription.setDescription(resultSetBillStages.getString("etapa"));
@@ -1089,7 +1117,6 @@ public class Migrate {
 		} catch (Exception e) {
 			return null;
 		}
-
 	}
 
 	public void setPersonService(PersonService personService) {
@@ -1155,5 +1182,4 @@ public class Migrate {
 	public void setVoteService(VoteService voteService) {
 		this.voteService = voteService;
 	}
-
 }

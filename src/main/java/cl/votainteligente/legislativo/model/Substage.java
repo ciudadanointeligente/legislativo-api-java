@@ -2,14 +2,7 @@ package cl.votainteligente.legislativo.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "substage")
@@ -65,12 +58,11 @@ public class Substage {
 		this.description = description;
 	}
 
-	public void setStage(Stage stage) {
-		this.stage = stage;
-	}
-
 	public Stage getStage() {
 		return stage;
 	}
 
+	public void setStage(Stage stage) {
+		this.stage = stage;
+	}
 }

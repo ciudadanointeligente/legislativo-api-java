@@ -2,24 +2,18 @@ package cl.votainteligente.legislativo.model;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "tag")
 public class Tag {
+
 	@Id
 	@GeneratedValue
 	@Column
 	private Long id;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "tags", cascade={CascadeType.MERGE})
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "tags", cascade = { CascadeType.MERGE })
 	private Set<Debate> debates;
 
 	@Column
@@ -33,6 +27,14 @@ public class Tag {
 		this.id = id;
 	}
 
+	public Set<Debate> getDebates() {
+		return debates;
+	}
+
+	public void setDebates(Set<Debate> debates) {
+		this.debates = debates;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -40,18 +42,4 @@ public class Tag {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public void setDebates(Set<Debate> debates) {
-		this.debates = debates;
-	}
-
-	public Set<Debate> getDebates() {
-		return debates;
-	}
-
-	/*
-	 * public void setDebates(Set<Debate> debates) { this.debates = debates; }
-	 * 
-	 * public Set<Debate> getDebates() { return debates; }//
-	 */
 }

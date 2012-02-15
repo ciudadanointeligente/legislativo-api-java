@@ -1,15 +1,8 @@
 package cl.votainteligente.legislativo.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import cl.votainteligente.legislativo.model.DO.CommuneDO;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "commune")
@@ -25,14 +18,6 @@ public class Commune {
 	@JoinColumn(name = "district_id", nullable = false)
 	private District district;
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -41,19 +26,20 @@ public class Commune {
 		this.id = id;
 	}
 
-	/**
-	 * @param district
-	 *            the district to set
-	 */
-	public void setDistrict(District district) {
-		this.district = district;
+	public String getName() {
+		return name;
 	}
 
-	/**
-	 * @return the district
-	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public District getDistrict() {
 		return district;
+	}
+
+	public void setDistrict(District district) {
+		this.district = district;
 	}
 
 	@Transient

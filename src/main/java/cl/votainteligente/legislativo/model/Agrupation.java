@@ -1,20 +1,12 @@
 package cl.votainteligente.legislativo.model;
 
+import cl.votainteligente.legislativo.model.DO.AgrupationDO;
+import cl.votainteligente.legislativo.model.DO.AgrupationDetailedDO;
+
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import cl.votainteligente.legislativo.model.DO.AgrupationDO;
-import cl.votainteligente.legislativo.model.DO.AgrupationDetailedDO;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "agrupation")
@@ -54,22 +46,6 @@ public class Agrupation extends Participant {
 
 	public void setMailAddress(String mailAddress) {
 		this.mailAddress = mailAddress;
-	}
-
-	public String getStatementOfInterest() {
-		return statementOfInterest;
-	}
-
-	public void setStatementOfInterest(String statementOfInterest) {
-		this.statementOfInterest = statementOfInterest;
-	}
-
-	public String getStatementOfHeritage() {
-		return statementOfHeritage;
-	}
-
-	public void setStatementOfHeritage(String statementOfHeritage) {
-		this.statementOfHeritage = statementOfHeritage;
 	}
 
 	public String getWebsite() {
@@ -112,13 +88,28 @@ public class Agrupation extends Participant {
 		this.name = name;
 	}
 
-	public void setAgrupationAffiliations(
-			Set<AgrupationAffiliation> agrupationAffiliations) {
-		this.agrupationAffiliations = agrupationAffiliations;
+	public String getStatementOfInterest() {
+		return statementOfInterest;
+	}
+
+	public void setStatementOfInterest(String statementOfInterest) {
+		this.statementOfInterest = statementOfInterest;
+	}
+
+	public String getStatementOfHeritage() {
+		return statementOfHeritage;
+	}
+
+	public void setStatementOfHeritage(String statementOfHeritage) {
+		this.statementOfHeritage = statementOfHeritage;
 	}
 
 	public Set<AgrupationAffiliation> getAgrupationAffiliations() {
 		return agrupationAffiliations;
+	}
+
+	public void setAgrupationAffiliations(Set<AgrupationAffiliation> agrupationAffiliations) {
+		this.agrupationAffiliations = agrupationAffiliations;
 	}
 
 	@Transient
