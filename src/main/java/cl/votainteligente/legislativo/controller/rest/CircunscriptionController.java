@@ -1,5 +1,6 @@
 package cl.votainteligente.legislativo.controller.rest;
 
+import cl.votainteligente.legislativo.ApplicationProperties;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.controller.rest.iface.CircunscriptionAPI;
@@ -29,8 +30,8 @@ public class CircunscriptionController implements CircunscriptionAPI {
 	@RequestMapping(value = "geo/circunscription/all", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<CircunscriptionDO> getAll(
-			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 			Page<CircunscriptionDO> resultPage = service.getAllCircunscriptionDOs(page, perPage);
 			return resultPage;
@@ -48,8 +49,8 @@ public class CircunscriptionController implements CircunscriptionAPI {
 	@ResponseBody
 	public final Page<CircunscriptionDO> findCircunscriptionsByName(
 			@RequestParam(value = "name", required = true) final String name,
-			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 			Page<CircunscriptionDO> resultPage = service.findCircunscriptionDOsByName(name, page, perPage);
 			return resultPage;
@@ -89,8 +90,8 @@ public class CircunscriptionController implements CircunscriptionAPI {
 	@ResponseBody
 	public final Page<CircunscriptionDO> getCircunscriptionByRegionId(
 			@RequestParam(value = "region_id", required = true) final long id,
-			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 			Page<CircunscriptionDO> resultPage = service.getAllCircunscriptionDOsByRegion(id, page, perPage);
 			return resultPage;

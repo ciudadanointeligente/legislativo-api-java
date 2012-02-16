@@ -1,5 +1,6 @@
 package cl.votainteligente.legislativo.controller.rest;
 
+import cl.votainteligente.legislativo.ApplicationProperties;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.controller.rest.iface.DistrictAPI;
@@ -29,8 +30,8 @@ public class DistrictController implements DistrictAPI {
 	@RequestMapping(value = "district/all", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<DistrictDO> getAll(
-			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 			return service.getAllDistrictDOs(page, perPage);
 		} catch (ServiceException e) {
@@ -47,8 +48,8 @@ public class DistrictController implements DistrictAPI {
 	@ResponseBody
 	public final Page<DistrictDO> findDistrictsByName(
 			@RequestParam(value = "name", required = true) final String name,
-			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 			return service.findDistrictDOsByName(name, page, perPage);
 		} catch (ServiceException e) {
