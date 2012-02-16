@@ -20,108 +20,117 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Path;
 
-@Path("legislator_role")
+@Path("legislatorRole")
 @Controller
 public class LegislatorRoleController implements LegislatorRoleAPI {
 
 	@Autowired
-	LegislatorRoleService service;
-
+	LegislatorRoleService legislatorRoleService;
 	@Autowired
-	PersonService person;
-
+	PersonService personService;
 	@Autowired
-	DistrictService district;
-
+	DistrictService districtService;
 	@Autowired
-	CircunscriptionService circunscription;
+	CircunscriptionService circunscriptionService;
 
-	@RequestMapping(params = { "id" }, value = "legislator_role/any", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" }, value = "legislatorRole/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final LegislatorDetailedDO getLegislatorById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			LegislatorDetailedDO leg = service.getLegislatorDetailedDO(id);
-			if (leg == null)
+			LegislatorDetailedDO legislatorDetail = legislatorRoleService.getLegislatorDetailedDO(id);
+
+			if (legislatorDetail == null) {
 				throw new ResourceNotFoundException();
-			return leg;
+			}
+
+			return legislatorDetail;
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
 		}
 	}
 
-	@RequestMapping(params = { "id" }, value = "legislator_role/district", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" }, value = "legislatorRole/district", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<LegislatorDO> getLegislatorByDistrict(
 			@RequestParam(value = "id", required = true) final long id,
-			@RequestParam(value = "page", required = false, defaultValue = "1") final int page,
-			@RequestParam(value = "perPage", required = false, defaultValue = "10") final int perPage) {
+			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			District tmp = district.getDistrict(id);
-			if(tmp == null)
+			District district = districtService.getDistrict(id);
+
+			if(district == null) {
 				throw new ResourceNotFoundException();
-			return service.getLegislatorsByDistrict(tmp, page, perPage);
+			}
+
+			return legislatorRoleService.getLegislatorsByDistrict(district, page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
 		}
 	}
 
-	@RequestMapping(params = { "id" }, value = "legislator_role/circunscription", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" }, value = "legislatorRole/circunscription", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<LegislatorDO> getLegislatorByCircunscription(
 			@RequestParam(value = "id", required = true) final long id,
-			@RequestParam(value = "page", required = false, defaultValue = "1") final int page,
-			@RequestParam(value = "perPage", required = false, defaultValue = "10") final int perPage) {
+			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			Circunscription tmp = circunscription.getCircunscription(id);
-			if(tmp == null)
+			Circunscription circunscription = circunscriptionService.getCircunscription(id);
+
+			if(circunscription == null) {
 				throw new ResourceNotFoundException();
-			return service.getLegislatorsByCircunscription(tmp, page, perPage);
+			}
+
+			return legislatorRoleService.getLegislatorsByCircunscription(circunscription, page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
 		}
 	}
 
-	@RequestMapping(value = "legislator_role/person", method = RequestMethod.GET)
+	@RequestMapping(value = "legislatorRole/person", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<LegislatorDO> getLegislatorsByPerson(
 			@RequestParam(value = "id", required = true) final long id,
-			@RequestParam(value = "page", required = false, defaultValue = "1") final int page,
-			@RequestParam(value = "perPage", required = false, defaultValue = "10") final int perPage) {
+			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			Person legislator = person.getPerson(id);
-			if (legislator == null)
+			Person person = personService.getPerson(id);
+
+			if (person == null) {
 				throw new ResourceNotFoundException();
-			return service.getLegislatorsByPerson(legislator, page, perPage);
+			}
+
+			return legislatorRoleService.getLegislatorsByPerson(person, page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
 		}
 	}
 
-	@RequestMapping(value = "legislator_role/people", method = RequestMethod.GET)
+	@RequestMapping(value = "legislatorRole/all", method = RequestMethod.GET)
 	@ResponseBody
-	public final Page<PersonDO> getKLegislatorPersons(
+	public final Page<PersonDO> getAllLegislators(
 			@RequestParam(value = "page", required = false, defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE) final int page,
 			@RequestParam(value = "perPage", required = false, defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE) final int perPage) {
 		try {
-			return service.getPersonDOs(page, perPage);
+			return legislatorRoleService.getPersonDOs(page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
 		}
 	}
 
-	@RequestMapping(value = "legislator_role/all", method = RequestMethod.GET)
+	@RequestMapping(value = "legislatorRole/current", method = RequestMethod.GET)
 	@ResponseBody
-	public final Page<PersonDO> getLegislatorPersons(
+	public final Page<PersonDO> getCurrentLegislators(
 			@RequestParam(value = "page", required = false, defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE) final int page,
 			@RequestParam(value = "perPage", required = false, defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE) final int perPage) {
 		try {
-			return service.getLegislatorPersonDOs(page, perPage);
+			return legislatorRoleService.getLegislatorPersonDOs(page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
