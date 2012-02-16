@@ -1,6 +1,6 @@
 package cl.votainteligente.legislativo.controller.rest;
 
-import cl.votainteligente.legislativo.ApplicationProperties;
+import cl.votainteligente.legislativo.Constants;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.controller.rest.iface.VoteAPI;
@@ -36,8 +36,8 @@ public class VoteController implements VoteAPI {
 	@RequestMapping(value = "vote/all", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<VoteDO> getAll(
-			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
 			return voteService.getAllVoteDO(page, perPage);
 		} catch (ServiceException e) {
@@ -54,8 +54,8 @@ public class VoteController implements VoteAPI {
 	@ResponseBody
 	public final Page<VoteDO> getAllBySession(
 			@RequestParam(value = "id", required = true) final long id,
-			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
 			Session session = sessionService.getSession(id);
 
@@ -78,8 +78,8 @@ public class VoteController implements VoteAPI {
 	@ResponseBody
 	public final Page<VoteDO> getAllByResult(
 			@RequestParam(value = "id", required = true) final long id,
-			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
 			return voteService.getByResult(id, page, perPage);
 		} catch (ServiceException e) {

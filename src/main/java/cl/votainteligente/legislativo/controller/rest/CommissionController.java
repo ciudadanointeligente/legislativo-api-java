@@ -1,6 +1,6 @@
 package cl.votainteligente.legislativo.controller.rest;
 
-import cl.votainteligente.legislativo.ApplicationProperties;
+import cl.votainteligente.legislativo.Constants;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.controller.rest.iface.CommissionAPI;
@@ -39,8 +39,8 @@ public class CommissionController implements CommissionAPI {
 	@RequestMapping(value = "commission/all", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<CommissionDO> getAll(
-			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
 			Page<CommissionDO> resultPage = commissionService.getAllCommissions(page, perPage);
 			return resultPage;
@@ -58,8 +58,8 @@ public class CommissionController implements CommissionAPI {
 	@ResponseBody
 	public Page<CommissionDO> findByName(
 			@RequestParam(value = "name", required = true) final String name,
-			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
 			Page<CommissionDO> resultPage = commissionService.findCommissionsByName(name, page, perPage);
 			return resultPage;
@@ -77,8 +77,8 @@ public class CommissionController implements CommissionAPI {
 	@ResponseBody
 	public CommissionDetailedDO getCommission(
 			@RequestParam(value = "id", required = true) final long id,
-			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
 			Commission commission = commissionService.getCommissionById(id);
 
@@ -102,8 +102,8 @@ public class CommissionController implements CommissionAPI {
 	@ResponseBody
 	public Page<CommissionDO> findByType(
 			@RequestParam(value = "id", required = true) final long id,
-			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
 			CommissionType commissionType = commissionTypeService.getById(id);
 			Page<CommissionDO> resultPage = commissionService.getCommissionsByType(commissionType, page, perPage);
@@ -122,8 +122,8 @@ public class CommissionController implements CommissionAPI {
 	@ResponseBody
 	public Page<CommissionDO> findByChamber(
 			@RequestParam(value = "id", required = true) final long id,
-			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
 			Chamber chamber = chamberService.getById(id);
 			Page<CommissionDO> resultPage = commissionService.getCommissionsByChamber(chamber, page, perPage);

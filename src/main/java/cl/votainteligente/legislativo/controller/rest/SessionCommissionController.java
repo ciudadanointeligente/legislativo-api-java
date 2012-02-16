@@ -1,6 +1,7 @@
 package cl.votainteligente.legislativo.controller.rest;
 
 import cl.votainteligente.legislativo.ApplicationProperties;
+import cl.votainteligente.legislativo.Constants;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.controller.rest.iface.SessionCommissionAPI;
@@ -37,8 +38,8 @@ public class SessionCommissionController implements SessionCommissionAPI {
 	@RequestMapping(value = "sessionCommission/all", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<SessionCommissionDO> getAll(
-			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
 			return sessionCommissionService.getAllSessionCommissionDO(page, perPage);
 		} catch (ServiceException e) {
@@ -79,8 +80,8 @@ public class SessionCommissionController implements SessionCommissionAPI {
 	public Page<SessionCommissionDO> getDateRange(
 			@RequestParam(value = "from", required = true) final String from,
 			@RequestParam(value = "to", required = true) final String to,
-			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
 			Date startDate = dateFormat.parse(from);
 			Date endDate = dateFormat.parse(to);
@@ -102,8 +103,8 @@ public class SessionCommissionController implements SessionCommissionAPI {
 	@ResponseBody
 	public Page<SessionCommissionDO> getByLegislature(
 			@RequestParam(value = "id", required = true) final long id,
-			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
 			return sessionCommissionService.getByLegislature(id, page, perPage);
 		} catch (ServiceException e) {

@@ -1,6 +1,7 @@
 package cl.votainteligente.legislativo.controller.rest;
 
 import cl.votainteligente.legislativo.ApplicationProperties;
+import cl.votainteligente.legislativo.Constants;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.controller.rest.iface.BillAPI;
@@ -26,8 +27,7 @@ import javax.ws.rs.Path;
 @Path("bill")
 @Controller
 public class BillController implements BillAPI {
-	private SimpleDateFormat dateFormat = new SimpleDateFormat(
-			ApplicationProperties.getProperty("controller.date.format"));
+	private SimpleDateFormat dateFormat = new SimpleDateFormat(ApplicationProperties.getProperty("controller.date.format"));
 
 	@Autowired
 	BillService service;
@@ -45,8 +45,8 @@ public class BillController implements BillAPI {
 	@RequestMapping(value = "bill/all", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<BillDO> getAll(
-			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
 			Page<BillDO> resultPage = service.getAllBillDOs(page, perPage);
 			return resultPage;
@@ -87,8 +87,8 @@ public class BillController implements BillAPI {
 	public final Page<BillDO> getDateRange(
 			@RequestParam(value = "from", required = true) final String from,
 			@RequestParam(value = "to", required = true) final String to,
-			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
 			Date startDate = dateFormat.parse(from);
 			Date endDate = dateFormat.parse(to);
@@ -110,8 +110,8 @@ public class BillController implements BillAPI {
 	@ResponseBody
 	public final Page<BillDO> getBillsByStage(
 			@RequestParam(value = "id", required = true) final long id,
-			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
 			StageDescription stageDescription = stageDescriptionService.getById(id);
 			Page<BillDO> resultPage = service.getByStage(stageDescription, page, perPage);
@@ -130,8 +130,8 @@ public class BillController implements BillAPI {
 	@ResponseBody
 	public final Page<BillDO> getByMatter(
 			@RequestParam(value = "id", required = true) final long id,
-			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
 
 			Matter matter = matterService.getById(id);
@@ -156,8 +156,8 @@ public class BillController implements BillAPI {
 	@ResponseBody
 	public final Page<BillRoleDO> getBillRoleByPerson(
 			@RequestParam(value = "id", required = true) final long id,
-			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
 			Person person = personService.getPerson(id);
 
