@@ -26,13 +26,15 @@ public class SingleVoteController implements SingleVoteAPI {
 
 	@Autowired
 	SingleVoteService singleVoteService;
-
 	@Autowired
 	PersonService personService;
-
 	@Autowired
 	VoteService voteService;
 
+	/*
+	 * (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.SingleVote#getAll(int, int)
+	 */
 	@RequestMapping(value = "singleVote/all", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<SingleVoteDetailedDO> getAll(
@@ -46,6 +48,10 @@ public class SingleVoteController implements SingleVoteAPI {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.SingleVote#getAllByPerson(long, int, int)
+	 */
 	@RequestMapping(value = "singleVote/legislator", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<SingleVoteDetailedDO> getAllByPerson(
@@ -54,8 +60,11 @@ public class SingleVoteController implements SingleVoteAPI {
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 			Person person = personService.getPerson(id);
-			if (person == null)
+
+			if (person == null) {
 				throw new ResourceNotFoundException();
+			}
+
 			return singleVoteService.getAllByPerson(person, page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
@@ -63,6 +72,10 @@ public class SingleVoteController implements SingleVoteAPI {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.SingleVote#getAllByVote(long, int, int)
+	 */
 	@RequestMapping(value = "singleVote/vote", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<SingleVoteDetailedDO> getAllByVote(
@@ -71,8 +84,11 @@ public class SingleVoteController implements SingleVoteAPI {
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 			Vote vote = voteService.getVote(id);
-			if (vote == null)
+
+			if (vote == null) {
 				throw new ResourceNotFoundException();
+			}
+
 			return singleVoteService.getAllByVote(vote, page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
@@ -80,14 +96,20 @@ public class SingleVoteController implements SingleVoteAPI {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.SingleVote#getAllById(long)
+	 */
 	@RequestMapping(value = "singleVote/any", method = RequestMethod.GET)
 	@ResponseBody
-	public final SingleVoteDetailedDO getAllById(
-			@RequestParam(value = "id", required = true) final long id) {
+	public final SingleVoteDetailedDO getAllById(@RequestParam(value = "id", required = true) final long id) {
 		try {
 			SingleVote singleVote = singleVoteService.getSingleVote(id);
-			if (singleVote == null)
+
+			if (singleVote == null) {
 				throw new ResourceNotFoundException();
+			}
+
 			return singleVote.asDetailedDomainObject();
 		} catch (ServiceException e) {
 			e.printStackTrace();
