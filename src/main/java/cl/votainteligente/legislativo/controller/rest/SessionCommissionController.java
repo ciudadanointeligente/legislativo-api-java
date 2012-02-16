@@ -25,16 +25,14 @@ import javax.ws.rs.Path;
 @Path("sessionCommission")
 @Controller
 public class SessionCommissionController implements SessionCommissionAPI {
-	private SimpleDateFormat dateFormat = new SimpleDateFormat(
-			ApplicationProperties.getProperty("controller.date.format"));
+	private SimpleDateFormat dateFormat = new SimpleDateFormat(ApplicationProperties.getProperty("controller.date.format"));
+
 	@Autowired
-	SessionCommissionService service;
+	SessionCommissionService sessionCommissionService;
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see
-	 * cl.votainteligente.legislativo.controller.rest.SessionAI#getAll(int,int)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.SessionCommissionAPI#getAll(int, int)
 	 */
 	@RequestMapping(value = "sessionCommission/all", method = RequestMethod.GET)
 	@ResponseBody
@@ -42,7 +40,7 @@ public class SessionCommissionController implements SessionCommissionAPI {
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			return service.getAllSessionCommissionDO(page, perPage);
+			return sessionCommissionService.getAllSessionCommissionDO(page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -51,19 +49,19 @@ public class SessionCommissionController implements SessionCommissionAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see
-	 * cl.votainteligente.legislativo.controller.rest.SessionAI#getById(long)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.SessionCommissionAPI#getById(long)
 	 */
 	@RequestMapping(value = "sessionCommission/any", method = RequestMethod.GET)
 	@ResponseBody
-	public final SessionCommissionDetailedDO getById(
-			@RequestParam(value = "id", required = true) final long id) {
+	public final SessionCommissionDetailedDO getById(@RequestParam(value = "id", required = true) final long id) {
 		try {
-			SessionCommission s = service.getSessionCommission(id);
-			if (s == null)
+			SessionCommission sessionCommission = sessionCommissionService.getSessionCommission(id);
+
+			if (sessionCommission == null) {
 				throw new ResourceNotFoundException();
-			return s.asSessionCommissionDetailedDomainObject();
+			}
+
+			return sessionCommission.asSessionCommissionDetailedDomainObject();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -71,18 +69,22 @@ public class SessionCommissionController implements SessionCommissionAPI {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.SessionCommissionAPI#getDateRange(String, String, int, int)
+	 */
 	@Override
 	@RequestMapping(value = "sessionCommission/dateRange", method = RequestMethod.GET)
 	@ResponseBody
 	public Page<SessionCommissionDO> getDateRange(
-			@RequestParam(value = "from", required = true) final String fromString,
-			@RequestParam(value = "to", required = true) final String toString,
+			@RequestParam(value = "from", required = true) final String from,
+			@RequestParam(value = "to", required = true) final String to,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			Date from = dateFormat.parse(fromString);
-			Date to = dateFormat.parse(toString);
-			return service.getByDateRange(from, to, page, perPage);
+			Date startDate = dateFormat.parse(from);
+			Date endDate = dateFormat.parse(to);
+			return sessionCommissionService.getByDateRange(startDate, endDate, page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -91,6 +93,10 @@ public class SessionCommissionController implements SessionCommissionAPI {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.SessionCommissionAPI#getByLegislature(long, int, int)
+	 */
 	@Override
 	@RequestMapping(value = "sessionCommission/legislature", method = RequestMethod.GET)
 	@ResponseBody
@@ -99,7 +105,7 @@ public class SessionCommissionController implements SessionCommissionAPI {
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			return service.getByLegislature(id, page, perPage);
+			return sessionCommissionService.getByLegislature(id, page, perPage);
 		} catch (ServiceException e) {
 			throw new ServerErrorException();
 		}
