@@ -1,4 +1,4 @@
-package cl.votainteligente.legislativo;
+package cl.votainteligente.legislativo.exception;
 
 public class ServiceException extends Exception {
 	public ServiceException(Throwable ex) {

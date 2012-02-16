@@ -1,4 +1,4 @@
-package cl.votainteligente.legislativo;
+package cl.votainteligente.legislativo.common;
 
 /*
  * Static properties for annotations. This properties can't be loaded from a

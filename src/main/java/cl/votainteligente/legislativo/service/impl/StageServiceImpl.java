@@ -2,7 +2,7 @@ package cl.votainteligente.legislativo.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import cl.votainteligente.legislativo.ServiceException;
+import cl.votainteligente.legislativo.exception.ServiceException;
 import cl.votainteligente.legislativo.model.Stage;
 import cl.votainteligente.legislativo.service.EntityManagerService;
 import cl.votainteligente.legislativo.service.StageService;

@@ -1,7 +1,7 @@
 package cl.votainteligente.legislativo.controller;
 
-import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.exception.ResourceNotFoundException;
+import cl.votainteligente.legislativo.exception.ServiceException;
 import cl.votainteligente.legislativo.migration.Migrate;
 import cl.votainteligente.legislativo.service.*;
 

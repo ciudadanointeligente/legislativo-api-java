@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
 import org.springframework.stereotype.Service;
-import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.model.Circunscription;
 import cl.votainteligente.legislativo.model.District;
 import cl.votainteligente.legislativo.model.LegislatorRole;
@@ -17,6 +16,7 @@ import cl.votainteligente.legislativo.model.DO.PersonDO;
 import cl.votainteligente.legislativo.service.EntityManagerService;
 import cl.votainteligente.legislativo.service.LegislatorRoleService;
 import cl.votainteligente.legislativo.common.Page;
+import cl.votainteligente.legislativo.exception.ServiceException;
 
 @Service
 public class LegislatorRoleServiceImpl extends EntityManagerService implements

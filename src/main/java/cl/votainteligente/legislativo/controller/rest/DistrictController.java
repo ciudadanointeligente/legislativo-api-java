@@ -1,11 +1,11 @@
 package cl.votainteligente.legislativo.controller.rest;
 
-import cl.votainteligente.legislativo.Constants;
-import cl.votainteligente.legislativo.ServiceException;
+import cl.votainteligente.legislativo.common.Constants;
 import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.controller.rest.iface.DistrictAPI;
 import cl.votainteligente.legislativo.exception.ResourceNotFoundException;
 import cl.votainteligente.legislativo.exception.ServerErrorException;
+import cl.votainteligente.legislativo.exception.ServiceException;
 import cl.votainteligente.legislativo.model.District;
 import cl.votainteligente.legislativo.model.DO.DistrictDO;
 import cl.votainteligente.legislativo.service.DistrictService;

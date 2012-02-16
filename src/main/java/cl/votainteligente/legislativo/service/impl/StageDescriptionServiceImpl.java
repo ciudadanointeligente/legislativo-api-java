@@ -6,8 +6,8 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Service;
 
-import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
+import cl.votainteligente.legislativo.exception.ServiceException;
 import cl.votainteligente.legislativo.model.StageDescription;
 import cl.votainteligente.legislativo.service.EntityManagerService;
 import cl.votainteligente.legislativo.service.StageDescriptionService;

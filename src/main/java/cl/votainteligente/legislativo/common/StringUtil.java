@@ -1,4 +1,4 @@
-package cl.votainteligente.legislativo;
+package cl.votainteligente.legislativo.common;
 
 import java.util.HashSet;
 import java.util.Set;
