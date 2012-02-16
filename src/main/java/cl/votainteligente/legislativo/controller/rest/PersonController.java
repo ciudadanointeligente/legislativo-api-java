@@ -1,5 +1,6 @@
 package cl.votainteligente.legislativo.controller.rest;
 
+import cl.votainteligente.legislativo.ApplicationProperties;
 import cl.votainteligente.legislativo.ServiceException;
 import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.controller.rest.iface.PersonAPI;
@@ -20,22 +21,20 @@ import javax.ws.rs.Path;
 @Controller
 public class PersonController implements PersonAPI {
 	@Autowired
-	PersonService service;
+	PersonService personService;
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see
-	 * cl.votainteligente.legislativo.controller.rest.PersonAPI#getAll(int,int)
+	 * @see cl.votainteligente.legislativo.controller.rest.PersonAPI#getAll(int, int)
 	 */
 	@Override
 	@RequestMapping(value = "person/all", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<PersonDO> getAll(
-			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			return service.getAllPersonDOs(page, perPage);
+			return personService.getAllPersonDOs(page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -44,18 +43,17 @@ public class PersonController implements PersonAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see cl.votainteligente.legislativo.controller.rest.PersonAPI#findPersonByFirstName(java.lang.String, int, int)
+	 * @see cl.votainteligente.legislativo.controller.rest.PersonAPI#findPersonByFirstName(String, int, int)
 	 */
 	@Override
 	@RequestMapping(params = { "firstName" }, value = "person/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<PersonDO> findPersonByFirstName(
 			@RequestParam(value = "firstName", required = true) final String firstName,
-			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
-			return service.findPersonsByFirstName(firstName, page, perPage);
+			return personService.findPersonsByFirstName(firstName, page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -64,19 +62,18 @@ public class PersonController implements PersonAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see cl.votainteligente.legislativo.controller.rest.PersonAPI#findPersonByLastName(java.lang.String, int, int)
+	 * @see cl.votainteligente.legislativo.controller.rest.PersonAPI#findPersonByLastName(String, int, int)
 	 */
 	@Override
 	@RequestMapping(params = { "lastName" }, value = "person/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<PersonDO> findPersonByLastName(
 			@RequestParam(value = "lastName", required = true) final String lastName,
-			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 
 		try {
-			return service.findPersonsByLastName(lastName, page, perPage);
+			return personService.findPersonsByLastName(lastName, page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -85,24 +82,23 @@ public class PersonController implements PersonAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see
-	 * cl.votainteligente.legislativo.controller.rest.PersonAPI#getPersonById(long)
+	 * @seecl.votainteligente.legislativo.controller.rest.PersonAPI#getPersonById(long)
 	 */
 	@Override
 	@RequestMapping(params = { "id" }, value = "person/any", method = RequestMethod.GET)
 	@ResponseBody
-	public final PersonDetailedDO getPersonById(
-			@RequestParam(value = "id", required = true) final long id) {
+	public final PersonDetailedDO getPersonById(@RequestParam(value = "id", required = true) final long id) {
 		try {
-			Person p = service.getPerson(id);
-			if (p == null)
+			Person person = personService.getPerson(id);
+
+			if (person == null) {
 				throw new ResourceNotFoundException();
-			return p.asDetailedDomainObject();
+			}
+
+			return person.asDetailedDomainObject();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
 		}
 	}
-
 }
