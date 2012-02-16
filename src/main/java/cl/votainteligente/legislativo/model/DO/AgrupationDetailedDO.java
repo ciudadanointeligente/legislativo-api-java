@@ -1,16 +1,17 @@
 package cl.votainteligente.legislativo.model.DO;
 
+import cl.votainteligente.legislativo.model.Agrupation;
+import cl.votainteligente.legislativo.model.AgrupationAffiliation;
+
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import cl.votainteligente.legislativo.model.Agrupation;
-import cl.votainteligente.legislativo.model.AgrupationAffiliation;
-
 @XmlRootElement
 public class AgrupationDetailedDO {
+
 	private Long id;
 	private String name;
 	private String mailAddress;
@@ -37,9 +38,9 @@ public class AgrupationDetailedDO {
 		this.statementOfInterest = agrupation.getStatementOfInterest();
 
 		this.memberIds = new LinkedList<Long>();
-		for (AgrupationAffiliation affiliations : agrupation
-				.getAgrupationAffiliations())
+		for (AgrupationAffiliation affiliations : agrupation.getAgrupationAffiliations()) {
 			this.memberIds.add(affiliations.getPerson().getId());
+		}
 	}
 
 	public Long getId() {
@@ -121,5 +122,4 @@ public class AgrupationDetailedDO {
 	public void setMemberIds(List<Long> memberIds) {
 		this.memberIds = memberIds;
 	}
-
 }

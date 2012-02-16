@@ -1,28 +1,25 @@
 package cl.votainteligente.legislativo.model.DO;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import cl.votainteligente.legislativo.model.District;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class DistrictDO {
+
 	private Long id;
 	private String name;
 	private Long circunscription;
 	private Long region;
 
 	public DistrictDO() {
-
 	}
 
-	public DistrictDO(District original) {
-		this.id = original.getId();
-		this.name = original.getName();
-		this.circunscription = (original.getCircunscription() != null) ? original
-				.getCircunscription().getId()
-				: null;
-		this.region = (original.getRegion() != null) ? original.getRegion()
-				.getId() : null;
+	public DistrictDO(District district) {
+		this.id = district.getId();
+		this.name = district.getName();
+		this.circunscription = (district.getCircunscription() != null) ? district.getCircunscription().getId() : null;
+		this.region = (district.getRegion() != null) ? district.getRegion().getId() : null;
 	}
 
 	public Long getId() {
@@ -56,5 +53,4 @@ public class DistrictDO {
 	public void setRegion(Long region) {
 		this.region = region;
 	}
-
 }

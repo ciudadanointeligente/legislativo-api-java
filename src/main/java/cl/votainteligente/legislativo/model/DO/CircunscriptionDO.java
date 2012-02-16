@@ -1,33 +1,33 @@
 package cl.votainteligente.legislativo.model.DO;
 
+import cl.votainteligente.legislativo.model.Circunscription;
+import cl.votainteligente.legislativo.model.Region;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import cl.votainteligente.legislativo.model.Circunscription;
-import cl.votainteligente.legislativo.model.Region;
-
 @XmlRootElement
 public class CircunscriptionDO {
+
 	private Long id;
 	private String name;
 	private Set<Long> regions;
 
 	public CircunscriptionDO() {
-
 	}
 
-	public CircunscriptionDO(Circunscription original) {
-		this.id = original.getId();
-		this.name = original.getName();
-		this.id = original.getId();
+	public CircunscriptionDO(Circunscription circunscription) {
+		this.id = circunscription.getId();
+		this.name = circunscription.getName();
+		this.id = circunscription.getId();
 		this.regions = new HashSet<Long>();
 
-		Set<Region> regions = original.getRegions();
-		for (Region r : regions)
+		Set<Region> regions = circunscription.getRegions();
+		for (Region r : regions) {
 			this.regions.add(r.getId());
-
+		}
 	}
 
 	public Long getId() {
@@ -53,5 +53,4 @@ public class CircunscriptionDO {
 	public void setRegions(Set<Long> regions) {
 		this.regions = regions;
 	}
-
 }

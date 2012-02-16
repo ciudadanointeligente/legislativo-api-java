@@ -1,9 +1,9 @@
 package cl.votainteligente.legislativo.model.DO;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import cl.votainteligente.legislativo.model.Party;
 import cl.votainteligente.legislativo.model.Person;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class PersonPartyDO {
@@ -15,7 +15,6 @@ public class PersonPartyDO {
 	private String partyName;
 
 	public PersonPartyDO() {
-
 	}
 
 	public PersonPartyDO(Person person, Party party) {
@@ -30,16 +29,32 @@ public class PersonPartyDO {
 		return id;
 	}
 
-	public Long getPartyId() {
-		return partyId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getFirstName() {
 		return firstName;
 	}
 
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
 	public String getLastName() {
 		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public Long getPartyId() {
+		return partyId;
+	}
+
+	public void setPartyId(Long partyId) {
+		this.partyId = partyId;
 	}
 
 	public String getPartyName() {

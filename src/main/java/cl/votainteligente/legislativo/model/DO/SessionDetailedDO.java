@@ -1,12 +1,9 @@
 package cl.votainteligente.legislativo.model.DO;
 
+import cl.votainteligente.legislativo.model.*;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import cl.votainteligente.legislativo.model.Bill;
-import cl.votainteligente.legislativo.model.Person;
-import cl.votainteligente.legislativo.model.Session;
-import cl.votainteligente.legislativo.model.Vote;
 
 public class SessionDetailedDO {
 
@@ -20,151 +17,102 @@ public class SessionDetailedDO {
 	private String sessionAccountURL;
 	private Set<Long> sessionVotesId;
 
+	public SessionDetailedDO() {
+	}
+
 	public SessionDetailedDO(Session session) {
 		this.id = session.getId();
 		this.number = session.getNumber();
 		this.setLegislature(session.getLegislature());
-		this.date = (session.getDate() != null) ? DOUtil.getDateFormat()
-				.format(session.getDate()) : null;
+		this.date = (session.getDate() != null) ? DOUtil.getDateFormat().format(session.getDate()) : null;
 		this.discussedBillsId = new HashSet<Long>();
 		Set<Bill> bills = session.getDiscussedBills();
-		for (Bill bill : bills)
+		for (Bill bill : bills) {
 			this.discussedBillsId.add(bill.getId());
+		}
 		this.sessionAccountURL = session.getSessionAccountURL();
 		this.sessionTableURL = session.getSessionTableURL();
 		this.assitantId = new HashSet<Long>();
 		Set<Person> assistant = session.getAssitant();
-		for (Person person : assistant)
+		for (Person person : assistant) {
 			this.assitantId.add(person.getId());
+		}
 		this.sessionVotesId = new HashSet<Long>();
 		Set<Vote> votes = session.getVotes();
-		for (Vote vote : votes)
+		for (Vote vote : votes) {
 			this.sessionVotesId.add(vote.getId());
+		}
 	}
 
-	public SessionDetailedDO() {
-
-	}
-
-	/**
-	 * @return the id
-	 */
 	public Long getId() {
 		return id;
 	}
 
-	/**
-	 * @param id
-	 *            the id to set
-	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	/**
-	 * @return the number
-	 */
 	public Long getNumber() {
 		return number;
 	}
 
-	/**
-	 * @param number
-	 *            the number to set
-	 */
 	public void setNumber(Long number) {
 		this.number = number;
-	}
-
-	/**
-	 * @return the discussedBillsId
-	 */
-	public Set<Long> getDiscussedBillsId() {
-		return discussedBillsId;
-	}
-
-	/**
-	 * @param discussedBillsId
-	 *            the discussedBillsId to set
-	 */
-	public void setDiscussedBillsId(Set<Long> discussedBillsId) {
-		this.discussedBillsId = discussedBillsId;
-	}
-
-	/**
-	 * @return the date
-	 */
-	public String getDate() {
-		return date;
-	}
-
-	/**
-	 * @param date
-	 *            the date to set
-	 */
-	public void setDate(String date) {
-		this.date = date;
-	}
-
-	/**
-	 * @return the assitantId
-	 */
-	public Set<Long> getAssitantId() {
-		return assitantId;
-	}
-
-	/**
-	 * @param assitantId
-	 *            the assitantId to set
-	 */
-	public void setAssitantId(Set<Long> assitantId) {
-		this.assitantId = assitantId;
-	}
-
-	/**
-	 * @return the sessionTableURL
-	 */
-	public String getSessionTableURL() {
-		return sessionTableURL;
-	}
-
-	/**
-	 * @param sessionTableURL
-	 *            the sessionTableURL to set
-	 */
-	public void setSessionTableURL(String sessionTableURL) {
-		this.sessionTableURL = sessionTableURL;
-	}
-
-	/**
-	 * @return the sessionAccountURL
-	 */
-	public String getSessionAccountURL() {
-		return sessionAccountURL;
-	}
-
-	/**
-	 * @param sessionAccountURL
-	 *            the sessionAccountURL to set
-	 */
-	public void setSessionAccountURL(String sessionAccountURL) {
-		this.sessionAccountURL = sessionAccountURL;
-	}
-
-	public void setLegislature(Long legislature) {
-		this.legislature = legislature;
 	}
 
 	public Long getLegislature() {
 		return legislature;
 	}
 
-	public void setSessionVotesId(Set<Long> sessionVotesId) {
-		this.sessionVotesId = sessionVotesId;
+	public void setLegislature(Long legislature) {
+		this.legislature = legislature;
+	}
+
+	public Set<Long> getDiscussedBillsId() {
+		return discussedBillsId;
+	}
+
+	public void setDiscussedBillsId(Set<Long> discussedBillsId) {
+		this.discussedBillsId = discussedBillsId;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public Set<Long> getAssitantId() {
+		return assitantId;
+	}
+
+	public void setAssitantId(Set<Long> assitantId) {
+		this.assitantId = assitantId;
+	}
+
+	public String getSessionTableURL() {
+		return sessionTableURL;
+	}
+
+	public void setSessionTableURL(String sessionTableURL) {
+		this.sessionTableURL = sessionTableURL;
+	}
+
+	public String getSessionAccountURL() {
+		return sessionAccountURL;
+	}
+
+	public void setSessionAccountURL(String sessionAccountURL) {
+		this.sessionAccountURL = sessionAccountURL;
 	}
 
 	public Set<Long> getSessionVotesId() {
 		return sessionVotesId;
 	}
 
+	public void setSessionVotesId(Set<Long> sessionVotesId) {
+		this.sessionVotesId = sessionVotesId;
+	}
 }

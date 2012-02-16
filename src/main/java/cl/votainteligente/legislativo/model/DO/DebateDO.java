@@ -1,11 +1,12 @@
 package cl.votainteligente.legislativo.model.DO;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import cl.votainteligente.legislativo.model.Debate;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class DebateDO {
+
 	private Long id;
 	private Long billId;
 	private Long chamber;
@@ -15,26 +16,24 @@ public class DebateDO {
 	private String topic;
 
 	public DebateDO() {
-
 	}
 
-	public DebateDO(Debate d) {
-		this.id = d.getId();
-		this.billId = d.getBill().getId();
-		this.chamber = d.getChamber().getId();
-		this.discussionType = (d.getDiscussionType() != null) ? d
-				.getDiscussionType().getName() : null;
-		this.abstractText = d.getAbstractText();
-		this.abstractTitle = d.getAbstractTitle();
-		this.topic = d.getTopic();
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public DebateDO(Debate debate) {
+		this.id = debate.getId();
+		this.billId = debate.getBill().getId();
+		this.chamber = debate.getChamber().getId();
+		this.discussionType = (debate.getDiscussionType() != null) ? debate.getDiscussionType().getName() : null;
+		this.abstractText = debate.getAbstractText();
+		this.abstractTitle = debate.getAbstractTitle();
+		this.topic = debate.getTopic();
 	}
 
 	public Long getId() {
 		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Long getBillId() {
@@ -84,5 +83,4 @@ public class DebateDO {
 	public void setTopic(String topic) {
 		this.topic = topic;
 	}
-
 }

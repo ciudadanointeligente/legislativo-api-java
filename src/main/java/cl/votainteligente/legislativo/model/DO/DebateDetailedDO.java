@@ -1,16 +1,19 @@
 package cl.votainteligente.legislativo.model.DO;
 
+import cl.votainteligente.legislativo.model.Debate;
+import cl.votainteligente.legislativo.model.Tag;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.xml.bind.annotation.XmlRootElement;
-import cl.votainteligente.legislativo.model.Debate;
-import cl.votainteligente.legislativo.model.Tag;
 
 @XmlRootElement
 public class DebateDetailedDO {
+
 	private Long id;
 	private Long billId;
 	private Long chamber;
@@ -25,30 +28,24 @@ public class DebateDetailedDO {
 	private String abstractText;
 
 	public DebateDetailedDO() {
-	};
-
-	public DebateDetailedDO(Debate d) {
-		id = d.getId();
-		billId = d.getBill().getId();
-		chamber = d.getChamber().getId();
-		date = d.getDate();
-		discussionType = d.getDiscussionType().getName();
-		topic = d.getTopic();
-		debate = d.getDebate();
-		tags = new HashSet<String>();
-		if (d.getTags() != null)
-			for (Tag t : d.getTags())
-				tags.add(t.getName());
-		abstractText = d.getAbstractText();
-		abstractTitle = d.getAbstractTitle();
 	}
 
-	public URL getDocUrl() {
-		try {
-			return new URL(docUrl);
-		} catch (MalformedURLException e) {
-			return null;
+	public DebateDetailedDO(Debate debateDetailed) {
+		id = debateDetailed.getId();
+		billId = debateDetailed.getBill().getId();
+		chamber = debateDetailed.getChamber().getId();
+		date = debateDetailed.getDate();
+		discussionType = debateDetailed.getDiscussionType().getName();
+		topic = debateDetailed.getTopic();
+		debate = debateDetailed.getDebate();
+		tags = new HashSet<String>();
+		if (debateDetailed.getTags() != null) {
+			for (Tag t : debateDetailed.getTags()) {
+				tags.add(t.getName());
+			}
 		}
+		abstractText = debateDetailed.getAbstractText();
+		abstractTitle = debateDetailed.getAbstractTitle();
 	}
 
 	public Long getId() {
@@ -57,6 +54,14 @@ public class DebateDetailedDO {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getBillId() {
+		return billId;
+	}
+
+	public void setBillId(Long billId) {
+		this.billId = billId;
 	}
 
 	public Long getChamber() {
@@ -107,6 +112,18 @@ public class DebateDetailedDO {
 		this.tags = tags;
 	}
 
+	public URL getDocUrl() {
+		try {
+			return new URL(docUrl);
+		} catch (MalformedURLException e) {
+			return null;
+		}
+	}
+
+	public void setDocUrl(String docUrl) {
+		this.docUrl = docUrl;
+	}
+
 	public String getAbstractTitle() {
 		return abstractTitle;
 	}
@@ -122,17 +139,4 @@ public class DebateDetailedDO {
 	public void setAbstractText(String abstractText) {
 		this.abstractText = abstractText;
 	}
-
-	public void setDocUrl(String docUrl) {
-		this.docUrl = docUrl;
-	}
-
-	public Long getBillId() {
-		return billId;
-	}
-
-	public void setBillId(Long billId) {
-		this.billId = billId;
-	}
-
 }

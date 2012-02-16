@@ -9,6 +9,7 @@ import cl.votainteligente.legislativo.model.Role;
 
 @XmlRootElement
 public class BillRoleDO {
+
 	private Long billId;
 	private Long roleId;
 	private String roleName;
@@ -18,7 +19,6 @@ public class BillRoleDO {
 	private String billTitle;
 
 	public BillRoleDO() {
-
 	}
 
 	public BillRoleDO(Bill bill, Role role) {
@@ -79,19 +79,11 @@ public class BillRoleDO {
 		this.roleEndDate = roleEndDate;
 	}
 
-	/**
-	 * @param billTitle
-	 *            the billTitle to set
-	 */
-	public void setBillTitle(String billTitle) {
-		this.billTitle = billTitle;
-	}
-
-	/**
-	 * @return the billTitle
-	 */
 	public String getBillTitle() {
 		return billTitle;
 	}
 
+	public void setBillTitle(String billTitle) {
+		this.billTitle = billTitle;
+	}
 }

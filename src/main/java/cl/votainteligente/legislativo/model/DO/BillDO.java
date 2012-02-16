@@ -1,8 +1,8 @@
 package cl.votainteligente.legislativo.model.DO;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import cl.votainteligente.legislativo.model.Bill;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class BillDO {
