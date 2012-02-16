@@ -29,8 +29,9 @@ public class VoteController implements VoteAPI {
 	@Autowired
 	SessionService sessionService;
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controller.rest.VoteAPI#getAll(int, int)
+	/*
+	 * (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.VoteAPI#getAll(int, int)
 	 */
 	@RequestMapping(value = "vote/all", method = RequestMethod.GET)
 	@ResponseBody
@@ -45,8 +46,9 @@ public class VoteController implements VoteAPI {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controller.rest.VoteAPI#getAllBySession(long, int, int)
+	/*
+	 * (non-Javadoc)
+	 * @seecl.votainteligente.legislativo.controller.rest.iface.VoteAPI#getAllBySession(long, int, int)
 	 */
 	@RequestMapping(value = "vote/session", method = RequestMethod.GET)
 	@ResponseBody
@@ -56,8 +58,11 @@ public class VoteController implements VoteAPI {
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 			Session session = sessionService.getSession(id);
-			if (session == null)
+
+			if (session == null) {
 				throw new ResourceNotFoundException();
+			}
+
 			return voteService.getBySession(session, page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
@@ -65,8 +70,9 @@ public class VoteController implements VoteAPI {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controller.rest.VoteAPI#getAllByResult(long, int, int)
+	/*
+	 * (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.VoteAPI#getAllByResult(long, int, int)
 	 */
 	@RequestMapping(value = "vote/result", method = RequestMethod.GET)
 	@ResponseBody
@@ -82,17 +88,20 @@ public class VoteController implements VoteAPI {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see cl.votainteligente.legislativo.controller.rest.VoteAPI#getAllById(long)
+	/*
+	 * (non-Javadoc)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.VoteAPI#getAllById(long)
 	 */
 	@RequestMapping(value = "vote/any", method = RequestMethod.GET)
 	@ResponseBody
-	public final VoteDetailedDO getAllById(
-			@RequestParam(value = "id", required = true) final long id) {
+	public final VoteDetailedDO getAllById(@RequestParam(value = "id", required = true) final long id) {
 		try {
 			Vote vote = voteService.getVote(id);
-			if (vote == null)
+
+			if (vote == null) {
 				throw new ResourceNotFoundException();
+			}
+
 			return vote.asDetailedDomainObject();
 		} catch (ServiceException e) {
 			e.printStackTrace();
