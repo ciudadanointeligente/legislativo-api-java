@@ -27,9 +27,7 @@ public class PartyController implements PartyAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see
-	 * cl.votainteligente.legislativo.controller.rest.PartyAPI#getAll(int, int)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.PartyAPI#getAll(int, int)
 	 */
 	@RequestMapping(value = "party/all", method = RequestMethod.GET)
 	@ResponseBody
@@ -46,9 +44,7 @@ public class PartyController implements PartyAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see
-	 * cl.votainteligente.legislativo.controller.rest.PartyAPI#getAll(java.lang.String, int, int)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.PartyAPI#getAll(java.lang.String, int, int)
 	 */
 	@RequestMapping(params = { "name" }, value = "party/any", method = RequestMethod.GET)
 	@ResponseBody
@@ -66,19 +62,19 @@ public class PartyController implements PartyAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see
-	 * cl.votainteligente.legislativo.controller.rest.PartyAPI#getById(long)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.PartyAPI#getById(long)
 	 */
 	@RequestMapping(value = "party/any", method = RequestMethod.GET)
 	@ResponseBody
-	public final PartyDetailedDO getById(
-			@RequestParam(value = "id", required = true) final long id) {
+	public final PartyDetailedDO getById(@RequestParam(value = "id", required = true) final long id) {
 		try {
-			Party p = partyService.getParty(id);
-			if(p == null)
+			Party party = partyService.getParty(id);
+
+			if (party == null) {
 				throw new ResourceNotFoundException();
-			return (PartyDetailedDO)p.asDetailedDomainObject();
+			}
+
+			return (PartyDetailedDO) party.asDetailedDomainObject();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -87,21 +83,22 @@ public class PartyController implements PartyAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see cl.votainteligente.legislativo.controller.rest.PartyAPI#getHistoricalAffiliatesByParty(long, int, int)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.PartyAPI#getHistoricalMembersByParty(long, int, int)
 	 */
-	@RequestMapping(value = "party/historicalAffiliates", method = RequestMethod.GET)
+	@RequestMapping(value = "party/historicalMembers", method = RequestMethod.GET)
 	@ResponseBody
-	public final Page<PersonDO> getHistoricalAffiliatesByParty(
+	public final Page<PersonDO> getHistoricalPartyMembers(
 			@RequestParam(value = "id", required = true) final long id,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 			Party party = partyService.getParty(id);
-			if(party==null)
+
+			if (party == null) {
 				throw new ResourceNotFoundException();
-			return partyService.getHistoricalAffiliatesByParty(party, page,
-					perPage);
+			}
+
+			return partyService.getHistoricalAffiliatesByParty(party, page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -110,21 +107,22 @@ public class PartyController implements PartyAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see cl.votainteligente.legislativo.controller.rest.PartyAPI#getCurrentAffiliatesByParty(long, int, int)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.PartyAPI#getCurrentMembersByParty(long, int, int)
 	 */
-	@RequestMapping(value = "party/currentAffiliates", method = RequestMethod.GET)
+	@RequestMapping(value = "party/currentMembers", method = RequestMethod.GET)
 	@ResponseBody
-	public final Page<PersonDO> getCurrentAffiliatesByParty(
+	public final Page<PersonDO> getCurrentPartyMembers(
 			@RequestParam(value = "id", required = true) final long id,
 			@RequestParam(value = "page", defaultValue = ApplicationProperties.CONTROLLER_PAGE_DEFAULT_VALUE, required = false) final int page,
 			@RequestParam(value = "perPage", defaultValue = ApplicationProperties.CONTROLLER_PER_PAGE_DEFAULT_VALUE, required = false) final int perPage) {
 		try {
 			Party party = partyService.getParty(id);
-			if(party==null)
+
+			if (party == null) {
 				throw new ResourceNotFoundException();
-			return partyService.getCurrentAffiliatesByParty(party, page,
-					perPage);
+			}
+
+			return partyService.getCurrentAffiliatesByParty(party, page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
