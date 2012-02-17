@@ -9,20 +9,10 @@ import cl.votainteligente.legislativo.model.DO.PersonDO;
 
 public interface PartyService {
 	Party newParty(Party party) throws ServiceException;
-
-	Page<PartyDO> getAllParties(int pageNumber, int resultsPerPage)
-			throws ServiceException;
-
-	Page<PartyDO> findPartiesByName(String name, int pageNumber,
-			int resultsPerPage) throws ServiceException;
-
+	Page<PartyDO> getAllParties(int pageNumber, int resultsPerPage) throws ServiceException;
+	Page<PartyDO> findPartiesByName(String name, int pageNumber, int resultsPerPage) throws ServiceException;
 	Party getParty(Long id) throws ServiceException;
-
 	PartyDetailedDO getPartyDetailedDO(Long id) throws ServiceException;
-
-	Page<PersonDO> getCurrentAffiliatesByParty(Party p, int pageNumber,
-			int resultsPerPage);
-
-	Page<PersonDO> getHistoricalAffiliatesByParty(Party p, int pageNumber,
-			int resultsPerPage);
+	Page<PersonDO> getCurrentAffiliatesByParty(Party party, int pageNumber, int resultsPerPage);
+	Page<PersonDO> getHistoricalAffiliatesByParty(Party party, int pageNumber, int resultsPerPage);
 }
