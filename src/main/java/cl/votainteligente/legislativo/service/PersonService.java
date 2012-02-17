@@ -8,17 +8,9 @@ import cl.votainteligente.legislativo.model.DO.PersonDetailedDO;
 
 public interface PersonService {
 	Person newPerson(Person person) throws ServiceException;
-
-	Page<PersonDO> getAllPersonDOs(int page, int perPage)
-			throws ServiceException;
-
-	Page<PersonDO> findPersonsByFirstName(String firstName, int page,
-			int perPage) throws ServiceException;
-
-	Page<PersonDO> findPersonsByLastName(String lastName, int page, int perPage)
-			throws ServiceException;
-
+	Page<PersonDO> getAllPersonDOs(int page, int perPage) throws ServiceException;
+	Page<PersonDO> findPersonsByFirstName(String firstName, int page, int perPage) throws ServiceException;
+	Page<PersonDO> findPersonsByLastName(String lastName, int page, int perPage) throws ServiceException;
 	Person getPerson(Long id) throws ServiceException;
-
 	PersonDetailedDO getPersonDetailedDO(Long id) throws ServiceException;
 }
