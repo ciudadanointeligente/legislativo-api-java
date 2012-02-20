@@ -1,15 +1,10 @@
 package cl.votainteligente.legislativo.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import cl.votainteligente.legislativo.model.DO.LegislatorDO;
 
 import org.hibernate.annotations.Type;
 
-import cl.votainteligente.legislativo.model.DO.LegislatorDO;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "legislator")
@@ -40,7 +35,7 @@ public class LegislatorRole extends Role {
 	@Type(type = "text")
 	private String comiteEnvoy;
 
-	// TODO: Ver si es necesario (o se hace query a tabla de gobernator)
+	// TODO: Ver si es necesario (o se hace query a tabla de Gobernator)
 	@Column(name = "government_charges")
 	@Type(type = "text")
 	private String governmentCharges;
@@ -49,7 +44,7 @@ public class LegislatorRole extends Role {
 	@Type(type = "text")
 	private String electionCharges;
 
-	// ID del sitio web de senado
+	// ID del sitio web del Senado
 	@Column(name = "parliament_site_id")
 	private Integer parliamentSiteId;
 

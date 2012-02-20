@@ -1,9 +1,9 @@
 package cl.votainteligente.legislativo.model.DO;
 
+import cl.votainteligente.legislativo.ApplicationProperties;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-
-import cl.votainteligente.legislativo.ApplicationProperties;
 
 public class DOUtil {
 	public static SimpleDateFormat dateFormat = new SimpleDateFormat(

@@ -1,10 +1,11 @@
 package cl.votainteligente.legislativo.controller.rest;
 
-import cl.votainteligente.legislativo.ServiceException;
+import cl.votainteligente.legislativo.common.Constants;
 import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.controller.rest.iface.RegionAPI;
 import cl.votainteligente.legislativo.exception.ResourceNotFoundException;
 import cl.votainteligente.legislativo.exception.ServerErrorException;
+import cl.votainteligente.legislativo.exception.ServiceException;
 import cl.votainteligente.legislativo.model.Region;
 import cl.votainteligente.legislativo.service.RegionService;
 
@@ -18,20 +19,19 @@ import javax.ws.rs.Path;
 @Controller
 public class RegionController implements RegionAPI {
 	@Autowired
-	RegionService service;
+	RegionService regionService;
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see cl.votainteligente.legislativo.controller.rest.RegionAPI#getAll(int,int)
 	 */
-	@RequestMapping(value = "geo/region/all", method = RequestMethod.GET)
+	@RequestMapping(value = "region/all", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<Region> getAll(
-			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
-			return service.getAllRegions(page, perPage);
+			return regionService.getAllRegions(page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -40,18 +40,16 @@ public class RegionController implements RegionAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see
-	 * cl.votainteligente.legislativo.controller.rest.RegionAPI#findRegionsByName(java.lang.String, int, int)
+	 * @see cl.votainteligente.legislativo.controller.rest.RegionAPI#findRegionsByName(String, int, int)
 	 */
-	@RequestMapping(params = { "name"}, value = "geo/region/any", method = RequestMethod.GET)
+	@RequestMapping(params = { "name" }, value = "region/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<Region> findRegionsByName(
 			@RequestParam(value = "name", required = true) final String name,
-			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
-			return service.findRegionsByName(name, page, perPage);
+			return regionService.findRegionsByName(name, page, perPage);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
@@ -60,19 +58,19 @@ public class RegionController implements RegionAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see
-	 * cl.votainteligente.legislativo.controller.rest.RegionAPI#getRegionById(long)
+	 * @seecl.votainteligente.legislativo.controller.rest.RegionAPI#getRegionById(long)
 	 */
-	@RequestMapping(params = { "id" }, value = "geo/region/any.json", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" }, value = "region/any", method = RequestMethod.GET)
 	@ResponseBody
-	public final Region getRegionById(
-			@RequestParam(value = "id", required = true) final long id) {
+	public final Region getRegionById(@RequestParam(value = "id", required = true) final long id) {
 		try {
-			Region r = service.getRegion(id);
-			if (r == null)
+			Region region = regionService.getRegion(id);
+
+			if (region == null) {
 				throw new ResourceNotFoundException();
-			return r;
+			}
+
+			return region;
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();

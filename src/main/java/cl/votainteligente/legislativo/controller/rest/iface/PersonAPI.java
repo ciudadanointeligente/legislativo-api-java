@@ -1,28 +1,21 @@
 package cl.votainteligente.legislativo.controller.rest.iface;
 
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-
 import cl.votainteligente.legislativo.common.Page;
+import cl.votainteligente.legislativo.exception.ResourceNotFoundException;
 import cl.votainteligente.legislativo.model.DO.PersonDO;
 import cl.votainteligente.legislativo.model.DO.PersonDetailedDO;
+
+import javax.ws.rs.*;
 
 public interface PersonAPI {
 	/**
 	 * Returns all the people registered in the system.
-	 * 
-	 * @param page
-	 *            The number of the desired page to be retrieved (optional).
-	 * @param perPage
-	 *            Amount of people to be retrieved in a page (optional).
+	 *
+	 * @param page The number of the desired page to be retrieved (optional).
+	 * @param perPage Amount of people to be retrieved in a page (optional).
 	 * @return A Page of Person Abstracts (PersonDO) <br />
-	 *         For Example:
-	 * 
-	 *         <a href=
-	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/person/all"
-	 *         >person/all</a>
+	 * 			For Example:
+	 * 			<a href="http://demo.ciudadanointeligente.cl/Legislativo/api/person/all">person/all</a>
 	 * @see PersonDO
 	 */
 	@Path("all")
@@ -34,19 +27,13 @@ public interface PersonAPI {
 	/**
 	 * Gives all the people registered in the system with the followed fist
 	 * name.
-	 * 
-	 * @param firstName
-	 *            The person first name.
-	 * @param page
-	 *            The number of the desired page to be retrieved (optional).
-	 * @param perPage
-	 *            Amount of people to be retrieved in a page (optional).
+	 *
+	 * @param firstName Person first name.
+	 * @param page The number of the desired page to be retrieved (optional).
+	 * @param perPage Amount of people to be retrieved in a page (optional).
 	 * @return A Page of Person Abstracts (PersonDO) <br />
-	 *         For Example:
-	 * 
-	 *         <a href=
-	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/person/any?firstName=Ana"
-	 *         >person/any?firstName=Ana</a>
+	 * 			For Example:
+	 * 			<a href="http://demo.ciudadanointeligente.cl/Legislativo/api/person/any?firstName=Ana">person/any?firstName=Ana</a>
 	 * @see PersonDO
 	 */
 	@Path("any")
@@ -59,19 +46,13 @@ public interface PersonAPI {
 	/**
 	 * Gives all the people registered in the system with the followed last
 	 * name.
-	 * 
-	 * @param lastName
-	 *            The person last name.
-	 * @param page
-	 *            The number of the desired page to be retrieved (optional).
-	 * @param perPage
-	 *            Amount of people to be retrieved in a page (optional).
+	 *
+	 * @param lastName Person last name.
+	 * @param page The number of the desired page to be retrieved (optional).
+	 * @param perPage Amount of people to be retrieved in a page (optional).
 	 * @return A Page of Person Abstracts (PersonDO) <br />
-	 *         For Example:
-	 * 
-	 *         <a href=
-	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/person/any?lastName=Girardi"
-	 *         >person/any?lastName=Girardi</a>
+	 * 			For Example:
+	 * 			<a href="http://demo.ciudadanointeligente.cl/Legislativo/api/person/any?lastName=Girardi">person/any?lastName=Girardi</a>
 	 * @see PersonDO
 	 */
 	@Path("any")
@@ -83,21 +64,16 @@ public interface PersonAPI {
 
 	/**
 	 * Allows you to get all the information of a person.
-	 * 
-	 * @param id
-	 *            The person identification number.
+	 *
+	 * @param id Person identification number.
 	 * @return Detailed of a Person <br />
-	 *         For Example:
-	 * 
-	 *         <a href=
-	 *         "http://demo.ciudadanointeligente.cl/Legislativo/api/person/any?id=1"
-	 *         >person/any?id=1</a>
+	 * 			For Example:
+	 * 			<a href="http://demo.ciudadanointeligente.cl/Legislativo/api/person/any?id=1">person/any?id=1</a>
 	 * @throws ResourceNotFoundException
 	 * @see PersonDetailedDO
 	 */
 	@Path("any")
 	@GET
-	public abstract PersonDetailedDO getPersonById(
-			@PathParam("id") final long id);
+	public abstract PersonDetailedDO getPersonById(@PathParam("id") final long id);
 
 }

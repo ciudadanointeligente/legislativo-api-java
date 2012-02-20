@@ -1,21 +1,13 @@
 package cl.votainteligente.legislativo.model;
 
+import cl.votainteligente.legislativo.model.DO.PersonDO;
+import cl.votainteligente.legislativo.model.DO.PersonDetailedDO;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import cl.votainteligente.legislativo.model.DO.PersonDO;
-import cl.votainteligente.legislativo.model.DO.PersonDetailedDO;
-
+import javax.persistence.*;
 
 @Entity
 @Table(name = "person")
@@ -68,6 +60,38 @@ public class Person extends Participant {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "person", cascade = { CascadeType.REMOVE })
 	private Set<AgrupationAffiliation> agrupationAffiliations;
+
+	public Set<SingleVote> getPersonVotes() {
+		return personVotes;
+	}
+
+	public void setPersonVotes(Set<SingleVote> personVotes) {
+		this.personVotes = personVotes;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
 	public String getMailAddress() {
 		return mailAddress;
@@ -157,28 +181,12 @@ public class Person extends Participant {
 		this.statementOfHeritage = statementOfHeritage;
 	}
 
-	public List<Role> getRoles() {
-		return roles;
+	public Set<AgrupationAffiliation> getAgrupationAffiliations() {
+		return agrupationAffiliations;
 	}
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setAgrupationAffiliations(Set<AgrupationAffiliation> agrupationAffiliations) {
+		this.agrupationAffiliations = agrupationAffiliations;
 	}
 
 	@Transient
@@ -189,23 +197,5 @@ public class Person extends Participant {
 	@Transient
 	public PersonDetailedDO asDetailedDomainObject() {
 		return new PersonDetailedDO(this);
-	}
-
-	public void setPersonVotes(Set<SingleVote> personVotes) {
-		this.personVotes = personVotes;
-	}
-
-	public Set<SingleVote> getPersonVotes() {
-		return personVotes;
-
-	}
-
-	public void setAgrupationAffiliations(
-			Set<AgrupationAffiliation> agrupationAffiliations) {
-		this.agrupationAffiliations = agrupationAffiliations;
-	}
-
-	public Set<AgrupationAffiliation> getAgrupationAffiliations() {
-		return agrupationAffiliations;
 	}
 }

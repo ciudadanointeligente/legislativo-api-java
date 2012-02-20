@@ -1,12 +1,12 @@
 package cl.votainteligente.legislativo.model.DO;
 
+import cl.votainteligente.legislativo.model.Party;
+import cl.votainteligente.legislativo.model.Person;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlRootElement;
-
-import cl.votainteligente.legislativo.model.Party;
-import cl.votainteligente.legislativo.model.Person;
 
 @XmlRootElement
 public class PartyDetailedDO extends AgrupationDetailedDO {
@@ -32,17 +32,16 @@ public class PartyDetailedDO extends AgrupationDetailedDO {
 		this.principles = party.getPrinciples();
 		this.youthBoardId = new HashSet<Long>();
 		Set<Person> youthBoard = party.getYouthBoard();
-		for (Person p : youthBoard)
+		for (Person p : youthBoard) {
 			this.youthBoardId.add(p.getId());
+		}
 		this.adultBoardId = new HashSet<Long>();
 		Set<Person> adultBoard = party.getAdultBoard();
-		for (Person p : adultBoard)
+		for (Person p : adultBoard) {
 			this.adultBoardId.add(p.getId());
+		}
 	}
 
-	/**
-	 * @return the address
-	 */
 	public String getAddress() {
 		return address;
 	}
@@ -51,9 +50,6 @@ public class PartyDetailedDO extends AgrupationDetailedDO {
 		this.address = address;
 	}
 
-	/**
-	 * @return the history
-	 */
 	public String getHistory() {
 		return history;
 	}
@@ -62,9 +58,6 @@ public class PartyDetailedDO extends AgrupationDetailedDO {
 		this.history = history;
 	}
 
-	/**
-	 * @return the initials
-	 */
 	public String getInitials() {
 		return initials;
 	}
@@ -73,9 +66,6 @@ public class PartyDetailedDO extends AgrupationDetailedDO {
 		this.initials = initials;
 	}
 
-	/**
-	 * @return the phoneNumber
-	 */
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -84,9 +74,6 @@ public class PartyDetailedDO extends AgrupationDetailedDO {
 		this.phoneNumber = phoneNumber;
 	}
 
-	/**
-	 * @return the principles
-	 */
 	public String getPrinciples() {
 		return principles;
 	}
@@ -95,9 +82,6 @@ public class PartyDetailedDO extends AgrupationDetailedDO {
 		this.principles = principles;
 	}
 
-	/**
-	 * @return the youthBoard's id
-	 */
 	public Set<Long> getYouthBoardId() {
 		return youthBoardId;
 	}
@@ -106,9 +90,6 @@ public class PartyDetailedDO extends AgrupationDetailedDO {
 		this.youthBoardId = youthBoardId;
 	}
 
-	/**
-	 * @return the adultBoard's id
-	 */
 	public Set<Long> getAdultBoardId() {
 		return adultBoardId;
 	}
@@ -116,5 +97,4 @@ public class PartyDetailedDO extends AgrupationDetailedDO {
 	public void setAdultBoardId(Set<Long> adultBoardId) {
 		this.adultBoardId = adultBoardId;
 	}
-
 }

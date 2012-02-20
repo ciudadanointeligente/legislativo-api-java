@@ -1,14 +1,11 @@
 package cl.votainteligente.legislativo.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "commission_type")
 public class CommissionType {
+
 	@Id
 	@GeneratedValue
 	@Column

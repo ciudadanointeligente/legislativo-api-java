@@ -1,10 +1,11 @@
 package cl.votainteligente.legislativo.controller.rest;
 
-import cl.votainteligente.legislativo.ServiceException;
+import cl.votainteligente.legislativo.common.Constants;
 import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.controller.rest.iface.DistrictAPI;
 import cl.votainteligente.legislativo.exception.ResourceNotFoundException;
 import cl.votainteligente.legislativo.exception.ServerErrorException;
+import cl.votainteligente.legislativo.exception.ServiceException;
 import cl.votainteligente.legislativo.model.District;
 import cl.votainteligente.legislativo.model.DO.DistrictDO;
 import cl.votainteligente.legislativo.service.DistrictService;
@@ -24,15 +25,13 @@ public class DistrictController implements DistrictAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see
-	 * cl.votainteligente.legislativo.controller.rest.DistrictAPI#getAll(int,int)
+	 * @see cl.votainteligente.legislativo.controller.rest.DistrictAPI#getAll(int,int)
 	 */
-	@RequestMapping(value = "geo/district/all", method = RequestMethod.GET)
+	@RequestMapping(value = "district/all", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<DistrictDO> getAll(
-			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
 			return service.getAllDistrictDOs(page, perPage);
 		} catch (ServiceException e) {
@@ -43,15 +42,14 @@ public class DistrictController implements DistrictAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see cl.votainteligente.legislativo.controller.rest.DistrictAPI#findDistrictsByName(java.lang.String, int, int)
 	 */
-	@RequestMapping(params = { "name"}, value = "geo/district/any", method = RequestMethod.GET)
+	@RequestMapping(params = { "name"}, value = "district/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<DistrictDO> findDistrictsByName(
 			@RequestParam(value = "name", required = true) final String name,
-			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
 			return service.findDistrictDOsByName(name, page, perPage);
 		} catch (ServiceException e) {
@@ -62,19 +60,21 @@ public class DistrictController implements DistrictAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see
 	 * cl.votainteligente.legislativo.controller.rest.DistrictAPI#getDistrictById(long)
 	 */
-	@RequestMapping(params = { "id" }, value = "geo/district/any", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" }, value = "district/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final DistrictDO getDistrictById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			District d = service.getDistrict(id);
-			if (d == null)
+			District district = service.getDistrict(id);
+
+			if (district == null) {
 				throw new ResourceNotFoundException();
-			return d.asDomainObject();
+			}
+
+			return district.asDomainObject();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();

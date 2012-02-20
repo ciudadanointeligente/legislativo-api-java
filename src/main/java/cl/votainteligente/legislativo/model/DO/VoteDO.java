@@ -15,19 +15,24 @@ public class VoteDO {
 
 	// private String resultInfo;
 
+	public VoteDO() {
+	}
+
 	public VoteDO(Vote vote) {
 		this.id = vote.getId();
-		if (vote.getBill() != null)
+		if (vote.getBill() != null) {
 			this.billId = vote.getBill().getId();
-		Long resultInt = vote.getResult();
-		if (resultInt == 0L)
+		}
+		Long voteTotal = vote.getResult();
+		if (voteTotal == 0L) {
 			this.result = "0: Aprobado";
-		else if (resultInt == 1L)
+		} else if (voteTotal == 1L) {
 			this.result = "1: Rechazado";
-		else if (resultInt == 2L)
+		} else if (voteTotal == 2L) {
 			this.result = "2: Empate";
-		else if (resultInt == 3L)
+		} else if (voteTotal == 3L) {
 			this.result = "3: No quorum";
+		}
 		this.yesVotes = vote.getYesVotes();
 		this.noVotes = vote.getNoVotes();
 		this.absentVotes = vote.getAbsentVotes();
@@ -37,51 +42,26 @@ public class VoteDO {
 		// + "{0:aproved, 1:rejected, 2:draw, 3: no quorum}");
 	}
 
-	public VoteDO() {
-
-	}
-
-	/**
-	 * @return the id
-	 */
 	public Long getId() {
 		return id;
 	}
 
-	/**
-	 * @param id
-	 *            the id to set
-	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	/**
-	 * @return the billId
-	 */
 	public Long getBillId() {
 		return billId;
 	}
 
-	/**
-	 * @param billId
-	 *            the billId to set
-	 */
 	public void setBillId(Long billId) {
 		this.billId = billId;
 	}
 
-	/**
-	 * @return the result
-	 */
 	public String getResult() {
 		return result;
 	}
 
-	/**
-	 * @param result
-	 *            the result to set
-	 */
 	public void setResult(String result) {
 		this.result = result;
 	}
@@ -133,5 +113,4 @@ public class VoteDO {
 	// public String getResultInfo() {
 	// return resultInfo;
 	// }
-
 }

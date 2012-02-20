@@ -1,11 +1,12 @@
 package cl.votainteligente.legislativo.model.DO;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import cl.votainteligente.legislativo.model.Agrupation;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class AgrupationDO {
+
 	private Long id;
 	private String name;
 
@@ -17,19 +18,19 @@ public class AgrupationDO {
 		this.name = agrupation.getName();
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public Long getId() {
 		return id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
 		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

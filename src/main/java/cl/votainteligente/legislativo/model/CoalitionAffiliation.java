@@ -2,13 +2,7 @@ package cl.votainteligente.legislativo.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "coalition_affiliation")
@@ -49,11 +43,11 @@ public class CoalitionAffiliation {
 		this.admissionDate = admissionDate;
 	}
 
-	public Date getDeparture_date() {
+	public Date getDepartureDate() {
 		return departureDate;
 	}
 
-	public void setDeparture_date(Date departureDate) {
+	public void setDepartureDate(Date departureDate) {
 		this.departureDate = departureDate;
 	}
 

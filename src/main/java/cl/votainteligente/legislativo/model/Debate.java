@@ -1,24 +1,16 @@
 package cl.votainteligente.legislativo.model;
 
+import cl.votainteligente.legislativo.model.DO.DebateDO;
+import cl.votainteligente.legislativo.model.DO.DebateDetailedDO;
+
+import org.hibernate.annotations.Type;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.hibernate.annotations.Type;
-
-import cl.votainteligente.legislativo.model.DO.DebateDO;
-import cl.votainteligente.legislativo.model.DO.DebateDetailedDO;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "debate")
@@ -186,5 +178,4 @@ public class Debate {
 	public DebateDetailedDO asDetailedDomainObject() {
 		return new DebateDetailedDO(this);
 	}
-
 }

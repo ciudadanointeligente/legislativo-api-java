@@ -20,13 +20,11 @@ public class Page<T> {
 	public Page() {
 	};
 
-	public Page(List<T> content, long pageNumber, long resultsPerPage,
-			long totalElements) {
+	public Page(List<T> content, long pageNumber, long resultsPerPage, long totalElements) {
 		this.elements = content;
 		this.pageNumber = pageNumber;
 		this.totalElements = totalElements;
-		this.totalPages = ((long) Math.ceil(1.0 * totalElements
-				/ resultsPerPage));
+		this.totalPages = ((long) Math.ceil(1.0 * totalElements / resultsPerPage));
 	}
 
 	public Long getPageNumber() {
@@ -53,7 +51,7 @@ public class Page<T> {
 		this.totalElements = totalElements;
 	}
 
-	@XmlElementRefs( {
+	@XmlElementRefs({
 		@XmlElementRef(type = BillDO.class),
 		@XmlElementRef(type = BillRoleDO.class),
 		@XmlElementRef(type = BillDetailedDO.class),

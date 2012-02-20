@@ -1,23 +1,17 @@
 package cl.votainteligente.legislativo.model;
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import cl.votainteligente.legislativo.model.DO.*;
 
 import org.hibernate.annotations.Type;
 
-import cl.votainteligente.legislativo.model.DO.*;
+import java.util.Set;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "party")
 public class Party extends Agrupation {
+
 	@Column
 	private String address;
 
@@ -34,7 +28,6 @@ public class Party extends Agrupation {
 	@Column
 	private String principles;
 
-	// TODO: validar traduccion real de mesa joven y mesa adulta
 	@OneToMany
 	@JoinColumn(name = "youth_board_id")
 	private Set<Person> youthBoard;
@@ -70,6 +63,14 @@ public class Party extends Agrupation {
 		this.initials = initials;
 	}
 
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
 	public String getPrinciples() {
 		return principles;
 	}
@@ -94,12 +95,12 @@ public class Party extends Agrupation {
 		this.adultBoard = adultBoard;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public Set<CoalitionAffiliation> getCoalitionAffiliations() {
+		return coalitionAffiliations;
 	}
 
-	public String getPhoneNumber() {
-		return phoneNumber;
+	public void setCoalitionAffiliations(Set<CoalitionAffiliation> coalitionAffiliations) {
+		this.coalitionAffiliations = coalitionAffiliations;
 	}
 
 	@Transient
@@ -110,14 +111,5 @@ public class Party extends Agrupation {
 	@Transient
 	public AgrupationDetailedDO asDetailedDomainObject() {
 		return new PartyDetailedDO(this);
-	}
-
-	public void setCoalitionAffiliations(
-			Set<CoalitionAffiliation> coalitionAffiliations) {
-		this.coalitionAffiliations = coalitionAffiliations;
-	}
-
-	public Set<CoalitionAffiliation> getCoalitionAffiliations() {
-		return coalitionAffiliations;
 	}
 }

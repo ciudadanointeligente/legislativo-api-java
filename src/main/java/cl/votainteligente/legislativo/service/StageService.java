@@ -1,6 +1,6 @@
 package cl.votainteligente.legislativo.service;
 
-import cl.votainteligente.legislativo.ServiceException;
+import cl.votainteligente.legislativo.exception.ServiceException;
 import cl.votainteligente.legislativo.model.Stage;
 
 public interface StageService {

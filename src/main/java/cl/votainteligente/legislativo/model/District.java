@@ -1,19 +1,10 @@
 package cl.votainteligente.legislativo.model;
 
+import cl.votainteligente.legislativo.model.DO.DistrictDO;
+
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import cl.votainteligente.legislativo.model.DO.DistrictDO;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "district")
@@ -52,46 +43,32 @@ public class District {
 		this.name = name;
 	}
 
-	/**
-	 * @param circunscription
-	 *            the circunscription to set
-	 */
-	public void setCircunscription(Circunscription circunscription) {
-		this.circunscription = circunscription;
-	}
-
-	/**
-	 * @return the circunscription
-	 */
 	public Circunscription getCircunscription() {
 		return circunscription;
 	}
 
-	/**
-	 * @param region
-	 *            the region to set
-	 */
-	public void setRegion(Region region) {
-		this.region = region;
+	public void setCircunscription(Circunscription circunscription) {
+		this.circunscription = circunscription;
 	}
 
-	/**
-	 * @return the region
-	 */
 	public Region getRegion() {
 		return region;
 	}
 
-	@Transient
-	public DistrictDO asDomainObject() {
-		return new DistrictDO(this);
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
+	public Set<Commune> getCommunes() {
+		return communes;
 	}
 
 	public void setCommunes(Set<Commune> communes) {
 		this.communes = communes;
 	}
 
-	public Set<Commune> getCommunes() {
-		return communes;
+	@Transient
+	public DistrictDO asDomainObject() {
+		return new DistrictDO(this);
 	}
 }

@@ -1,9 +1,6 @@
 package cl.votainteligente.legislativo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "stage_description")
@@ -30,5 +27,4 @@ public class StageDescription {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
 }

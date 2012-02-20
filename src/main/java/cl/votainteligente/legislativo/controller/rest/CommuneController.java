@@ -1,10 +1,11 @@
 package cl.votainteligente.legislativo.controller.rest;
 
-import cl.votainteligente.legislativo.ServiceException;
+import cl.votainteligente.legislativo.common.Constants;
 import cl.votainteligente.legislativo.common.Page;
 import cl.votainteligente.legislativo.controller.rest.iface.CommuneAPI;
 import cl.votainteligente.legislativo.exception.ResourceNotFoundException;
 import cl.votainteligente.legislativo.exception.ServerErrorException;
+import cl.votainteligente.legislativo.exception.ServiceException;
 import cl.votainteligente.legislativo.model.Commune;
 import cl.votainteligente.legislativo.model.DO.CommuneDO;
 import cl.votainteligente.legislativo.service.CommuneService;
@@ -24,15 +25,13 @@ public class CommuneController implements CommuneAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see
-	 * cl.votainteligente.legislativo.controller.rest.CommuneAPI#getAll(int,int)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.CommuneAPI#getAll(int,int)
 	 */
-	@RequestMapping(value = "geo/commune/all", method = RequestMethod.GET)
+	@RequestMapping(value = "commune/all", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<CommuneDO> getAll(
-			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
 			return service.getAllCommuneDOs(page, perPage);
 		} catch (ServiceException e) {
@@ -43,16 +42,14 @@ public class CommuneController implements CommuneAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see
-	 * cl.votainteligente.legislativo.controller.rest.CommuneAPI#findCommunesByName(java.lang.String, int, int)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.CommuneAPI#findCommunesByName(java.lang.String, int, int)
 	 */
-	@RequestMapping(params = { "name" }, value = "geo/commune/any", method = RequestMethod.GET)
+	@RequestMapping(params = { "name" }, value = "commune/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final Page<CommuneDO> findCommunesByName(
 			@RequestParam(value = "name", required = true) final String name,
-			@RequestParam(value = "page", defaultValue = "1", required = false) final int page,
-			@RequestParam(value = "perPage", defaultValue = "10", required = false) final int perPage) {
+			@RequestParam(value = "page", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_NUMBER, required = false) final int page,
+			@RequestParam(value = "perPage", defaultValue = Constants.CONTROLLER_PAGE_DEFAULT_SIZE, required = false) final int perPage) {
 		try {
 			return service.findCommuneDOsByName(name, page, perPage);
 		} catch (ServiceException e) {
@@ -63,19 +60,20 @@ public class CommuneController implements CommuneAPI {
 
 	/*
 	 * (non-Javadoc)
-	 *
-	 * @see
-	 * cl.votainteligente.legislativo.controller.rest.CommuneAPI#getCommuneById(long)
+	 * @see cl.votainteligente.legislativo.controller.rest.iface.CommuneAPI#getCommuneById(long)
 	 */
-	@RequestMapping(params = { "id" }, value = "geo/commune/any", method = RequestMethod.GET)
+	@RequestMapping(params = { "id" }, value = "commune/any", method = RequestMethod.GET)
 	@ResponseBody
 	public final CommuneDO getCommuneById(
 			@RequestParam(value = "id", required = true) final long id) {
 		try {
-			Commune c = service.getCommune(id);
-			if (c == null)
+			Commune commune = service.getCommune(id);
+
+			if (commune == null) {
 				throw new ResourceNotFoundException();
-			return c.asDomainObject();
+			}
+
+			return commune.asDomainObject();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new ServerErrorException();
